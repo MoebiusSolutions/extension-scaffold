@@ -42,7 +42,7 @@ code {
   top: 50px;
   bottom: 150px;
 
-  background-color: pink;
+  background-color: lightblue;
   border-left: 4px solid black;
 }
 
@@ -52,6 +52,6 @@ code {
   top: 0px;
   bottom: 0px;
 
-  background-color: pink;
+  background-color: lightblue;
   border-left: 4px solid black;
 }
