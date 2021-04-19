@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MyPanel } from './MyPanel';
 
-export function activate(scaffold: any) {
+import type { ExtensionScaffoldApi } from '../../../es-api/es-api'
+
+export function activate(scaffold: ExtensionScaffoldApi) {
     console.log('my-extension activate', scaffold)
     scaffold.ping()
 
-    scaffold.addPanel('Ext example-snowpack').then(onPanelAdded)
+    scaffold.addPanel({
+      title: 'Ext example-snowpack',
+      location: 'center'
+    }).then(onPanelAdded)
 }
 
 function onPanelAdded(div: HTMLDivElement) {

@@ -1,19 +1,18 @@
+import type { ExtensionScaffoldApi, AddPanelOptions } from '../../../es-api/es-api'
+
 export function loadExtension(url: string) {
     import(url).then(activateExtension)
     .catch(e => console.error('Error loading extension', url, e))
 }
 
-// TODO move this to es-api module
-export interface Api {
-    ping: () => void
-    addPanel: (title: string) => Promise<HTMLDivElement>
-}
-
-const api : Api = {
+const api : ExtensionScaffoldApi = {
     ping: () => console.log('ping'),
 
-    addPanel: (title: string) => {
+    addPanel: (options: AddPanelOptions) => {
+        const attachClass = `ExtensionPanel-${options.location}`
+
         const outerPanel = document.createElement('div')
+        outerPanel.setAttribute("class", `ExtensionPanel ${attachClass}`)
         document.body.appendChild(outerPanel);
 
         const inPanel = document.createElement('div')
@@ -40,6 +39,6 @@ function activateExtension(module: any) {
 export function loadExtensions() {
     // TODO need to design where we will host the list of extensions
     // For dev testing, hard coding an example
-    loadExtension('http://localhost:9090/dist/my-extension.js')
+    loadExtension('http://localhost:9090/dist/extension-entry.js')
     loadExtension('http://localhost:9092/bundle.js')
 }

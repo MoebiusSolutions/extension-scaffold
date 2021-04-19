@@ -1,12 +1,16 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { MyPanel } from './MyPanel';
+import type { ExtensionScaffoldApi } from '../../../es-api/es-api'
 
-export function activate(scaffold: any) {
+export function activate(scaffold: ExtensionScaffoldApi) {
     console.log('rollup extension activate', scaffold)
     scaffold.ping()
 
-    scaffold.addPanel('Ext example-snowpack').then(onPanelAdded)
+    scaffold.addPanel({
+      title: 'Ext example-snowpack',
+      location: 'left'
+    }).then(onPanelAdded)
 }
 
 function onPanelAdded(div: HTMLDivElement) {

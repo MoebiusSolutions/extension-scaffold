@@ -11,3 +11,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ExtensionPanel {
+  position: absolute;
+
+  background: grey;
+}
+
+.ExtensionPanel-left {
+  left: 0px;
+  width: 150px;
+  top: 50px;
+  bottom: 150px;
+
+  border-right: 4px solid black;
+}
+
+.ExtensionPanel-right {
+  right: 0px;
+  width: 150px;
+  top: 0px;
+  bottom: 0px;
+
+  border-left: 4px solid black;
+}
+
+.ExtensionPanel-center {
+  left: 150px;
+  right: 150px;
+  top: 50px;
+  bottom: 150px;
+
+  background-color: pink;
+  border-left: 4px solid black;
+}
+
+.ExtensionPanel-body {
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+
+  background-color: pink;
+  border-left: 4px solid black;
+}
