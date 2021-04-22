@@ -1,8 +1,8 @@
 {
-  "name": "example-extension",
+  "name": "@gots/ext-example-snowpack",
   "private": true,
   "scripts": {
-    "start": "snowpack dev",
+    "start": "test -d node_modules || npm install && snowpack dev",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
