@@ -39,6 +39,6 @@ function activateExtension(module: any) {
 export function loadExtensions() {
     // TODO need to design where we will host the list of extensions
     // For dev testing, hard coding an example
-    loadExtension('http://localhost:9090/dist/extension-entry.js')
+    loadExtension('http://localhost:9091/dist/extension-entry.js')
     loadExtension('http://localhost:9092/bundle.js')
 }
