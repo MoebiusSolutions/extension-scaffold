@@ -1,0 +1,70 @@
+version: '3'
+services:
+  proxy:
+    build: proxy
+    volumes: 
+    - "./proxy/etc/httpd/conf.d:/etc/httpd/conf.d"
+    expose:
+    - 80
+    - 443
+    ports:
+    - "127.0.0.1:80:80"
+
+  es-runtime:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-runtime"
+    volumes: 
+    - "/etc/ssl/certs:/etc/ssl/certs"
+    - "../:/home/extension-scaffold"
+    - "./home-node:/home/node"
+    ports: 
+    - "127.0.0.1:8080:8080"
+    command: "npm start"
+
+  ext-example-rollup:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-rollup"
+    volumes: 
+    - "/etc/ssl/certs:/etc/ssl/certs"
+    - "../:/home/extension-scaffold"
+    - "./home-node:/home/node"
+    ports: 
+    - "127.0.0.1:9092:9092"
+    command: "npm start"
+
+  ext-example-snowpack:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-snowpack"
+    volumes: 
+    - "/etc/ssl/certs:/etc/ssl/certs"
+    - "../:/home/extension-scaffold"
+    - "./home-node:/home/node"
+    ports: 
+    - "127.0.0.1:9091:9091"
+    command: "npm start"
+
+  # The nodejs service is just for development
+  nodejs:
+    image: node:12
+    user: "node"
+    working_dir: /home/node
+    volumes:
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "./repos/:/home/node"
+    expose:
+      - 8080
+      - 8081
+      - 8082
+      - 3000
+    ports:
+      - "127.0.0.1:8081:8081"
+      - "127.0.0.1:8082:8082"
+      - "127.0.0.1:3000:3000"
+    environment: 
+      - NPM_CONFIG_PREFIX=/home/node/.npm-global
+    stdin_open: true
+    tty: true
+    command: bash # Use docker-compose exec nodejs bash, then build/run
