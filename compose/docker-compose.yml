@@ -46,6 +46,18 @@ services:
     - "127.0.0.1:9091:9091"
     command: "npm start"
 
+  ext-example-svelte:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-svelte"
+    volumes: 
+    - "/etc/ssl/certs:/etc/ssl/certs"
+    - "../:/home/extension-scaffold"
+    - "./home-node:/home/node"
+    ports: 
+    - "127.0.0.1:5000:5000"
+    command: "npm start"
+
   # The nodejs service is just for development
   nodejs:
     image: node:12

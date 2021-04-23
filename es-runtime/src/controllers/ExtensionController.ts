@@ -24,7 +24,6 @@ class ApiImpl implements ExtensionScaffoldApi {
         shadowDiv.attachShadow({ mode: 'open'})
 
         const extPanel = document.createElement('div')
-        extPanel.innerText = 'this is a test'
 
         const shadow = shadowDiv.shadowRoot
         if (!shadow) {
@@ -70,4 +69,5 @@ export function loadExtensions() {
     // For dev testing, hard coding an example
     loadExtension('http://localhost:9091/dist/extension-entry.js')
     loadExtension('http://localhost:9092/bundle.js')
+    loadExtension('http://localhost:5000/build/bundle.js')
 }

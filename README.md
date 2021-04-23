@@ -38,7 +38,7 @@ The API allows the extensions to create panels.
 
 # Extension Examples
 
-The examples show how to use different bundlers to create an extension.
+The examples show how to use different frameworks/bundlers to create an extension.
 
 # WIP
 
@@ -61,3 +61,4 @@ in the extensions you want to load.
 [ ] Get AE, PWC or webmap to run in a panel
 [ ] PWA support
 [ ] publish npm modules
+[ ] Show loading until extensions load

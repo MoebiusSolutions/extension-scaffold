@@ -51,13 +51,12 @@ code {
 }
 
 .ExtensionPanel-center {
-  left: 150px;
-  right: 150px;
+  left: 154px;
+  right: 154px;
   top: 50px;
   bottom: 150px;
 
   background-color: lightblue;
-  border-left: 4px solid black;
 }
 
 .ExtensionPanel-body {
