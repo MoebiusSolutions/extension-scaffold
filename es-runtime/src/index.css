@@ -27,6 +27,20 @@ code {
   border-right: 4px solid black;
 }
 
+.drag-for-left {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: -4px;
+  width: 4px;
+  z-index: 1;
+}
+
+.drag-for-left:hover {
+  background: blue;
+  z-index: 1;
+}
+
 .ExtensionPanel-right {
   right: 0px;
   width: 150px;

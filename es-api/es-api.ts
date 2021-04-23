@@ -7,10 +7,12 @@ export interface AddPanelOptions {
     // the map is set to `body` so that the map, does not need
     // to resize as panels open/close
     location: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'body'
-    title: string
+    id: string
+    resizeHandle?: boolean
 }
 
 export interface ExtensionScaffoldApi {
     ping: () => void
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
+    hidePanel: (id: string) => void
 }

@@ -9,7 +9,7 @@ export function activate(scaffold: ExtensionScaffoldApi) {
     scaffold.ping()
 
     scaffold.addPanel({
-      title: 'Ext example-snowpack',
+      id: 'ext.example.snowpack',
       location: 'center'
     }).then(onPanelAdded)
 }

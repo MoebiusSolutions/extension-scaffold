@@ -5,29 +5,58 @@ export function loadExtension(url: string) {
     .catch(e => console.error('Error loading extension', url, e))
 }
 
-const api : ExtensionScaffoldApi = {
-    ping: () => console.log('ping'),
+class ApiImpl implements ExtensionScaffoldApi {
+    private readonly panels = new Map<string, HTMLDivElement>()
 
-    addPanel: (options: AddPanelOptions) => {
-        const attachClass = `ExtensionPanel-${options.location}`
+    ping() {
+
+    }
+    addPanel(options: AddPanelOptions) {
+        if (this.panels.has(options.id)) {
+            console.warn('Duplicate panel added', options.id)
+        }
+        const locationClass = `ExtensionPanel-${options.location}`
 
         const outerPanel = document.createElement('div')
-        outerPanel.setAttribute("class", `ExtensionPanel ${attachClass}`)
-        document.body.appendChild(outerPanel);
+        outerPanel.setAttribute("class", `ExtensionPanel ${locationClass}`)
 
-        const inPanel = document.createElement('div')
-        inPanel.innerText = 'this is a test'
+        const shadowDiv = document.createElement('div')
+        shadowDiv.attachShadow({ mode: 'open'})
 
-        outerPanel.attachShadow({ mode: 'open'})
-        const shadow = outerPanel.shadowRoot
+        const extPanel = document.createElement('div')
+        extPanel.innerText = 'this is a test'
+
+        const shadow = shadowDiv.shadowRoot
         if (!shadow) {
           throw new Error('Shadow root did not attach')
         }
-        shadow.appendChild(inPanel)
 
-        return Promise.resolve(inPanel)
+        this.panels.set(options.id, outerPanel)
+
+        document.body.appendChild(outerPanel)
+        outerPanel.appendChild(shadowDiv)
+        shadow.appendChild(extPanel)
+
+        if (options.resizeHandle) {
+            const dragDiv = document.createElement("div")
+            dragDiv.setAttribute('class', 'drag-for-left')
+            outerPanel.appendChild(dragDiv)
+        }
+
+        return Promise.resolve(extPanel)
+    }
+
+    hidePanel(id: string) {
+        const div = this.panels.get(id)
+        if (!div) {
+            console.warn('Panel not found', id)
+            return
+        }
+        div.style.display = 'none'
     }
 }
+
+const api = new ApiImpl()
 
 function activateExtension(module: any) {
     console.log('Loaded', module)
