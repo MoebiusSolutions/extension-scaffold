@@ -50,7 +50,7 @@ in the extensions you want to load.
 
 # TODOs
 
-[_] docker-compose
+[X] docker-compose
 [ ] DnD resize
 [ ] Save/restore panel layout
 [ ] More layout options
