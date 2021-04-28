@@ -62,6 +62,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             div.style.bottom = '0px'
             div.style.left = '0px'
             div.style.right = '0px'
+            div.style.zIndex = '10'
         })
     }
 
@@ -71,6 +72,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             div.style.bottom = ''
             div.style.left = ''
             div.style.right = ''
+            div.style.zIndex = ''
         })
     }
 
