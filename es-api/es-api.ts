@@ -14,5 +14,8 @@ export interface AddPanelOptions {
 export interface ExtensionScaffoldApi {
     ping: () => void
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
+    removePanel: (id: string) => boolean
     hidePanel: (id: string) => void
+    maximizePanel: (id: string) => void
+    restorePanel: (id: string) => void
 }

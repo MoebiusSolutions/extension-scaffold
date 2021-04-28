@@ -31,6 +31,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
 
         this.panels.set(options.id, outerPanel)
+        outerPanel.id = options.id
 
         document.body.appendChild(outerPanel)
         outerPanel.appendChild(shadowDiv)
@@ -45,14 +46,44 @@ class ApiImpl implements ExtensionScaffoldApi {
         return Promise.resolve(extPanel)
     }
 
+    removePanel(id: string): boolean {
+        return this.withPanel(id, div => {
+            div.remove()
+        })
+    }
+
     hidePanel(id: string) {
+        this.withPanel(id, div => div.style.display = 'none')
+    }
+
+    maximizePanel(id: string) {
+        this.withPanel(id, div => {
+            div.style.top = '0px'
+            div.style.bottom = '0px'
+            div.style.left = '0px'
+            div.style.right = '0px'
+        })
+    }
+
+    restorePanel(id: string) {
+        this.withPanel(id, div => {
+            div.style.top = ''
+            div.style.bottom = ''
+            div.style.left = ''
+            div.style.right = ''
+        })
+    }
+
+    private withPanel(id: string, f: (div: HTMLDivElement) => void) {
         const div = this.panels.get(id)
         if (!div) {
             console.warn('Panel not found', id)
-            return
+            return false
         }
-        div.style.display = 'none'
+        f(div)
+        return true
     }
+
 }
 
 const api = new ApiImpl()
