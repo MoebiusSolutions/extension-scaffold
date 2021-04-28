@@ -9,6 +9,7 @@ export interface AddPanelOptions {
     location: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'body'
     id: string
     resizeHandle?: boolean
+    initialWidthOrHeight?: string // defaults to "30em"
 }
 
 export interface ExtensionScaffoldApi {

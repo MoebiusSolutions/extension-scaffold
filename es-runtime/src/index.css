@@ -12,17 +12,19 @@ code {
     monospace;
 }
 
-.ExtensionPanel {
-  position: absolute;
+#container {
+  display: flex;
+  height: 100vh;
+}
 
+.ExtensionPanel {
   background: grey;
+  position: relative; /* So that absolute in extension stays in div */
+  flex: 0 0;
 }
 
 .ExtensionPanel-left {
-  left: 0px;
-  width: 150px;
-  top: 50px;
-  bottom: 150px;
+  order: 0;
 
   border-right: 4px solid black;
 }
@@ -42,20 +44,15 @@ code {
 }
 
 .ExtensionPanel-right {
-  right: 0px;
-  width: 150px;
-  top: 0px;
-  bottom: 0px;
+  order: 2;
 
   border-left: 4px solid black;
 }
 
 .ExtensionPanel-center {
-  left: 154px;
-  right: 154px;
-  top: 50px;
-  bottom: 150px;
+  order: 1;
 
+  flex: 1 1;
   background-color: lightblue;
 }
 

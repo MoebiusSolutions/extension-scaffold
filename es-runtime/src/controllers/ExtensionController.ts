@@ -12,13 +12,19 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     }
     addPanel(options: AddPanelOptions) {
+        const container = document.getElementById('container')
+        if (!container) {
+            throw new Error('#container not found')
+        }
+
         if (this.panels.has(options.id)) {
             console.warn('Duplicate panel added', options.id)
         }
         const locationClass = `ExtensionPanel-${options.location}`
 
         const outerPanel = document.createElement('div')
-        outerPanel.setAttribute("class", `ExtensionPanel ${locationClass}`)
+        outerPanel.className = `ExtensionPanel ${locationClass}`
+        this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
 
         const shadowDiv = document.createElement('div')
         shadowDiv.attachShadow({ mode: 'open'})
@@ -33,15 +39,15 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.panels.set(options.id, outerPanel)
         outerPanel.id = options.id
 
-        document.body.appendChild(outerPanel)
+        container.appendChild(outerPanel)
         outerPanel.appendChild(shadowDiv)
         shadow.appendChild(extPanel)
 
-        if (options.resizeHandle) {
-            const dragDiv = document.createElement("div")
-            dragDiv.setAttribute('class', 'drag-for-left')
-            outerPanel.appendChild(dragDiv)
-        }
+        // if (options.resizeHandle) {
+        //     const dragDiv = document.createElement("div")
+        //     dragDiv.setAttribute('class', 'drag-for-left')
+        //     outerPanel.appendChild(dragDiv)
+        // }
 
         return Promise.resolve(extPanel)
     }
@@ -58,6 +64,7 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     maximizePanel(id: string) {
         this.withPanel(id, div => {
+            div.style.position = 'absolute'
             div.style.top = '0px'
             div.style.bottom = '0px'
             div.style.left = '0px'
@@ -68,12 +75,17 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     restorePanel(id: string) {
         this.withPanel(id, div => {
+            div.style.position = ''
             div.style.top = ''
             div.style.bottom = ''
             div.style.left = ''
             div.style.right = ''
             div.style.zIndex = ''
         })
+    }
+
+    private styleWidthOrHeight(div: HTMLDivElement, location: string, initialWidthOrHeight = "20em") {
+        div.style.flexBasis = initialWidthOrHeight
     }
 
     private withPanel(id: string, f: (div: HTMLDivElement) => void) {
