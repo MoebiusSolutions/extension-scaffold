@@ -20,7 +20,7 @@ async function doHeader(scaffold: ExtensionScaffoldApi) {
   )
 }
 
-export function activate(scaffold: ExtensionScaffoldApi) {
+export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     console.log('got a div', div)
     ReactDOM.render(
@@ -30,13 +30,16 @@ export function activate(scaffold: ExtensionScaffoldApi) {
         div
       );
   }
-  console.log('my-extension activate', scaffold)
-  scaffold.ping()
-
   scaffold.claimPanel({
     id: 'ext.example.snowpack',
     location: 'center'
   }).then(onPanelAdded).catch(console.error)
+}
 
+export function activate(scaffold: ExtensionScaffoldApi) {
+  console.log('my-extension activate', scaffold)
+  scaffold.ping()
+
+  addCenterPanel(scaffold)
   doHeader(scaffold).catch(console.error)
 }
