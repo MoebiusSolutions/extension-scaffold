@@ -28,7 +28,10 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
             </React.StrictMode>,
             div
           );
-      }
+    }
+    function handleShowRollupPanel() {
+        es.showPanel('ext.example.rollup')
+    }
 
     return <><div onClick={handleClick}>
         MyPanel - snowpack - with a whole lot of text so that if a panel is over this Panel
@@ -37,5 +40,6 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
     <button onClick={handleMaximize}>Maximize Me</button>
     <button onClick={handleRestore}>Restore Me</button>
     <button onClick={handleAddCenter}>Add Center</button>
+    <button onClick={handleShowRollupPanel}>Show Rollup</button>
     </>
 }

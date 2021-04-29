@@ -6,5 +6,7 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         console.log('Rollup was clicked - hiding')
         es.hidePanel('ext.example.rollup')
     }
-    return <div onClick={handleClick}>MyPanel - rollup</div>
+    return <div>MyPanel - rollup
+        <button onClick={handleClick}>Close</button>
+    </div>
 }

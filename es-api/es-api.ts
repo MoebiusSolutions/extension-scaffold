@@ -30,7 +30,8 @@ export interface ExtensionScaffoldApi {
     ping: () => void
     claimPanel: (options: ClaimPanelOptions) => Promise<HTMLDivElement>
     releasePanel: (id: string) => boolean
-    hidePanel: (id: string) => void
+    hidePanel: (id: string) => boolean
+    showPanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
 }

@@ -55,7 +55,10 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     hidePanel(id: string) {
-        this.withPanel(id, div => div.style.display = 'none')
+        return this.withPanel(id, div => div.style.display = 'none')
+    }
+    showPanel(id: string) {
+        return this.withPanel(id, div => div.style.display = 'block')
     }
 
     maximizePanel(id: string) {
