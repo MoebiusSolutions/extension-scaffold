@@ -1,4 +1,4 @@
-import type { ExtensionScaffoldApi, AddPanelOptions } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi, ClaimPanelOptions } from '../../../es-api/es-api'
 
 export function loadExtension(url: string) {
     import(url).then(activateExtension)
@@ -6,42 +6,34 @@ export function loadExtension(url: string) {
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
-    private readonly panels = new Map<string, HTMLDivElement>()
+    private readonly claims = new Map<string, string>()
 
     ping() {
 
     }
-    addPanel(options: AddPanelOptions) {
-        const container = document.getElementById('container')
-        if (!container) {
-            throw new Error('#container not found')
+    claimPanel(options: ClaimPanelOptions) {
+        const outerPanel = document.getElementById(options.location) as HTMLDivElement
+        if (!outerPanel) {
+            throw new Error(`Unknown location ${options.location}`)
         }
-
-        if (this.panels.has(options.id)) {
-            console.warn('Duplicate panel added', options.id)
-        }
-        const locationClass = `ExtensionPanel-${options.location}`
-
-        const outerPanel = document.createElement('div')
-        outerPanel.className = `ExtensionPanel ${locationClass}`
-        this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
+        outerPanel.style.display = 'block'
+        outerPanel.innerHTML = ''
 
         const shadowDiv = document.createElement('div')
         shadowDiv.attachShadow({ mode: 'open'})
 
         const extPanel = document.createElement('div')
+        extPanel.style.position = 'relative'
 
         const shadow = shadowDiv.shadowRoot
         if (!shadow) {
           throw new Error('Shadow root did not attach')
         }
 
-        this.panels.set(options.id, outerPanel)
-        outerPanel.id = options.id
-
-        container.appendChild(outerPanel)
         outerPanel.appendChild(shadowDiv)
         shadow.appendChild(extPanel)
+
+        this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
 
         // if (options.resizeHandle) {
         //     const dragDiv = document.createElement("div")
@@ -49,12 +41,16 @@ class ApiImpl implements ExtensionScaffoldApi {
         //     outerPanel.appendChild(dragDiv)
         // }
 
+        this.claims.set(options.id, options.location)
         return Promise.resolve(extPanel)
     }
 
-    removePanel(id: string): boolean {
+    releasePanel(id: string): boolean {
+        // TODO - restore the prior panel if there was a "stacked" extension here.
         return this.withPanel(id, div => {
-            div.remove()
+            div.style.display = 'none'
+            div.innerHTML = ''
+            this.claims.delete(id)
         })
     }
 
@@ -85,14 +81,31 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     private styleWidthOrHeight(div: HTMLDivElement, location: string, initialWidthOrHeight = "20em") {
-        div.style.flexBasis = initialWidthOrHeight
+        switch (location) {
+            case 'left':
+            case 'right':
+            case 'above-left':
+            case 'above-right':
+            case 'left-bar':
+            case 'right-bar':
+                div.style.width = initialWidthOrHeight
+                break;
+            case 'top':
+            case 'bottom':
+                div.style.height = initialWidthOrHeight
+                break;
+        }
     }
 
     private withPanel(id: string, f: (div: HTMLDivElement) => void) {
-        const div = this.panels.get(id)
-        if (!div) {
-            console.warn('Panel not found', id)
+        const location = this.claims.get(id)
+        if (!location) {
+            console.warn('Claim not found', id)
             return false
+        }
+        const div = document.getElementById(location) as HTMLDivElement
+        if (!div) {
+            console.warn('Claim location not found', location)
         }
         f(div)
         return true

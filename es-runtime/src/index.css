@@ -65,3 +65,72 @@ code {
   background-color: lightblue;
   border-left: 4px solid black;
 }
+
+#grid-container {
+  display: grid;
+  grid-template-areas: 
+    'header     header     header  header      header'
+    'above-left above-left top     above-right above-right'
+    'left-bar   left       center  right       right-bar'
+    'left-bar   left       bottom  right       right-bar'
+    'footer     footer     footer  footer      footer'
+  ;
+  grid-template-columns: min-content min-content 1fr min-content min-content;
+  grid-template-rows: min-content min-content 1fr min-content min-content;
+  height: 100vh;
+}
+
+#header {
+  grid-area: header;
+  color: white;
+  background-color: green;
+}
+
+#footer {
+  grid-area: footer;
+  color: white;
+  background-color: green;
+}
+
+#left {
+  grid-area: left;
+}
+
+#right {
+  grid-area: right;
+}
+
+#center {
+  grid-area: center;
+  background-color: lightblue;
+}
+
+#left-bar {
+  grid-area: left-bar;
+  background-color: pink;
+}
+
+#right-bar {
+  grid-area: right-bar;
+  background-color: pink;
+}
+
+#above-left {
+  grid-area: above-left;
+}
+
+#above-right {
+  grid-area: above-right;
+}
+
+#top {
+  grid-area: top;
+}
+
+#bottom {
+  grid-area: bottom;
+}
+
+.grid-panel {
+  display: none;
+}

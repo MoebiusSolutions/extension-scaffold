@@ -14,7 +14,7 @@ export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         }
     `
     function handleClose() {
-        es.removePanel('ext.example.snowpack.2')
+        es.releasePanel('ext.example.snowpack.2')
     }
     return <>
         <style>{s}</style>
