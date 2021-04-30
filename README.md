@@ -27,8 +27,20 @@ which is not used.
 
 You might want to run `enterprise-client` to compare how it does something.
 Clone a copy of `enterprise-client` into the directory next to `extension-scaffold`.
-You will need to log into the Nexus repository inside the container or it will
-not start, because it will get access errors during `npm install`.
+
+```
+$ cd ..
+$ ls 
+extension-scaffold
+$ git clone git@gitlab.moesol.com:je/gwa/enterprise-client.git
+$ ls
+enterprise-client
+extension-scaffold
+```
+
+You will need to log `npm` into the Nexus repository inside the container,
+or the container will not start, because it will get access errors during `npm install`.
+To log `npm` into Nexus:
 
 ```
 $ docker-compose run enterprise-client bash
