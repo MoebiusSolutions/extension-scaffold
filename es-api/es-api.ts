@@ -18,6 +18,13 @@ export interface AddPanelOptions {
     initialWidthOrHeight?: string // defaults to "30em"
 }
 
+export interface LoadWebpackScriptOptions {
+    /** relative URLs will use scaffolds URL prefix */
+    url: string
+    /** Name of library injected onto window. Accessed as window[`${library}`] */
+    library: string
+}
+
 export interface ExtensionScaffoldApi {
     ping: () => void
     /** Panels "stack" in a location */
@@ -28,4 +35,9 @@ export interface ExtensionScaffoldApi {
     showPanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
+    /**
+     * Webpack does not currently have a non-experimental means to generate an ES module.
+     * To workaround this issue, declare a small extension, that then calls this method.
+     */
+    loadWebpackScript: (options: LoadWebpackScriptOptions) => Promise<any>
 }

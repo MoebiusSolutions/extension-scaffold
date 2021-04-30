@@ -1,10 +1,11 @@
-import type { ExtensionScaffoldApi, AddPanelOptions } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../../../es-api/es-api'
 
 const DISPLAY_SHOW = 'flex'
 
 export function loadExtension(url: string) {
-    import(url).then(activateExtension)
-    .catch(e => console.error('Error loading extension', url, e))
+    import(url)
+        .then(activateExtension)
+        .catch(e => console.error('Error loading extension', url, e))
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
@@ -107,6 +108,26 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
+    loadWebpackScript({url, library}: LoadWebpackScriptOptions) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script')
+            script.type = 'text/javascript'
+            script.async = true
+            script.src = url
+            script.onload = (_evt) => {
+                const loadedLibrary = window[library as keyof Window] as any
+                if (loadedLibrary && loadedLibrary.activate) {
+                    loadedLibrary.activate(this)
+                    resolve(loadedLibrary)
+                } else {
+                    reject(new Error('Extension missing activate function'))
+                }
+            }
+            script.onerror = reject
+            document.head.appendChild(script)
+        })
+    }
+
     private pushLocation(id: string, location: string) {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, [id, ...stack]) // needed for first time
@@ -124,7 +145,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
     }
 
-    private styleWidthOrHeight(div: HTMLDivElement, location: string, initialWidthOrHeight = "20em") {
+    private styleWidthOrHeight(div: HTMLDivElement, location: string, initialWidthOrHeight?: string) {
         switch (location) {
             case 'left':
             case 'right':
@@ -132,11 +153,11 @@ class ApiImpl implements ExtensionScaffoldApi {
             case 'above-right':
             case 'left-bar':
             case 'right-bar':
-                div.style.width = initialWidthOrHeight
+                div.style.width = initialWidthOrHeight ?? '20em'
                 break;
             case 'top':
             case 'bottom':
-                div.style.height = initialWidthOrHeight
+                div.style.height = initialWidthOrHeight ?? '10em'
                 break;
         }
     }
@@ -163,8 +184,11 @@ function activateExtension(module: any) {
 
 export function loadExtensions() {
     // TODO need to design where we will host the list of extensions
-    // For dev testing, hard coding an example
+    // Plan - expose an API from the npm module - loadExtensions(exts: string[])
+    // For dev testing, hard coding examples
+
     loadExtension('http://localhost:9091/dist/extension-entry.js')
     loadExtension('http://localhost:9092/bundle.js')
     loadExtension('http://localhost:5000/build/bundle.js')
+    loadExtension('http://localhost:9093/extension-entry.js')
 }
