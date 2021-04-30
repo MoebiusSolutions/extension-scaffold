@@ -1,6 +1,7 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import type { ExtensionScaffoldApi } from "../../../es-api/es-api"
-import { addCenterPanel } from './extension-entry'
+import { Center3 } from './Center3'
 // import './Center2.css' snowpack injects this at the head
 
 export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
@@ -16,12 +17,24 @@ export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
     `
     function handleClose() {
         es.releasePanel('ext.example.snowpack.2')
-        addCenterPanel(es)
+    }
+    async function handleAdd() {
+        const div = await es.claimPanel({
+            id: 'ext.example.snowpack.3',
+            location: 'center'
+        })
+        ReactDOM.render(
+            <React.StrictMode>
+              <Center3 es={es}/>
+            </React.StrictMode>,
+            div
+        );
     }
     return <>
         <style>{s}</style>
         <div className="Center2">Second Center Panel
             <button onClick={handleClose}>Close</button>
+            <button onClick={handleAdd}>Add Another</button>
         </div> 
     </>
 }

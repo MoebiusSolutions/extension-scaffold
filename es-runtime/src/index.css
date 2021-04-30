@@ -80,57 +80,62 @@ code {
   height: 100vh;
 }
 
-#header {
+.header {
   grid-area: header;
   color: white;
   background-color: green;
 }
 
-#footer {
+.footer {
   grid-area: footer;
   color: white;
   background-color: green;
 }
 
-#left {
+.left {
   grid-area: left;
 }
 
-#right {
+.right {
   grid-area: right;
 }
 
-#center {
+.center {
   grid-area: center;
   background-color: lightblue;
 }
 
-#left-bar {
+.left-bar {
   grid-area: left-bar;
   background-color: pink;
 }
 
-#right-bar {
+.right-bar {
   grid-area: right-bar;
   background-color: pink;
 }
 
-#above-left {
+.above-left {
   grid-area: above-left;
 }
 
-#above-right {
+.above-right {
   grid-area: above-right;
 }
 
-#top {
+.top {
   grid-area: top;
 }
 
-#bottom {
+.bottom {
   grid-area: bottom;
 }
 
 .grid-panel {
   display: none;
+}
+
+.shadow-div {
+  position: relative;
+  flex: 1 1 auto;
 }

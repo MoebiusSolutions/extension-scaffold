@@ -1,35 +1,45 @@
 import type { ExtensionScaffoldApi, ClaimPanelOptions } from '../../../es-api/es-api'
 
+const DISPLAY_SHOW = 'flex'
+
 export function loadExtension(url: string) {
     import(url).then(activateExtension)
     .catch(e => console.error('Error loading extension', url, e))
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
-    private readonly claims = new Map<string, string>()
+    private readonly locationStack = new Map<string, string[]>()
 
     ping() {
 
     }
     claimPanel(options: ClaimPanelOptions) {
-        const outerPanel = document.getElementById(options.location) as HTMLDivElement
-        if (!outerPanel) {
-            throw new Error(`Unknown location ${options.location}`)
+        if (document.getElementById(options.id)) {
+            return Promise.reject(new Error(`Already exists ${options.id}`))
         }
-        outerPanel.style.display = 'block'
-        outerPanel.innerHTML = ''
+        const gridContainer = document.getElementById('grid-container')
+        if (!gridContainer) {
+            throw new Error('Missing #grid-container')
+        }
+        this.hidePanelsWithLocation(options.location)
+
+        const outerPanel = document.createElement('div')
+        outerPanel.style.display = DISPLAY_SHOW
+        outerPanel.id = options.id
+        outerPanel.classList.add('grid-panel')
+        outerPanel.classList.add(options.location)
 
         const shadowDiv = document.createElement('div')
+        shadowDiv.className = 'shadow-div'
         shadowDiv.attachShadow({ mode: 'open'})
-
-        const extPanel = document.createElement('div')
-        extPanel.style.position = 'relative'
-
         const shadow = shadowDiv.shadowRoot
         if (!shadow) {
           throw new Error('Shadow root did not attach')
         }
 
+        const extPanel = document.createElement('div')
+
+        gridContainer.appendChild(outerPanel)
         outerPanel.appendChild(shadowDiv)
         shadow.appendChild(extPanel)
 
@@ -41,16 +51,30 @@ class ApiImpl implements ExtensionScaffoldApi {
         //     outerPanel.appendChild(dragDiv)
         // }
 
-        this.claims.set(options.id, options.location)
+        this.pushLocation(options.id, options.location)
         return Promise.resolve(extPanel)
     }
 
     releasePanel(id: string): boolean {
-        // TODO - restore the prior panel if there was a "stacked" extension here.
         return this.withPanel(id, div => {
-            div.style.display = 'none'
-            div.innerHTML = ''
-            this.claims.delete(id)
+            div.remove()
+            const location = div.classList[1]
+            this.popLocation(id, location)
+            const stack = this.locationStack.get(location)
+            if (!stack) {
+                console.error('Class name list changed since there is no location stack', location)
+                return
+            }
+            if (stack.length === 0) {
+                // We remove them all
+                return
+            }
+            const nextDiv = document.getElementById(stack[0])
+            if (!nextDiv) {
+                console.error('Panel missing', stack[0])
+                return
+            }
+            nextDiv.style.display = DISPLAY_SHOW
         })
     }
 
@@ -58,7 +82,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         return this.withPanel(id, div => div.style.display = 'none')
     }
     showPanel(id: string) {
-        return this.withPanel(id, div => div.style.display = 'block')
+        return this.withPanel(id, div => div.style.display = DISPLAY_SHOW)
     }
 
     maximizePanel(id: string) {
@@ -83,6 +107,23 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
+    private pushLocation(id: string, location: string) {
+        const stack = this.locationStack.get(location) ?? []
+        this.locationStack.set(location, [id, ...stack]) // needed for first time
+    }
+    private popLocation(id: string, location: string) {
+        const stack = this.locationStack.get(location) ?? []
+        this.locationStack.set(location, stack.filter(i => i !== id)) // needed for first time
+    }
+
+    private hidePanelsWithLocation(location: string) {
+        for (const el of document.getElementsByClassName(location)) {
+            if (el instanceof HTMLDivElement) {
+                el.style.display = 'none'
+            }
+        }
+    }
+
     private styleWidthOrHeight(div: HTMLDivElement, location: string, initialWidthOrHeight = "20em") {
         switch (location) {
             case 'left':
@@ -101,19 +142,14 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     private withPanel(id: string, f: (div: HTMLDivElement) => void) {
-        const location = this.claims.get(id)
-        if (!location) {
-            console.warn('Claim not found', id)
-            return false
-        }
-        const div = document.getElementById(location) as HTMLDivElement
+        const div = document.getElementById(id) as HTMLDivElement
         if (!div) {
-            console.warn('Claim location not found', location)
+            console.warn('Panel id not found', id)
+            return false
         }
         f(div)
         return true
     }
-
 }
 
 const api = new ApiImpl()

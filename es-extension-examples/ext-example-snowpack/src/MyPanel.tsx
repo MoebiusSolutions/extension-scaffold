@@ -27,7 +27,7 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
               <Center2 es={es}/>
             </React.StrictMode>,
             div
-          );
+        );
     }
     function handleShowRollupPanel() {
         es.showPanel('ext.example.rollup')
