@@ -36,6 +36,7 @@ code {
   right: -4px;
   width: 4px;
   z-index: 1;
+  cursor: ew-resize;
 }
 
 .drag-for-left:hover {
