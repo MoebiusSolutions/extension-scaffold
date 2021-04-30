@@ -70,6 +70,18 @@ services:
     - "127.0.0.1:9093:9093"
     command: "npm run container"
 
+  enterprise-client:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/enterprise-client"
+    volumes: 
+    - "/etc/ssl/certs:/etc/ssl/certs"
+    - "../../enterprise-client/:/home/enterprise-client"
+    - "./home-node:/home/node"
+    ports: 
+    - "127.0.0.1:32125:32125"
+    command: bash -c "test -d node_modules || npm install && npm run minishift"
+
   # The nodejs service is just for development
   nodejs:
     image: node:12
