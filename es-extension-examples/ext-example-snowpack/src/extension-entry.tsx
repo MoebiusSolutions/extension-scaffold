@@ -7,7 +7,7 @@ import { Header } from './Header';
 
 // Async example
 async function doHeader(scaffold: ExtensionScaffoldApi) {
-  const panelDiv = await scaffold.claimPanel({
+  const panelDiv = await scaffold.addPanel({
     id: 'ext.snowpack.header',
     location: 'header'
   })
@@ -30,7 +30,7 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
         div
       );
   }
-  scaffold.claimPanel({
+  scaffold.addPanel({
     id: 'ext.example.snowpack',
     location: 'center'
   }).then(onPanelAdded).catch(console.error)

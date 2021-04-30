@@ -1,4 +1,4 @@
-import type { ExtensionScaffoldApi, ClaimPanelOptions } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions } from '../../../es-api/es-api'
 
 const DISPLAY_SHOW = 'flex'
 
@@ -13,7 +13,7 @@ class ApiImpl implements ExtensionScaffoldApi {
     ping() {
 
     }
-    claimPanel(options: ClaimPanelOptions) {
+    addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))
         }
@@ -55,7 +55,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         return Promise.resolve(extPanel)
     }
 
-    releasePanel(id: string): boolean {
+    removePanel(id: string): boolean {
         return this.withPanel(id, div => {
             div.remove()
             const location = div.classList[1]

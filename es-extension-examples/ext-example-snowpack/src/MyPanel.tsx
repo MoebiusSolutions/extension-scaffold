@@ -15,7 +15,7 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         es.restorePanel('ext.example.snowpack')
     }
     function handleAddCenter() {
-        es.claimPanel({
+        es.addPanel({
             id: 'ext.example.snowpack.2',
             location: 'center',
         }).then(onPanelAdded)

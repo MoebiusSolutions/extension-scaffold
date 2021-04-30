@@ -4,7 +4,7 @@ let app;
 
 export async function activate(scaffold) {
 	console.log('Svelte example activated')
-	const div = await scaffold.claimPanel({
+	const div = await scaffold.addPanel({
 		id: 'ext.example.svelte',
 		location: 'right',
 		// resizeHandle: true,

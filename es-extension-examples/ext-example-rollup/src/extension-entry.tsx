@@ -17,7 +17,7 @@ export function activate(scaffold: ExtensionScaffoldApi) {
   console.log('rollup extension activate', scaffold)
   scaffold.ping()
 
-  scaffold.claimPanel({
+  scaffold.addPanel({
     id: 'ext.example.rollup',
     location: 'left',
     resizeHandle: true,

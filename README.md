@@ -53,9 +53,10 @@ in the extensions you want to load.
 [X] docker-compose
 [ ] DnD resize
 [ ] Save/restore panel layout
-[ ] More layout options
+[X] More layout options
     Does the bottom panel stretch all the way across or
     does the left panel touch the bottom
+[ ] Add support for `body` location - like Phoenix
 [ ] Themes?
 [ ] Get display-rules to run in a panel
 [ ] Get AE, PWC or webmap to run in a panel

@@ -16,10 +16,10 @@ export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         }
     `
     function handleClose() {
-        es.releasePanel('ext.example.snowpack.2')
+        es.removePanel('ext.example.snowpack.2')
     }
     async function handleAdd() {
-        const div = await es.claimPanel({
+        const div = await es.addPanel({
             id: 'ext.example.snowpack.3',
             location: 'center'
         })
