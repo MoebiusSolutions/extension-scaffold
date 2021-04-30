@@ -133,6 +133,7 @@ code {
 
 .grid-panel {
   display: none;
+  position: relative;
 }
 
 .shadow-div {

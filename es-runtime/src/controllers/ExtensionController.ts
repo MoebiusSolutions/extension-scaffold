@@ -46,11 +46,11 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
 
-        // if (options.resizeHandle) {
-        //     const dragDiv = document.createElement("div")
-        //     dragDiv.setAttribute('class', 'drag-for-left')
-        //     outerPanel.appendChild(dragDiv)
-        // }
+        if (options.resizeHandle) {
+            const dragDiv = document.createElement("div")
+            dragDiv.setAttribute('class', 'drag-for-left')
+            outerPanel.appendChild(dragDiv)
+        }
 
         this.pushLocation(options.id, options.location)
         return Promise.resolve(extPanel)
