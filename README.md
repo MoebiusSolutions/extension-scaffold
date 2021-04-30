@@ -23,6 +23,22 @@ which is not used.
 
 > Note: the `proxy` is still under construction.
 
+### Running Enterprise Client
+
+You might want to run `enterprise-client` to compare how it does something.
+Clone a copy of `enterprise-client` into the directory next to `extension-scaffold`.
+You will need to log into the Nexus repository inside the container or it will
+not start, because it will get access errors during `npm install`.
+
+```
+$ docker-compose run enterprise-client bash
+$ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
+% Might as well verify npm install is going to work
+$ npm install
+```
+
+Browse to http://localhost:32125
+
 ## `es-api`
 
 Typescript definition of Extension Scaffold API
