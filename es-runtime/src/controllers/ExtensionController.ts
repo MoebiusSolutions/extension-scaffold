@@ -1,4 +1,5 @@
 import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../../../es-api/es-api'
+import { beginResize, endResize } from './ResizeController'
 
 const DISPLAY_SHOW = 'flex'
 
@@ -6,33 +7,6 @@ export function loadExtension(url: string) {
     import(url)
         .then(activateExtension)
         .catch(e => console.error('Error loading extension', url, e))
-}
-
-function beginResize(dragDiv: HTMLDivElement, e: PointerEvent) {
-    const parentDiv = dragDiv.parentElement
-    if (!parentDiv) {
-        return
-    }
-
-    const origPageX = e.pageX
-    const origWidth = parentDiv.clientWidth
-
-    function doResize(e: PointerEvent) {
-        if (parentDiv) {
-            const dx =  e.pageX - origPageX
-            const newWidth = Math.max(100, origWidth + dx)
-            parentDiv.style.width = `${newWidth}px`
-        }
-    }
-
-    dragDiv.onpointermove = doResize
-    dragDiv.setPointerCapture(e.pointerId)
-}
-
-
-function endResize(dragDiv: HTMLDivElement, e: PointerEvent) {
-    dragDiv.onpointermove = null
-    dragDiv.releasePointerCapture(e.pointerId)
 }
 
 
@@ -78,8 +52,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             const dragDiv = document.createElement("div")
             dragDiv.setAttribute('class', 'drag-for-left')
             outerPanel.appendChild(dragDiv)
-            dragDiv.addEventListener('pointerdown', e => beginResize(dragDiv, e))
-            dragDiv.addEventListener('pointerup', e => endResize(dragDiv, e))
+            dragDiv.onpointerdown = e => beginResize(dragDiv, e)
+            dragDiv.onpointerup = e => endResize(dragDiv, e)
         }
 
         this.pushLocation(options.id, options.location)
