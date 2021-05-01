@@ -88,6 +88,7 @@ in the extensions you want to load.
 [X] docker-compose
 [/] Drag and drop resize
 [ ] Save/restore panel layout
+[ ] Make rollup example add a center panel
 [X] More layout options
     Does the bottom panel stretch all the way across or
     does the left panel touch the bottom
