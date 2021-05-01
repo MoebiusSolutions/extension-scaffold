@@ -8,6 +8,34 @@ export function loadExtension(url: string) {
         .catch(e => console.error('Error loading extension', url, e))
 }
 
+function beginResize(dragDiv: HTMLDivElement, e: PointerEvent) {
+    const parentDiv = dragDiv.parentElement
+    if (!parentDiv) {
+        return
+    }
+
+    const origPageX = e.pageX
+    const origWidth = parentDiv.clientWidth
+
+    function doResize(e: PointerEvent) {
+        if (parentDiv) {
+            const dx =  e.pageX - origPageX
+            const newWidth = Math.max(100, origWidth + dx)
+            parentDiv.style.width = `${newWidth}px`
+        }
+    }
+
+    dragDiv.onpointermove = doResize
+    dragDiv.setPointerCapture(e.pointerId)
+}
+
+
+function endResize(dragDiv: HTMLDivElement, e: PointerEvent) {
+    dragDiv.onpointermove = null
+    dragDiv.releasePointerCapture(e.pointerId)
+}
+
+
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<string, string[]>()
 
@@ -50,6 +78,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             const dragDiv = document.createElement("div")
             dragDiv.setAttribute('class', 'drag-for-left')
             outerPanel.appendChild(dragDiv)
+            dragDiv.addEventListener('pointerdown', e => beginResize(dragDiv, e))
+            dragDiv.addEventListener('pointerup', e => endResize(dragDiv, e))
         }
 
         this.pushLocation(options.id, options.location)
@@ -149,8 +179,6 @@ class ApiImpl implements ExtensionScaffoldApi {
         switch (location) {
             case 'left':
             case 'right':
-            case 'above-left':
-            case 'above-right':
             case 'left-bar':
             case 'right-bar':
                 div.style.width = initialWidthOrHeight ?? '20em'

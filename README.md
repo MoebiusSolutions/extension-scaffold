@@ -43,11 +43,18 @@ or the container will not start, because it will get access errors during `npm i
 To log `npm` into Nexus:
 
 ```
+$ cd ../extension-scaffold/compose
 $ docker-compose run enterprise-client bash
 $ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
-% Might as well verify npm install is going to work
-$ npm install
 ```
+>  Might as well verify npm install is going to work:
+
+```
+$ npm install
+$ exit
+```
+
+The next time you run `docker-compose up` it will include `enterprise-client`
 
 Browse to http://localhost:32125
 
@@ -79,7 +86,7 @@ in the extensions you want to load.
 # TODOs
 
 [X] docker-compose
-[ ] DnD resize
+[/] Drag and drop resize
 [ ] Save/restore panel layout
 [X] More layout options
     Does the bottom panel stretch all the way across or
@@ -91,3 +98,4 @@ in the extensions you want to load.
 [ ] PWA support
 [ ] publish npm modules
 [ ] Show loading until extensions load
+[ ] If you hide `left` then also hide `above-left` (same for `right`)

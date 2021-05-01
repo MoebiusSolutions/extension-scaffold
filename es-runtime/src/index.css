@@ -12,11 +12,6 @@ code {
     monospace;
 }
 
-#container {
-  display: flex;
-  height: 100vh;
-}
-
 .ExtensionPanel {
   background: grey;
   position: relative; /* So that absolute in extension stays in div */
