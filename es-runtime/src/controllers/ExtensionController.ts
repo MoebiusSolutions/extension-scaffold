@@ -1,5 +1,5 @@
 import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../../../es-api/es-api'
-import { beginResize, endResize } from './ResizeController'
+import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_SHOW = 'flex'
 
@@ -50,9 +50,9 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         if (options.resizeHandle) {
             const dragDiv = document.createElement("div")
-            dragDiv.setAttribute('class', 'drag-for-left')
+            dragDiv.className = `drag drag-for-${options.location}`
             outerPanel.appendChild(dragDiv)
-            dragDiv.onpointerdown = e => beginResize(dragDiv, e)
+            dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
             dragDiv.onpointerup = e => endResize(dragDiv, e)
         }
 

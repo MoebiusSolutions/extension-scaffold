@@ -4,7 +4,8 @@ import './app-root';
 async function addBottomPanel(api: ExtensionScaffoldApi) {
   const div = await api.addPanel({
     id: 'ext.example.lit-element',
-    location: 'bottom'
+    location: 'bottom',
+    resizeHandle: true,
   })
 
   const app = document.createElement('app-root')

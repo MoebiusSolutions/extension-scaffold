@@ -7,7 +7,7 @@ export async function activate(scaffold) {
 	const div = await scaffold.addPanel({
 		id: 'ext.example.svelte',
 		location: 'right',
-		// resizeHandle: true,
+		resizeHandle: true,
 	})
 	console.log('svelte - got panel', div)
 

@@ -12,17 +12,54 @@ code {
     monospace;
 }
 
+.drag {
+  display: none;
+  z-index: 1;
+}
+
 .drag-for-left {
+  display: block;
   position: absolute;
   top: 0px;
   bottom: 0px;
   right: 0px;
   width: 4px;
-  z-index: 1;
   cursor: ew-resize;
 }
 
-.drag-for-left:hover {
+.drag-for-right {
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 4px;
+  cursor: ew-resize;
+}
+.drag-for-left:hover, .drag-for-right:hover {
+  background: blue;
+  z-index: 1;
+}
+
+.drag-for-top {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 4px;
+  cursor: ns-resize;
+}
+.drag-for-bottom {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 4px;
+  cursor: ns-resize
+}
+.drag-for-top:hover, .drag-for-bottom:hover {
   background: blue;
   z-index: 1;
 }
