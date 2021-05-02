@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "test -d node_modules || npm install && npm run build && sirv public --host 0.0.0.0 --no-clear --cors"
+    "start": "sirv public --host 0.0.0.0 --no-clear --cors",
+    "container": "test -d node_modules || npm install && npm run build && sirv public --host 0.0.0.0 --no-clear --cors"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
