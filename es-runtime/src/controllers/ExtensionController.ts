@@ -189,8 +189,9 @@ export function loadExtensions() {
     // Plan - expose an API from the npm module - loadExtensions(exts: string[])
     // For dev testing, hard coding examples
 
-    loadExtension('http://localhost:9091/dist/extension-entry.js')
-    loadExtension('http://localhost:9092/bundle.js')
-    loadExtension('http://localhost:5000/build/bundle.js')
-    loadExtension('http://localhost:9093/extension-entry.js')
+    loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
+    loadExtension('http://localhost:9092/ext-react-rollup.js')
+    loadExtension('http://localhost:5000/build/ext-svelte-rollup.js')
+    loadExtension('http://localhost:9093/ext-react-webpack.js')
+    loadExtension('http://localhost:9094/dist/ext-lit-element.js')
 }
