@@ -1,4 +1,4 @@
-type Location = 
+export type Location = 
     'header' |
     'above-left' |
     'above-right' |
