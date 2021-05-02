@@ -12,23 +12,11 @@ code {
     monospace;
 }
 
-.ExtensionPanel {
-  background: grey;
-  position: relative; /* So that absolute in extension stays in div */
-  flex: 0 0;
-}
-
-.ExtensionPanel-left {
-  order: 0;
-
-  border-right: 4px solid black;
-}
-
 .drag-for-left {
   position: absolute;
   top: 0px;
   bottom: 0px;
-  right: -4px;
+  right: 0px;
   width: 4px;
   z-index: 1;
   cursor: ew-resize;
@@ -37,29 +25,6 @@ code {
 .drag-for-left:hover {
   background: blue;
   z-index: 1;
-}
-
-.ExtensionPanel-right {
-  order: 2;
-
-  border-left: 4px solid black;
-}
-
-.ExtensionPanel-center {
-  order: 1;
-
-  flex: 1 1;
-  background-color: lightblue;
-}
-
-.ExtensionPanel-body {
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-
-  background-color: lightblue;
-  border-left: 4px solid black;
 }
 
 #grid-container {
@@ -130,6 +95,7 @@ code {
 .grid-panel {
   display: none;
   position: relative;
+  overflow: auto;
 }
 
 .shadow-div {
