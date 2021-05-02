@@ -86,7 +86,8 @@ in the extensions you want to load.
 # TODOs
 
 [X] docker-compose
-[/] Drag and drop resize
+[X] Drag and drop resize
+[ ] Limit max size of panel when resizing
 [ ] Save/restore panel layout
 [X] Make rollup example add a center panel
 [X] More layout options
