@@ -87,17 +87,19 @@ in the extensions you want to load.
 
 [X] docker-compose
 [X] Drag and drop resize
+[ ] Get rid of `ping` method
 [ ] Limit max size of panel when resizing
-[ ] Save/restore panel layout
+[ ] Have an API that lets you get/set the layout as JSON
 [X] Make rollup example add a center panel
 [X] More layout options
     Does the bottom panel stretch all the way across or
     does the left panel touch the bottom
 [ ] Add support for `body` location - like Phoenix
 [ ] Themes?
-[ ] publish npm modules
+[X] publish `es-runtime` as npm module
 [ ] Get display-rules to run in a panel
 [ ] Get AE, PWC or webmap to run in a panel
 [ ] PWA support
 [ ] Show loading until extensions load
 [ ] If you hide `left` then also hide `above-left` (same for `right`)
+[ ] Get import css to work with `rollup`, `webpack`, and `snowpack`.
