@@ -2,12 +2,14 @@
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
-This application is designed to load extensions.
-The extensions is where the primary functionality should be hosted.
-This application allows extensions to register panels that
+This is an example of an extension.
+Extensions are where the primary functionality should be hosted.
+The `es-runtime` allows extensions to register panels that
 are wrapped in a shadow DOM so that each extension does not
 have to worry about the CSS of other extensions interacting
 with its components.
+
+This extension uses React as the component library and `snowpack` as its bundler.
 
 ## Available Scripts
 

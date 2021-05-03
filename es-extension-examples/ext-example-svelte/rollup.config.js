@@ -34,7 +34,7 @@ export default {
 		sourcemap: true,
 		format: 'es',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/build/ext-svelte-rollup.js'
 	},
 	plugins: [
 		svelte({

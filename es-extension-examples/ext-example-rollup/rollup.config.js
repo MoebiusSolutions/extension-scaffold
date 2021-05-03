@@ -15,7 +15,7 @@ const isProd = process.env.NODE_ENV === 'production';
 export default {
     input: 'src/extension-entry.tsx',
     output: {
-        file: 'build/bundle.js',
+        file: 'build/ext-react-rollup.js',
         format: 'es'
     },
     plugins: [

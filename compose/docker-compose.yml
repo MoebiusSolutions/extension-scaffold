@@ -56,7 +56,7 @@ services:
     - "./home-node:/home/node"
     ports: 
     - "127.0.0.1:5000:5000"
-    command: "npm start"
+    command: "npm run container"
 
   ext-example-webpack:
     image: "node:12"
@@ -68,6 +68,18 @@ services:
     - "./home-node:/home/node"
     ports: 
     - "127.0.0.1:9093:9093"
+    command: "npm run container"
+
+  ext-example-lit-element:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-lit-element"
+    volumes: 
+    - "/etc/ssl/certs:/etc/ssl/certs"
+    - "../:/home/extension-scaffold"
+    - "./home-node:/home/node"
+    ports: 
+    - "127.0.0.1:9094:9094"
     command: "npm run container"
 
   enterprise-client:
