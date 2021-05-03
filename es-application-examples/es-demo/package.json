@@ -1,15 +1,15 @@
 {
-  "name": "@gots/es-runtime",
-  "version": "0.1.0",
-  "module": "./build/es-api.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "prepublishOnly": "npm run build"
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "web-test-runner \"src/**/*.test.tsx\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
+    "container": "test -d node_modules || npm install && snowpack dev"
+    },
+  "dependencies": {
+    "@gots/es-runtime": "^0.1.0"
   },
-  "files": [
-    "build"
-  ],
-  "dependencies": {},
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-react-refresh": "^2.4.0",

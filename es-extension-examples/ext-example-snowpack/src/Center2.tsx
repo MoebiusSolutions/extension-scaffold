@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import type { ExtensionScaffoldApi } from "../../../es-api/es-api"
+import type { ExtensionScaffoldApi } from "../../../es-runtime/src/es-api"
 import { Center3 } from './Center3'
 // import './Center2.css' snowpack injects this at the head
 

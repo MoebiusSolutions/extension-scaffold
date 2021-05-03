@@ -1,4 +1,4 @@
-import type {Location} from '../es-api'
+import type {Location} from '../../../es-api/es-api'
 
 export interface ResizeData {
     parentDiv: HTMLElement

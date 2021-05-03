@@ -1,4 +1,4 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../../../es-api/es-api'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_SHOW = 'flex'

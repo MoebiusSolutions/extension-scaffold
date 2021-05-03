@@ -10,17 +10,17 @@ services:
     ports:
     - "127.0.0.1:80:80"
 
-  es-runtime:
+  es-demo:
     image: "node:12"
     user: "node"
-    working_dir: "/home/extension-scaffold/es-runtime"
+    working_dir: "/home/extension-scaffold/es-application-examples/es-demo"
     volumes: 
     - "/etc/ssl/certs:/etc/ssl/certs"
     - "../:/home/extension-scaffold"
     - "./home-node:/home/node"
     ports: 
     - "127.0.0.1:8080:8080"
-    command: "npm start"
+    command: "npm run container"
 
   ext-example-rollup:
     image: "node:12"

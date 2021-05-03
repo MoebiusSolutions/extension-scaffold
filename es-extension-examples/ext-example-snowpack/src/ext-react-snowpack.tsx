@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MyPanel } from './MyPanel';
 
-import type { ExtensionScaffoldApi } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi } from '../../../es-runtime/src/es-api'
 import { Header } from './Header';
 import { AboveLeft } from './AboveLeft'
 import { Footer } from './Footer';
