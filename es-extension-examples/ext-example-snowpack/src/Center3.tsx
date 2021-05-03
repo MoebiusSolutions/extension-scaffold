@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ExtensionScaffoldApi } from "../../../es-api/es-api"
+import type { ExtensionScaffoldApi } from "../../../es-runtime/src/es-api"
 
 export const Center3: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
     const s = `

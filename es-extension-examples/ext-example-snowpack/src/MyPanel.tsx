@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import type { ExtensionScaffoldApi } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi } from '../../../es-runtime/src/es-api'
 import { Center2 } from './Center2';
 
 export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {

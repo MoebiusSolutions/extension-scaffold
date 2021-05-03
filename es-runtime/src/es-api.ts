@@ -1,3 +1,5 @@
+import { loadExtension } from './controllers/ExtensionController'
+
 export type Location = 
     'header' |
     'above-left' |
@@ -41,3 +43,11 @@ export interface ExtensionScaffoldApi {
      */
     loadWebpackScript: (options: LoadWebpackScriptOptions) => Promise<any>
 }
+
+// api.chrome.addPanel
+
+// api.service.register('event', myservice)
+// thatservice = api.service.get('event')
+// thatservice.latLngRngBrg2LatLn()
+
+export { loadExtension }
