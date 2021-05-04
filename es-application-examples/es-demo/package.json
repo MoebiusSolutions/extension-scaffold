@@ -5,7 +5,8 @@
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
-    "container": "test -d node_modules || npm install && snowpack dev"
+    "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
+    "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
     "@gots/es-runtime": "^0.2.0"
