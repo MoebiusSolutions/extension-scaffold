@@ -151,6 +151,7 @@
     ]
   },
   "devDependencies": {
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "@gots/es-runtime": "^0.1.0"
   }
 }
