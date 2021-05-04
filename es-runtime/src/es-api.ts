@@ -1,6 +1,6 @@
 import { loadExtension } from './controllers/ExtensionController'
 
-export type Location = 
+export type Location =
     'header' |
     'above-left' |
     'above-right' |
@@ -28,7 +28,6 @@ export interface LoadWebpackScriptOptions {
 }
 
 export interface ExtensionScaffoldApi {
-    ping: () => void
     /** Panels "stack" in a location */
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
     /** Removing restores the top panel in the remaining stack */
