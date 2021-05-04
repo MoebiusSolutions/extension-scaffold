@@ -1,7 +1,7 @@
 import React from 'react'
-import type { ExtensionScaffoldApi } from "../../../es-runtime/src/es-api"
+import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 
-export const AboveLeft: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
+export const AboveLeft: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     const s = `
         .AboveLeft {
             background-color: grey;
