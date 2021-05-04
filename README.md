@@ -23,6 +23,16 @@ which is not used.
 
 > Note: the `proxy` is still under construction.
 
+## Running `npm install` in all containers
+
+To speed startup, the docker-compose configuration normally
+skips `npm install` if the `node_modules` folder already exists.
+However, if you find you run to run `npm install` for all the
+containers, you can use the command below to start the containers
+and have `npm install` run before the `build` or `serve` steps.
+
+`docker-compose --env-file .env.install up`
+
 ### Running Enterprise Client
 
 You might want to run `enterprise-client` to compare how it does something.
@@ -104,3 +114,6 @@ in the extensions you want to load.
 [ ] Show loading until extensions load
 [ ] If you hide `left` then also hide `above-left` (same for `right`)
 [ ] Get import css to work with `rollup`, `webpack`, and `snowpack`.
+[ ] Push to DI2E Bitbucket
+[ ] Write Getting-Started-Guid.md
+[ ] Write Programmer's Guid.md

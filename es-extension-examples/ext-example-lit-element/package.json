@@ -5,7 +5,8 @@
     "test": "echo \"This template does not include a test runner by default.\" && exit 1",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "prettier --check \"src/**/*.ts\"",
-    "container": "test -d node_modules || npm install && npm start"
+    "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
+    "container": "npm run maybe-install && npm install && npm start"
   },
   "dependencies": {
     "@gots/es-runtime": "^0.1.0",

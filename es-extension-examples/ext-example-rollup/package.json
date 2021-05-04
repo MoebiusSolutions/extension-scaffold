@@ -6,8 +6,10 @@
         "@gots/es-runtime": "^0.1.0"
     },
     "scripts": {
-        "start": "test -d node_modules || npm install && DO_SERVE=true rollup --config --watch",
-        "build": "rollup --config"
+        "start": "DO_SERVE=true rollup --config --watch",
+        "build": "rollup --config",
+        "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
+        "container": "npm run maybe-install && DO_SERVE=true rollup --config --watch"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^18.0.0",

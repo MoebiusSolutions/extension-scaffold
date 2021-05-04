@@ -15,11 +15,13 @@ services:
     user: "node"
     working_dir: "/home/extension-scaffold/es-application-examples/es-demo"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../:/home/extension-scaffold"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8080:8080"
+    environment:
+      - DO_INSTALL
     command: "npm run container"
 
   ext-example-rollup:
@@ -27,35 +29,41 @@ services:
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-rollup"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../:/home/extension-scaffold"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:9092:9092"
-    command: "npm start"
+      - "127.0.0.1:9092:9092"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
 
   ext-example-snowpack:
     image: "node:12"
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-snowpack"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../:/home/extension-scaffold"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:9091:9091"
-    command: "npm start"
+      - "127.0.0.1:9091:9091"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
 
   ext-example-svelte:
     image: "node:12"
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-svelte"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../:/home/extension-scaffold"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:5000:5000"
+      - "127.0.0.1:5000:5000"
+    environment:
+      - DO_INSTALL
     command: "npm run container"
 
   ext-example-webpack:
@@ -63,11 +71,13 @@ services:
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-webpack"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../:/home/extension-scaffold"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:9093:9093"
+      - "127.0.0.1:9093:9093"
+    environment:
+      - DO_INSTALL
     command: "npm run container"
 
   ext-example-lit-element:
@@ -75,11 +85,13 @@ services:
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-lit-element"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../:/home/extension-scaffold"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:9094:9094"
+      - "127.0.0.1:9094:9094"
+    environment:
+      - DO_INSTALL
     command: "npm run container"
 
   enterprise-client:
@@ -87,12 +99,14 @@ services:
     user: "node"
     working_dir: "/home/enterprise-client"
     volumes: 
-    - "/etc/ssl/certs:/etc/ssl/certs"
-    - "../../enterprise-client/:/home/enterprise-client"
-    - "./home-node:/home/node"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../../enterprise-client/:/home/enterprise-client"
+      - "./home-node:/home/node"
     ports: 
-    - "127.0.0.1:32125:32125"
-    command: bash -c "test -d node_modules || npm install && npm run minishift"
+      - "127.0.0.1:32125:32125"
+    environment:
+      - DO_INSTALL
+    command: bash -c "([ -d node_modules ] && [ -z $DO_INSTALL ] || npm install) && npm run minishift"
 
   # The nodejs service is just for development
   nodejs:
