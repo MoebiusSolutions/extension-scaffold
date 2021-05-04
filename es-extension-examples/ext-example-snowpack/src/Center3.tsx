@@ -1,7 +1,7 @@
 import React from 'react'
-import type { ExtensionScaffoldApi } from "../../../es-runtime/src/es-api"
+import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 
-export const Center3: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
+export const Center3: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     const s = `
         .Center3 {
             background-color: grey;
@@ -19,6 +19,6 @@ export const Center3: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         <style>{s}</style>
         <div className="Center3">Third Center Panel
             <button onClick={handleClose}>Close</button>
-        </div> 
+        </div>
     </>
 }

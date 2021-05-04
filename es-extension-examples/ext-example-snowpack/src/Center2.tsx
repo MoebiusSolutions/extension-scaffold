@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import type { ExtensionScaffoldApi } from "../../../es-runtime/src/es-api"
+import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 import { Center3 } from './Center3'
 // import './Center2.css' snowpack injects this at the head
 
-export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
+export const Center2: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     const s = `
         .Center2 {
             background-color: grey;
@@ -25,7 +25,7 @@ export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         })
         ReactDOM.render(
             <React.StrictMode>
-              <Center3 es={es}/>
+                <Center3 es={es} />
             </React.StrictMode>,
             div
         );
@@ -35,6 +35,6 @@ export const Center2: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         <div className="Center2">Second Center Panel
             <button onClick={handleClose}>Close</button>
             <button onClick={handleAdd}>Add Another</button>
-        </div> 
+        </div>
     </>
 }

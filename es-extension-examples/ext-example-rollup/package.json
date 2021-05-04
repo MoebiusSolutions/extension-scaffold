@@ -2,7 +2,8 @@
     "name": "@gots/extension-example-rollup",
     "dependencies": {
         "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react-dom": "^17.0.2",
+        "@gots/es-runtime": "^0.1.0"
     },
     "scripts": {
         "start": "test -d node_modules || npm install && DO_SERVE=true rollup --config --watch",

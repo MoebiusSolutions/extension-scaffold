@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MyPanel } from './MyPanel';
 
-import type { ExtensionScaffoldApi } from '../../../es-runtime/src/es-api'
+import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { Header } from './Header';
 import { AboveLeft } from './AboveLeft'
 import { Footer } from './Footer';
@@ -16,7 +16,7 @@ async function doHeader(scaffold: ExtensionScaffoldApi) {
 
   ReactDOM.render(
     <React.StrictMode>
-      <Header es={scaffold}/>
+      <Header es={scaffold} />
     </React.StrictMode>,
     panelDiv
   )
@@ -30,7 +30,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
 
   ReactDOM.render(
     <React.StrictMode>
-      <Footer es={scaffold}/>
+      <Footer es={scaffold} />
     </React.StrictMode>,
     panelDiv
   )
@@ -44,7 +44,7 @@ async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
 
   ReactDOM.render(
     <React.StrictMode>
-      <AboveLeft es={scaffold}/>
+      <AboveLeft es={scaffold} />
     </React.StrictMode>,
     panelDiv
   )
@@ -54,11 +54,11 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     console.log('got a div', div)
     ReactDOM.render(
-        <React.StrictMode>
-          <MyPanel es={scaffold}/>
-        </React.StrictMode>,
-        div
-      );
+      <React.StrictMode>
+        <MyPanel es={scaffold} />
+      </React.StrictMode>,
+      div
+    );
   }
   scaffold.addPanel({
     id: 'ext.example.snowpack',

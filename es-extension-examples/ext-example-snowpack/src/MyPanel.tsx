@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import type { ExtensionScaffoldApi } from '../../../es-runtime/src/es-api'
+import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { Center2 } from './Center2';
 
-export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
+export const MyPanel: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     function handleClick() {
         console.log('snowpack clicked')
     }
@@ -24,7 +24,7 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         console.log('got a div', div)
         ReactDOM.render(
             <React.StrictMode>
-              <Center2 es={es}/>
+                <Center2 es={es} />
             </React.StrictMode>,
             div
         );
@@ -37,9 +37,9 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         MyPanel - snowpack - with a whole lot of text so that if a panel is over this Panel
         you can still see that something is here.
     </div>
-    <button onClick={handleMaximize}>Maximize Me</button>
-    <button onClick={handleRestore}>Restore Me</button>
-    <button onClick={handleAddCenter}>Add Center</button>
-    <button onClick={handleShowRollupPanel}>Show Rollup</button>
+        <button onClick={handleMaximize}>Maximize Me</button>
+        <button onClick={handleRestore}>Restore Me</button>
+        <button onClick={handleAddCenter}>Add Center</button>
+        <button onClick={handleShowRollupPanel}>Show Rollup</button>
     </>
 }

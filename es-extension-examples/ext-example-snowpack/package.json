@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "@gots/es-runtime": "^0.1.0"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",

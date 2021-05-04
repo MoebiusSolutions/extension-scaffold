@@ -1,4 +1,4 @@
-import type { ExtensionScaffoldApi } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import './app-root';
 
 async function addBottomPanel(api: ExtensionScaffoldApi) {
