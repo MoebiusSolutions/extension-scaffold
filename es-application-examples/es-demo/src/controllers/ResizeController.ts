@@ -1,4 +1,4 @@
-import type {Location} from '../../../es-api/es-api'
+import type { Location } from '@gots/es-runtime/build/es-api'
 
 export interface ResizeData {
     parentDiv: HTMLElement
@@ -20,13 +20,13 @@ function applyTop(rd: ResizeData, e: PointerEvent) {
     rd.parentDiv.style.height = `${newHeight}px`
 }
 function applyRight(rd: ResizeData, e: PointerEvent) {
-    const dx = -1*(e.pageX - rd.origPageX)
+    const dx = -1 * (e.pageX - rd.origPageX)
     const newWidth = Math.max(100, rd.origWidth + dx)
 
     rd.parentDiv.style.width = `${newWidth}px`
 }
 function applyBottom(rd: ResizeData, e: PointerEvent) {
-    const dy = -1*(e.pageY - rd.origPageY)
+    const dy = -1 * (e.pageY - rd.origPageY)
     const newHeight = Math.max(100, rd.origHeight + dy)
 
     rd.parentDiv.style.height = `${newHeight}px`
@@ -45,10 +45,9 @@ export function getApplyFunction(location: Location) {
 }
 
 export function beginResize(
-    dragDiv: HTMLDivElement, 
-    e: PointerEvent, 
-    applyFunction: (rd: ResizeData, e: PointerEvent) => void)
-{
+    dragDiv: HTMLDivElement,
+    e: PointerEvent,
+    applyFunction: (rd: ResizeData, e: PointerEvent) => void) {
     const parentDiv = dragDiv.parentElement
     if (!parentDiv) {
         return

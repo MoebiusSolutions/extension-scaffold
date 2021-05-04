@@ -1,4 +1,4 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../../../es-api/es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '@gots/es-runtime/build/es-api'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_SHOW = 'flex'
@@ -34,10 +34,10 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         const shadowDiv = document.createElement('div')
         shadowDiv.className = 'shadow-div'
-        shadowDiv.attachShadow({ mode: 'open'})
+        shadowDiv.attachShadow({ mode: 'open' })
         const shadow = shadowDiv.shadowRoot
         if (!shadow) {
-          throw new Error('Shadow root did not attach')
+            throw new Error('Shadow root did not attach')
         }
 
         const extPanel = document.createElement('div')
@@ -112,7 +112,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    loadWebpackScript({url, library}: LoadWebpackScriptOptions) {
+    loadWebpackScript({ url, library }: LoadWebpackScriptOptions) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script')
             script.type = 'text/javascript'
