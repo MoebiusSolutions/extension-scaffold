@@ -87,9 +87,9 @@ in the extensions you want to load.
 
 [X] docker-compose
 [X] Drag and drop resize
-[KT] Update examples to use `@gots/es-runtime`
-[ ] Get rid of `ping` method
-[ ] Limit max size of panel when resizing
+[X] Update examples to use `@gots/es-runtime`
+[KT] Get rid of `ping` method
+[KT] Limit max size of panel when resizing
 [ ] Have an API that lets you get/set the layout as JSON
 [X] Make rollup example add a center panel
 [X] More layout options

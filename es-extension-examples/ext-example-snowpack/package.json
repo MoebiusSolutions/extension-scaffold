@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "@gots/es-runtime": "^0.1.0"
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
+    "@gots/es-runtime": "^0.2.0",
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-react-refresh": "^2.4.0",
     "@snowpack/plugin-typescript": "^1.2.0",

@@ -68,7 +68,6 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
 
 export function activate(scaffold: ExtensionScaffoldApi) {
   console.log('my-extension activate', scaffold)
-  scaffold.ping()
 
   addCenterPanel(scaffold)
   doHeader(scaffold).catch(console.error)

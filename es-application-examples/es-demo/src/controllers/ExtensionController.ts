@@ -13,9 +13,6 @@ export function loadExtension(url: string) {
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<string, string[]>()
 
-    ping() {
-
-    }
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))
