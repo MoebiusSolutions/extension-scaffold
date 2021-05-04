@@ -27,7 +27,7 @@ which is not used.
 
 To speed startup, the docker-compose configuration normally
 skips `npm install` if the `node_modules` folder already exists.
-However, if you find you run to run `npm install` for all the
+However, if you find you need to run `npm install` for all the
 containers, you can use the command below to start the containers
 and have `npm install` run before the `build` or `serve` steps.
 
