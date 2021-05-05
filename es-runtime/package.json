@@ -1,6 +1,6 @@
 {
   "name": "@gots/es-runtime",
-  "version": "0.2.0",
+  "version": "0.2.0-build-4",
   "module": "./build/es-api.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",

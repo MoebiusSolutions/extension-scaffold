@@ -42,13 +42,25 @@ use a module script to load the module
 and call the exported `boot` function passing
 in the extensions you want to load.
 
+# Developing es-runtime
+When making changes to es-runtime we need to be able to test our code changes
+using es-demo. This requires updating es-demo/node_modules/@gots/es-runtime.
+To do this follows the six steps:
+1) Change es-runtime/package.json version: ex: 0.2.0-build-1 --> 0.2.0-build-2
+2) In es-runtime folder type: npm run build
+3) In same folder type npm pack
+4) In es-demo folder type: npm i ../../es-runtime/gots-es-runtime-0.2.0-build-<#>.tgz
+    ex. type:  npm i ../../es-runtime/gots-es-runtime-0.2.0-build-4.tgz
+5) restart es-demo docker container
+6) refresh browser
+
 # TODOs
 
 [X] docker-compose
 [X] Drag and drop resize
 [X] Update examples to use `@gots/es-runtime`
-[KT] Get rid of `ping` method
-[KT] Limit max size of panel when resizing
+[X] Get rid of `ping` method
+[X] Limit max size of panel when resizing
 [ ] Have an API that lets you get/set the layout as JSON
 [X] Make rollup example add a center panel
 [X] More layout options
