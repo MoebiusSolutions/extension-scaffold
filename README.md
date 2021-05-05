@@ -6,67 +6,16 @@ tools such as Eclipse, VSCode, and Theia.
 However, code from the above projects was not directly
 utilized in an attempt to make a small and understandable implementation.
 
-# Layout
+# Directory Layout
 
 ## `compose`
 
-A docker compose environment that runs a proxy and starts
-the runtime and the example extensions.
+A docker compose environment that starts the demo 
+using the `es-runtime` and starts the example extensions.
 This is primarily for developing the `extension-scaffold`.
 
-After installing `docker-compose` on your system and checking out this project
-you can run the demonstration with `cd compose` followed by `docker-compose up -d`.
-Finally, browse to `http://localhost:8080/`. Currently, the compose environment
-uses many ports: `80`, `8080`, `9091`, `9092`. 
-It also reserves `8081`, `8082`, and `3000` for the `nodejs` development container,
-which is not used.
+See [compose/README.md](compose/README.md)
 
-> Note: the `proxy` is still under construction.
-
-## Running `npm install` in all containers
-
-To speed startup, the docker-compose configuration normally
-skips `npm install` if the `node_modules` folder already exists.
-However, if you find you need to run `npm install` for all the
-containers, you can use the command below to start the containers
-and have `npm install` run before the `build` or `serve` steps.
-
-`docker-compose --env-file .env.install up`
-
-### Running Enterprise Client
-
-You might want to run `enterprise-client` to compare how it does something.
-Clone a copy of `enterprise-client` into the directory next to `extension-scaffold`.
-
-```
-$ cd ..
-$ ls 
-extension-scaffold
-$ git clone git@gitlab.moesol.com:je/gwa/enterprise-client.git
-$ ls
-enterprise-client
-extension-scaffold
-```
-
-You will need to log `npm` into the Nexus repository inside the container,
-or the container will not start, because it will get access errors during `npm install`.
-To log `npm` into Nexus:
-
-```
-$ cd ../extension-scaffold/compose
-$ docker-compose run enterprise-client bash
-$ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
-```
->  Might as well verify npm install is going to work:
-
-```
-$ npm install
-$ exit
-```
-
-The next time you run `docker-compose up` it will include `enterprise-client`
-
-Browse to http://localhost:32125
 
 ## `es-api`
 
