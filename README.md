@@ -43,16 +43,19 @@ and call the exported `boot` function passing
 in the extensions you want to load.
 
 # Developing es-runtime
+
 When making changes to es-runtime we need to be able to test our code changes
 using es-demo. This requires updating es-demo/node_modules/@gots/es-runtime.
 To do this follows the six steps:
 1) Change es-runtime/package.json version: ex: 0.2.0-build-1 --> 0.2.0-build-2
-2) In es-runtime folder type: npm run build
-3) In same folder type npm pack
-4) In es-demo folder type: npm i ../../es-runtime/gots-es-runtime-0.2.0-build-<#>.tgz
-    ex. type:  npm i ../../es-runtime/gots-es-runtime-0.2.0-build-4.tgz
-5) restart es-demo docker container
-6) refresh browser
+2) In same folder type `npm pack`
+3) In es-demo folder type:
+   `npm i ../../es-runtime/gots-es-runtime-0.2.0-build-<#>.tgz`
+    ex. type:
+    `npm i ../../es-runtime/gots-es-runtime-0.2.0-build-4.tgz`
+4) restart es-demo docker container, use UI or `cd compose`
+   and then `docker-compose restart es-demo`
+5) refresh browser
 
 # TODOs
 

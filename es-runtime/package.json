@@ -1,10 +1,10 @@
 {
   "name": "@gots/es-runtime",
-  "version": "0.2.0-build-4",
+  "version": "0.3.0-build-2",
   "module": "./build/es-api.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prepublishOnly": "npm run build"
+    "prepack": "npm run build"
   },
   "files": [
     "build"
