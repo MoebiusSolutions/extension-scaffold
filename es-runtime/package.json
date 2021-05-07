@@ -1,10 +1,12 @@
 {
   "name": "@gots/es-runtime",
-  "version": "0.3.0-build-2",
+  "version": "0.3.0-build-5",
   "module": "./build/es-api.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "prepack": "npm run build"
+    "build": "tsc -p tsconfig.json && copyfiles -u 1 src/*.css build",
+    "prepack": "npm run build",
+    "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
+    "container": "npm run maybe-install && snowpack dev"
   },
   "files": [
     "build"
@@ -21,6 +23,7 @@
     "@types/snowpack-env": "^2.3.2",
     "@web/test-runner": "^0.12.0",
     "chai": "^4.2.0",
+    "copyfiles": "^2.4.1",
     "prettier": "^2.0.5",
     "snowpack": "^3.0.1",
     "typescript": "^4.0.0"

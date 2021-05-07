@@ -175,12 +175,12 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 }
 
-const api = new ApiImpl()
+export const extensionScaffold = new ApiImpl()
 
 function activateExtension(module: any) {
     console.log('Loaded', module)
     if (module.activate) {
-        module.activate(api)
+        module.activate(extensionScaffold)
     }
 }
 
