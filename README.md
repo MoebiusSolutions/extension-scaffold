@@ -73,8 +73,9 @@ To do this follows the six steps:
 [ ] Get AE, PWC or webmap to run in a panel
 [ ] PWA support
 [ ] Show loading until extensions load
-[ ] If you hide `left` then also hide `above-left` (same for `right`)
+[?] If you hide `left` then also hide `above-left` (same for `right`)
 [ ] Get import css to work with `rollup`, `webpack`, and `snowpack`.
 [ ] Push to DI2E Bitbucket
 [ ] Write Getting-Started-Guid.md
 [ ] Write Programmer's Guid.md
+[ ] Add button toolbar
