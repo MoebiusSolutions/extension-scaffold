@@ -1,4 +1,9 @@
+/*
+ * This file is one example of how to use `es-runtime`.
+ */
 import { loadExtension, extensionScaffold } from './es-api'
+
+extensionScaffold.boot(document.getElementById('grid-container'))
 
 export function loadExtensions() {
   loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
