@@ -12,17 +12,22 @@ export function loadExtension(url: string) {
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<string, string[]>()
+    private gridContainer?: HTMLElement
 
-    ping() {
-
+    boot(gridContainer: HTMLElement | null) {
+        if (!gridContainer) {
+            throw new Error('Missing gridContainer')
+        }
+        this.gridContainer = gridContainer
+        this.gridContainer.classList.add('grid-container')
     }
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))
         }
-        const gridContainer = document.getElementById('grid-container')
+        const gridContainer = this.gridContainer
         if (!gridContainer) {
-            throw new Error('Missing #grid-container')
+            throw new Error('Missing call to boot')
         }
         this.hidePanelsWithLocation(options.location)
 
@@ -175,23 +180,11 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 }
 
-const api = new ApiImpl()
+export const extensionScaffold = new ApiImpl()
 
 function activateExtension(module: any) {
     console.log('Loaded', module)
     if (module.activate) {
-        module.activate(api)
+        module.activate(extensionScaffold)
     }
-}
-
-export function loadExtensions() {
-    // TODO need to design where we will host the list of extensions
-    // Plan - expose an API from the npm module - loadExtensions(exts: string[])
-    // For dev testing, hard coding examples
-
-    loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
-    loadExtension('http://localhost:9092/ext-react-rollup.js')
-    loadExtension('http://localhost:5000/build/ext-svelte-rollup.js')
-    loadExtension('http://localhost:9093/ext-react-webpack.js')
-    loadExtension('http://localhost:9094/dist/ext-lit-element.js')
 }

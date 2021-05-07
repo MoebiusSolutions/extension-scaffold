@@ -24,6 +24,20 @@ services:
       - DO_INSTALL
     command: "npm run container"
 
+  es-runtime:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-runtime"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:8081:8081"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
   ext-example-rollup:
     image: "node:12"
     user: "node"
@@ -118,11 +132,9 @@ services:
       - "./repos/:/home/node"
     expose:
       - 8080
-      - 8081
       - 8082
       - 3000
     ports:
-      - "127.0.0.1:8081:8081"
       - "127.0.0.1:8082:8082"
       - "127.0.0.1:3000:3000"
     environment: 

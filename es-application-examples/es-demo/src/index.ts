@@ -1,5 +1,6 @@
-import './index.css';
-import { loadExtension } from '@gots/es-runtime/build/es-api'
+import { loadExtension, extensionScaffold } from '@gots/es-runtime/build/es-api'
+
+extensionScaffold.boot(document.getElementById('demo-grid-container'))
 
 export function loadExtensions() {
   loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
