@@ -1,4 +1,3 @@
-import './index.css';
 import { loadExtension } from '@gots/es-runtime/build/es-api'
 
 export function loadExtensions() {
