@@ -1,4 +1,6 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions } from '../es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location } from '../es-api'
+import { hidePanelsWithLocation } from '../utils'
+import { BarController } from './BarController'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_SHOW = 'flex'
@@ -12,6 +14,9 @@ export function loadExtension(url: string) {
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<string, string[]>()
+    private leftBar = new BarController('left', 'left-bar')
+    private rightBar = new BarController('right', 'right-bar')
+
     private gridContainer?: HTMLElement
 
     boot(gridContainer: HTMLElement | null) {
@@ -29,7 +34,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         if (!gridContainer) {
             throw new Error('Missing call to boot')
         }
-        this.hidePanelsWithLocation(options.location)
+        hidePanelsWithLocation(options.location)
 
         const outerPanel = document.createElement('div')
         outerPanel.style.display = DISPLAY_SHOW
@@ -62,6 +67,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
 
         this.pushLocation(options.id, options.location)
+        this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
 
@@ -145,12 +151,18 @@ class ApiImpl implements ExtensionScaffoldApi {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, stack.filter(i => i !== id)) // needed for first time
     }
+    private idsAtLocation(location: Location) {
+        return this.locationStack.get(location) ?? []
+    }
 
-    private hidePanelsWithLocation(location: string) {
-        for (const el of document.getElementsByClassName(location)) {
-            if (el instanceof HTMLDivElement) {
-                el.style.display = 'none'
-            }
+    private updateBars(location: Location) {
+        switch (location) {
+            case 'left':
+                this.leftBar.updatePanel(this.idsAtLocation(location))
+                break;
+            case 'right':
+                this.rightBar.updatePanel(this.idsAtLocation(location))
+                break;
         }
     }
 

@@ -5,6 +5,7 @@ import { MyPanel } from './MyPanel';
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { Header } from './Header';
 import { AboveLeft } from './AboveLeft'
+import { Left } from './Left'
 import { Footer } from './Footer';
 
 // Async example
@@ -50,6 +51,21 @@ async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
   )
 }
 
+async function doLeft(scaffold: ExtensionScaffoldApi) {
+  const panelDiv = await scaffold.addPanel({
+    id: 'ext.snowpack.left',
+    location: 'left',
+    resizeHandle: true,
+  })
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <Left es={scaffold} />
+    </React.StrictMode>,
+    panelDiv
+  )
+}
+
 export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     console.log('got a div', div)
@@ -73,4 +89,5 @@ export function activate(scaffold: ExtensionScaffoldApi) {
   doHeader(scaffold).catch(console.error)
   doFooter(scaffold).catch(console.error)
   doAboveLeft(scaffold).catch(console.error)
+  doLeft(scaffold).catch(console.error)
 }
