@@ -5,3 +5,7 @@ export function hidePanelsWithLocation(location: string) {
         }
     }
 }
+
+export function locationFromDiv(div: HTMLDivElement) {
+    return div.classList[1]
+}

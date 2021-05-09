@@ -40,7 +40,6 @@ export class BarController {
             btn.innerText = `B${idx}`
             btn.onclick = () => {
                 console.log('btn clicked', id)
-                hidePanelsWithLocation(this.controlLocation)
                 extensionScaffold.showPanel(id)
             }
             divBar.appendChild(btn)

@@ -1,5 +1,5 @@
 import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location } from '../es-api'
-import { hidePanelsWithLocation } from '../utils'
+import { hidePanelsWithLocation, locationFromDiv } from '../utils'
 import { BarController } from './BarController'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
@@ -74,7 +74,7 @@ class ApiImpl implements ExtensionScaffoldApi {
     removePanel(id: string): boolean {
         return this.withPanel(id, div => {
             div.remove()
-            const location = div.classList[1]
+            const location = locationFromDiv(div)
             this.popLocation(id, location)
             const stack = this.locationStack.get(location)
             if (!stack) {
@@ -98,7 +98,18 @@ class ApiImpl implements ExtensionScaffoldApi {
         return this.withPanel(id, div => div.style.display = 'none')
     }
     showPanel(id: string) {
-        return this.withPanel(id, div => div.style.display = DISPLAY_SHOW)
+        return this.withPanel(id, div => {
+            const location = locationFromDiv(div)
+            switch (location) {
+                case 'left':
+                case 'right':
+                case 'top':
+                case 'bottom':
+                    hidePanelsWithLocation(location)
+                    break;
+            }
+            div.style.display = DISPLAY_SHOW
+        })
     }
 
     maximizePanel(id: string) {
