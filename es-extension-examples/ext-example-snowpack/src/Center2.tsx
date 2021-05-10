@@ -2,9 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 import { Center3 } from './Center3'
-// import './Center2.css' snowpack injects this at the head
+import './Center2.css' // snowpack injects this at the head, but we claim it in MyPanel.tsx
 
-export const Center2: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
+export const Center2: React.FC<{ 
+    es: ExtensionScaffoldApi, 
+    parentDiv: HTMLDivElement
+}> = ({ es, parentDiv }) => {
     function handleClose() {
         es.removePanel('ext.example.snowpack.2')
     }
@@ -28,7 +31,7 @@ export const Center2: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <link href="http://localhost:9091/index.css" rel="stylesheet"></link>
         <div className="Center2">Second Center Panel
             <button onClick={handleClose}>Close</button>
-            <button onClick={handleAdd}>Add Another</button>
+            <button className='styled-button' onClick={handleAdd}>Add Another</button>
         </div>
     </>
 }

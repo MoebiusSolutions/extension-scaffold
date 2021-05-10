@@ -7,6 +7,7 @@ import { Header } from './Header';
 import { AboveLeft } from './AboveLeft'
 import { Left } from './Left'
 import { Footer } from './Footer';
+import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 
 // Async example
 async function doHeader(scaffold: ExtensionScaffoldApi) {
@@ -68,13 +69,13 @@ async function doLeft(scaffold: ExtensionScaffoldApi) {
 
 export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
-    console.log('got a div', div)
     ReactDOM.render(
       <React.StrictMode>
-        <MyPanel es={scaffold} />
+        <MyPanel es={scaffold} parentDiv={div} />
       </React.StrictMode>,
       div
     );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
   }
   scaffold.addPanel({
     id: 'ext.example.snowpack',
