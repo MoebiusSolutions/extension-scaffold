@@ -25,6 +25,9 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer = gridContainer
         this.gridContainer.classList.add('grid-container')
     }
+    loadExtension(url: string): Promise<void> {
+        return import(url).then(activateExtension)
+    }
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))

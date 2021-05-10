@@ -9,7 +9,7 @@
     "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
-    "@gots/es-runtime": "file:../../es-runtime/gots-es-runtime-0.4.0-build-1.tgz"
+    "@gots/es-runtime": "file:../../es-runtime/gots-es-runtime-0.6.0-rc-1.tgz"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",

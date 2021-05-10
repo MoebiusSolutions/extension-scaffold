@@ -1,6 +1,5 @@
 import './es-runtime.css'
 
-import { loadExtension } from './controllers/ExtensionController'
 import { extensionScaffold } from './controllers/ExtensionController'
 
 export type Location =
@@ -34,6 +33,8 @@ export interface LoadWebpackScriptOptions {
 export interface ExtensionScaffoldApi {
     boot: (gridContainer: HTMLElement | null) => void
 
+    loadExtension: (url: string) => void
+
     /** Panels "stack" in a location */
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
     /** Removing restores the top panel in the remaining stack */
@@ -55,4 +56,4 @@ export interface ExtensionScaffoldApi {
 // thatservice = api.service.get('event')
 // thatservice.latLngRngBrg2LatLn()
 
-export { loadExtension, extensionScaffold }
+export { extensionScaffold }
