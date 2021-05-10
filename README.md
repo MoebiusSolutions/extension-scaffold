@@ -1,14 +1,28 @@
 # Extension Scaffold (ES)
 
 ES is designed to be a lightweight alternative to OWF.
-The extension design concept comes from opensource
-tools such as Eclipse, VSCode, and Theia.
-However, code from the above projects was not directly
-utilized in an attempt to make a small and understandable implementation.
+The extension design concept comes from opensource tools such as Eclipse, VSCode, and Theia.
+However, code from the above projects was not directly utilized
+in an attempt to make a small and understandable implementation.
+
+One of the major differences between OWF and `ES` is that OWF uses `iframes` to isolate each widget;
+while, `ES` uses JavaScript `modules` to mostly isolate JavaScript code,
+and HTML5 Shadow DOM to mostly isolate unwanted CSS interactions.
+Extensions are free to use `iframes` to create a stronger barrier between extensions,
+but currently `ES` does not aid (or hinder) the use of `iframes`.
+
+Like OWF extensions can be server of outside the "Same Origin" as the "hosting" webpage.
+`ES` is delivered as a NPM module.
+You will need to setup your "hosting" webpage, and bundle `@gots/es-runtime`, with your webpage.
+Your "hosting" webpage will use `loadExtension` to load extensions from one or more web servers.
+
+```typescript
+await extensionScaffold.loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
+```
 
 ## Extension Adding Panel
 
-![Extension Adding Panel](out/sequence-diagram/sequence-diagram.svg)
+![Extension Adding Panel](out/Extension-Adding-Panel/Extension-Adding-Panel.svg)
 
 # Directory Layout
 

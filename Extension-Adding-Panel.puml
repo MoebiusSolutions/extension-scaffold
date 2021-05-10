@@ -1,10 +1,15 @@
-@startuml Extension adding a panel
+@startuml Extension-Adding-Panel
+
+skinparam {
+    backgroundColor #eee
+}
+
 
 box "localhost:8080\n" #LightBlue
 participant browser as index.html
 index.html -> index.js : "<script/>"
 participant "@gots/es-runtime" as runtime
-index.js -> runtime : loadExtension(url)
+index.js -> runtime : ""api.loadExtension(url)""
 activate runtime
 end box
 
@@ -13,7 +18,7 @@ participant extension as extension
 end box
 
 runtime -> index.html : import(url)
-runtime <-- index.html : promise: Promise<module>
+runtime <-- index.html : //promise: Promise<module>//
 deactivate runtime
 
 == Download extension.js ==
@@ -25,11 +30,13 @@ runtime -> extension : module.activate(api)
 deactivate runtime
 activate extension
 
-extension -> runtime : api.addPanel()
+extension -> runtime : ""api.addPanel()""
 activate runtime
-extension <-- runtime : promise: Promise<div>
+extension <-- runtime : //promise: Promise<div>//
 deactivate extension
 
+runtime -> index.html : document.createElement('div')
+runtime <-- index.html : //div: HTMLDivElement//
 runtime -> index.html : appendChild(div)
 runtime -> extension : promise.resolve(div)
 deactivate runtime
@@ -37,7 +44,7 @@ deactivate runtime
 activate extension
 extension -> index.html : document.createElement(...)
 activate index.html
-index.html --> extension : element
+index.html --> extension : //  element//
 deactivate index.html
 extension -> index.html : div.appendChild(element)
 deactivate extension
