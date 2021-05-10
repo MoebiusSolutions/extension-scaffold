@@ -5,9 +5,8 @@ import { Center3 } from './Center3'
 import './Center2.css' // snowpack injects this at the head, but we claim it in MyPanel.tsx
 
 export const Center2: React.FC<{ 
-    es: ExtensionScaffoldApi, 
-    parentDiv: HTMLDivElement
-}> = ({ es, parentDiv }) => {
+    es: ExtensionScaffoldApi
+}> = ({ es }) => {
     function handleClose() {
         es.removePanel('ext.example.snowpack.2')
     }

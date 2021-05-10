@@ -6,9 +6,8 @@ import './MyPanel.css';
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 
 export const MyPanel: React.FC<{ 
-    es: ExtensionScaffoldApi, 
-    parentDiv: HTMLDivElement
-}> = ({ es, parentDiv }) => {
+    es: ExtensionScaffoldApi
+}> = ({ es }) => {
     function handleClick() {
         console.log('snowpack clicked')
     }
@@ -29,7 +28,7 @@ export const MyPanel: React.FC<{
         console.log('snowpack got a div for Center2', div)
         ReactDOM.render(
             <React.StrictMode>
-                <Center2 es={es} parentDiv={parentDiv} />
+                <Center2 es={es} />
             </React.StrictMode>,
             div
         );

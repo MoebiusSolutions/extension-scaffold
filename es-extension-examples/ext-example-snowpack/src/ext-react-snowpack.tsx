@@ -71,7 +71,7 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
       <React.StrictMode>
-        <MyPanel es={scaffold} parentDiv={div} />
+        <MyPanel es={scaffold}/>
       </React.StrictMode>,
       div
     );
