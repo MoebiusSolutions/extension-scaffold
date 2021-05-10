@@ -1,4 +1,4 @@
-import { extensionScaffold, Location } from '../es-api'
+import { AddPanelOptions, extensionScaffold, Location } from '../es-api'
 import { hidePanelsWithLocation } from '../utils'
 
 export class BarController {
@@ -11,7 +11,7 @@ export class BarController {
         this.barLocation = location
     }
 
-    private addPanel(ids: string[]) {
+    private addPanel(panelOptions: AddPanelOptions[]) {
         extensionScaffold.addPanel({
             id: `es.runtime.${this.barLocation}`,
             location: this.barLocation,
@@ -19,14 +19,14 @@ export class BarController {
             resizeHandle: false
           }).then(div => {
               this.divBar = div
-              this.updatePanel(ids)
+              this.updatePanel(panelOptions)
           })
     }
 
-    updatePanel(ids: string[]) {
+    updatePanel(panelOptions: AddPanelOptions[]) {
         const divBar = this.divBar
         if (!divBar) {
-            this.addPanel(ids)
+            this.addPanel(panelOptions)
             return
         }
 
@@ -34,13 +34,14 @@ export class BarController {
             divBar.lastElementChild.remove()
         }
 
-        ids.forEach((id, idx) => {
+        panelOptions.forEach((panelOptions, idx) => {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
+            btn.title = panelOptions.title ?? ''
             btn.innerText = `B${idx}`
             btn.onclick = () => {
-                console.log('btn clicked', id)
-                extensionScaffold.showPanel(id)
+                console.log('btn clicked', panelOptions)
+                extensionScaffold.showPanel(panelOptions.id)
             }
             divBar.appendChild(btn)
         })

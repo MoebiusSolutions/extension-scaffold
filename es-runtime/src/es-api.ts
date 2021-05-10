@@ -19,6 +19,7 @@ export type Location =
 export interface AddPanelOptions {
     location: Location
     id: string
+    title?: string
     resizeHandle?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
 }

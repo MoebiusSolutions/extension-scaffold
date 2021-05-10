@@ -18,6 +18,7 @@ export function activate(scaffold: ExtensionScaffoldApi) {
 
   scaffold.addPanel({
     id: 'ext.example.rollup',
+    title: 'Rollup Left',
     location: 'left',
     resizeHandle: true,
   }).then(onPanelAdded)

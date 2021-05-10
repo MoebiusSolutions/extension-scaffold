@@ -11,9 +11,8 @@ export function loadExtension(url: string) {
         .catch(e => console.error('Error loading extension', url, e))
 }
 
-
 class ApiImpl implements ExtensionScaffoldApi {
-    private readonly locationStack = new Map<string, string[]>()
+    private readonly locationStack = new Map<Location, AddPanelOptions[]>()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
 
@@ -39,6 +38,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         const outerPanel = document.createElement('div')
         outerPanel.style.display = DISPLAY_SHOW
         outerPanel.id = options.id
+        // Note: the classList order matters see locationFromDiv
         outerPanel.classList.add('grid-panel')
         outerPanel.classList.add(options.location)
 
@@ -66,7 +66,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             dragDiv.onpointerup = e => endResize(dragDiv, e)
         }
 
-        this.pushLocation(options.id, options.location)
+        this.pushLocation(options.location, options)
         this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
@@ -75,7 +75,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         return this.withPanel(id, div => {
             div.remove()
             const location = locationFromDiv(div)
-            this.popLocation(id, location)
+            this.popLocation(location, id)
             const stack = this.locationStack.get(location)
             if (!stack) {
                 console.error('Class name list changed since there is no location stack', location)
@@ -85,7 +85,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 // We remove them all
                 return
             }
-            const nextDiv = document.getElementById(stack[0])
+            const nextDiv = document.getElementById(stack[0].id)
             if (!nextDiv) {
                 console.error('Panel missing', stack[0])
                 return
@@ -154,25 +154,25 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    private pushLocation(id: string, location: string) {
+    private pushLocation(location: Location, options: AddPanelOptions) {
         const stack = this.locationStack.get(location) ?? []
-        this.locationStack.set(location, [id, ...stack]) // needed for first time
+        this.locationStack.set(location, [options, ...stack]) // needed for first time
     }
-    private popLocation(id: string, location: string) {
+    private popLocation(location: Location, id: string) {
         const stack = this.locationStack.get(location) ?? []
-        this.locationStack.set(location, stack.filter(i => i !== id)) // needed for first time
+        this.locationStack.set(location, stack.filter(opt => opt.id !== id)) // needed for first time
     }
-    private idsAtLocation(location: Location) {
+    private panelsAtLocation(location: Location) {
         return this.locationStack.get(location) ?? []
     }
 
     private updateBars(location: Location) {
         switch (location) {
             case 'left':
-                this.leftBar.updatePanel(this.idsAtLocation(location))
+                this.leftBar.updatePanel(this.panelsAtLocation(location))
                 break;
             case 'right':
-                this.rightBar.updatePanel(this.idsAtLocation(location))
+                this.rightBar.updatePanel(this.panelsAtLocation(location))
                 break;
         }
     }

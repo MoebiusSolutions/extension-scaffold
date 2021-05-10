@@ -55,6 +55,7 @@ async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
 async function doLeft(scaffold: ExtensionScaffoldApi) {
   const panelDiv = await scaffold.addPanel({
     id: 'ext.snowpack.left',
+    title: 'Snowpack Left',
     location: 'left',
     resizeHandle: true,
   })
