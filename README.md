@@ -89,3 +89,4 @@ To do this follows the six steps:
 [ ] Write Programmer's Guid.md
 [ ] Add button toolbar
 [ ] Add support for `body` location - like Phoenix
+[ ] Sequence diagram
