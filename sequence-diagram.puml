@@ -1,4 +1,4 @@
-@startuml
+@startuml Extension adding a panel
 
 box "localhost:8080\n" #LightBlue
 participant browser as index.html
