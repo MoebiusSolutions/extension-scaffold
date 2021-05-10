@@ -15,6 +15,10 @@ export const Center3: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     function handleClose() {
         es.removePanel('ext.example.snowpack.3')
     }
+    /*
+     * Note that below we inject a <style> element into the shadow DOM.
+     * See Center2.tsx for how we can link to a stylesheet.
+     */
     return <>
         <style>{s}</style>
         <div className="Center3">Third Center Panel

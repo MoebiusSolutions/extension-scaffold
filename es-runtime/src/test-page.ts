@@ -15,28 +15,6 @@ export function loadExtensions() {
 
 loadExtensions()
 
-extensionScaffold.addPanel({
-  id: 'demo.left.bar',
-  location: 'left-bar',
-  initialWidthOrHeight: '32px',
-  resizeHandle: false
-}).then(div => {
-  const c = document.createElement('div')
-  c.innerText = "A"
-  div.appendChild(c)
-})
-
-extensionScaffold.addPanel({
-  id: 'demo.right.bar',
-  location: 'right-bar',
-  initialWidthOrHeight: '32px',
-  resizeHandle: false
-}).then(div => {
-  const c = document.createElement('div')
-  c.innerText = "1"
-  div.appendChild(c)
-})
-
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
 if (import.meta.hot) {

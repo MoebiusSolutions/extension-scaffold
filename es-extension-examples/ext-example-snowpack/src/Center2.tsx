@@ -5,16 +5,6 @@ import { Center3 } from './Center3'
 // import './Center2.css' snowpack injects this at the head
 
 export const Center2: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
-    const s = `
-        .Center2 {
-            background-color: grey;
-            top: 0px;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-            position: absolute;
-        }
-    `
     function handleClose() {
         es.removePanel('ext.example.snowpack.2')
     }
@@ -30,8 +20,12 @@ export const Center2: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             div
         );
     }
+    /*
+     * Note that below we link to an external stylesheet.
+     * See Center3.tsx for how we can inject CSS from JS.
+     */
     return <>
-        <style>{s}</style>
+        <link href="http://localhost:9091/index.css" rel="stylesheet"></link>
         <div className="Center2">Second Center Panel
             <button onClick={handleClose}>Close</button>
             <button onClick={handleAdd}>Add Another</button>

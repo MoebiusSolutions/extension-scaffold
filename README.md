@@ -69,16 +69,23 @@ To do this follows the six steps:
 [X] More layout options
     Does the bottom panel stretch all the way across or
     does the left panel touch the bottom
-[ ] Add support for `body` location - like Phoenix
+[ ] Get `import` css to work with `rollup`, `webpack`, and `snowpack`.
+    Note that `Center2.tsx` and `Center3.tsx` have examples of importing styles
+    into the shadow DOM. However, the tool chains assume you want to inject
+    css into the `<head>` element, so they don't work out of the box.
 [ ] Themes?
+[ ] For a given panel `id`, it might be nice for the API to return return
+    the base URI. For now, the examples are hard coding the base URI, since
+    Using a relative URI points to the hosting server and not the server
+    that is serving the JS module.
 [X] publish `es-runtime` as npm module
 [ ] Get display-rules to run in a panel
 [ ] Get AE, PWC or webmap to run in a panel
 [ ] PWA support
 [ ] Show loading until extensions load
 [?] If you hide `left` then also hide `above-left` (same for `right`)
-[ ] Get import css to work with `rollup`, `webpack`, and `snowpack`.
 [ ] Push to DI2E Bitbucket
 [ ] Write Getting-Started-Guid.md
 [ ] Write Programmer's Guid.md
 [ ] Add button toolbar
+[ ] Add support for `body` location - like Phoenix
