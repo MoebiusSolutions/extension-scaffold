@@ -21,8 +21,8 @@ code {
     'left-bar   left       bottom  right       right-bar'
     'footer     footer     footer  footer      footer'
   ;
-  grid-template-columns: min-content min-content 1fr min-content min-content;
-  grid-template-rows: min-content min-content 1fr min-content min-content;
+  grid-template-columns: min-content min-content minmax(100px, 1fr) min-content min-content;
+  grid-template-rows:    min-content min-content minmax(100px, 1fr) min-content min-content;
   height: 100vh;
 }
 
