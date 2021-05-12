@@ -5,12 +5,6 @@ import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_SHOW = 'flex'
 
-export function loadExtension(url: string) {
-    import(url)
-        .then(activateExtension)
-        .catch(e => console.error('Error loading extension', url, e))
-}
-
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
     private leftBar = new BarController('left', 'left-bar')
@@ -26,7 +20,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer.classList.add('grid-container')
     }
     loadExtension(url: string): Promise<void> {
-        return import(url).then(activateExtension)
+        return import(url).then((module) => this.activateExtension(module, url))
     }
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
@@ -38,26 +32,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
         hidePanelsWithLocation(options.location)
 
-        const outerPanel = document.createElement('div')
-        outerPanel.style.display = DISPLAY_SHOW
-        outerPanel.id = options.id
-        // Note: the classList order matters see locationFromDiv
-        outerPanel.classList.add('grid-panel')
-        outerPanel.classList.add(options.location)
-
-        const shadowDiv = document.createElement('div')
-        shadowDiv.className = 'shadow-div'
-        shadowDiv.attachShadow({ mode: 'open'})
-        const shadow = shadowDiv.shadowRoot
-        if (!shadow) {
-          throw new Error('Shadow root did not attach')
-        }
-
-        const extPanel = document.createElement('div')
-
-        gridContainer.appendChild(outerPanel)
-        outerPanel.appendChild(shadowDiv)
-        shadow.appendChild(extPanel)
+        const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
 
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
 
@@ -67,6 +42,22 @@ class ApiImpl implements ExtensionScaffoldApi {
             outerPanel.appendChild(dragDiv)
             dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
             dragDiv.onpointerup = e => endResize(dragDiv, e)
+        }
+
+        if (options.iframeSource) {
+            extPanel.style.position = 'absolute'
+            extPanel.style.top = '0px'
+            extPanel.style.bottom = '0px'
+            extPanel.style.left = '0px'
+            extPanel.style.right = '0px'
+        
+            const iframe = document.createElement('iframe')
+            iframe.src = options.iframeSource
+            iframe.style.width = '100%'
+            iframe.style.height = '100%'
+            iframe.style.border = 'none'
+        
+            extPanel.appendChild(iframe)
         }
 
         this.pushLocation(options.location, options)
@@ -157,6 +148,41 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
+    private activateExtension(module: any, url: string) {
+        console.debug('Activating', url)
+        if (module.activate) {
+            module.activate(extensionScaffold, url)
+        }
+    }
+
+    private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
+        const outerPanel = document.createElement('div')
+        outerPanel.style.display = DISPLAY_SHOW
+        outerPanel.id = options.id
+        // Note: the classList order matters see locationFromDiv
+        outerPanel.classList.add('grid-panel')
+        outerPanel.classList.add(options.location)
+
+        const shadowDiv = document.createElement('div')
+        shadowDiv.className = 'shadow-div'
+        shadowDiv.attachShadow({ mode: 'open'})
+        const shadow = shadowDiv.shadowRoot
+        if (!shadow) {
+          throw new Error('Shadow root did not attach')
+        }
+
+        const extPanel = document.createElement('div')
+
+        gridContainer.appendChild(outerPanel)
+        outerPanel.appendChild(shadowDiv)
+        shadow.appendChild(extPanel)
+
+        return {
+            outerPanel,
+            extPanel
+        }
+    }
+
     private pushLocation(location: Location, options: AddPanelOptions) {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, [options, ...stack]) // needed for first time
@@ -207,10 +233,3 @@ class ApiImpl implements ExtensionScaffoldApi {
 }
 
 export const extensionScaffold = new ApiImpl()
-
-function activateExtension(module: any) {
-    console.log('Loaded', module)
-    if (module.activate) {
-        module.activate(extensionScaffold)
-    }
-}

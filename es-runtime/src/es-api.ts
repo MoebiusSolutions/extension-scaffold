@@ -21,6 +21,7 @@ export interface AddPanelOptions {
     title?: string
     resizeHandle?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
+    iframeSource?: string // injects an iframe if set
 }
 
 export interface LoadWebpackScriptOptions {
