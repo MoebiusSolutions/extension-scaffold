@@ -105,12 +105,12 @@ code {
 
 .left-bar {
   grid-area: left-bar;
-  background-color: pink;
+  background-color: rgb(0 0 0 / 67%);
 }
 
 .right-bar {
   grid-area: right-bar;
-  background-color: pink;
+  background-color: rgb(0 0 0 / 67%);
 }
 
 .above-left {
