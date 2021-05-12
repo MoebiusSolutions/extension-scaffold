@@ -5,7 +5,7 @@ import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 
 export function activate(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
-    console.log('got a div', div)
+    div.style.height = '100%'
     ReactDOM.render(
       <React.StrictMode>
         <MyPanel es={scaffold} />
