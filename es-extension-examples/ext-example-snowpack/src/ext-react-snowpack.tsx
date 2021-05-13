@@ -22,6 +22,7 @@ async function doHeader(scaffold: ExtensionScaffoldApi) {
     </React.StrictMode>,
     panelDiv
   )
+  claimStyleFromHeadElement(panelDiv, '#ext.example.snowpack')
 }
 
 async function doFooter(scaffold: ExtensionScaffoldApi) {
@@ -36,6 +37,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
     </React.StrictMode>,
     panelDiv
   )
+  claimStyleFromHeadElement(panelDiv, '#ext.example.snowpack')
 }
 
 async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
@@ -68,6 +70,18 @@ async function doLeft(scaffold: ExtensionScaffoldApi) {
   )
 }
 
+async function addMap(scaffold: ExtensionScaffoldApi) {
+  const mapUrl = 'http://localhost:8082/map.html?aeo_logo=true&aeo_dc=false&aeo_top=1.9886362552642822&aeo_left=1.9886362552642822&aeo_viewport_w=1745&aeo_viewport_h=961&xdm_e=http%3A%2F%2Flocalhost%3A8082%2F&xdm_c=default3300&xdm_p=4'
+  const panelDiv = await scaffold.addPanel({
+    id: 'ext.aeolus.map',
+    title: 'Snowpack Left',
+    location: 'center',
+    resizeHandle: true,
+    iframeSource: mapUrl,
+  })
+  console.log('added', panelDiv)
+}
+
 export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
@@ -87,7 +101,8 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
 export function activate(scaffold: ExtensionScaffoldApi) {
   console.log('my-extension activate', scaffold)
 
-  addCenterPanel(scaffold)
+  // addCenterPanel(scaffold)
+  addMap(scaffold)
   doHeader(scaffold).catch(console.error)
   doFooter(scaffold).catch(console.error)
   // doAboveLeft(scaffold).catch(console.error)

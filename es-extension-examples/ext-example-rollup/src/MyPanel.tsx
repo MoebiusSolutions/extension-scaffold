@@ -7,11 +7,6 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
         es.hidePanel('ext.example.rollup')
     }
     const css = `
-    .panel {
-        height: 100%;
-        background: #292929;
-        color: #e2e2e2
-    }
     .inner {
         padding: 1em;
     }

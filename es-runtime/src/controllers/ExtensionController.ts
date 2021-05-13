@@ -1,9 +1,9 @@
 import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location } from '../es-api'
-import { hidePanelsWithLocation, locationFromDiv } from '../utils'
+import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
 import { BarController } from './BarController'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
-const DISPLAY_SHOW = 'flex'
+const DISPLAY_FLEX = 'flex'
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
@@ -52,15 +52,20 @@ class ApiImpl implements ExtensionScaffoldApi {
             iframe.style.border = 'none'
 
             extPanel.appendChild(iframe)
+        } else {
+            extPanel.style.width = '100%'
+            extPanel.style.height = '100%'
         }
 
         this.pushLocation(options.location, options)
-        this.updateBars(options.location)
+        this.updateBars(options.location, options.id)
         return Promise.resolve(extPanel)
     }
 
     removePanel(id: string): boolean {
-        return this.withPanel(id, (parent, div) => {
+        this.restorePanel(id)
+
+        return withPanel(id, (parent, div) => {
             div.remove()
             const location = locationFromDiv(parent)
             this.popLocation(location, id)
@@ -79,32 +84,60 @@ class ApiImpl implements ExtensionScaffoldApi {
                 return
             }
             nextDiv.style.display = 'block'
+            this.updateBars(location, null)
         })
     }
 
     hidePanel(id: string) {
-        return this.withPanel(id, (parent, _) => {
-            parent.style.display = 'none'
-        })
-    }
-    showPanel(id: string) {
-        return this.withPanel(id, (parent, div) => {
+        return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
             switch (location) {
                 case 'left':
                 case 'right':
                 case 'top':
                 case 'bottom':
-                    hidePanelsWithLocation(location)
+                    parent.style.display = 'none'
+                    this.updateBars(location, null)
+                    break;
+
+                case 'center':
+                    div.style.display = 'none'
                     break;
             }
-            div.style.display = 'block'
-            parent.style.display = DISPLAY_SHOW
+        })
+    }
+    showPanel(id: string) {
+        return withPanel(id, (parent, div) => {
+            const location = locationFromDiv(parent)
+            hidePanelsWithLocation(location)
+            switch (location) {
+                case 'left':
+                case 'right':
+                case 'top':
+                case 'bottom':
+                    parent.style.display = DISPLAY_FLEX
+                    div.style.display = 'block'
+                    this.updateBars(location, id)
+                    break;
+
+                case 'center':
+                    div.style.display = 'block'
+                    break;
+            }
+        })
+    }
+    togglePanel(id: string) {
+        return withPanel(id, (parent, div) => {
+            if (parent.style.display !== 'none' && div.style.display !== 'none') {
+                this.hidePanel(id)
+            } else {
+                this.showPanel(id)
+            }
         })
     }
 
     maximizePanel(id: string) {
-        this.withPanel(id, (parent, div) => {
+        withPanel(id, (parent, div) => {
             parent.style.position = 'absolute'
             parent.style.top = '0px'
             parent.style.bottom = '0px'
@@ -115,7 +148,7 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     restorePanel(id: string) {
-        this.withPanel(id, (parent, div) => {
+        withPanel(id, (parent, div) => {
             parent.style.position = ''
             parent.style.top = ''
             parent.style.bottom = ''
@@ -166,14 +199,14 @@ class ApiImpl implements ExtensionScaffoldApi {
             dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
             dragDiv.onpointerup = e => endResize(dragDiv, e)
         }
+        gridContainer.appendChild(r)
 
         return r as HTMLDivElement
     }
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
-        outerPanel.style.display = DISPLAY_SHOW
-        // outerPanel.id = options.id
+        outerPanel.style.display = DISPLAY_FLEX
         // Note: the classList order matters see locationFromDiv
         outerPanel.classList.add('grid-panel')
         outerPanel.classList.add(options.location)
@@ -189,7 +222,6 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         const extPanel = document.createElement('div')
 
-        gridContainer.appendChild(outerPanel)
         outerPanel.appendChild(shadowDiv)
         shadow.appendChild(extPanel)
 
@@ -211,13 +243,13 @@ class ApiImpl implements ExtensionScaffoldApi {
         return this.locationStack.get(location) ?? []
     }
 
-    private updateBars(location: Location) {
+    private updateBars(location: Location, shown: string | null) {
         switch (location) {
             case 'left':
-                this.leftBar.updatePanel(this.panelsAtLocation(location))
+                this.leftBar.updatePanel(this.panelsAtLocation(location), shown)
                 break;
             case 'right':
-                this.rightBar.updatePanel(this.panelsAtLocation(location))
+                this.rightBar.updatePanel(this.panelsAtLocation(location), shown)
                 break;
         }
     }
@@ -237,20 +269,6 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
     }
 
-    private withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivElement) => void) {
-        const div = document.getElementById(id) as HTMLDivElement
-        if (!div) {
-            console.warn('Panel id not found', id)
-            return false
-        }
-        const parent = div.parentElement
-        if (!(parent instanceof HTMLDivElement)) {
-            return false
-        }
-
-        f(parent, div)
-        return true
-    }
 }
 
 export const extensionScaffold = new ApiImpl()
