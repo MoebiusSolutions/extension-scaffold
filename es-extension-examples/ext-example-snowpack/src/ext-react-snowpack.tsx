@@ -90,6 +90,6 @@ export function activate(scaffold: ExtensionScaffoldApi) {
   addCenterPanel(scaffold)
   doHeader(scaffold).catch(console.error)
   doFooter(scaffold).catch(console.error)
-  doAboveLeft(scaffold).catch(console.error)
+  // doAboveLeft(scaffold).catch(console.error)
   doLeft(scaffold).catch(console.error)
 }

@@ -13,7 +13,7 @@ export async function activate(scaffold) {
   console.log('webpack activate', scaffold)
   const div = await scaffold.addPanel({
     id: 'ext.example.webpack',
-    location: 'top',
+    location: 'right',
     resizeHandle: true,
   })
   ReactDOM.render(

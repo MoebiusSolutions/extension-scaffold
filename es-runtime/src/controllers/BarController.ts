@@ -15,8 +15,8 @@ export class BarController {
         extensionScaffold.addPanel({
             id: `es.runtime.${this.barLocation}`,
             location: this.barLocation,
-            initialWidthOrHeight: '40px',
-            resizeHandle: false
+            resizeHandle: false,
+            initialWidthOrHeight: 'inherit'
           }).then(div => {
               this.divBar = div
               this.updatePanel(panelOptions)
@@ -34,6 +34,36 @@ export class BarController {
             divBar.lastElementChild.remove()
         }
 
+        divBar.style.background = 'black'
+        divBar.style.height = '100%'
+
+        const styleElement = document.createElement('style')
+        styleElement.setAttribute('type', 'text/css')
+        styleElement.textContent = `
+        .es-bar {
+            background: rgba(255, 255, 255, 0.3)
+        }
+        .es-bar-button {
+            background: transparent;
+            padding: 1em;
+            border: none;
+            color: lightgrey;
+            cursor: pointer;
+        }
+        .es-bar-button:hover {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        `
+        divBar.appendChild(styleElement)
+
+        const flexContainer = document.createElement('div')
+        flexContainer.className = 'es-bar'
+        flexContainer.style.height = '100%'
+        flexContainer.style.display = 'flex'
+        flexContainer.style.flexDirection = 'column'
+        divBar.appendChild(flexContainer)
+
         panelOptions.forEach((panelOptions, idx) => {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
@@ -43,7 +73,7 @@ export class BarController {
                 console.log('btn clicked', panelOptions)
                 extensionScaffold.showPanel(panelOptions.id)
             }
-            divBar.appendChild(btn)
+            flexContainer.appendChild(btn)
         })
     }
 }
