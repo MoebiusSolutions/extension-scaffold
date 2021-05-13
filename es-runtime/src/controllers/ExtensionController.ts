@@ -164,6 +164,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
             dragDiv.onpointerup = e => endResize(dragDiv, e)
         }
+        gridContainer.appendChild(r)
 
         return r as HTMLDivElement
     }
@@ -187,7 +188,6 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         const extPanel = document.createElement('div')
 
-        gridContainer.appendChild(outerPanel)
         outerPanel.appendChild(shadowDiv)
         shadow.appendChild(extPanel)
 
