@@ -12,6 +12,7 @@ async function loadExtensions() {
   await extensionScaffold.loadExtension('http://localhost:5000/build/ext-svelte-rollup.js')
   await extensionScaffold.loadExtension('http://localhost:9093/ext-react-webpack.js')
   await extensionScaffold.loadExtension('http://localhost:9094/dist/ext-lit-element.js')
+  await extensionScaffold.loadExtension('http://localhost:7080/display-rules/_dist_/ext-dr.js')
 }
 
 loadExtensions()

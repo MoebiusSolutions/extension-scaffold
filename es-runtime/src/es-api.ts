@@ -1,4 +1,5 @@
 import './es-runtime.css'
+import './theme.css'
 
 import { extensionScaffold } from './controllers/ExtensionController'
 
@@ -42,6 +43,8 @@ export interface ExtensionScaffoldApi {
     removePanel: (id: string) => boolean
     hidePanel: (id: string) => boolean
     showPanel: (id: string) => boolean
+    /** show if `id` is hidden, otherwise hide `id` */
+    togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
     /**

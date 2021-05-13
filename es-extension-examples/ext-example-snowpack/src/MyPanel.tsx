@@ -18,6 +18,9 @@ export const MyPanel: React.FC<{
     function handleRestore() {
         es.restorePanel('ext.example.snowpack')
     }
+    function handleClose() {
+        es.removePanel('ext.example.snowpack')
+    }
     function handleAddCenter() {
         es.addPanel({
             id: 'ext.example.snowpack.2',
@@ -45,6 +48,7 @@ export const MyPanel: React.FC<{
     </div>
         <button onClick={handleMaximize}>Maximize Me</button>
         <button onClick={handleRestore}>Restore Me</button>
+        <button onClick={handleClose}>Close Me</button>
         <button onClick={handleAddCenter}>Add Center</button>
         <button onClick={handleShowRollupPanel}>Show Rollup</button>
     </>
