@@ -9,15 +9,13 @@ export interface ResizeData {
 }
 
 var h = window.innerHeight
-function applyLeft(id: string,) {
-    return (rd: ResizeData, e: PointerEvent) => {
-        console.log('apply left', id)
-        const w = window.innerWidth
-        const dx = e.pageX - rd.origPageX
-        const newWidth = Math.min(Math.max(100, rd.origWidth + dx), w / 2 - 100)
+function applyLeft(rd: ResizeData, e: PointerEvent) {
+    const w = window.innerWidth
+    const dx = e.pageX - rd.origPageX
+    const newWidth = Math.min(Math.max(100, rd.origWidth + dx), w / 2 - 100)
 
-        rd.parentDiv.style.width = `${newWidth}px`
-    }
+    rd.parentDiv.style.width = `${newWidth}px`
+}
 }
 function applyTop(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
@@ -43,9 +41,9 @@ function applyBottom(rd: ResizeData, e: PointerEvent) {
 function doNothing() {
 }
 
-export function getApplyFunction(id: string, location: Location) {
+export function getApplyFunction(location: Location) {
     switch (location) {
-        case 'left': return applyLeft(id)
+        case 'left': return applyLeft
         case 'right': return applyRight
         case 'top': return applyTop
         case 'bottom': return applyBottom
