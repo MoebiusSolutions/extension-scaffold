@@ -25,9 +25,11 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer = gridContainer
         this.gridContainer.classList.add('grid-container')
     }
+
     loadExtension(url: string): Promise<void> {
         return import(url).then(activateExtension)
     }
+
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))
@@ -47,10 +49,10 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         const shadowDiv = document.createElement('div')
         shadowDiv.className = 'shadow-div'
-        shadowDiv.attachShadow({ mode: 'open'})
+        shadowDiv.attachShadow({ mode: 'open' })
         const shadow = shadowDiv.shadowRoot
         if (!shadow) {
-          throw new Error('Shadow root did not attach')
+            throw new Error('Shadow root did not attach')
         }
 
         const extPanel = document.createElement('div')
@@ -65,7 +67,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             const dragDiv = document.createElement("div")
             dragDiv.className = `drag drag-for-${options.location}`
             outerPanel.appendChild(dragDiv)
-            dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
+            dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.id, options.location))
             dragDiv.onpointerup = e => endResize(dragDiv, e)
         }
 
@@ -137,7 +139,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    loadWebpackScript({url, library}: LoadWebpackScriptOptions) {
+    loadWebpackScript({ url, library }: LoadWebpackScriptOptions) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script')
             script.type = 'text/javascript'
