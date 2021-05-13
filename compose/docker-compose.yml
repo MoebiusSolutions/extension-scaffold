@@ -129,13 +129,10 @@ services:
     working_dir: /home/node
     volumes:
       - "/etc/ssl/certs:/etc/ssl/certs"
-      - "./repos/:/home/node"
-    expose:
-      - 8080
-      - 8082
-      - 3000
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
     ports:
-      - "127.0.0.1:8082:8082"
+      - "127.0.0.1:7080:7080"
       - "127.0.0.1:3000:3000"
     environment: 
       - NPM_CONFIG_PREFIX=/home/node/.npm-global
