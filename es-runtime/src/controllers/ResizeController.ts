@@ -16,7 +16,7 @@ function applyLeft(rd: ResizeData, e: PointerEvent) {
 
     rd.parentDiv.style.width = `${newWidth}px`
 }
-}
+
 function applyTop(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
     const dy = e.pageY - rd.origPageY
