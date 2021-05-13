@@ -11,7 +11,7 @@ export class BarController {
         this.barLocation = location
     }
 
-    private addPanel(panelOptions: AddPanelOptions[]) {
+    private addPanel(panelOptions: AddPanelOptions[], shown: string | null) {
         extensionScaffold.addPanel({
             id: `es.runtime.${this.barLocation}`,
             location: this.barLocation,
@@ -19,14 +19,14 @@ export class BarController {
             initialWidthOrHeight: 'inherit'
           }).then(div => {
               this.divBar = div
-              this.updatePanel(panelOptions)
+              this.updatePanel(panelOptions, shown)
           })
     }
 
-    updatePanel(panelOptions: AddPanelOptions[]) {
+    updatePanel(panelOptions: AddPanelOptions[], shown: string | null) {
         const divBar = this.divBar
         if (!divBar) {
-            this.addPanel(panelOptions)
+            this.addPanel(panelOptions, shown)
             return
         }
 
@@ -52,7 +52,11 @@ export class BarController {
         }
         .es-bar-button:hover {
             background: rgba(0, 0, 0, 0.2);
-            color: white;
+            color: var(--es-theme-text-primary-on-background);
+        }
+        .es-bar-button.active {
+            font-weight: bold;
+            color: var(--es-theme-text-primary-on-background);
         }
         `
         divBar.appendChild(styleElement)
@@ -67,11 +71,14 @@ export class BarController {
         panelOptions.forEach((panelOptions, idx) => {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
+            if (panelOptions.id === shown) {
+                btn.classList.add('active')
+            }
             btn.title = panelOptions.title ?? ''
             btn.innerText = `B${idx}`
             btn.onclick = () => {
                 console.log('btn clicked', panelOptions)
-                extensionScaffold.showPanel(panelOptions.id)
+                extensionScaffold.togglePanel(panelOptions.id)
             }
             flexContainer.appendChild(btn)
         })

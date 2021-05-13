@@ -24,6 +24,9 @@ code {
   grid-template-columns: min-content min-content minmax(100px, 1fr) min-content min-content;
   grid-template-rows:    min-content min-content minmax(100px, 1fr) min-content min-content;
   height: 100vh;
+
+  background: var(--es-theme-surface, green);
+  color: var(--es-theme-text-secondary-on-background, orange)
 }
 
 .drag {
@@ -100,7 +103,7 @@ code {
 
 .center {
   grid-area: center;
-  background-color: lightblue;
+  background-color: rgba(0,0,0,.3)
 }
 
 .left-bar {

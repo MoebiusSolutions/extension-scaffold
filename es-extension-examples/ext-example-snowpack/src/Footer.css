@@ -1,0 +1,11 @@
+#ext.example.snowpack {
+    background-color: lightblue;
+}
+
+.footer {
+    background: darkgreen;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+}
