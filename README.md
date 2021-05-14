@@ -12,6 +12,8 @@ Extensions are free to use `iframes` to create a stronger barrier between extens
 but currently `ES` does not aid (or hinder) the use of `iframes`.
 Note that, like OWF widgets, extensions can be served from outside the "Same Origin" as the "hosting" webpage.
 
+![Screenshot](out/screenshot.png)
+
 ## Getting Started
 
 `ES` is delivered as a NPM module.
