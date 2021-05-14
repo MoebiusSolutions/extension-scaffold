@@ -1,9 +1,14 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location } from '../es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, Panels, Chrome } from '../es-api'
 import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
 import { BarController } from './BarController'
+import { PanelsImpl } from './PanelsImpl'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_FLEX = 'flex'
+
+class ChromeImpl implements Chrome {
+    readonly panels = new PanelsImpl()
+}
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
@@ -11,6 +16,8 @@ class ApiImpl implements ExtensionScaffoldApi {
     private rightBar = new BarController('right', 'right-bar')
 
     private gridContainer?: HTMLElement
+
+    readonly chrome = new ChromeImpl()
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {

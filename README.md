@@ -151,3 +151,7 @@ To do this follows these five steps:
    docker-compose restart es-demo
    ```
 5) Refresh browser
+
+# NOTES
+
+* Pop-out a panel to a new top-level browser tab.

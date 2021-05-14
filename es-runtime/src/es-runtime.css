@@ -26,7 +26,13 @@ code {
   height: 100vh;
 
   background: var(--es-theme-surface, green);
-  color: var(--es-theme-text-secondary-on-background, orange)
+  color: var(--es-theme-text-secondary-on-background, orange);
+}
+
+.pop-out-container {
+  background: var(--es-theme-surface, green);
+  color: var(--es-theme-text-secondary-on-background, orange);
+  height: 100vw;
 }
 
 .drag {
