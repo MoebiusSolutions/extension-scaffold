@@ -23,6 +23,7 @@ export interface AddPanelOptions {
     resizeHandle?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
     iframeSource?: string // injects an iframe if set
+    panelState?: string
 }
 
 export interface LoadWebpackScriptOptions {
@@ -30,6 +31,18 @@ export interface LoadWebpackScriptOptions {
     url: string
     /** Name of library injected onto window. Accessed as window[`${library}`] */
     library: string
+}
+
+export type PanelState = {
+    size: number
+    activeId: string | null
+}
+
+export interface GridState {
+    left: PanelState
+    right: PanelState
+    top: PanelState
+    bottom: PanelState
 }
 
 export interface ExtensionScaffoldApi {
@@ -47,6 +60,7 @@ export interface ExtensionScaffoldApi {
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
+    getGridState: () => GridState
     /**
      * Webpack does not currently have a non-experimental means to generate an ES module.
      * To workaround this issue, declare a small extension, that then calls this method.

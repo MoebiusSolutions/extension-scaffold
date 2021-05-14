@@ -1,9 +1,14 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location } from '../es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, GridState } from '../es-api'
 import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
 import { BarController } from './BarController'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_FLEX = 'flex'
+
+export const gridstate: GridState = {
+    left: { activeId: null, size: 0 }, right: { activeId: null, size: 0 },
+    top: { activeId: null, size: 0 }, bottom: { activeId: null, size: 0 }
+}
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
@@ -98,12 +103,14 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'bottom':
                     parent.style.display = 'none'
                     this.updateBars(location, null)
+                    gridstate[location].activeId = null
                     break;
 
                 case 'center':
                     div.style.display = 'none'
                     break;
             }
+            console.log('GRID STATE', gridstate)
         })
     }
     showPanel(id: string) {
@@ -118,12 +125,14 @@ class ApiImpl implements ExtensionScaffoldApi {
                     parent.style.display = DISPLAY_FLEX
                     div.style.display = 'block'
                     this.updateBars(location, id)
+                    gridstate[location].activeId = id
                     break;
 
                 case 'center':
                     div.style.display = 'block'
                     break;
             }
+            console.log('GRID STATE', gridstate)
         })
     }
     togglePanel(id: string) {
@@ -177,6 +186,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             document.head.appendChild(script)
         })
     }
+
+    getGridState() { return gridstate }
 
     private activateExtension(module: any, url: string) {
         console.debug('Activating', url)
