@@ -10,12 +10,16 @@ export const gridstate: GridState = {
     top: { activeId: null, size: 0 }, bottom: { activeId: null, size: 0 }
 }
 
+const _onChange = (gs: GridState) => { return }
+
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
 
     private gridContainer?: HTMLElement
+
+    private onGridChange = _onChange
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
@@ -110,7 +114,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                     div.style.display = 'none'
                     break;
             }
-            console.log('GRID STATE', gridstate)
+            this.onGridChange(gridstate)
         })
     }
     showPanel(id: string) {
@@ -132,7 +136,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                     div.style.display = 'block'
                     break;
             }
-            console.log('GRID STATE', gridstate)
+            this.onGridChange(gridstate)
         })
     }
     togglePanel(id: string) {
@@ -188,6 +192,8 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     getGridState() { return gridstate }
+
+    onGridStateChange(onChange: any) { this.onGridChange = onChange }
 
     private activateExtension(module: any, url: string) {
         console.debug('Activating', url)

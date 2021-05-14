@@ -61,6 +61,7 @@ export interface ExtensionScaffoldApi {
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
     getGridState: () => GridState
+    onGridStateChange: (onChange: (gs: GridState) => void) => void
     /**
      * Webpack does not currently have a non-experimental means to generate an ES module.
      * To workaround this issue, declare a small extension, that then calls this method.

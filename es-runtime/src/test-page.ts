@@ -1,12 +1,12 @@
 /*
  * This file is one example of how to use `es-runtime`.
  */
-import { extensionScaffold } from './es-api'
+import { extensionScaffold, GridState } from './es-api'
 
 
 async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
-  
+
   await extensionScaffold.loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
   await extensionScaffold.loadExtension('http://localhost:9092/ext-react-rollup.js')
   await extensionScaffold.loadExtension('http://localhost:5000/build/ext-svelte-rollup.js')
@@ -16,6 +16,11 @@ async function loadExtensions() {
 }
 
 loadExtensions()
+
+const onGridChange = (gs: GridState) => { console.log('XXXXX', gs) }
+
+extensionScaffold.onGridStateChange(onGridChange)
+
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
