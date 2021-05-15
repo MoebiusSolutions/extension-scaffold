@@ -1,6 +1,8 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, GridState, Events } from '../es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, GridState, Chrome } from '../es-api'
+
 import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
 import { BarController } from './BarController'
+import { PanelsImpl } from './PanelsImpl'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { Event, use_Event } from './event'
 
@@ -10,7 +12,9 @@ export const gridstate: GridState = {
     left: { activeId: null, size: 0 }, right: { activeId: null, size: 0 },
     top: { activeId: null, size: 0 }, bottom: { activeId: null, size: 0 }
 }
-
+class ChromeImpl implements Chrome {
+    readonly panels = new PanelsImpl()
+}
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
@@ -22,6 +26,7 @@ class ApiImpl implements ExtensionScaffoldApi {
     useEvent(type: Event) {
         return use_Event(type)
     }
+    readonly chrome = new ChromeImpl()
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
@@ -100,6 +105,10 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     hidePanel(id: string) {
+        if (this.chrome.panels.isPoppedOut(id)) {
+            this.chrome.panels.popInPanel(id)
+        }
+
         return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
             switch (location) {
@@ -121,7 +130,12 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     showPanel(id: string) {
+        if (this.chrome.panels.isPoppedOut(id)) {
+            this.chrome.panels.focusPopOut(id)
+            return true
+        }
         return withPanel(id, (parent, div) => {
+
             const location = locationFromDiv(parent)
             hidePanelsWithLocation(location)
             switch (location) {
@@ -144,6 +158,11 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     togglePanel(id: string) {
+        if (this.chrome.panels.isPoppedOut(id)) {
+            this.chrome.panels.popInPanel(id)
+            return true
+        }
+
         return withPanel(id, (parent, div) => {
             if (parent.style.display !== 'none' && div.style.display !== 'none') {
                 this.hidePanel(id)

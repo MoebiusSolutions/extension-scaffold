@@ -11,6 +11,7 @@
     "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
+    "@gots/es-runtime": "file:../../es-runtime/gots-es-runtime-0.7.0.tgz",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },

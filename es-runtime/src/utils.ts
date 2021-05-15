@@ -13,8 +13,8 @@ export function hidePanelsWithLocation(location: string) {
     }
 }
 
-export function withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivElement) => void) {
-    const div = document.getElementById(id) as HTMLDivElement
+export function withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivElement) => void, ownerDocument: HTMLDocument = window.document): boolean {
+    const div = ownerDocument.getElementById(id) as HTMLDivElement
     if (!div) {
         console.warn('Panel id not found', id)
         return false
