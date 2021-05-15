@@ -41,15 +41,21 @@ export const MyPanel: React.FC<{
     function handleShowRollupPanel() {
         es.showPanel('ext.example.rollup')
     }
+    function handleShowSnowpack() {
+        es.showPanel('ext.snowpack.left')
+    }
 
     return <><div className='MyPanel' onClick={handleClick}>
         MyPanel - snowpack - with a whole lot of text so that if a panel is over this Panel
         you can still see that something is here.
     </div>
-        <button onClick={handleMaximize}>Maximize Me</button>
+    <div className='buttons'>
+    <button onClick={handleMaximize}>Maximize Me</button>
         <button onClick={handleRestore}>Restore Me</button>
         <button onClick={handleClose}>Close Me</button>
         <button onClick={handleAddCenter}>Add Center</button>
         <button onClick={handleShowRollupPanel}>Show Rollup</button>
+        <button onClick={handleShowSnowpack}>Show Snowpack</button>
+    </div>
     </>
 }

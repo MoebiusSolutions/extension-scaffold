@@ -32,7 +32,18 @@ export interface LoadWebpackScriptOptions {
     library: string
 }
 
+export interface Panels {
+    popOutPanel: (id: string) => boolean
+    popInPanel: (id: string) => boolean
+    isPoppedOut: (id: string) => boolean
+}
+export interface Chrome {
+    readonly panels: Panels
+}
+
 export interface ExtensionScaffoldApi {
+    readonly chrome: Chrome
+
     boot: (gridContainer: HTMLElement | null) => void
 
     loadExtension: (url: string) => void

@@ -41,7 +41,7 @@ export class BarController {
         styleElement.setAttribute('type', 'text/css')
         styleElement.textContent = `
         .es-bar {
-            background: rgba(255, 255, 255, 0.3)
+            background: rgba(255, 255, 255, 0.2)
         }
         .es-bar-button {
             background: transparent;
