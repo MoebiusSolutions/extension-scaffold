@@ -3,5 +3,11 @@
 }
 
 .MyPanel {
-    background-color: lightgreen;
+    background-color: gray;
+    color: black;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
 }

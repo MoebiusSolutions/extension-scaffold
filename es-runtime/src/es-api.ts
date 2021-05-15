@@ -34,6 +34,8 @@ export interface LoadWebpackScriptOptions {
 
 export interface Panels {
     popOutPanel: (id: string) => boolean
+    popInPanel: (id: string) => boolean
+    isPoppedOut: (id: string) => boolean
 }
 export interface Chrome {
     readonly panels: Panels

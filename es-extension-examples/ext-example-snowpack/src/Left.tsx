@@ -10,6 +10,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     function handlePopOut() {
         es.chrome.panels.popOutPanel('ext.snowpack.left')
     }
+    function handlePopIn() {
+        es.chrome.panels.popInPanel('ext.snowpack.left')
+    }
+    function handleHide() {
+        es.hidePanel('ext.snowpack.left')
+    }
 
     return <div style={{
         padding: '1em',
@@ -21,6 +27,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         </div>
         <div>
             <button onClick={handlePopOut}>Pop Out</button>
+        </div>
+        <div>
+            <button onClick={handlePopIn}>Pop In</button>
+        </div>
+        <div>
+            <button onClick={handleHide}>X</button>
         </div>
     </div>
 }

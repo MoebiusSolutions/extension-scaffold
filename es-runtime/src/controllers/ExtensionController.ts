@@ -94,6 +94,10 @@ class ApiImpl implements ExtensionScaffoldApi {
     }
 
     hidePanel(id: string) {
+        if (this.chrome.panels.isPoppedOut(id)) {
+            this.chrome.panels.popInPanel(id)
+        }
+
         return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
             switch (location) {
@@ -112,7 +116,12 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
     showPanel(id: string) {
+        if (this.chrome.panels.isPoppedOut(id)) {
+            this.chrome.panels.focusPopOut(id)
+            return true
+        }
         return withPanel(id, (parent, div) => {
+
             const location = locationFromDiv(parent)
             hidePanelsWithLocation(location)
             switch (location) {
@@ -132,6 +141,11 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
     togglePanel(id: string) {
+        if (this.chrome.panels.isPoppedOut(id)) {
+            this.chrome.panels.popInPanel(id)
+            return true
+        }
+
         return withPanel(id, (parent, div) => {
             if (parent.style.display !== 'none' && div.style.display !== 'none') {
                 this.hidePanel(id)
