@@ -1,5 +1,5 @@
 import type { Location } from '../es-api'
-import { gridstate } from './ExtensionController'
+import { extensionScaffold, gridstate } from './ExtensionController'
 export interface ResizeData {
     parentDiv: HTMLElement
     origPageX: number
@@ -82,7 +82,7 @@ export function beginResize(
 }
 
 export function endResize(dragDiv: HTMLDivElement, e: PointerEvent) {
-    console.log('GRID STATE', gridstate)
+    extensionScaffold.useEvent('grid-changed').emit(gridstate)
     dragDiv.onpointermove = null
     dragDiv.releasePointerCapture(e.pointerId)
 }

@@ -2,7 +2,9 @@
  * This file is one example of how to use `es-runtime`.
  */
 import { extensionScaffold, GridState } from './es-api'
+//import type { gridstate } from './controllers/ExtensionController'
 
+//const ee = new EventEmitter()
 
 async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
@@ -17,10 +19,7 @@ async function loadExtensions() {
 
 loadExtensions()
 
-const onGridChange = (gs: GridState) => { console.log('XXXXX', gs) }
-
-extensionScaffold.onGridStateChange(onGridChange)
-
+extensionScaffold.useEvent('grid-changed').on((gs) => { console.log('Pane!', gs) })
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement

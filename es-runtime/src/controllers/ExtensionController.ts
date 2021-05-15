@@ -1,7 +1,8 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, GridState } from '../es-api'
+import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, GridState, Events } from '../es-api'
 import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
 import { BarController } from './BarController'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
+import { Event, use_Event } from './event'
 
 const DISPLAY_FLEX = 'flex'
 
@@ -10,7 +11,6 @@ export const gridstate: GridState = {
     top: { activeId: null, size: 0 }, bottom: { activeId: null, size: 0 }
 }
 
-const _onChange = (gs: GridState) => { return }
 
 class ApiImpl implements ExtensionScaffoldApi {
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
@@ -19,7 +19,9 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     private gridContainer?: HTMLElement
 
-    private onGridChange = _onChange
+    useEvent(type: Event) {
+        return use_Event(type)
+    }
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
@@ -114,9 +116,10 @@ class ApiImpl implements ExtensionScaffoldApi {
                     div.style.display = 'none'
                     break;
             }
-            this.onGridChange(gridstate)
+            use_Event('grid-changed').emit(gridstate)
         })
     }
+
     showPanel(id: string) {
         return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
@@ -136,9 +139,10 @@ class ApiImpl implements ExtensionScaffoldApi {
                     div.style.display = 'block'
                     break;
             }
-            this.onGridChange(gridstate)
+            use_Event('grid-changed').emit(gridstate)
         })
     }
+
     togglePanel(id: string) {
         return withPanel(id, (parent, div) => {
             if (parent.style.display !== 'none' && div.style.display !== 'none') {
@@ -191,10 +195,6 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    getGridState() { return gridstate }
-
-    onGridStateChange(onChange: any) { this.onGridChange = onChange }
-
     private activateExtension(module: any, url: string) {
         console.debug('Activating', url)
         if (module.activate) {
@@ -220,6 +220,7 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         return r as HTMLDivElement
     }
+
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
@@ -252,10 +253,12 @@ class ApiImpl implements ExtensionScaffoldApi {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, [options, ...stack]) // needed for first time
     }
+
     private popLocation(location: Location, id: string) {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, stack.filter(opt => opt.id !== id)) // needed for first time
     }
+
     private panelsAtLocation(location: Location) {
         return this.locationStack.get(location) ?? []
     }
@@ -285,7 +288,6 @@ class ApiImpl implements ExtensionScaffoldApi {
                 break;
         }
     }
-
 }
 
 export const extensionScaffold = new ApiImpl()
