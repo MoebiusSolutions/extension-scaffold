@@ -32,7 +32,7 @@ code {
 .pop-out-container {
   background: var(--es-theme-surface, green);
   color: var(--es-theme-text-secondary-on-background, orange);
-  height: 100vw;
+  height: 100%;
 }
 
 .drag {
@@ -60,7 +60,7 @@ code {
   cursor: ew-resize;
 }
 .drag-for-left:hover, .drag-for-right:hover {
-  background: blue;
+  background: rgb(25 112 179);
   z-index: 1;
 }
 
