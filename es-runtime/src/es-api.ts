@@ -1,8 +1,8 @@
 import './es-runtime.css'
 import './theme.css'
-import type { Event, EventMethods } from './controllers/event'
 
 import { extensionScaffold } from './controllers/ExtensionController'
+import type EventEmitter from 'events'
 
 export type Location =
     'header' |
@@ -17,6 +17,13 @@ export type Location =
     'center' |
     'footer'
 
+export type SubLocation =
+    'left' |
+    'right' |
+    'top' |
+    'bottom'
+
+export type Event = 'grid-changed'
 
 export interface AddPanelOptions {
     location: Location
@@ -46,6 +53,7 @@ export interface GridState {
     top: PanelState
     bottom: PanelState
 }
+
 export interface Panels {
     popOutPanel: (id: string) => boolean
     popInPanel: (id: string) => boolean
@@ -57,10 +65,9 @@ export interface Chrome {
 
 export interface ExtensionScaffoldApi {
     readonly chrome: Chrome
+    readonly events: EventEmitter
 
     boot: (gridContainer: HTMLElement | null) => void
-
-    useEvent: (type: Event) => EventMethods
 
     loadExtension: (url: string) => void
 
@@ -74,6 +81,8 @@ export interface ExtensionScaffoldApi {
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
+    setPanelState: (location: SubLocation, state: PanelState) => void
+    setGridState: (state: GridState) => void
 
     /**
      * Webpack does not currently have a non-experimental means to generate an ES module.

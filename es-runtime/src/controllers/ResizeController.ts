@@ -82,7 +82,7 @@ export function beginResize(
 }
 
 export function endResize(dragDiv: HTMLDivElement, e: PointerEvent) {
-    extensionScaffold.useEvent('grid-changed').emit(gridstate)
+    extensionScaffold.events.emit('grid-changed', gridstate)
     dragDiv.onpointermove = null
     dragDiv.releasePointerCapture(e.pointerId)
 }

@@ -1,13 +1,20 @@
 /*
  * This file is one example of how to use `es-runtime`.
  */
-import { extensionScaffold, GridState } from './es-api'
+import { extensionScaffold, PanelState, GridState } from './es-api'
 //import type { gridstate } from './controllers/ExtensionController'
 
 //const ee = new EventEmitter()
 
 async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
+
+  const gridstate: GridState = {
+    left: { activeId: null, size: 350 }, right: { activeId: null, size: 300 },
+    top: { activeId: null, size: 100 }, bottom: { activeId: null, size: 170 }
+  }
+
+  //extensionScaffold.setGridState(gridstate)
 
   await extensionScaffold.loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
   await extensionScaffold.loadExtension('http://localhost:9092/ext-react-rollup.js')
@@ -19,7 +26,12 @@ async function loadExtensions() {
 
 loadExtensions()
 
-extensionScaffold.useEvent('grid-changed').on((gs) => { console.log('Pane!', gs) })
+extensionScaffold.events.on('grid-changed', (gs) => { console.log('Pane!', gs) })
+
+//const ps: PanelState = { size: 400, activeId: null }
+
+//setTimeout(() => extensionScaffold.setPanelState('left', ps), 2000)
+
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement

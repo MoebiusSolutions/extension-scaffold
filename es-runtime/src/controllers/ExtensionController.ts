@@ -1,10 +1,13 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, GridState, Chrome } from '../es-api'
+import type {
+    ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions,
+    Location, GridState, Chrome, PanelState, SubLocation
+} from '../es-api'
 
-import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
+import { hidePanelsWithLocation, locationFromDiv, withPanel, setState } from '../utils'
 import { BarController } from './BarController'
 import { PanelsImpl } from './PanelsImpl'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
-import { Event, use_Event } from './event'
+import EventEmitter from 'events'
 
 const DISPLAY_FLEX = 'flex'
 
@@ -17,16 +20,16 @@ class ChromeImpl implements Chrome {
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
+
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
 
     private gridContainer?: HTMLElement
 
-    useEvent(type: Event) {
-        return use_Event(type)
-    }
+
     readonly chrome = new ChromeImpl()
+    readonly events = new EventEmitter()
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
@@ -53,7 +56,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
 
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
-
+        this.set_State(outerPanel, options.location)
         if (options.iframeSource) {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
@@ -125,7 +128,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                     div.style.display = 'none'
                     break;
             }
-            use_Event('grid-changed').emit(gridstate)
+            this.events.emit('grid-changed', gridstate)
         })
     }
 
@@ -153,7 +156,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                     div.style.display = 'block'
                     break;
             }
-            use_Event('grid-changed').emit(gridstate)
+            this.events.emit('grid-changed', gridstate)
         })
     }
 
@@ -192,6 +195,18 @@ class ApiImpl implements ExtensionScaffoldApi {
             parent.style.right = ''
             parent.style.zIndex = ''
         })
+    }
+
+    setPanelState(loc: SubLocation, state: PanelState) {
+        if (this.gridContainer)
+            setState(this.gridContainer, loc, state)
+    }
+
+    setGridState(state: GridState) {
+        gridstate.bottom = { ...state.bottom }
+        gridstate.left = { ...state.left }
+        gridstate.right = { ...state.right }
+        gridstate.top = { ...state.top }
     }
 
     loadWebpackScript({ url, library }: LoadWebpackScriptOptions) {
@@ -238,6 +253,25 @@ class ApiImpl implements ExtensionScaffoldApi {
         gridContainer.appendChild(r)
 
         return r as HTMLDivElement
+    }
+
+    private set_State(panel: HTMLDivElement, loc: Location) {
+        if (loc === 'left' && gridstate.left.size > 0) {
+            console.log('setState-left', gridstate.left.size)
+            panel.style.width = `${gridstate.left.size}px`
+        }
+        else if (loc === 'right' && gridstate.right.size > 0) {
+            console.log('setState-right', gridstate.right.size)
+            panel.style.width = `${gridstate.right.size}px`
+        }
+        else if (loc === 'top' && gridstate.top.size > 0) {
+            console.log('setState-top', gridstate.top.size)
+            panel.style.height = `${gridstate.top.size}px`
+        }
+        else if (loc === 'bottom' && gridstate.bottom.size > 0) {
+            console.log('setState-bottom', gridstate.bottom.size)
+            panel.style.height = `${gridstate.bottom.size}px`
+        }
     }
 
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
