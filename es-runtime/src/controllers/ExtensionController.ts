@@ -157,23 +157,13 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     maximizePanel(id: string) {
         withPanel(id, (parent, div) => {
-            parent.style.position = 'absolute'
-            parent.style.top = '0px'
-            parent.style.bottom = '0px'
-            parent.style.left = '0px'
-            parent.style.right = '0px'
-            parent.style.zIndex = '10'
+            parent.classList.add('grid-maximized')
         })
     }
 
     restorePanel(id: string) {
         withPanel(id, (parent, div) => {
-            parent.style.position = ''
-            parent.style.top = ''
-            parent.style.bottom = ''
-            parent.style.left = ''
-            parent.style.right = ''
-            parent.style.zIndex = ''
+            parent.classList.remove('grid-maximized')
         })
     }
 
@@ -226,9 +216,8 @@ class ApiImpl implements ExtensionScaffoldApi {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
         outerPanel.style.display = DISPLAY_FLEX
-        // Note: the classList order matters see locationFromDiv
         outerPanel.classList.add('grid-panel')
-        outerPanel.classList.add(options.location)
+        outerPanel.classList.add(options.location) // Other code searches for this class name
 
         const shadowDiv = document.createElement('div')
         shadowDiv.id = options.id

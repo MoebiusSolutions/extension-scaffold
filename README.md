@@ -165,4 +165,23 @@ To do this follows these five steps:
 
 # NOTES
 
-* Pop-out a panel to a new top-level browser tab.
+```
+<div class="grid-portal grid-maximized" style="
+    grid-row: 2/5;
+    grid-column: 2/5;
+    z-index: 3; /* above maximize */
+    position: relative;
+">
+
+<div style="
+    position: absolute;
+    top: 0px;
+    left: 20vw;
+    width: 60vw;
+    height: 5em;
+    background: lightpink;
+">Ribbon Panel</div>
+
+
+</div>
+```
