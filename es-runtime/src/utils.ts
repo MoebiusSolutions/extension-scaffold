@@ -1,4 +1,4 @@
-import type { Location } from "./es-api"
+import { LOCATIONS } from "./es-api"
 
 export function hidePanelsWithLocation(location: string) {
     for (const el of document.getElementsByClassName(location)) {
@@ -10,6 +10,12 @@ export function hidePanelsWithLocation(location: string) {
                 child.style.display = 'none'
             }
         }
+    }
+}
+
+export function restorePanelsWithLocation(location: string) {
+    for (const el of document.getElementsByClassName(location)) {
+        el.classList.remove('grid-maximized')
     }
 }
 
@@ -29,5 +35,9 @@ export function withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivEl
 }
 
 export function locationFromDiv(div: HTMLDivElement) {
-    return div.classList[1] as Location
+    const r = LOCATIONS.find(loc => div.classList.contains(loc))
+    if (r) {
+        return r
+    }
+    throw new Error('Div does not have a location class')
 }
