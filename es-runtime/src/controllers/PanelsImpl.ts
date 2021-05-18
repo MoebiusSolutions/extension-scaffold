@@ -41,7 +41,7 @@ export class PanelsImpl implements Panels {
             }
             return { extWindow, popOutContainer }
         } else {
-            extWindow = window.open('', id, 'resizable,scrollbars')
+            extWindow = window.open('', id)
             if (!extWindow) {
                 throw new Error('Unable to create pop out window')
             }
