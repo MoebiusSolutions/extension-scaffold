@@ -82,7 +82,6 @@ export class BarController {
             btn.title = panelOptions.title ?? ''
             btn.innerText = `B${idx}`
             btn.onclick = () => {
-                console.log('btn clicked', panelOptions)
                 extensionScaffold.togglePanel(panelOptions.id)
             }
             flexContainer.appendChild(btn)
