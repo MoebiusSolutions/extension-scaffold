@@ -56,7 +56,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
 
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
-        this.set_State(outerPanel, options.location)
+        this.set_State(outerPanel, extPanel, options)
         if (options.iframeSource) {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
@@ -255,22 +255,48 @@ class ApiImpl implements ExtensionScaffoldApi {
         return r as HTMLDivElement
     }
 
-    private set_State(panel: HTMLDivElement, loc: Location) {
-        if (loc === 'left' && gridstate.left.size > 0) {
-            console.log('setState-left', gridstate.left.size)
-            panel.style.width = `${gridstate.left.size}px`
+    private setActive(extPanel: HTMLDivElement, options: AddPanelOptions) {
+        if (gridstate.left.activeId) {
+            extPanel.classList.add('active')
+            this.showPanel(options.id)
+            console.log('setActive add', options.id)
         }
-        else if (loc === 'right' && gridstate.right.size > 0) {
-            console.log('setState-right', gridstate.right.size)
-            panel.style.width = `${gridstate.right.size}px`
+        else {
+            extPanel.classList.remove('active')
+            this.hidePanel(options.id)
+            console.log('setActive remove', options.id)
         }
-        else if (loc === 'top' && gridstate.top.size > 0) {
-            console.log('setState-top', gridstate.top.size)
-            panel.style.height = `${gridstate.top.size}px`
+    }
+
+    private set_State(panel: HTMLDivElement, extPanel: HTMLDivElement, options: AddPanelOptions) {
+        const loc = options.location
+        if (loc === 'left') {
+            console.log('setState-left', gridstate.left)
+            this.setActive(extPanel, options)
+            if (gridstate.left.size > 0) {
+                panel.style.width = `${gridstate.left.size}px`
+            }
         }
-        else if (loc === 'bottom' && gridstate.bottom.size > 0) {
-            console.log('setState-bottom', gridstate.bottom.size)
-            panel.style.height = `${gridstate.bottom.size}px`
+        else if (loc === 'right') {
+            this.setActive(extPanel, options)
+            if (gridstate.right.size > 0) {
+                console.log('setState-right', gridstate.right)
+                panel.style.width = `${gridstate.right.size}px`
+            }
+        }
+        else if (loc === 'top') {
+            this.setActive(extPanel, options)
+            if (gridstate.top.size > 0) {
+                console.log('setState-top', gridstate.top.size)
+                panel.style.height = `${gridstate.top.size}px`
+            }
+        }
+        else if (loc === 'bottom') {
+            this.setActive(extPanel, options)
+            if (gridstate.bottom.size > 0) {
+                console.log('setState-bottom', gridstate.bottom.size)
+                panel.style.height = `${gridstate.bottom.size}px`
+            }
         }
     }
 

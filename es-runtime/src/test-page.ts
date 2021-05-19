@@ -10,11 +10,11 @@ async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
 
   const gridstate: GridState = {
-    left: { activeId: null, size: 350 }, right: { activeId: null, size: 300 },
+    left: { activeId: "ext.snowpack.left", size: 350 }, right: { activeId: null, size: 300 },
     top: { activeId: null, size: 100 }, bottom: { activeId: null, size: 170 }
   }
 
-  //extensionScaffold.setGridState(gridstate)
+  extensionScaffold.setGridState(gridstate)
 
   await extensionScaffold.loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
   await extensionScaffold.loadExtension('http://localhost:9092/ext-react-rollup.js')
