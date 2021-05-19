@@ -1,5 +1,6 @@
 import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, Panels, Chrome } from '../es-api'
-import { hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation, withPanel } from '../utils'
+import { LocationStack } from '../models/LocationStack'
+import { hidePanelsWithLocation, locationFromDiv, withPanel, withGrid } from '../utils'
 import { BarController } from './BarController'
 import { PanelsImpl } from './PanelsImpl'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
@@ -11,7 +12,7 @@ class ChromeImpl implements Chrome {
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
-    private readonly locationStack = new Map<Location, AddPanelOptions[]>()
+    private readonly locationStack = new LocationStack()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
 
@@ -25,6 +26,10 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
         this.gridContainer = gridContainer
         this.gridContainer.classList.add('grid-container')
+
+        const gridPortal = document.createElement('div')
+        gridPortal.classList.add('grid-portal')
+        this.gridContainer.append(gridPortal)
     }
     loadExtension(url: string): Promise<void> {
         return import(url).then((module) => this.activateExtension(module, url))
@@ -40,9 +45,10 @@ class ApiImpl implements ExtensionScaffoldApi {
         hidePanelsWithLocation(options.location)
 
         const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
-
+        outerPanel.style.display = DISPLAY_FLEX
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
 
+        // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
@@ -62,7 +68,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             extPanel.style.height = '100%'
         }
 
-        this.pushLocation(options.location, options)
+        this.locationStack.pushLocation(options.location, options)
         this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
@@ -73,7 +79,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         return withPanel(id, (parent, div) => {
             div.remove()
             const location = locationFromDiv(parent)
-            this.popLocation(location, id)
+            this.locationStack.popLocation(location, id)
             const stack = this.locationStack.get(location)
             if (!stack) {
                 console.error('Class name list changed since there is no location stack', location)
@@ -206,67 +212,76 @@ class ApiImpl implements ExtensionScaffoldApi {
     private getOrCreateOuterPanel(gridContainer: HTMLElement, options: AddPanelOptions): HTMLDivElement {
         let r = gridContainer.querySelector(`.${options.location}`)
         if (r) {
+            if (options.resizeHandle && r.querySelectorAll('.drag').length === 0) {
+                r.appendChild(this.makeResizeHandle(options))
+            }
             return r as HTMLDivElement
         }
 
         r = document.createElement('div')
         if (options.resizeHandle) {
-            const dragDiv = document.createElement("div")
-            dragDiv.className = `drag drag-for-${options.location}`
-            r.appendChild(dragDiv)
-            dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
-            dragDiv.onpointerup = e => endResize(dragDiv, e)
+            r.appendChild(this.makeResizeHandle(options))
         }
         gridContainer.appendChild(r)
 
         return r as HTMLDivElement
     }
+    private makeResizeHandle(options: AddPanelOptions) {
+        const dragDiv = document.createElement('div')
+        dragDiv.className = `drag drag-for-${options.location}`
+        dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
+        dragDiv.onpointerup = e => endResize(dragDiv, e)
+        return dragDiv
+    }
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
-        outerPanel.style.display = DISPLAY_FLEX
         outerPanel.classList.add('grid-panel')
         outerPanel.classList.add(options.location) // Other code searches for this class name
 
-        const shadowDiv = document.createElement('div')
+        const { shadowDiv, extPanel } = this.makeShadowDomDivs(outerPanel)
         shadowDiv.id = options.id
         shadowDiv.className = 'shadow-div'
-        shadowDiv.attachShadow({ mode: 'open'})
-        const shadow = shadowDiv.shadowRoot
-        if (!shadow) {
-          throw new Error('Shadow root did not attach')
-        }
-
-        const extPanel = document.createElement('div')
-
-        outerPanel.appendChild(shadowDiv)
-        shadow.appendChild(extPanel)
 
         return {
             outerPanel,
-            extPanel
+            shadowDiv,
+            extPanel,
         }
     }
 
-    private pushLocation(location: Location, options: AddPanelOptions) {
-        const stack = this.locationStack.get(location) ?? []
-        this.locationStack.set(location, [options, ...stack]) // needed for first time
-    }
-    private popLocation(location: Location, id: string) {
-        const stack = this.locationStack.get(location) ?? []
-        this.locationStack.set(location, stack.filter(opt => opt.id !== id)) // needed for first time
-    }
-    private panelsAtLocation(location: Location) {
-        return this.locationStack.get(location) ?? []
+    /**
+     * Creates a tree of `div` elements:
+     * `outerPanel` -> `shadowDiv` -> `shadowRoot` -> `extPanel`
+     * 
+     * @param outerPanel 
+     * @returns 
+     */
+
+    private makeShadowDomDivs(outerPanel: HTMLDivElement) {
+        const shadowDiv = document.createElement('div')
+        shadowDiv.attachShadow({ mode: 'open'})
+        const shadowRoot = shadowDiv.shadowRoot
+        if (!shadowRoot) {
+          throw new Error('Shadow root did not attach')
+        }
+        const extPanel = document.createElement('div')
+
+        outerPanel.appendChild(shadowDiv)
+        shadowRoot.appendChild(extPanel)
+
+        return {
+            shadowDiv, extPanel
+        }
     }
 
     private updateBars(location: Location) {
         switch (location) {
             case 'left':
-                this.leftBar.updatePanel(this.panelsAtLocation(location))
+                this.leftBar.updatePanel(this.locationStack.panelsAtLocation(location))
                 break;
             case 'right':
-                this.rightBar.updatePanel(this.panelsAtLocation(location))
+                this.rightBar.updatePanel(this.locationStack.panelsAtLocation(location))
                 break;
         }
     }
