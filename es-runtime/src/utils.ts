@@ -1,4 +1,5 @@
-import type { Location, PanelState } from "./es-api"
+import type { PanelState } from "./es-api"
+import { LOCATIONS } from "./es-api"
 
 export function hidePanelsWithLocation(location: string) {
     for (const el of document.getElementsByClassName(location)) {
@@ -26,6 +27,12 @@ export function setState(gridContainer: HTMLElement, loc: string, state: PanelSt
     }
 }
 
+export function restorePanelsWithLocation(location: string) {
+    for (const el of document.getElementsByClassName(location)) {
+        el.classList.remove('grid-maximized')
+    }
+}
+
 export function withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivElement) => void, ownerDocument: HTMLDocument = window.document): boolean {
     console.log('withPanel ID', id)
     const div = ownerDocument.getElementById(id) as HTMLDivElement
@@ -43,5 +50,9 @@ export function withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivEl
 }
 
 export function locationFromDiv(div: HTMLDivElement) {
-    return div.classList[1] as Location
+    const r = LOCATIONS.find(loc => div.classList.contains(loc))
+    if (r) {
+        return r
+    }
+    throw new Error('Div does not have a location class')
 }

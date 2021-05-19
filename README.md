@@ -10,7 +10,18 @@ while, `ES` uses JavaScript `modules` to mostly isolate JavaScript code,
 and HTML5 Shadow DOM to mostly isolate unwanted CSS interactions.
 Extensions are free to use `iframes` to create a stronger barrier between extensions,
 but currently `ES` does not aid (or hinder) the use of `iframes`.
-Note that, like OWF widgets, extensions can be served from outside the "Same Origin" as the "hosting" webpage.
+In order to quickly port the `display-rule` and `aeolus` examples `iframes` were used.
+Without them, the location of relative assets would need to be updated, since
+all requests are relative to the "hosting" page.
+Non-`iframe` extensions can be served from outside the "Same Origin" as the "hosting" webpage
+since the browser JavaScript module loader allows this.
+
+> Note: A known downside to using an `iframe`, is a re-initialization "flicker/flash" effect
+> that happens if an `iframe` is removed from the DOM and added back to the DOM.
+> When a panel containing and `iframe` is "popped-out" into its own top-level window,
+> or "popped-in" to a panel, it *will* trigger the browser re-initialization behavior.
+
+Below is a screenshot of a "hosting" page and several extensions loaded:
 
 ![Screenshot](out/screenshot.png)
 
@@ -154,4 +165,23 @@ To do this follows these five steps:
 
 # NOTES
 
-* Pop-out a panel to a new top-level browser tab.
+```
+<div class="grid-portal grid-maximized" style="
+    grid-row: 2/5;
+    grid-column: 2/5;
+    z-index: 3; /* above maximize */
+    position: relative;
+">
+
+<div style="
+    position: absolute;
+    top: 0px;
+    left: 20vw;
+    width: 60vw;
+    height: 5em;
+    background: lightpink;
+">Ribbon Panel</div>
+
+
+</div>
+```
