@@ -11,7 +11,7 @@ export class BarController {
         this.barLocation = location
     }
 
-    private addPanel(panelOptions: AddPanelOptions[], shown: string | null) {
+    private addPanel(panelOptions: AddPanelOptions[]) {
         extensionScaffold.addPanel({
             id: `es.runtime.${this.barLocation}`,
             location: this.barLocation,
@@ -19,14 +19,14 @@ export class BarController {
             initialWidthOrHeight: 'inherit'
           }).then(div => {
               this.divBar = div
-              this.updatePanel(panelOptions, shown)
+              this.updatePanel(panelOptions)
           })
     }
 
-    updatePanel(panelOptions: AddPanelOptions[], shown: string | null) {
+    updatePanel(panelOptions: AddPanelOptions[]) {
         const divBar = this.divBar
         if (!divBar) {
-            this.addPanel(panelOptions, shown)
+            this.addPanel(panelOptions)
             return
         }
 
@@ -68,11 +68,16 @@ export class BarController {
         flexContainer.style.flexDirection = 'column'
         divBar.appendChild(flexContainer)
 
+        const oneIsMaximized = document.querySelectorAll('.grid-maximized').length > 0
+
         panelOptions.forEach((panelOptions, idx) => {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
-            if (panelOptions.id === shown) {
-                btn.classList.add('active')
+            const panelDiv = document.getElementById(panelOptions.id)
+            if (panelDiv?.style.display !== 'none' && !oneIsMaximized) {
+                if (panelDiv?.parentElement?.style.display !== 'none') {
+                    btn.classList.add('active')
+                }
             }
             btn.title = panelOptions.title ?? ''
             btn.innerText = `B${idx}`

@@ -3,18 +3,21 @@ import './theme.css'
 
 import { extensionScaffold } from './controllers/ExtensionController'
 
-export type Location =
-    'header' |
-    'above-left' |
-    'above-right' |
-    'left-bar' |
-    'right-bar' |
-    'left' |
-    'right' |
-    'top' |
-    'bottom' |
-    'center' |
-    'footer'
+export const LOCATIONS = [
+    'header',
+    'above-left',
+    'above-right',
+    'left-bar',
+    'right-bar',
+    'left',
+    'right',
+    'top',
+    'bottom',
+    'center',
+    'footer',
+] as const
+
+export type Location = typeof LOCATIONS[number]
 
 export interface AddPanelOptions {
     location: Location

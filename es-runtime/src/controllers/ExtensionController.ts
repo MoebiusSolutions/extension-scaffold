@@ -1,5 +1,5 @@
 import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, Panels, Chrome } from '../es-api'
-import { hidePanelsWithLocation, locationFromDiv, withPanel } from '../utils'
+import { hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation, withPanel } from '../utils'
 import { BarController } from './BarController'
 import { PanelsImpl } from './PanelsImpl'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
@@ -63,7 +63,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
 
         this.pushLocation(options.location, options)
-        this.updateBars(options.location, options.id)
+        this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
 
@@ -89,7 +89,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 return
             }
             nextDiv.style.display = 'block'
-            this.updateBars(location, null)
+            this.updateBars(location)
         })
     }
 
@@ -106,7 +106,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'top':
                 case 'bottom':
                     parent.style.display = 'none'
-                    this.updateBars(location, null)
+                    this.updateBars(location)
                     break;
 
                 case 'center':
@@ -120,6 +120,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             this.chrome.panels.focusPopOut(id)
             return true
         }
+        restorePanelsWithLocation('center') // In case it was maximized
+
         return withPanel(id, (parent, div) => {
 
             const location = locationFromDiv(parent)
@@ -131,7 +133,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
                     div.style.display = 'block'
-                    this.updateBars(location, id)
+                    this.updateBars(location)
                     break;
 
                 case 'center':
@@ -157,23 +159,17 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     maximizePanel(id: string) {
         withPanel(id, (parent, div) => {
-            parent.style.position = 'absolute'
-            parent.style.top = '0px'
-            parent.style.bottom = '0px'
-            parent.style.left = '0px'
-            parent.style.right = '0px'
-            parent.style.zIndex = '10'
+            parent.classList.add('grid-maximized')
+            this.updateBars('left')
+            this.updateBars('right')
         })
     }
 
     restorePanel(id: string) {
         withPanel(id, (parent, div) => {
-            parent.style.position = ''
-            parent.style.top = ''
-            parent.style.bottom = ''
-            parent.style.left = ''
-            parent.style.right = ''
-            parent.style.zIndex = ''
+            parent.classList.remove('grid-maximized')
+            this.updateBars('left')
+            this.updateBars('right')
         })
     }
 
@@ -226,9 +222,8 @@ class ApiImpl implements ExtensionScaffoldApi {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
         outerPanel.style.display = DISPLAY_FLEX
-        // Note: the classList order matters see locationFromDiv
         outerPanel.classList.add('grid-panel')
-        outerPanel.classList.add(options.location)
+        outerPanel.classList.add(options.location) // Other code searches for this class name
 
         const shadowDiv = document.createElement('div')
         shadowDiv.id = options.id
@@ -262,13 +257,13 @@ class ApiImpl implements ExtensionScaffoldApi {
         return this.locationStack.get(location) ?? []
     }
 
-    private updateBars(location: Location, shown: string | null) {
+    private updateBars(location: Location) {
         switch (location) {
             case 'left':
-                this.leftBar.updatePanel(this.panelsAtLocation(location), shown)
+                this.leftBar.updatePanel(this.panelsAtLocation(location))
                 break;
             case 'right':
-                this.rightBar.updatePanel(this.panelsAtLocation(location), shown)
+                this.rightBar.updatePanel(this.panelsAtLocation(location))
                 break;
         }
     }

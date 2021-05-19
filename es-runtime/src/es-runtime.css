@@ -29,6 +29,12 @@ code {
   color: var(--es-theme-text-secondary-on-background, orange);
 }
 
+.grid-panel.grid-maximized {
+  grid-column: 2 / 5;
+  grid-row: 2 / 5;
+  z-index: 2; /* above drag handle */
+}
+
 .pop-out-container {
   background: var(--es-theme-surface, green);
   color: var(--es-theme-text-secondary-on-background, orange);
@@ -37,7 +43,7 @@ code {
 
 .drag {
   display: none;
-  z-index: 1;
+  z-index: 1; /* drag handle */
 }
 
 .drag-for-left {
@@ -59,9 +65,8 @@ code {
   width: 4px;
   cursor: ew-resize;
 }
-.drag-for-left:hover, .drag-for-right:hover {
+.drag-for-left:hover, .drag-for-right:hover, .drag-for-top:hover, .drag-for-bottom:hover {
   background: rgb(25 112 179);
-  z-index: 1;
 }
 
 .drag-for-top {
@@ -81,10 +86,6 @@ code {
   right: 0px;
   height: 4px;
   cursor: ns-resize
-}
-.drag-for-top:hover, .drag-for-bottom:hover {
-  background: blue;
-  z-index: 1;
 }
 
 .header {
