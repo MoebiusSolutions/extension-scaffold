@@ -2,15 +2,19 @@ import React from 'react'
 import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 
 export const AboveLeft: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
-    const s = `
+    const css = `
         .AboveLeft {
-            background-color: grey;
+            padding: 1em;
+            background: rgb(255, 255, 255, .05)
         }
     `
     return <>
-        <style>{s}</style>
+        <style>{css}</style>
         <div className='AboveLeft'>
-            Above Left
+            <h3>CSG9-EXER21 v</h3>
+            <div>
+            Find | Fix | Track | <b>Plan</b> | Target | Engage | Assess
+            </div>
         </div>
     </>
 }
