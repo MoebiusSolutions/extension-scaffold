@@ -105,6 +105,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'right':
                 case 'top':
                 case 'bottom':
+                    withGrid(`above-${location}`, div => div.style.display = 'none')
                     parent.style.display = 'none'
                     this.updateBars(location)
                     break;
@@ -120,7 +121,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             this.chrome.panels.focusPopOut(id)
             return true
         }
-        restorePanelsWithLocation('center') // In case it was maximized
+        // Restore any maximized grid
+        document.querySelectorAll('.grid-maximized').forEach(el => el.classList.remove('grid-maximized'))
 
         return withPanel(id, (parent, div) => {
 
@@ -132,6 +134,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'top':
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
+                    withGrid(`above-${location}`, div => div.style.display = 'block')
                     div.style.display = 'block'
                     this.updateBars(location)
                     break;
