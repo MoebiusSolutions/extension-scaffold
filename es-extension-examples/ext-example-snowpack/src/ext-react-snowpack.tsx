@@ -43,7 +43,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
 async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
   const panelDiv = await scaffold.addPanel({
     id: 'ext.snowpack.above.left',
-    location: 'above-left'
+    location: 'above-left',
   })
 
   ReactDOM.render(
@@ -105,6 +105,6 @@ export function activate(scaffold: ExtensionScaffoldApi) {
   addMap(scaffold)
   doHeader(scaffold).catch(console.error)
   doFooter(scaffold).catch(console.error)
-  // doAboveLeft(scaffold).catch(console.error)
+  doAboveLeft(scaffold).catch(console.error)
   doLeft(scaffold).catch(console.error)
 }
