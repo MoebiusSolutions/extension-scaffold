@@ -28,8 +28,17 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer.classList.add('grid-container')
 
         const gridPortal = document.createElement('div')
-        gridPortal.classList.add('grid-portal')
+        gridPortal.classList.add('grid-portal', 'portal')
         this.gridContainer.append(gridPortal)
+
+        // Without this empty panel the top grid area will split 
+        // and show an empty section if no extension claims it.
+        // With this empty panel it works as expected.
+        this.addPanel({
+            id: 'es.internal.empty.top',
+            location: 'top',
+            initialWidthOrHeight: '0px',
+        })
     }
     loadExtension(url: string): Promise<void> {
         return import(url).then((module) => this.activateExtension(module, url))
@@ -240,8 +249,8 @@ class ApiImpl implements ExtensionScaffoldApi {
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
-        outerPanel.classList.add('grid-panel')
-        outerPanel.classList.add(options.location) // Other code searches for this class name
+        // the options.location className is used in querySelector searches
+        outerPanel.classList.add('grid-panel', options.location)
 
         const { shadowDiv, extPanel } = this.makeShadowDomDivs(outerPanel)
         shadowDiv.id = options.id

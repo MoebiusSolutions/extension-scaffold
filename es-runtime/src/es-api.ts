@@ -15,6 +15,7 @@ export const LOCATIONS = [
     'bottom',
     'center',
     'footer',
+    'portal',
 ] as const
 
 export type Location = typeof LOCATIONS[number]

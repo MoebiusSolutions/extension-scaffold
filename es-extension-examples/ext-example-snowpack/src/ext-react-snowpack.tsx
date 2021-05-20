@@ -2,72 +2,73 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MyPanel } from './MyPanel';
 
-import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
+import type { AddPanelOptions, ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { Header } from './Header';
+import { Ribbon } from './Ribbon';
 import { AboveLeft } from './AboveLeft'
 import { Left } from './Left'
 import { Footer } from './Footer';
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 
-// Async example
-async function doHeader(scaffold: ExtensionScaffoldApi) {
-  const panelDiv = await scaffold.addPanel({
-    id: 'ext.snowpack.header',
-    location: 'header'
-  })
+/**
+ * Reduces React broiler plate code for adding an extension panel.
+ * 
+ * @param scaffold
+ * @param options 
+ * @param component 
+ * @returns 
+ */
+async function doPanel(scaffold: ExtensionScaffoldApi, options: AddPanelOptions, component: JSX.Element) {
+  const panelDiv = await scaffold.addPanel(options)
 
   ReactDOM.render(
     <React.StrictMode>
-      <Header es={scaffold} />
+      {component}
     </React.StrictMode>,
     panelDiv
   )
+
+  return panelDiv
+}
+
+async function doHeader(scaffold: ExtensionScaffoldApi) {
+  const panelDiv = await doPanel(scaffold, {
+    id: 'ext.snowpack.header',
+    location: 'header'
+  }, <Header es={scaffold} />)
   claimStyleFromHeadElement(panelDiv, '#ext.example.snowpack')
 }
 
 async function doFooter(scaffold: ExtensionScaffoldApi) {
-  const panelDiv = await scaffold.addPanel({
+  const panelDiv = await doPanel(scaffold, {
     id: 'ext.snowpack.footer',
     location: 'footer'
-  })
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <Footer es={scaffold} />
-    </React.StrictMode>,
-    panelDiv
-  )
+  }, <Footer es={scaffold} />)
   claimStyleFromHeadElement(panelDiv, '#ext.example.snowpack')
 }
 
+async function doRibbon(scaffold: ExtensionScaffoldApi) {
+  return await doPanel(scaffold, {
+    id: 'ext.snowpack.ribbon',
+    location: 'top',
+    initialWidthOrHeight: '',
+  }, <Ribbon es={scaffold} />)
+}
+
 async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
-  const panelDiv = await scaffold.addPanel({
+  return await doPanel(scaffold, {
     id: 'ext.snowpack.above.left',
     location: 'above-left',
-  })
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <AboveLeft es={scaffold} />
-    </React.StrictMode>,
-    panelDiv
-  )
+  }, <AboveLeft es={scaffold} />)
 }
 
 async function doLeft(scaffold: ExtensionScaffoldApi) {
-  const panelDiv = await scaffold.addPanel({
+  return await doPanel(scaffold, {
     id: 'ext.snowpack.left',
     title: 'Snowpack Left',
     location: 'left',
     resizeHandle: true,
-  })
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <Left es={scaffold} />
-    </React.StrictMode>,
-    panelDiv
-  )
+  }, <Left es={scaffold} />)
 }
 
 async function addMap(scaffold: ExtensionScaffoldApi) {
@@ -79,7 +80,6 @@ async function addMap(scaffold: ExtensionScaffoldApi) {
     resizeHandle: true,
     iframeSource: mapUrl,
   })
-  console.log('added', panelDiv)
 }
 
 export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
@@ -98,13 +98,19 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   }).then(onPanelAdded).catch(console.error)
 }
 
+async function doActivate(scaffold: ExtensionScaffoldApi) {
+  await doRibbon(scaffold)
+  // We add center from the left panel as a demo of doing that...
+  // addCenterPanel(scaffold)
+  await addMap(scaffold)
+  await doHeader(scaffold)
+  await doFooter(scaffold)
+  await doAboveLeft(scaffold)
+  await doLeft(scaffold)
+}
+
 export function activate(scaffold: ExtensionScaffoldApi) {
   console.log('my-extension activate', scaffold)
 
-  // addCenterPanel(scaffold)
-  addMap(scaffold)
-  doHeader(scaffold).catch(console.error)
-  doFooter(scaffold).catch(console.error)
-  doAboveLeft(scaffold).catch(console.error)
-  doLeft(scaffold).catch(console.error)
+  doActivate(scaffold).catch(console.error)
 }
