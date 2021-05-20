@@ -44,9 +44,13 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
         hidePanelsWithLocation(options.location)
 
-        const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
+        const { outerPanel, shadowDiv, extPanel } = this.addShadowDomPanel(gridContainer, options)
         outerPanel.style.display = DISPLAY_FLEX
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
+
+        if (options.title) {
+            shadowDiv.title = options.title
+        }
 
         // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {

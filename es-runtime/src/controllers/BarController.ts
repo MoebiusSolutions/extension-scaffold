@@ -74,9 +74,12 @@ export class BarController {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
             const panelDiv = document.getElementById(panelOptions.id)
-            if (panelDiv?.style.display !== 'none' && !oneIsMaximized) {
-                if (panelDiv?.parentElement?.style.display !== 'none') {
-                    btn.classList.add('active')
+            if (panelDiv && !oneIsMaximized) {
+                if (panelDiv.style.display !== 'none') {
+                    const parentElement = panelDiv.parentElement
+                    if (parentElement && parentElement.style.display !== 'none') {
+                        btn.classList.add('active')
+                    }
                 }
             }
             btn.title = panelOptions.title ?? ''
