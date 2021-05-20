@@ -61,13 +61,17 @@ class ApiImpl implements ExtensionScaffoldApi {
             shadowDiv.title = options.title
         }
 
-        // We cannot use our CSS here because `extPanel` is in the shadow
-        if (options.iframeSource) {
+        function styleAbsolute() {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
             extPanel.style.bottom = '0px'
             extPanel.style.left = '0px'
             extPanel.style.right = '0px'
+        }
+
+        // We cannot use our CSS here because `extPanel` is in the shadow
+        if (options.iframeSource) {
+            styleAbsolute()
         
             const iframe = document.createElement('iframe')
             iframe.src = options.iframeSource
@@ -76,6 +80,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             iframe.style.border = 'none'
         
             extPanel.appendChild(iframe)
+        } if (options.location === 'portal') {
+            styleAbsolute()
         } else {
             extPanel.style.width = '100%'
             extPanel.style.height = '100%'
@@ -258,7 +264,7 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         const { shadowDiv, extPanel } = this.makeShadowDomDivs(outerPanel)
         shadowDiv.id = options.id
-        shadowDiv.className = 'shadow-div'
+        shadowDiv.className = options.location === 'portal' ? 'shadow-portal' : 'shadow-div'
 
         return {
             outerPanel,
