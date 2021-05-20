@@ -170,6 +170,10 @@ class ApiImpl implements ExtensionScaffoldApi {
             return true
         }
 
+        if (document.querySelectorAll('.grid-maximized').length > 0) {
+            return this.showPanel(id)
+        }
+
         return withPanel(id, (parent, div) => {
             if (parent.style.display !== 'none' && div.style.display !== 'none') {
                 this.hidePanel(id)
