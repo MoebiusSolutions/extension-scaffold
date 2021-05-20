@@ -49,7 +49,6 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             left: 0px;
             right: 0px;
             user-select: none;
-            z-index: 7;
         }
     `
     const [portalDiv, setPanelDiv] = React.useState<HTMLDivElement>()
