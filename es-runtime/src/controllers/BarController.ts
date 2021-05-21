@@ -48,9 +48,9 @@ export class BarController {
             border: none;
             color: lightgrey;
             cursor: pointer;
-            padding: 16px;
-            width: 64px;
-            height: 64px;
+            padding: 10px;
+            width: 58px;
+            height: 58px;
             fill: var(--es-theme-text-secondary-on-background);
         }
         .es-bar-button:hover {
