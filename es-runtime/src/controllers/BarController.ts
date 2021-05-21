@@ -48,10 +48,9 @@ export class BarController {
             border: none;
             color: lightgrey;
             cursor: pointer;
-            padding: 10px;
+            padding: 14px;
             width: 58px;
             height: 58px;
-            fill: var(--es-theme-text-secondary-on-background);
         }
         .es-bar-button:hover {
             background: rgba(0, 0, 0, 0.2);
@@ -59,7 +58,20 @@ export class BarController {
         .es-bar-button.active {
             font-weight: bold;
             color: var(--es-theme-text-primary-on-background);
+        }
+
+        .es-bar-button .use-fill {
+            fill: var(--es-theme-text-secondary-on-background);
+        }
+        .es-bar-button.active .use-fill {
             fill: var(--es-theme-text-primary-on-background);
+        }
+
+        .es-bar-button .use-stroke {
+            stroke: var(--es-theme-text-secondary-on-background);
+        }
+        .es-bar-button.active .use-stroke {
+            stroke: var(--es-theme-text-primary-on-background);
         }
         `
         divBar.appendChild(styleElement)
