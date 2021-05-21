@@ -36,14 +36,6 @@ code {
   z-index: 2; /* above drag handle */
 }
 
-.portal {
-  grid-column: 3 / 4;
-  grid-row: 3 / 5;
-  z-index: 3; /* portal */
-  pointer-events: none;
-  position: relative;
-}
-
 .pop-out-container {
   background: var(--es-theme-surface, green);
   color: var(--es-theme-text-secondary-on-background, orange);
@@ -97,6 +89,13 @@ code {
   cursor: ns-resize
 }
 
+.portal {
+  grid-column: 3 / 4;
+  grid-row: 3 / 5;
+  z-index: 3; /* portal */
+  pointer-events: none;
+}
+
 .header {
   grid-area: header;
   color: white;
@@ -148,7 +147,7 @@ code {
 
 .grid-panel {
   display: none;
-  position: relative;
+  position: relative; /* New coordinate space for any children */
   overflow: auto;
 }
 
@@ -156,7 +155,7 @@ code {
   position: relative;
   flex: 1 1 auto;
 }
+
 .shadow-portal {
-  position: absolute;
-  inset: 0px;
+  pointer-events: auto;
 }

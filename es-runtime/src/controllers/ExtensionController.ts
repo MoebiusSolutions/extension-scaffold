@@ -80,9 +80,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             iframe.style.border = 'none'
         
             extPanel.appendChild(iframe)
-        } if (options.location === 'portal') {
-            styleAbsolute()
-        } else {
+        } if (options.location !== 'portal') {
             extPanel.style.width = '100%'
             extPanel.style.height = '100%'
         }
