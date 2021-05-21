@@ -28,7 +28,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer.classList.add('grid-container')
 
         const gridPortal = document.createElement('div')
-        gridPortal.classList.add('grid-portal', 'portal')
+        gridPortal.classList.add('grid-panel', 'portal')
         this.gridContainer.append(gridPortal)
 
         // Without this empty panel the top grid area will split 

@@ -36,7 +36,7 @@ code {
   z-index: 2; /* above drag handle */
 }
 
-.grid-portal {
+.portal {
   grid-column: 3 / 4;
   grid-row: 3 / 5;
   z-index: 3; /* portal */
