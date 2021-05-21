@@ -16,6 +16,20 @@ const Tab: React.FC<{
     </div>
 }
 
+const RibbonBottom: React.FC<{
+    active: string
+    floating: boolean
+}> = ({
+    active,
+    floating
+}) => {
+    return <div className='ribbon-bottom'>
+        <div>Bottom part of {active} {floating ? 'floating' : ''} Ribbon</div>
+        <div>Another Row on Ribbon <button>Test</button></div>
+        <div>Another Row on Ribbon</div>
+    </div>
+}
+
 export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     const css = `
         .Ribbon {
@@ -91,21 +105,13 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
                     tabs.map(t => <Tab active={active} name={t} handleTabClicked={handleTabClicked} />)
                 }
             </div>
-            { open && !floating && <div className='ribbon-bottom'>
-                <div>^ Bottom part of Ribbon</div>
-                <div>Another Row on Ribbon</div>
-                <div>Another Row on Ribbon</div>
-            </div> }
+            { open && !floating && <RibbonBottom active={active} floating={floating} /> }
         </div>
         { open && floating && portalDiv && ReactDOM.createPortal(
             <>
                 <style>{css}</style>
                 <div className="ribbon-float">
-                    <div className='ribbon-bottom'>
-                        <div>p Bottom part of Ribbon</div>
-                        <div>Another Row on Ribbon</div>
-                        <div>Another Row on Ribbon</div>
-                    </div>
+                    <RibbonBottom active={active} floating={floating} />
                 </div>
             </>,
             portalDiv
