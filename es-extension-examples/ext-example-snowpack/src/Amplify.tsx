@@ -30,26 +30,28 @@ const AmplifyPanel: React.FC<{
             <div className="close" onClick={handleClose}>x</div>
             <h3>BOB</h3>
             <table>
-                <tr>
-                    <td>Shipclass</td>
-                    <td>BOBCAT</td>
-                </tr>
-                <tr>
-                    <td>Attribute</td>
-                    <td>Value</td>
-                </tr>
-                <tr>
-                    <td>Attribute</td>
-                    <td>Value</td>
-                </tr>
-                <tr>
-                    <td>Attribute</td>
-                    <td>Value</td>
-                </tr>
-                <tr>
-                    <td>Attribute</td>
-                    <td>Value</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>Shipclass</td>
+                        <td>BOBCAT</td>
+                    </tr>
+                    <tr>
+                        <td>Attribute</td>
+                        <td>Value</td>
+                    </tr>
+                    <tr>
+                        <td>Attribute</td>
+                        <td>Value</td>
+                    </tr>
+                    <tr>
+                        <td>Attribute</td>
+                        <td>Value</td>
+                    </tr>
+                    <tr>
+                        <td>Attribute</td>
+                        <td>Value</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </>

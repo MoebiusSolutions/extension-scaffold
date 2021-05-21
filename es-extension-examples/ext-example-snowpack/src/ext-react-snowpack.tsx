@@ -116,8 +116,8 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doLeft(scaffold)
 }
 
-export function activate(scaffold: ExtensionScaffoldApi) {
-  console.log('my-extension activate', scaffold)
+export function activate(scaffold: ExtensionScaffoldApi, url: string) {
+  console.log('snowpack extension activated', scaffold, url)
 
   doActivate(scaffold).catch(console.error)
 }
