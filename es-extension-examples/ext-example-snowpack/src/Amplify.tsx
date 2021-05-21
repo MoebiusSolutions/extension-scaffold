@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 
 const AmplifyPanel: React.FC<{
+    handleClose: () => void
 }> = ({
+    handleClose
 }) => {
     const css = `.amplify {
         background: var(--es-theme-surface);
@@ -15,11 +17,17 @@ const AmplifyPanel: React.FC<{
         padding-top: 0px;
         border: 1px solid grey;
         z-index: 100;
-    }`
+    }
+    .close {
+        cursor: pointer;
+        float: right;
+    }
+    `
 
     return <>
         <style>{css}</style>
         <div className = 'amplify'>
+            <div className="close" onClick={handleClose}>x</div>
             <h3>BOB</h3>
             <table>
                 <tr>
@@ -65,11 +73,14 @@ export const Amplify: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     function handleAmplify() {
         setOpen(o => !o)
     }
+    function handleClose() {
+        setOpen(false)
+    }
 
     return <>
         <div>
             <button onClick={handleAmplify}>Amplify Example</button>
         </div>
-        { open && portalDiv && ReactDOM.createPortal(<AmplifyPanel />, portalDiv) }
+        { open && portalDiv && ReactDOM.createPortal(<AmplifyPanel handleClose={handleClose}/>, portalDiv) }
     </>
 }
