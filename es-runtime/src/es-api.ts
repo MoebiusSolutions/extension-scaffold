@@ -23,6 +23,7 @@ export type Location = typeof LOCATIONS[number]
 export interface AddPanelOptions {
     location: Location
     id: string
+    icon?: HTMLElement
     title?: string
     resizeHandle?: boolean
     initialWidthOrHeight?: string // defaults to "30em"

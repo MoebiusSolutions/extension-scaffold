@@ -45,18 +45,21 @@ export class BarController {
         }
         .es-bar-button {
             background: transparent;
-            padding: 1em;
             border: none;
             color: lightgrey;
             cursor: pointer;
+            padding: 16px;
+            width: 64px;
+            height: 64px;
+            fill: var(--es-theme-text-secondary-on-background);
         }
         .es-bar-button:hover {
             background: rgba(0, 0, 0, 0.2);
-            color: var(--es-theme-text-primary-on-background);
         }
         .es-bar-button.active {
             font-weight: bold;
             color: var(--es-theme-text-primary-on-background);
+            fill: var(--es-theme-text-primary-on-background);
         }
         `
         divBar.appendChild(styleElement)
@@ -83,7 +86,11 @@ export class BarController {
                 }
             }
             btn.title = panelOptions.title ?? ''
-            btn.innerText = `B${idx}`
+            if (panelOptions.icon) {
+                btn.appendChild(panelOptions.icon)
+            } else {
+                btn.innerText = `B${idx}`
+            }
             btn.onclick = () => {
                 extensionScaffold.togglePanel(panelOptions.id)
             }
