@@ -1,5 +1,6 @@
 import type { Location } from '../es-api'
-import { extensionScaffold, gridstate } from './ExtensionController'
+import { getGridState } from '../utils'
+import { extensionScaffold } from './ExtensionController'
 export interface ResizeData {
     parentDiv: HTMLElement
     origPageX: number
@@ -13,7 +14,7 @@ function applyLeft(rd: ResizeData, e: PointerEvent) {
     const w = window.innerWidth
     const dx = e.pageX - rd.origPageX
     const newWidth = Math.min(Math.max(100, rd.origWidth + dx), w / 2 - 100)
-    gridstate.left.size = newWidth
+    //gridstate.left.size = newWidth
     rd.parentDiv.style.width = `${newWidth}px`
 }
 
@@ -21,7 +22,7 @@ function applyTop(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
     const dy = e.pageY - rd.origPageY
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
-    gridstate.top.size = newHeight
+    //gridstate.top.size = newHeight
     rd.parentDiv.style.height = `${newHeight}px`
 }
 
@@ -29,7 +30,7 @@ function applyRight(rd: ResizeData, e: PointerEvent) {
     const w = window.innerWidth
     const dx = -1 * (e.pageX - rd.origPageX)
     const newWidth = Math.min(Math.max(100, rd.origWidth + dx), w / 2 - 100)
-    gridstate.right.size = newWidth
+    //gridstate.right.size = newWidth
     rd.parentDiv.style.width = `${newWidth}px`
 }
 
@@ -37,7 +38,7 @@ function applyBottom(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
     const dy = -1 * (e.pageY - rd.origPageY)
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
-    gridstate.bottom.size = newHeight
+    //gridstate.bottom.size = newHeight
     rd.parentDiv.style.height = `${newHeight}px`
 }
 
@@ -82,7 +83,7 @@ export function beginResize(
 }
 
 export function endResize(dragDiv: HTMLDivElement, e: PointerEvent) {
-    extensionScaffold.events.emit('grid-changed', gridstate)
+    extensionScaffold.events.emit('grid-changed', getGridState())
     dragDiv.onpointermove = null
     dragDiv.releasePointerCapture(e.pointerId)
 }

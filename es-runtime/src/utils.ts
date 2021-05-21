@@ -1,4 +1,5 @@
-import type { PanelState } from "./es-api"
+import type { PanelState, GridState } from "./es-api"
+import { extensionScaffold } from "./controllers/ExtensionController"
 import { LOCATIONS } from "./es-api"
 
 export function hidePanelsWithLocation(location: string) {
@@ -34,7 +35,6 @@ export function restorePanelsWithLocation(location: string) {
 }
 
 export function withPanel(id: string, f: (parent: HTMLDivElement, div: HTMLDivElement) => void, ownerDocument: HTMLDocument = window.document): boolean {
-    console.log('withPanel ID', id)
     const div = ownerDocument.getElementById(id) as HTMLDivElement
     if (!div) {
         console.warn('Panel id not found', id)
@@ -56,3 +56,57 @@ export function locationFromDiv(div: HTMLDivElement) {
     }
     throw new Error('Div does not have a location class')
 }
+
+export function getLocationdState(loc: string): PanelState {
+    const d = document.querySelector(`.${loc}`)
+    if (d !== null) {
+        //@ts-ignore
+        const div: HTMLDivElement = d
+        //@ts-ignore
+        const r = [...div?.querySelectorAll('.shadow-div')]
+        //@ts-ignore
+        const id = r.find(div => div.style.display !== 'none')?.id
+        const size = div.style.width ? div.style.width : div.style.height
+        return { size, activeId: (id === undefined ? null : id) }
+    }
+    return { size: '0px', activeId: null }
+}
+
+function applySize(loc: string, size: string) {
+    const d = document.querySelector(`.${loc}`)
+    if (d !== null) {
+        //@ts-ignore
+        const div: HTMLDivElement = d
+        if (size.length < 1)
+            return
+        if (loc === 'left' || loc === 'right')
+            div.style.width = size
+        else if (loc === 'top' || loc === 'bottom')
+            div.style.height = size
+    }
+}
+
+export function setLocationState(loc: string, state: PanelState) {
+    if (state.activeId) {
+        extensionScaffold.showPanel(state.activeId)
+    }
+    applySize(loc, state.size)
+}
+
+export function applyGridstate(gridstate: GridState) {
+    setLocationState('left', gridstate.left)
+}
+
+export function getGridState(): GridState {
+    const gridstate: GridState = {
+        left: { size: '0px', activeId: null }, right: { size: '0px', activeId: null },
+        top: { size: '0px', activeId: null }, bottom: { size: '0px', activeId: null }
+    }
+
+    gridstate.left = getLocationdState('left')
+    gridstate.right = getLocationdState('right')
+    gridstate.top = getLocationdState('top')
+    gridstate.bottom = getLocationdState('bottom')
+    return gridstate
+}
+

@@ -1,7 +1,7 @@
 /*
  * This file is one example of how to use `es-runtime`.
  */
-import { extensionScaffold, PanelState, GridState } from './es-api'
+import { extensionScaffold, GridState } from './es-api'
 //import type { gridstate } from './controllers/ExtensionController'
 
 //const ee = new EventEmitter()
@@ -10,18 +10,19 @@ async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
 
   const gridstate: GridState = {
-    left: { activeId: "ext.snowpack.left", size: 350 }, right: { activeId: null, size: 300 },
-    top: { activeId: null, size: 100 }, bottom: { activeId: null, size: 170 }
+    left: { activeId: "ext.example.rollup", size: '360px' }, right: { activeId: null, size: '300px' },
+    top: { activeId: null, size: '100px' }, bottom: { activeId: null, size: '170px' }
   }
 
-  extensionScaffold.setGridState(gridstate)
+  const urls = ['http://localhost:9091/dist/ext-react-snowpack.js',
+    'http://localhost:9092/ext-react-rollup.js',
+    'http://localhost:5000/build/ext-svelte-rollup.js',
+    'http://localhost:9093/ext-react-webpack.js',
+    'http://localhost:9094/dist/ext-lit-element.js',
+    'http://localhost:7080/display-rules/_dist_/ext-dr.js']
 
-  await extensionScaffold.loadExtension('http://localhost:9091/dist/ext-react-snowpack.js')
-  await extensionScaffold.loadExtension('http://localhost:9092/ext-react-rollup.js')
-  await extensionScaffold.loadExtension('http://localhost:5000/build/ext-svelte-rollup.js')
-  await extensionScaffold.loadExtension('http://localhost:9093/ext-react-webpack.js')
-  await extensionScaffold.loadExtension('http://localhost:9094/dist/ext-lit-element.js')
-  await extensionScaffold.loadExtension('http://localhost:7080/display-rules/_dist_/ext-dr.js')
+  extensionScaffold.loadExtensions(urls, gridstate)
+
 }
 
 loadExtensions()

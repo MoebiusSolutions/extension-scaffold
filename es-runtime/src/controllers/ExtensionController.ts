@@ -1,9 +1,12 @@
 
 import type {
     ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions,
-    Location, GridState, PanelState, SubLocation, Chrome
+    Location, GridState, PanelState, SubLocation, Chrome, fulfilled, rejected
 } from '../es-api'
-import { hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation, withPanel, setState } from '../utils'
+import {
+    hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation,
+    applyGridstate, getGridState, withPanel, setState
+} from '../utils'
 
 import { BarController } from './BarController'
 import { PanelsImpl } from './PanelsImpl'
@@ -12,10 +15,6 @@ import EventEmitter from 'events'
 
 const DISPLAY_FLEX = 'flex'
 
-export const gridstate: GridState = {
-    left: { activeId: null, size: 0 }, right: { activeId: null, size: 0 },
-    top: { activeId: null, size: 0 }, bottom: { activeId: null, size: 0 }
-}
 class ChromeImpl implements Chrome {
     readonly panels = new PanelsImpl()
 }
@@ -40,8 +39,33 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer.classList.add('grid-container')
     }
 
-    loadExtension(url: string): Promise<void> {
-        return import(url).then((module) => this.activateExtension(module, url))
+    loadExtension(url: string): Promise<any> {
+        return import(url).then(module => this.activateExtension(module, url))
+    }
+
+    loadExtensions(urls: string[], gridstate?: GridState): Promise<(fulfilled | rejected)[]> {
+        function fulfilled<T>(value: T) {
+            return {
+                status: 'fulfilled' as const,
+                value,
+            }
+        }
+        function rejected<E>(reason: E) {
+            return {
+                status: 'rejected' as const,
+                reason,
+            }
+        }
+        function applyGridState<T>(value: T) {
+            console.log('APPLY GRIDSTATE XX')
+            if (gridstate) {
+                applyGridstate(gridstate)
+            }
+            return value
+        }
+        const promises = urls.map(url => this.loadExtension(url))
+        const mappedPromises = promises.map(promise => promise.then(fulfilled).catch(rejected))
+        return Promise.all(mappedPromises).then(applyGridState)
     }
 
     addPanel(options: AddPanelOptions) {
@@ -57,7 +81,6 @@ class ApiImpl implements ExtensionScaffoldApi {
         const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
 
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
-        this.set_State(outerPanel, extPanel, options)
         if (options.iframeSource) {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
@@ -122,14 +145,14 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'bottom':
                     parent.style.display = 'none'
                     this.updateBars(location)
-                    gridstate[location].activeId = null
+                    //gridstate[location].activeId = null
                     break;
 
                 case 'center':
                     div.style.display = 'none'
                     break;
             }
-            this.events.emit('grid-changed', gridstate)
+            this.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -152,14 +175,13 @@ class ApiImpl implements ExtensionScaffoldApi {
                     parent.style.display = DISPLAY_FLEX
                     div.style.display = 'block'
                     this.updateBars(location)
-                    gridstate[location].activeId = id
                     break;
 
                 case 'center':
                     div.style.display = 'block'
                     break;
             }
-            this.events.emit('grid-changed', gridstate)
+            this.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -198,13 +220,6 @@ class ApiImpl implements ExtensionScaffoldApi {
     setPanelState(loc: SubLocation, state: PanelState) {
         if (this.gridContainer)
             setState(this.gridContainer, loc, state)
-    }
-
-    setGridState(state: GridState) {
-        gridstate.bottom = { ...state.bottom }
-        gridstate.left = { ...state.left }
-        gridstate.right = { ...state.right }
-        gridstate.top = { ...state.top }
     }
 
     loadWebpackScript({ url, library }: LoadWebpackScriptOptions) {
@@ -251,51 +266,6 @@ class ApiImpl implements ExtensionScaffoldApi {
         gridContainer.appendChild(r)
 
         return r as HTMLDivElement
-    }
-
-    private setActive(extPanel: HTMLDivElement, options: AddPanelOptions) {
-        if (gridstate.left.activeId) {
-            extPanel.classList.add('active')
-            this.showPanel(options.id)
-            console.log('setActive add', options.id)
-        }
-        else {
-            extPanel.classList.remove('active')
-            this.hidePanel(options.id)
-            console.log('setActive remove', options.id)
-        }
-    }
-
-    private set_State(panel: HTMLDivElement, extPanel: HTMLDivElement, options: AddPanelOptions) {
-        const loc = options.location
-        if (loc === 'left') {
-            console.log('setState-left', gridstate.left)
-            this.setActive(extPanel, options)
-            if (gridstate.left.size > 0) {
-                panel.style.width = `${gridstate.left.size}px`
-            }
-        }
-        else if (loc === 'right') {
-            this.setActive(extPanel, options)
-            if (gridstate.right.size > 0) {
-                console.log('setState-right', gridstate.right)
-                panel.style.width = `${gridstate.right.size}px`
-            }
-        }
-        else if (loc === 'top') {
-            this.setActive(extPanel, options)
-            if (gridstate.top.size > 0) {
-                console.log('setState-top', gridstate.top.size)
-                panel.style.height = `${gridstate.top.size}px`
-            }
-        }
-        else if (loc === 'bottom') {
-            this.setActive(extPanel, options)
-            if (gridstate.bottom.size > 0) {
-                console.log('setState-bottom', gridstate.bottom.size)
-                panel.style.height = `${gridstate.bottom.size}px`
-            }
-        }
     }
 
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
