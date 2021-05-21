@@ -102,7 +102,7 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <div className='Ribbon'>
             <div className="ribbon-tabs" onDoubleClick={toggleFloat}>
                 {
-                    tabs.map(t => <Tab active={active} name={t} handleTabClicked={handleTabClicked} />)
+                    tabs.map(t => <Tab key={t} active={active} name={t} handleTabClicked={handleTabClicked} />)
                 }
             </div>
             { open && !floating && <RibbonBottom active={active} floating={floating} /> }
