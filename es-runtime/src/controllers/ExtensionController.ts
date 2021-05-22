@@ -55,7 +55,7 @@ class ApiImpl implements ExtensionScaffoldApi {
                 reason,
             }
         }
-        function applyGridState<T>(value: T) {
+        function allDone<T>(value: T) {
             if (gridstate) {
                 applyGridState(gridstate)
             }
@@ -63,7 +63,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         }
         const promises = urls.map(url => this.loadExtension(url))
         const mappedPromises = promises.map(promise => promise.then(fulfilled).catch(rejected))
-        return Promise.all(mappedPromises).then(applyGridState)
+        return Promise.all(mappedPromises).then(allDone)
     }
 
     addPanel(options: AddPanelOptions) {
@@ -143,12 +143,11 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'bottom':
                     parent.style.display = 'none'
                     this.updateBars(location)
-                    //gridstate[location].activeId = null
-                    break;
+                    break
 
                 case 'center':
                     div.style.display = 'none'
-                    break;
+                    break
             }
             this.events.emit('grid-changed', getGridState())
         })
@@ -173,11 +172,11 @@ class ApiImpl implements ExtensionScaffoldApi {
                     parent.style.display = DISPLAY_FLEX
                     div.style.display = 'block'
                     this.updateBars(location)
-                    break;
+                    break
 
                 case 'center':
                     div.style.display = 'block'
-                    break;
+                    break
             }
             this.events.emit('grid-changed', getGridState())
         })
