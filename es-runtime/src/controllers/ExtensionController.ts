@@ -5,7 +5,7 @@ import type {
 } from '../es-api'
 import {
     hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation,
-    applyGridstate, getGridState, withPanel
+    applyGridState, getGridState, withPanel
 } from '../utils'
 
 import { BarController } from './BarController'
@@ -56,9 +56,8 @@ class ApiImpl implements ExtensionScaffoldApi {
             }
         }
         function applyGridState<T>(value: T) {
-            console.log('APPLY GRIDSTATE XX')
             if (gridstate) {
-                applyGridstate(gridstate)
+                applyGridState(gridstate)
             }
             return value
         }

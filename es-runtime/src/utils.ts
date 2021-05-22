@@ -80,8 +80,11 @@ export function setLocationState(loc: string, state: PanelState) {
     applySize(loc, state.size)
 }
 
-export function applyGridstate(gridstate: GridState) {
+export function applyGridState(gridstate: GridState) {
     setLocationState('left', gridstate.left)
+    setLocationState('right', gridstate.right)
+    setLocationState('top', gridstate.top)
+    setLocationState('bottom', gridstate.bottom)
 }
 
 export function getGridState(): GridState {
