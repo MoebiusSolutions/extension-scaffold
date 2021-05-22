@@ -2,9 +2,6 @@
  * This file is one example of how to use `es-runtime`.
  */
 import { extensionScaffold, GridState } from './es-api'
-//import type { gridstate } from './controllers/ExtensionController'
-
-//const ee = new EventEmitter()
 
 async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
