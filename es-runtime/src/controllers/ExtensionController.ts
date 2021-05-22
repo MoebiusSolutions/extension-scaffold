@@ -1,8 +1,17 @@
-import type { ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions, Location, Panels, Chrome } from '../es-api'
-import { hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation, withPanel } from '../utils'
+
+import type {
+    ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions,
+    Location, GridState, Chrome, Fulfilled, Rejected
+} from '../es-api'
+import {
+    hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation,
+    applyGridState, getGridState, withPanel
+} from '../utils'
+
 import { BarController } from './BarController'
 import { PanelsImpl } from './PanelsImpl'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
+import EventEmitter from 'events'
 
 const DISPLAY_FLEX = 'flex'
 
@@ -11,6 +20,7 @@ class ChromeImpl implements Chrome {
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
+
     private readonly locationStack = new Map<Location, AddPanelOptions[]>()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
@@ -18,6 +28,7 @@ class ApiImpl implements ExtensionScaffoldApi {
     private gridContainer?: HTMLElement
 
     readonly chrome = new ChromeImpl()
+    readonly events = new EventEmitter()
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
@@ -26,9 +37,35 @@ class ApiImpl implements ExtensionScaffoldApi {
         this.gridContainer = gridContainer
         this.gridContainer.classList.add('grid-container')
     }
-    loadExtension(url: string): Promise<void> {
-        return import(url).then((module) => this.activateExtension(module, url))
+
+    loadExtension(url: string): Promise<any> {
+        return import(url).then(module => this.activateExtension(module, url))
     }
+
+    loadExtensions(urls: string[], gridstate?: GridState): Promise<(Fulfilled | Rejected)[]> {
+        function fulfilled<T>(value: T) {
+            return {
+                status: 'fulfilled' as const,
+                value,
+            }
+        }
+        function rejected<E>(reason: E) {
+            return {
+                status: 'rejected' as const,
+                reason,
+            }
+        }
+        function allDone<T>(value: T) {
+            if (gridstate) {
+                applyGridState(gridstate)
+            }
+            return value
+        }
+        const promises = urls.map(url => this.loadExtension(url))
+        const mappedPromises = promises.map(promise => promise.then(fulfilled).catch(rejected))
+        return Promise.all(mappedPromises).then(allDone)
+    }
+
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))
@@ -42,20 +79,19 @@ class ApiImpl implements ExtensionScaffoldApi {
         const { outerPanel, extPanel } = this.addShadowDomPanel(gridContainer, options)
 
         this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
-
         if (options.iframeSource) {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
             extPanel.style.bottom = '0px'
             extPanel.style.left = '0px'
             extPanel.style.right = '0px'
-        
+
             const iframe = document.createElement('iframe')
             iframe.src = options.iframeSource
             iframe.style.width = '100%'
             iframe.style.height = '100%'
             iframe.style.border = 'none'
-        
+
             extPanel.appendChild(iframe)
         } else {
             extPanel.style.width = '100%'
@@ -107,14 +143,16 @@ class ApiImpl implements ExtensionScaffoldApi {
                 case 'bottom':
                     parent.style.display = 'none'
                     this.updateBars(location)
-                    break;
+                    break
 
                 case 'center':
                     div.style.display = 'none'
-                    break;
+                    break
             }
+            this.events.emit('grid-changed', getGridState())
         })
     }
+
     showPanel(id: string) {
         if (this.chrome.panels.isPoppedOut(id)) {
             this.chrome.panels.focusPopOut(id)
@@ -134,14 +172,17 @@ class ApiImpl implements ExtensionScaffoldApi {
                     parent.style.display = DISPLAY_FLEX
                     div.style.display = 'block'
                     this.updateBars(location)
-                    break;
+                    break
 
                 case 'center':
                     div.style.display = 'block'
-                    break;
+                    break
             }
+            this.events.emit('grid-changed', getGridState())
         })
     }
+
+
     togglePanel(id: string) {
         if (this.chrome.panels.isPoppedOut(id)) {
             this.chrome.panels.popInPanel(id)
@@ -173,7 +214,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    loadWebpackScript({url, library}: LoadWebpackScriptOptions) {
+    loadWebpackScript({ url, library }: LoadWebpackScriptOptions) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script')
             script.type = 'text/javascript'
@@ -218,6 +259,7 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         return r as HTMLDivElement
     }
+
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
         const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
 
@@ -228,10 +270,10 @@ class ApiImpl implements ExtensionScaffoldApi {
         const shadowDiv = document.createElement('div')
         shadowDiv.id = options.id
         shadowDiv.className = 'shadow-div'
-        shadowDiv.attachShadow({ mode: 'open'})
+        shadowDiv.attachShadow({ mode: 'open' })
         const shadow = shadowDiv.shadowRoot
         if (!shadow) {
-          throw new Error('Shadow root did not attach')
+            throw new Error('Shadow root did not attach')
         }
 
         const extPanel = document.createElement('div')
@@ -249,10 +291,12 @@ class ApiImpl implements ExtensionScaffoldApi {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, [options, ...stack]) // needed for first time
     }
+
     private popLocation(location: Location, id: string) {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, stack.filter(opt => opt.id !== id)) // needed for first time
     }
+
     private panelsAtLocation(location: Location) {
         return this.locationStack.get(location) ?? []
     }
@@ -282,7 +326,6 @@ class ApiImpl implements ExtensionScaffoldApi {
                 break;
         }
     }
-
 }
 
 export const extensionScaffold = new ApiImpl()
