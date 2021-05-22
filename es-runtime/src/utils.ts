@@ -15,19 +15,6 @@ export function hidePanelsWithLocation(location: string) {
     }
 }
 
-export function setState(gridContainer: HTMLElement, loc: string, state: PanelState) {
-    const r = gridContainer.querySelector(`.${loc}`)
-    if (r) {
-        const div = r as HTMLDivElement
-        if (loc === 'left' || loc === 'right') {
-            div.style.width = `${state.size}px`
-        }
-        else if (loc === 'top' || loc === 'bottom') {
-            div.style.height = `${state.size}px`
-        }
-    }
-}
-
 export function restorePanelsWithLocation(location: string) {
     for (const el of document.getElementsByClassName(location)) {
         el.classList.remove('grid-maximized')

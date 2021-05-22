@@ -29,10 +29,6 @@ loadExtensions()
 
 extensionScaffold.events.on('grid-changed', (gs) => { console.log('Pane!', gs) })
 
-//const ps: PanelState = { size: 400, activeId: null }
-
-//setTimeout(() => extensionScaffold.setPanelState('left', ps), 2000)
-
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement

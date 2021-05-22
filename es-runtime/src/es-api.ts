@@ -44,18 +44,17 @@ export interface LoadWebpackScriptOptions {
     /** Name of library injected onto window. Accessed as window[`${library}`] */
     library: string
 }
-
-export type PanelState = {
+export interface PanelState {
     size: string
     activeId: string | null
 }
 
-export type fulfilled = {
+export interface Fulfilled {
     status: "fulfilled",
     value: any
 }
 
-export type rejected = {
+export interface Rejected {
     status: "rejected",
     reason: any
 }
@@ -82,7 +81,7 @@ export interface ExtensionScaffoldApi {
 
     boot: (gridContainer: HTMLElement | null) => void
 
-    loadExtensions: (urls: string[], gridstate?: GridState) => Promise<(fulfilled | rejected)[]>
+    loadExtensions: (urls: string[], gridstate?: GridState) => Promise<(Fulfilled | Rejected)[]>
 
     /** Panels "stack" in a location */
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
@@ -94,8 +93,6 @@ export interface ExtensionScaffoldApi {
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
-    setPanelState: (location: SubLocation, state: PanelState) => void
-    //setGridState: (state: GridState) => void
 
     /**
      * Webpack does not currently have a non-experimental means to generate an ES module.

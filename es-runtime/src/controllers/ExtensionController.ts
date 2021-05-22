@@ -1,11 +1,11 @@
 
 import type {
     ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions,
-    Location, GridState, PanelState, SubLocation, Chrome, fulfilled, rejected
+    Location, GridState, Chrome, Fulfilled, Rejected
 } from '../es-api'
 import {
     hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation,
-    applyGridstate, getGridState, withPanel, setState
+    applyGridstate, getGridState, withPanel
 } from '../utils'
 
 import { BarController } from './BarController'
@@ -27,7 +27,6 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     private gridContainer?: HTMLElement
 
-
     readonly chrome = new ChromeImpl()
     readonly events = new EventEmitter()
 
@@ -43,7 +42,7 @@ class ApiImpl implements ExtensionScaffoldApi {
         return import(url).then(module => this.activateExtension(module, url))
     }
 
-    loadExtensions(urls: string[], gridstate?: GridState): Promise<(fulfilled | rejected)[]> {
+    loadExtensions(urls: string[], gridstate?: GridState): Promise<(Fulfilled | Rejected)[]> {
         function fulfilled<T>(value: T) {
             return {
                 status: 'fulfilled' as const,
@@ -215,11 +214,6 @@ class ApiImpl implements ExtensionScaffoldApi {
             this.updateBars('left')
             this.updateBars('right')
         })
-    }
-
-    setPanelState(loc: SubLocation, state: PanelState) {
-        if (this.gridContainer)
-            setState(this.gridContainer, loc, state)
     }
 
     loadWebpackScript({ url, library }: LoadWebpackScriptOptions) {
