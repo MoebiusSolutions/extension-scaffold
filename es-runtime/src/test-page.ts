@@ -6,9 +6,10 @@ import { extensionScaffold, GridState } from './es-api'
 async function loadExtensions() {
   extensionScaffold.boot(document.getElementById('grid-container'))
 
+  // We don't want 'top' to have a size. If it does it messes up the ribbon collapse function.
   const gridstate: GridState = {
     left: { activeId: "ext.example.rollup", size: '360px' }, right: { activeId: null, size: '300px' },
-    top: { activeId: null, size: '100px' }, bottom: { activeId: null, size: '170px' }
+    top: { activeId: null, size: '' }, bottom: { activeId: null, size: '170px' }
   }
 
   const urls = ['http://localhost:9091/dist/ext-react-snowpack.js',
