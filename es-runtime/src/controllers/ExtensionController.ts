@@ -1,13 +1,12 @@
 
 import { LocationStack } from '../models/LocationStack'
-import { hidePanelsWithLocation, locationFromDiv, withPanel, withGrid } from '../utils'
 import type {
     ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions,
     Location, GridState, Chrome, Fulfilled, Rejected
 } from '../es-api'
 import {
-    hidePanelsWithLocation, locationFromDiv, restorePanelsWithLocation,
-    applyGridState, getGridState, withPanel
+    hidePanelsWithLocation, locationFromDiv,
+    applyGridState, getGridState, withPanel, withGrid
 } from '../utils'
 
 import { BarController } from './BarController'
