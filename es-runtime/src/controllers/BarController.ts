@@ -45,18 +45,33 @@ export class BarController {
         }
         .es-bar-button {
             background: transparent;
-            padding: 1em;
             border: none;
             color: lightgrey;
             cursor: pointer;
+            padding: 14px;
+            width: 58px;
+            height: 58px;
         }
         .es-bar-button:hover {
             background: rgba(0, 0, 0, 0.2);
-            color: var(--es-theme-text-primary-on-background);
         }
         .es-bar-button.active {
             font-weight: bold;
             color: var(--es-theme-text-primary-on-background);
+        }
+
+        .es-bar-button .use-fill {
+            fill: var(--es-theme-text-secondary-on-background);
+        }
+        .es-bar-button.active .use-fill {
+            fill: var(--es-theme-text-primary-on-background);
+        }
+
+        .es-bar-button .use-stroke {
+            stroke: var(--es-theme-text-secondary-on-background);
+        }
+        .es-bar-button.active .use-stroke {
+            stroke: var(--es-theme-text-primary-on-background);
         }
         `
         divBar.appendChild(styleElement)
@@ -74,15 +89,21 @@ export class BarController {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
             const panelDiv = document.getElementById(panelOptions.id)
-            if (panelDiv?.style.display !== 'none' && !oneIsMaximized) {
-                if (panelDiv?.parentElement?.style.display !== 'none') {
-                    btn.classList.add('active')
+            if (panelDiv && !oneIsMaximized) {
+                if (panelDiv.style.display !== 'none') {
+                    const parentElement = panelDiv.parentElement
+                    if (parentElement && parentElement.style.display !== 'none') {
+                        btn.classList.add('active')
+                    }
                 }
             }
             btn.title = panelOptions.title ?? ''
-            btn.innerText = `B${idx}`
+            if (panelOptions.icon) {
+                btn.appendChild(panelOptions.icon)
+            } else {
+                btn.innerText = `B${idx}`
+            }
             btn.onclick = () => {
-                console.log('btn clicked', panelOptions)
                 extensionScaffold.togglePanel(panelOptions.id)
             }
             flexContainer.appendChild(btn)

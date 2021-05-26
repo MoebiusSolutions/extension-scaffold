@@ -109,6 +109,25 @@ All other panels will be hidden (using style `display: none`).
 If `removePanel` is called on the currently shown panel, the next panel in the "stack"
 will be shown automatically. 
 
+## Floating panels over the center
+
+The example in `es-extension-examples/ext-example-snowpack/src/Ribbon.tsx` shows how to create a floating ribbon bar. 
+When adding to the `portal` location, the child element can use 
+
+```
+    position: absolute;
+```
+
+* `top: 0px` is located to the bottom of the top grid area.
+* `bottom: 0px` is located to the top of the bottom grid area.
+* `left: 0px` is located to the right of the left panel area (which moves to the left-bar when left panel is hidden)
+* `right: 0px` is located to the left of the right panel area (which moves to the right-bar when right panel is hidden)
+
+Using the `portal` panel location you can pop panels over the `center` grid area 
+and place them along any of its borders.
+> Note: Since these `portal` panels will cover part of the `center` panel
+> you should provide the user a way to close them.
+
 # Directory Layout
 
 ## `compose`
@@ -162,26 +181,3 @@ To do this follows these five steps:
    docker-compose restart es-demo
    ```
 5) Refresh browser
-
-# NOTES
-
-```
-<div class="grid-portal grid-maximized" style="
-    grid-row: 2/5;
-    grid-column: 2/5;
-    z-index: 3; /* above maximize */
-    position: relative;
-">
-
-<div style="
-    position: absolute;
-    top: 0px;
-    left: 20vw;
-    width: 60vw;
-    height: 5em;
-    background: lightpink;
-">Ribbon Panel</div>
-
-
-</div>
-```

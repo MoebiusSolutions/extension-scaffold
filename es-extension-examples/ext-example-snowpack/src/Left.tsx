@@ -1,6 +1,7 @@
 import React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { addCenterPanel } from './ext-react-snowpack'
+import { Amplify } from './Amplify'
 
 export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
 
@@ -34,5 +35,7 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <div>
             <button onClick={handleHide}>X</button>
         </div>
+
+        <Amplify es={es} />
     </div>
 }

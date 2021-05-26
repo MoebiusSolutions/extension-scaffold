@@ -57,19 +57,25 @@ export class PanelsImpl implements Panels {
 
     popOutPanel(id: string) {
         return withPanel(id, (parent, div) => {
+            function handleBeforeUnload() {
+                extWindow.close()
+            }
+
             extensionScaffold.hidePanel(id)
 
             const { extWindow, popOutContainer } = this.getOrCreatePopOutWindow(id)
+            extWindow.document.title = div.title
     
             popOutContainer.appendChild(div)
-    
-            extWindow.document.title = id // TODO
 
             extWindow.addEventListener('beforeunload', () => {
                 parent.appendChild(div) // Move the div back
                 div.style.display = 'none'
                 extensionScaffold.showPanel(id)
+                window.removeEventListener('beforeunload', handleBeforeUnload)
             })
+            // If the parent window closes, close the children
+            window.addEventListener('beforeunload', handleBeforeUnload)
         })
     }
 
@@ -88,12 +94,14 @@ export class PanelsImpl implements Panels {
         if (!extWindow) {
             return false
         }
+        if (extWindow.closed) {
+            return false
+        }
         const div = extWindow.document.getElementById(id)
         if (!div) {
             return false
         }
         return true
-        // return div.style.display !== 'none'
     }
 
     focusPopOut(id: string) {

@@ -16,6 +16,7 @@ export const LOCATIONS = [
     'bottom',
     'center',
     'footer',
+    'portal',
 ] as const
 
 export type Location = typeof LOCATIONS[number]
@@ -31,6 +32,7 @@ export type Event = 'grid-changed'
 export interface AddPanelOptions {
     location: Location
     id: string
+    icon?: HTMLElement
     title?: string
     resizeHandle?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
