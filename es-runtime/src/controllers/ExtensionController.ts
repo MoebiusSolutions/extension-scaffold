@@ -51,8 +51,9 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    loadExtension(url: string): Promise<any> {
-        return import(url).then(module => this.activateExtension(module, url))
+    async loadExtension(url: string) {
+        const module = await import(url)
+        return this.activateExtension(module, url)
     }
 
     loadExtensions(urls: string[], gridstate?: GridState): Promise<(Fulfilled | Rejected)[]> {
@@ -263,10 +264,11 @@ class ApiImpl implements ExtensionScaffoldApi {
         })
     }
 
-    private activateExtension(module: any, url: string) {
-        console.debug('Activating', url)
+    private async activateExtension(module: any, url: string) {
         if (module.activate) {
-            module.activate(extensionScaffold, url)
+            return module.activate(extensionScaffold, url)
+        } else {
+            throw new Error(`Extension does not export activate: ${url}`)
         }
     }
 
