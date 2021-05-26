@@ -50,7 +50,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
 async function doRibbon(scaffold: ExtensionScaffoldApi) {
   return await doPanel(scaffold, {
     id: 'ext.snowpack.ribbon',
-    location: 'top',
+    location: 'top-bar',
     initialWidthOrHeight: '',
   }, <Ribbon es={scaffold} />)
 }

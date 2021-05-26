@@ -8,6 +8,8 @@ export const LOCATIONS = [
     'header',
     'above-left',
     'above-right',
+    'top-bar',
+    'bottom-bar',
     'left-bar',
     'right-bar',
     'left',
@@ -17,6 +19,7 @@ export const LOCATIONS = [
     'center',
     'footer',
     'portal',
+    'portal-wide',
 ] as const
 
 export type Location = typeof LOCATIONS[number]
