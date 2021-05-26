@@ -33,18 +33,37 @@ Normally, this would also create a `git tag`, but because `es-runtime` is nested
 one level down in our directory layout, `npm` skips the tagging part.
 See below for when / how to `git tag`.
 
-## 2. Make sure you are logged into npm repository:
+## 2. Make sure you are logged into a private npm repository
 
-For DI2E use:
+Depending on which project/contract you are working you may
+have access to one or more private npm repositories.
+These are the ones that are currently known to the author:
+
+1. OSA/CSA - https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/
+2. DI2E - https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM
+3. Moebius - https://nexus.moesol.com/repository/gccsje-npm-hosted/
+
+You can verify if you are logged into a registry using the `npm whoami` command.
+
+For example, for the Moebius registry you can run:
 
 ```
-npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM --scope @gots
+npm whoami --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/
 ```
+
+If you are not logged into the private npm repository you can
+login for the "scope" `@gots` using one of the command lines below.
 
 For CSA use:
 
 ```
 npm login --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/ --scope @gots
+```
+
+For DI2E use:
+
+```
+npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM --scope @gots
 ```
 
 For Moebius use:
@@ -55,10 +74,12 @@ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --sc
 
   > Note: If you need to switch registries back and forth a lot,
   > then you may want to put one of the registries into a different `npmrc` file.
-  > For example, 
-
+  > For example: 
+  >
   > `npm login --userconfig ~/npmrc-moesol --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots`
-  > (see below for how to use `~/npmrc-moesol`)
+  > (see below for how to use `~/npmrc-moesol`).
+  > The `--userconfig` option works for `npm whoami` as well: 
+  > `npm --userconfig ~/npm-moe whoami --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/`
 
 ## 3. Publish the release
 
@@ -114,10 +135,7 @@ git push {remote} --tags
 For example, if you have `di2e`, `csa`, and `moelab` as remotes, then you would run:
 
 ```
-git push di2e
-git push di2e --tags
-git push csa
-git push csa --tags
-git push moelab
-git push moelab --tags
+git push di2e develop --tags
+git push csa develop --tags
+git push moelab develop --tags
 ```
