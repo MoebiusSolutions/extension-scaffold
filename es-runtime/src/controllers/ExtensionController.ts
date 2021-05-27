@@ -1,5 +1,5 @@
 import type {
-    ExtensionScaffoldApi, AddPanelOptions, LoadWebpackScriptOptions,
+    ExtensionScaffoldApi, LoadWebpackScriptOptions,
     GridState, Chrome, Fulfilled, Rejected
 } from '../es-api'
 import {
