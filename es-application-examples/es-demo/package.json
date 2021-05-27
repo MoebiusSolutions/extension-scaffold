@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build",
+    "start": "snowpack dev --polyfill-node",
+    "build": "snowpack build --polyfill-node",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -9,7 +9,7 @@
     "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
-    "@gots/es-runtime": "file:../../es-runtime"
+    "@gots/es-runtime": "file:../../es-runtime/gots-es-runtime-0.7.0.tgz"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",
