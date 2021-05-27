@@ -75,7 +75,7 @@ function applySize(loc: string, size: string) {
 
 export function setLocationState(loc: string, state: PanelState) {
     if (state.activeId) {
-        extensionScaffold.showPanel(state.activeId)
+        extensionScaffold.chrome.panels.showPanel(state.activeId)
     }
     applySize(loc, state.size)
 }
@@ -100,3 +100,28 @@ export function getGridState(): GridState {
     return gridstate
 }
 
+export const copyStyles = (sourceDoc: HTMLDocument, targetDoc: HTMLDocument) => {
+    Array.from(sourceDoc.styleSheets).forEach(styleSheet => {
+        if (styleSheet.disabled) {
+            return
+        }
+
+        if (styleSheet.cssRules) { // for <style> elements
+            const newStyleEl = sourceDoc.createElement('style')
+
+            Array.from(styleSheet.cssRules).forEach(cssRule => {
+                // write the text of each rule into the body of the style element
+                newStyleEl.appendChild(sourceDoc.createTextNode(cssRule.cssText))
+            })
+
+            targetDoc.head.appendChild(newStyleEl)
+        } else if (styleSheet.href) { // for <link> elements loading CSS from a URL
+            const newLinkEl = sourceDoc.createElement('link')
+
+            newLinkEl.rel = 'stylesheet'
+            newLinkEl.href = styleSheet.href
+            targetDoc.head.appendChild(newLinkEl)
+        }
+    })
+    targetDoc.body.style.padding = '0px'
+}

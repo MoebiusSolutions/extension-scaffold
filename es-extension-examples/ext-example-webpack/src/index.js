@@ -11,7 +11,7 @@ import App from './App';
 
 export async function activate(scaffold) {
   console.log('webpack activate', scaffold)
-  const div = await scaffold.addPanel({
+  const div = await scaffold.chrome.panels.addPanel({
     id: 'ext.example.webpack',
     location: 'right',
     resizeHandle: true,

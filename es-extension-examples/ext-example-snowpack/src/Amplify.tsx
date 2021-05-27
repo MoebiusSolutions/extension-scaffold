@@ -65,11 +65,11 @@ export const Amplify: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         if (portalDiv) {
             return
         }
-        es.addPanel({
+        es.chrome.panels.addPanel({
             id: 'ext.snowpack.amplify.portal',
             location: 'portal',
         }).then(div => setPanelDiv(div))
-        return () => { es.removePanel('ext.snowpack.amplify') }
+        return () => { es.chrome.panels.removePanel('ext.snowpack.amplify') }
     }, [])
 
     function handleAmplify() {

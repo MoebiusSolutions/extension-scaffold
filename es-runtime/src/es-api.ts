@@ -71,22 +71,6 @@ export interface GridState {
 }
 
 export interface Panels {
-    popOutPanel: (id: string) => boolean
-    popInPanel: (id: string) => boolean
-    isPoppedOut: (id: string) => boolean
-}
-export interface Chrome {
-    readonly panels: Panels
-}
-
-export interface ExtensionScaffoldApi {
-    readonly chrome: Chrome
-    readonly events: EventEmitter
-
-    boot: (gridContainer: HTMLElement | null) => void
-
-    loadExtensions: (urls: string[], gridstate?: GridState) => Promise<(Fulfilled | Rejected)[]>
-
     /** Panels "stack" in a location */
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
     /** Removing restores the top panel in the remaining stack */
@@ -97,6 +81,23 @@ export interface ExtensionScaffoldApi {
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
     restorePanel: (id: string) => void
+
+    popOutPanel: (id: string) => boolean
+    popInPanel: (id: string) => boolean
+    isPanelPoppedOut: (id: string) => boolean
+}
+
+export interface Chrome {
+    readonly panels: Panels
+}
+
+export interface ExtensionScaffoldApi {
+    readonly chrome: Chrome
+    readonly events: EventEmitter
+
+    boot: (gridContainer: HTMLElement | null) => void
+
+    loadExtensions: (urls: string[], gridState?: GridState) => Promise<(Fulfilled | Rejected)[]>
 
     /**
      * Webpack does not currently have a non-experimental means to generate an ES module.

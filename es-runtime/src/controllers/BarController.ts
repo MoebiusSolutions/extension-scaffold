@@ -12,7 +12,7 @@ export class BarController {
     }
 
     private addPanel(panelOptions: AddPanelOptions[]) {
-        extensionScaffold.addPanel({
+        extensionScaffold.chrome.panels.addPanel({
             id: `es.runtime.${this.barLocation}`,
             location: this.barLocation,
             resizeHandle: false,
@@ -104,7 +104,7 @@ export class BarController {
                 btn.innerText = `B${idx}`
             }
             btn.onclick = () => {
-                extensionScaffold.togglePanel(panelOptions.id)
+                extensionScaffold.chrome.panels.togglePanel(panelOptions.id)
             }
             flexContainer.appendChild(btn)
         })

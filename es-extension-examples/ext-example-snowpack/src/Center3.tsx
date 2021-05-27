@@ -13,7 +13,7 @@ export const Center3: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         }
     `
     function handleClose() {
-        es.removePanel('ext.example.snowpack.3')
+        es.chrome.panels.removePanel('ext.example.snowpack.3')
     }
     /*
      * Note that below we inject a <style> element into the shadow DOM.

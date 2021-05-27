@@ -79,7 +79,7 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         if (portalDiv) {
             return
         }
-        es.addPanel({
+        es.chrome.panels.addPanel({
             id: 'ext.snowpack.ribbon.portal',
             location: 'portal-wide',
         }).then(div => setPanelDiv(div))

@@ -30,7 +30,7 @@ runtime -> extension : module.activate(api)
 deactivate runtime
 activate extension
 
-extension -> runtime : ""api.addPanel()""
+extension -> runtime : ""api.chrome.panels.addPanel()""
 activate runtime
 extension <-- runtime : //promise: Promise<div>//
 deactivate extension
