@@ -6,7 +6,8 @@
     "build": "tsc -p tsconfig.json && copyfiles -u 1 src/*.css build",
     "prepack": "npm run build",
     "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
-    "container": "npm run maybe-install && snowpack dev"
+    "container": "npm run maybe-install && snowpack dev",
+    "upgrade-all": "./scripts/local-upgrade-all.sh "
   },
   "files": [
     "build"

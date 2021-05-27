@@ -4,7 +4,7 @@ import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
     function handleClick() {
         console.log('Rollup was clicked - hiding')
-        es.hidePanel('ext.example.rollup')
+        es.chrome.panels.hidePanel('ext.example.rollup')
     }
     const css = `
     .inner {

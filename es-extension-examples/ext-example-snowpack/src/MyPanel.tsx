@@ -13,16 +13,16 @@ export const MyPanel: React.FC<{
     }
     function handleMaximize() {
         console.log('snowpack maximize')
-        es.maximizePanel('ext.example.snowpack')
+        es.chrome.panels.maximizePanel('ext.example.snowpack')
     }
     function handleRestore() {
-        es.restorePanel('ext.example.snowpack')
+        es.chrome.panels.restorePanel('ext.example.snowpack')
     }
     function handleClose() {
-        es.removePanel('ext.example.snowpack')
+        es.chrome.panels.removePanel('ext.example.snowpack')
     }
     function handleAddCenter() {
-        es.addPanel({
+        es.chrome.panels.addPanel({
             id: 'ext.example.snowpack.2',
             location: 'center',
         }).then(onPanelAdded)
@@ -39,10 +39,10 @@ export const MyPanel: React.FC<{
         claimStyleFromHeadElement(div, '#ext.example.snowpack')
     }
     function handleShowRollupPanel() {
-        es.showPanel('ext.example.rollup')
+        es.chrome.panels.showPanel('ext.example.rollup')
     }
     function handleShowSnowpack() {
-        es.showPanel('ext.snowpack.left')
+        es.chrome.panels.showPanel('ext.snowpack.left')
     }
 
     return <><div className='MyPanel' onClick={handleClick}>

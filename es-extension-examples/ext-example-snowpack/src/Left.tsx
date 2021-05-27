@@ -15,7 +15,7 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         es.chrome.panels.popInPanel('ext.snowpack.left')
     }
     function handleHide() {
-        es.hidePanel('ext.snowpack.left')
+        es.chrome.panels.hidePanel('ext.snowpack.left')
     }
 
     return <div style={{

@@ -19,7 +19,7 @@ import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
  * @returns 
  */
 async function doPanel(scaffold: ExtensionScaffoldApi, options: AddPanelOptions, component: JSX.Element) {
-  const panelDiv = await scaffold.addPanel(options)
+  const panelDiv = await scaffold.chrome.panels.addPanel(options)
 
   ReactDOM.render(
     <React.StrictMode>
@@ -50,7 +50,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
 async function doRibbon(scaffold: ExtensionScaffoldApi) {
   return await doPanel(scaffold, {
     id: 'ext.snowpack.ribbon',
-    location: 'top',
+    location: 'top-bar',
     initialWidthOrHeight: '',
   }, <Ribbon es={scaffold} />)
 }
@@ -82,7 +82,7 @@ async function doLeft(scaffold: ExtensionScaffoldApi) {
 
 async function addMap(scaffold: ExtensionScaffoldApi) {
   const mapUrl = 'http://localhost:8082/map.html?aeo_logo=true&aeo_dc=false&aeo_top=1.9886362552642822&aeo_left=1.9886362552642822&aeo_viewport_w=1745&aeo_viewport_h=961&xdm_e=http%3A%2F%2Flocalhost%3A8082%2F&xdm_c=default3300&xdm_p=4'
-  const panelDiv = await scaffold.addPanel({
+  const panelDiv = await scaffold.chrome.panels.addPanel({
     id: 'ext.aeolus.map',
     title: 'Snowpack Left',
     location: 'center',
@@ -101,7 +101,7 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
     );
     claimStyleFromHeadElement(div, '#ext.example.snowpack')
   }
-  scaffold.addPanel({
+  scaffold.chrome.panels.addPanel({
     id: 'ext.example.snowpack',
     location: 'center'
   }).then(onPanelAdded).catch(console.error)
@@ -118,8 +118,8 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doLeft(scaffold)
 }
 
-export function activate(scaffold: ExtensionScaffoldApi, url: string) {
+export async function activate(scaffold: ExtensionScaffoldApi, url: string) {
   console.log('snowpack extension activated', scaffold, url)
 
-  doActivate(scaffold).catch(console.error)
+  return await doActivate(scaffold)
 }

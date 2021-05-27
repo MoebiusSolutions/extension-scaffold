@@ -3,7 +3,7 @@ import * as React from 'react';
 import { MyPanel } from './MyPanel';
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 
-export function activate(scaffold: ExtensionScaffoldApi) {
+export async function activate(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
       <React.StrictMode>
@@ -21,7 +21,7 @@ export function activate(scaffold: ExtensionScaffoldApi) {
   </svg>
   ReactDOM.render(svg, span)
 
-  scaffold.addPanel({
+  scaffold.chrome.panels.addPanel({
     id: 'ext.example.rollup',
     title: 'Rollup Left',
     icon: span,

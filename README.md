@@ -73,7 +73,7 @@ import { extensionScaffold } from '@gots/es-runtime/build/es-api'
 
 // .. declare the activate function
 
-export function activate(scaffold: ExtensionScaffoldApi) { ... }
+export async function activate(scaffold: ExtensionScaffoldApi) { ... }
 ```
 
 
