@@ -1,33 +1,25 @@
 import { Browser, BrowserContext, chromium, Page } from 'playwright';
 
-import { test } from 'uvu';
+import { suite } from 'uvu';
 import * as assert from 'uvu/assert';
+import { setUp, tearDown } from '../src/playwright';
+import type { Context } from '../src/playwright'
 
-let browser: Browser | undefined
-let context: BrowserContext | undefined
-let page: Page = {} as Page
-
-test.before(async () => {
-  browser = await chromium.launch({
-    // headless: false,
-    // slowMo: 1000,
-  })
-  context = await browser.newContext();
-
-  page = await context.newPage();
-  await page.goto('http://localhost:8081/');
+const LeftBar = suite<Context>('LeftBar', {
+  page: {} as Page
 })
 
-test.after(async () => {
-  await context?.close();
-  await browser?.close();
-})
+LeftBar.before(setUp)
 
-test('Initial left-bar activeId', async () => {
+LeftBar.after(tearDown)
+
+LeftBar('should initially have rollup as active panel', async ctx => {
+  const { page } = ctx
   assert.ok(await page.isVisible('text=MyPanel - rollup'))
 })
 
-test('click Snowpack Left button', async () => {
+LeftBar('click Snowpack Left button', async ctx => {
+  const { page } = ctx
   await page.click('button[title="Snowpack Left"]')
   assert.ok(await page.isVisible('text=Left example from snowpack'))
 
@@ -40,7 +32,8 @@ test('click Snowpack Left button', async () => {
   assert.ok(await page.isVisible('text=Left example from snowpack'))
 })
 
-test('click Rollup Left button', async () => {
+LeftBar('click Rollup Left button', async ctx => {
+  const { page } = ctx
   await page.click('button[title="Rollup Left"]')
   assert.ok(await page.isVisible('text=MyPanel - rollup'))
 
@@ -51,4 +44,4 @@ test('click Rollup Left button', async () => {
   assert.ok(await page.isVisible('text=MyPanel - rollup'))
 })
 
-test.run();
+LeftBar.run();
