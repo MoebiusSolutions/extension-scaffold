@@ -181,3 +181,41 @@ To do this follows these five steps:
    docker-compose restart es-demo
    ```
 5) Refresh browser
+
+# Injecting Material UI Styles into the Shadow DOM
+
+```tsx
+import { jssPreset, StylesProvider } from "@material-ui/styles"; 
+import { create } from "jss";
+ 
+export async function activate (scaffold) {
+ 
+const div = await scaffold.addPanel({
+    id: `${APP_ID}`,
+    title: "Case Manager UI Left",
+    location: "center",
+    resizeHandle: true
+});
+```
+Tell material ui where to inject the styling rules
+so we do not have to manually import into the Shadow DOM
+
+```tsx
+const jss = create({
+    ...jssPreset(),
+    insertionPoint: div
+});
+
+render(<StylesProvider jss={jss}>
+        <App scaffold={scaffold} />
+    </StylesProvider>, div);
+}
+```
+
+To force a MUI Dialog to appear in-place in the html tree, set `disablePortal`
+
+```tsx
+return <Dialog open={open} onClose={cancel} disablePortal>
+      …
+</Dialog>
+```
