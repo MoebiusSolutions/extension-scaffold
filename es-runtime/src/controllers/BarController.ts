@@ -34,19 +34,19 @@ export class BarController {
             divBar.lastElementChild.remove()
         }
 
-        divBar.style.background = 'black'
+        divBar.style.background = 'var(--es-theme-surface)'
         divBar.style.height = '100%'
 
         const styleElement = document.createElement('style')
         styleElement.setAttribute('type', 'text/css')
         styleElement.textContent = `
         .es-bar {
-            background: rgba(255, 255, 255, 0.2)
+            background: rgba(255, 255, 255, 0.05);
         }
         .es-bar-button {
             background: transparent;
             border: none;
-            color: lightgrey;
+            color: var(--es-theme-text-secondary-on-background);
             cursor: pointer;
             padding: 14px;
             width: 58px;

@@ -41,6 +41,7 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             flex-direction: row;
             padding-top: 0.25em;
             padding-bottom: 0.25em;
+            background: rgba(255, 255, 255, 0.05);
         }
         .ribbon-tab {
             padding-right: 1em;
@@ -53,6 +54,7 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             border-bottom: 2px solid red;
         }
         .ribbon-bottom {
+            background: rgba(255, 255, 255, 0.05);
             padding-left: 1em;
             padding-right: 1em;
             padding-bottom: 0.5em;
@@ -63,6 +65,10 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             left: 0px;
             right: 0px;
             user-select: none;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-left: 5px;
+            box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
         }
     `
     const [portalDiv, setPanelDiv] = React.useState<HTMLDivElement>()

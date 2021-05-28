@@ -131,10 +131,14 @@ code {
 
 .left-bar {
   grid-area: left-bar;
+  margin-right: 5px;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .right-bar {
   grid-area: right-bar;
+  margin-left: 5px;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .above-left {
@@ -147,6 +151,8 @@ code {
 
 .top-bar {
   grid-area: top-bar;
+  margin-bottom: 5px;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .top {
@@ -155,6 +161,8 @@ code {
 
 .bottom-bar {
   grid-area: bottom-bar;
+  margin-top: 5px;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .bottom {
