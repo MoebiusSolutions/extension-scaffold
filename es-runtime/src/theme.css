@@ -2,7 +2,7 @@
     /**
      * A dark theme based on material design guidelines
      */
-    --es-theme-surface: #292929;
+    --es-theme-surface: #121212;
     --es-theme-text-primary-on-background: rgba(255,255,255,0.87);
     --es-theme-text-secondary-on-background: rgba(255,255,255, 0.54);
 }
@@ -11,17 +11,18 @@
     /**
      * A light theme based on material design guidelines
      */
+     --es-theme-surface: #fff;
+     --es-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+     --es-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+
     --es-theme-primary: #6200ee;
     --es-theme-secondary: #018786;
     --es-theme-background: #fff;
-    --es-theme-surface: #fff;
     --es-theme-error: #b00020;
     --es-theme-on-primary: #fff;
     --es-theme-on-secondary: #fff;
     --es-theme-on-surface: #000;
     --es-theme-on-error: #fff;
-    --es-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
-    --es-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
     --es-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
     --es-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
     --es-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
