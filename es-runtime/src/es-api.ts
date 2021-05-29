@@ -94,6 +94,14 @@ export interface Chrome {
 export interface ExtensionScaffoldApi {
     readonly chrome: Chrome
     readonly events: EventEmitter
+    /**
+     * Exposed the gridContainer that was passed into `boot`.
+     * An example use case would be to add a className to indicate a theme:
+     * ```
+     * api.gridContainer.classList.add('light')
+     * ```
+     */
+    readonly gridContainer: HTMLElement
 
     boot: (gridContainer: HTMLElement | null) => void
 
@@ -105,11 +113,5 @@ export interface ExtensionScaffoldApi {
      */
     loadWebpackScript: (options: LoadWebpackScriptOptions) => Promise<any>
 }
-
-// api.chrome.addPanel
-
-// api.service.register('event', myservice)
-// thatservice = api.service.get('event')
-// thatservice.latLngRngBrg2LatLn()
 
 export { extensionScaffold }

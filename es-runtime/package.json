@@ -3,7 +3,9 @@
   "version": "1.0.1-SNAPSHOT",
   "module": "./build/es-api.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json && copyfiles -u 1 src/*.css build",
+    "build": "tsc -p tsconfig.json && npm run cp:css && npm run cp:material",
+    "cp:css": "copyfiles -u 1 src/*.css build",
+    "cp:material": "copyfiles -u 1 node_modules/@material/elevation/dist/mdc.elevation.css build",
     "prepack": "npm run build",
     "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
     "container": "npm run maybe-install && snowpack dev",
@@ -13,6 +15,7 @@
     "build"
   ],
   "dependencies": {
+    "@rmwc/elevation": "^6.1.4",
     "events": "^3.3.0"
   },
   "devDependencies": {
