@@ -48,10 +48,12 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             padding-left: 1em;
         }
         .ribbon-tab:hover {
+            background: rgba(0, 0, 0, 0.2);
             color: var(--es-theme-text-primary-on-background);
         }
         .ribbon-tab .active {
             border-bottom: 2px solid red;
+            color: var(--es-theme-text-primary-on-background);
         }
         .ribbon-bottom {
             background: rgba(255, 255, 255, 0.05);
@@ -65,9 +67,7 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             left: 0px;
             right: 0px;
             user-select: none;
-            margin-left: 5px;
-            margin-right: 5px;
-            margin-left: 5px;
+            margin-bottom: 5px;
             box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
         }
     `
