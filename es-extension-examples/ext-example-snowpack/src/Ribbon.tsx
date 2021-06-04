@@ -19,13 +19,22 @@ const Tab: React.FC<{
 const RibbonBottom: React.FC<{
     active: string
     floating: boolean
+    es: ExtensionScaffoldApi
 }> = ({
     active,
-    floating
+    floating,
+    es,
 }) => {
+    function handleTheme() {
+        if (es.gridContainer.classList.contains('light')) {
+            es.gridContainer.classList.remove('light')
+        } else {
+            es.gridContainer.classList.add('light')
+        }
+    }
     return <div className='ribbon-bottom'>
         <div>Bottom part of {active} {floating ? 'floating' : ''} Ribbon</div>
-        <div>Another Row on Ribbon <button>Test</button></div>
+        <div>Another Row on Ribbon <button onClick={handleTheme}>Theme</button></div>
         <div>Another Row on Ribbon</div>
     </div>
 }
@@ -41,18 +50,22 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             flex-direction: row;
             padding-top: 0.25em;
             padding-bottom: 0.25em;
+            background: rgba(255, 255, 255, 0.05);
         }
         .ribbon-tab {
             padding-right: 1em;
             padding-left: 1em;
         }
         .ribbon-tab:hover {
+            background: rgba(0, 0, 0, 0.2);
             color: var(--es-theme-text-primary-on-background);
         }
         .ribbon-tab .active {
             border-bottom: 2px solid red;
+            color: var(--es-theme-text-primary-on-background);
         }
         .ribbon-bottom {
+            background: rgba(255, 255, 255, 0.05);
             padding-left: 1em;
             padding-right: 1em;
             padding-bottom: 0.5em;
@@ -63,6 +76,8 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             left: 0px;
             right: 0px;
             user-select: none;
+            margin-bottom: 5px;
+            box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
         }
     `
     const [portalDiv, setPanelDiv] = React.useState<HTMLDivElement>()
@@ -105,13 +120,13 @@ export const Ribbon: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
                     tabs.map(t => <Tab key={t} active={active} name={t} handleTabClicked={handleTabClicked} />)
                 }
             </div>
-            { open && !floating && <RibbonBottom active={active} floating={floating} /> }
+            { open && !floating && <RibbonBottom active={active} floating={floating} es={es} /> }
         </div>
         { open && floating && portalDiv && ReactDOM.createPortal(
             <>
                 <style>{css}</style>
                 <div className="ribbon-float">
-                    <RibbonBottom active={active} floating={floating} />
+                    <RibbonBottom active={active} floating={floating} es={es} />
                 </div>
             </>,
             portalDiv

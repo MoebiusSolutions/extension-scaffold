@@ -14,16 +14,22 @@ class ChromeImpl implements Chrome {
 }
 
 class ApiImpl implements ExtensionScaffoldApi {
-    private gridContainer?: HTMLElement
+    private _gridContainer?: HTMLElement
 
     readonly chrome = new ChromeImpl()
     readonly events = new EventEmitter()
+    get gridContainer(): HTMLElement {
+        if (!this._gridContainer) {
+            throw new Error('boot method must be called before accessing this property')
+        }
+        return this._gridContainer
+    }
 
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
             throw new Error('Missing gridContainer')
         }
-        this.gridContainer = gridContainer
+        this._gridContainer = gridContainer
         this.gridContainer.classList.add('grid-container')
 
         const gridPortal = document.createElement('div')
