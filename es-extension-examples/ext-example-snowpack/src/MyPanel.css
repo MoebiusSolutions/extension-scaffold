@@ -3,8 +3,8 @@
 }
 
 .MyPanel {
-    background-color: rgb(38, 38, 38);
-    color: rgb(255,255,255,.8);
+    background-color: var(--es-theme-surface);
+    color: var(--es-theme-text-primary-on-background);
     height: 100%;
 }
 

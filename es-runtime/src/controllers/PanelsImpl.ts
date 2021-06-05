@@ -327,7 +327,7 @@ export class PanelsImpl implements Panels {
 
         const { shadowDiv, extPanel } = this.makeShadowDomDivs(outerPanel)
         shadowDiv.id = options.id
-        shadowDiv.className = options.location === 'portal' ? 'shadow-portal' : 'shadow-div'
+        shadowDiv.className = options.location.startsWith('portal') ? 'shadow-portal' : 'shadow-div'
 
         return {
             outerPanel,
