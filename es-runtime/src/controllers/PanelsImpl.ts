@@ -109,7 +109,7 @@ export class PanelsImpl implements Panels {
                 case 'right':
                 case 'top':
                 case 'bottom':
-                    withGrid(`above-${location}`, setInactive(div))
+                    withGrid(`above-${location}`, div => setInactive(div))
                     parent.style.display = 'none'
 
                     this.updateBars(location)
