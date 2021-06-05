@@ -4,6 +4,7 @@ import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, locationFromDiv,
+    isActive, setActive, setInactive,
     getGridState, withPanel, withGrid, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
@@ -83,7 +84,7 @@ export class PanelsImpl implements Panels {
                 case 'top':
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
-                    withGrid(`above-${location}`, div => div.style.display = 'block')
+                    withGrid(`above-${location}`, div => setActive(div))
                     div.style.display = 'block'
                     this.updateBars(location)
                     break
@@ -108,8 +109,9 @@ export class PanelsImpl implements Panels {
                 case 'right':
                 case 'top':
                 case 'bottom':
-                    withGrid(`above-${location}`, div => div.style.display = 'none')
+                    withGrid(`above-${location}`, setInactive(div))
                     parent.style.display = 'none'
+
                     this.updateBars(location)
                     break
 
@@ -132,7 +134,7 @@ export class PanelsImpl implements Panels {
         }
 
         return withPanel(id, (parent, div) => {
-            if (parent.style.display !== 'none' && div.style.display !== 'none') {
+            if (parent.style.display !== 'none' && isActive(div)) {
                 this.hidePanel(id)
             } else {
                 this.showPanel(id)
@@ -193,7 +195,7 @@ export class PanelsImpl implements Panels {
 
             const { extWindow, popOutContainer } = this.getOrCreatePopOutWindow(id)
             extWindow.document.title = div.title
-    
+
             popOutContainer.appendChild(div)
 
             extWindow.addEventListener('beforeunload', () => {

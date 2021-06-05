@@ -44,6 +44,18 @@ export function locationFromDiv(div: HTMLDivElement) {
     throw new Error('Div does not have a location class')
 }
 
+export const isActive = (div: HTMLDivElement) => {
+    div.classList.contains('active')
+}
+
+export const setActive = (div: HTMLDivElement) => {
+    div.classList.add('active')
+}
+
+export const setInactive = (div: HTMLDivElement) => {
+    div.classList.remove('active')
+}
+
 export function getLocationdState(loc: string): PanelState {
     const d = document.querySelector(`.${loc}`)
     if (d !== null) {
@@ -52,7 +64,7 @@ export function getLocationdState(loc: string): PanelState {
         //@ts-ignore
         const r = [...div?.querySelectorAll('.shadow-div')]
         //@ts-ignore
-        const id = r.find(div => div.style.display !== 'none')?.id
+        const id = r.find(div => isActive(div))?.id
         const size = div.style.width ? div.style.width : div.style.height
         return { size, activeId: (id === undefined ? null : id) }
     }
