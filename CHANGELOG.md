@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.1.0] - 2021-06-09
+
+### Added
+
+* Add "elevation" styling so that light theme looks better.
+* Material "elevation" shadow borders.
+* Example to Toggle dark/light theme.
+
+### Changed
+
+* Fixed: Location `wide-portal` was eating all pointer events
+* Replace hard coded colors with theme colors
+
+### Removed
+
+* Removed `position: absolute` when using `iframe` support.
+  @evans.good found this was causing his ribbon an issue.
+
 ## [1.0.0] - 2021-05-27
 
 ### **Breaking API** Changes
