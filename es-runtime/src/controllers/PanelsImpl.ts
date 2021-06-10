@@ -11,7 +11,6 @@ import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_FLEX = 'flex'
 
-
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
     private readonly locationStack = new LocationStack()
@@ -37,18 +36,10 @@ export class PanelsImpl implements Panels {
             shadowDiv.title = options.title
         }
         setActive(shadowDiv)
-        function styleAbsolute() {
-            extPanel.style.position = 'absolute'
-            extPanel.style.top = '0px'
-            extPanel.style.bottom = '0px'
-            extPanel.style.left = '0px'
-            extPanel.style.right = '0px'
-        }
+
 
         // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {
-            styleAbsolute()
-
             const iframe = document.createElement('iframe')
             iframe.src = options.iframeSource
             iframe.style.width = '100%'
