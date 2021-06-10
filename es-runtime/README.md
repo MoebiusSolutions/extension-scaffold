@@ -12,9 +12,15 @@ Builds the library as ES module in the `build/` folder.
 
 # Publish `@gots/es-runtime`
 
+## 1. Update the CHANGELOG.md
+
+By updating what has changed since the last release, you can decide if there are breaking changes,
+which require a major version number change.
+Determine what the next version number will be.
+
 ## 1. Update Version Number
 
-NPM helps out with the `npm version` command.
+Use the `npm version` command.
 To go to the next release candidate version you can use:
 
 ```
@@ -24,10 +30,10 @@ npm version prerelease --preid=rc
 To go to the next release you can use:
 
 ```
-npm version patch
+npm version minor
 ```
 
-Or to tag a specific version, say 1.0.8 use `npm version 1.0.8`
+Or to set a specific version, say 1.0.8 use `npm version 1.0.8`
 
 Normally, this would also create a `git tag`, but because `es-runtime` is nested
 one level down in our directory layout, `npm` skips the tagging part.
