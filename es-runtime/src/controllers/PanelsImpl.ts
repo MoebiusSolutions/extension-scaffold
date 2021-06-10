@@ -36,7 +36,7 @@ export class PanelsImpl implements Panels {
         if (options.title) {
             shadowDiv.title = options.title
         }
-
+        setActive(shadowDiv)
         function styleAbsolute() {
             extPanel.style.position = 'absolute'
             extPanel.style.top = '0px'
@@ -85,12 +85,12 @@ export class PanelsImpl implements Panels {
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
                     withGrid(`above-${location}`, div => setActive(div))
-                    div.style.display = 'block'
+                    setActive(div)
                     this.updateBars(location)
                     break
 
                 case 'center':
-                    div.style.display = 'block'
+                    setActive(div)
                     break
             }
             extensionScaffold.events.emit('grid-changed', getGridState())
@@ -111,7 +111,6 @@ export class PanelsImpl implements Panels {
                 case 'bottom':
                     withGrid(`above-${location}`, div => setInactive(div))
                     parent.style.display = 'none'
-
                     this.updateBars(location)
                     break
 
