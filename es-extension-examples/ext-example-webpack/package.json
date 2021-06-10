@@ -152,7 +152,7 @@
     ]
   },
   "devDependencies": {
-    "@gots/es-runtime": "file:../../es-runtime",
+    "@gots/es-runtime": "^1.1.0",
     "serve": "^11.3.2"
   }
 }
