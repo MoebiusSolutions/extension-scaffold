@@ -289,3 +289,7 @@ And these are the stylings for `light`:
      --es-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
      --es-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
 ```
+
+# Releasing a New Version
+
+[See `es-runtime` README.md](es-runtime/README.md)
