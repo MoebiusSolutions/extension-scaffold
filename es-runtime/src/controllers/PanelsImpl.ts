@@ -36,18 +36,8 @@ export class PanelsImpl implements Panels {
             shadowDiv.title = options.title
         }
 
-        function styleAbsolute() {
-            extPanel.style.position = 'absolute'
-            extPanel.style.top = '0px'
-            extPanel.style.bottom = '0px'
-            extPanel.style.left = '0px'
-            extPanel.style.right = '0px'
-        }
-
         // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {
-            styleAbsolute()
-
             const iframe = document.createElement('iframe')
             iframe.src = options.iframeSource
             iframe.style.width = '100%'
