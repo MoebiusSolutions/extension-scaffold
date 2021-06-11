@@ -1,7 +1,6 @@
 import type { Location } from '../es-api'
 import {
-    getGridState, setActive, setInactive,
-    hidePanelsWithLocation, showPanelWithLocation
+    getGridState, resize
 } from '../utils'
 import { extensionScaffold } from './ExtensionController'
 export interface ResizeData {
@@ -11,22 +10,6 @@ export interface ResizeData {
     origWidth: number
     origHeight: number
 }
-
-function resize(width: number, newWidth: number, rd: ResizeData, location: string) {
-    if (newWidth === 100) {
-        rd.parentDiv.style.width = '2px'
-        if (location === 'left') {
-            hidePanelsWithLocation('above-left')
-        }
-
-    } else {
-        rd.parentDiv.style.width = `${width}px`
-        if (location === 'left') {
-            showPanelWithLocation('above-left', width)
-        }
-    }
-}
-
 
 function applyLeft(rd: ResizeData, e: PointerEvent) {
     const w = window.innerWidth
