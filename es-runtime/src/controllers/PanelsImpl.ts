@@ -3,8 +3,8 @@ import type { Location, AddPanelOptions, Panels } from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
 import {
-    hidePanelsWithLocation, locationFromDiv,
-    isActive, setActive, setInactive,
+    hidePanelsWithLocation, showPanelsWithLocation,
+    locationFromDiv, isActive, setActive, setInactive,
     getGridState, withPanel, withGrid, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
@@ -75,8 +75,8 @@ export class PanelsImpl implements Panels {
                 case 'top':
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
-                    withGrid(`above-${location}`, div => setActive(div))
                     setActive(div)
+                    showPanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
 
@@ -87,6 +87,7 @@ export class PanelsImpl implements Panels {
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
+
 
     hidePanel(id: string) {
         if (this.isPanelPoppedOut(id)) {
@@ -100,8 +101,9 @@ export class PanelsImpl implements Panels {
                 case 'right':
                 case 'top':
                 case 'bottom':
-                    withGrid(`above-${location}`, div => setInactive(div))
+                case 'top':
                     parent.style.display = 'none'
+                    hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
 

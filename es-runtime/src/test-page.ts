@@ -8,7 +8,7 @@ async function loadExtensions() {
 
   // We don't want 'top' to have a size. If it does it messes up the ribbon collapse function.
   const gridstate: GridState = {
-    left: { activeId: "ext.example.rollup", size: '360px' }, right: { activeId: null, size: '300px' },
+    left: { activeId: "ext.example.rollup", size: '360px' }, right: { activeId: "ext.example.webpack", size: '300px' },
     top: { activeId: null, size: '' }, bottom: { activeId: null, size: '170px' }
   }
 

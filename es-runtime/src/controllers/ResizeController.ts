@@ -1,5 +1,8 @@
 import type { Location } from '../es-api'
-import { getGridState } from '../utils'
+import {
+    getGridState, setActive, setInactive,
+    hidePanelsWithLocation, showPanelWithLocation
+} from '../utils'
 import { extensionScaffold } from './ExtensionController'
 export interface ResizeData {
     parentDiv: HTMLElement
@@ -9,11 +12,31 @@ export interface ResizeData {
     origHeight: number
 }
 
+function resize(width: number, newWidth: number, rd: ResizeData, location: string) {
+    if (newWidth === 100) {
+        rd.parentDiv.style.width = '2px'
+        if (location === 'left') {
+            hidePanelsWithLocation('above-left')
+        }
+
+    } else {
+        rd.parentDiv.style.width = `${width}px`
+        if (location === 'left') {
+            showPanelWithLocation('above-left', width)
+        }
+    }
+}
+
+
 function applyLeft(rd: ResizeData, e: PointerEvent) {
     const w = window.innerWidth
     const dx = e.pageX - rd.origPageX
-    const newWidth = Math.min(Math.max(100, rd.origWidth + dx), w / 2 - 100)
+    const width = rd.origWidth + dx
+    const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
+    //@ts-ignore
+    //const size: number = rd.parentDiv.style.width.match(/\d+/)[0]
     rd.parentDiv.style.width = `${newWidth}px`
+    resize(width, newWidth, rd, 'left')
 }
 
 function applyTop(rd: ResizeData, e: PointerEvent) {
@@ -26,8 +49,10 @@ function applyTop(rd: ResizeData, e: PointerEvent) {
 function applyRight(rd: ResizeData, e: PointerEvent) {
     const w = window.innerWidth
     const dx = -1 * (e.pageX - rd.origPageX)
-    const newWidth = Math.min(Math.max(100, rd.origWidth + dx), w / 2 - 100)
+    const width = rd.origWidth + dx
+    const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
     rd.parentDiv.style.width = `${newWidth}px`
+    resize(width, newWidth, rd, 'right')
 }
 
 function applyBottom(rd: ResizeData, e: PointerEvent) {

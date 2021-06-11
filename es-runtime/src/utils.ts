@@ -7,7 +7,30 @@ export function hidePanelsWithLocation(location: string) {
         for (const child of el.children) {
             if (child.classList.contains('shadow-div')) {
                 const div = child as HTMLDivElement
-                div.style.display = 'none'
+                setInactive(div)
+            }
+        }
+    }
+}
+
+export function showPanelsWithLocation(location: string) {
+    for (const el of document.getElementsByClassName(location)) {
+        for (const child of el.children) {
+            if (child.classList.contains('shadow-div')) {
+                const div = child as HTMLDivElement
+                setActive(div)
+            }
+        }
+    }
+}
+
+export function showPanelWithLocation(location: string, width: number) {
+    for (const el of document.getElementsByClassName(location)) {
+        for (const child of el.children) {
+            if (child.classList.contains('shadow-div')) {
+                const div = child as HTMLDivElement
+                setActive(div)
+                div.style.width = `${width}px`
             }
         }
     }
@@ -44,17 +67,11 @@ export function locationFromDiv(div: HTMLDivElement) {
     throw new Error('Div does not have a location class')
 }
 
-export const isActive = (div: HTMLDivElement) => {
-    div.classList.contains('active')
-}
+export const isActive = (div: HTMLDivElement | HTMLElement) => div.classList.contains('active')
 
-export const setActive = (div: HTMLDivElement) => {
-    div.classList.add('active')
-}
+export const setActive = (div: HTMLDivElement) => div.classList.add('active')
 
-export const setInactive = (div: HTMLDivElement) => {
-    div.classList.remove('active')
-}
+export const setInactive = (div: HTMLDivElement) => div.classList.remove('active')
 
 export function getLocationdState(loc: string): PanelState {
     const d = document.querySelector(`.${loc}`)
@@ -93,6 +110,7 @@ export function setLocationState(loc: string, state: PanelState) {
 }
 
 export function applyGridState(gridstate: GridState) {
+    console.log('applyGridState', gridstate)
     setLocationState('left', gridstate.left)
     setLocationState('right', gridstate.right)
     setLocationState('top', gridstate.top)
