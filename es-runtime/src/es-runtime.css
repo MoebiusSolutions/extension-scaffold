@@ -228,3 +228,19 @@ code {
 .shadow-div.active { 
   display: block; 
 }
+
+.grid-panel.right.hidden {
+  max-width: 4px;
+}
+
+.grid-panel.right.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.left.hidden {
+  max-width: 4px;
+}
+
+.grid-panel.left.hidden > .shadow-div {
+  display: none;
+}

@@ -1,5 +1,4 @@
 import type { PanelState, GridState } from "./es-api"
-import type { ResizeData } from './controllers/ResizeController'
 import { extensionScaffold } from "./controllers/ExtensionController"
 import { LOCATIONS } from "./es-api"
 
@@ -111,7 +110,6 @@ export function setLocationState(loc: string, state: PanelState) {
 }
 
 export function applyGridState(gridstate: GridState) {
-    console.log('applyGridState', gridstate)
     setLocationState('left', gridstate.left)
     setLocationState('right', gridstate.right)
     setLocationState('top', gridstate.top)
@@ -155,19 +153,4 @@ export const copyStyles = (sourceDoc: HTMLDocument, targetDoc: HTMLDocument) => 
         }
     })
     targetDoc.body.style.padding = '0px'
-}
-
-export function resize(width: number, newWidth: number, rd: ResizeData, location: string) {
-    if (newWidth === 100) {
-        rd.parentDiv.style.width = '2px'
-        if (location === 'left') {
-            hidePanelsWithLocation('above-left')
-        }
-
-    } else {
-        rd.parentDiv.style.width = `${width}px`
-        if (location === 'left') {
-            showPanelWithLocation('above-left', width)
-        }
-    }
 }

@@ -1,14 +1,21 @@
 import type { Location } from '../es-api'
-import {
-    getGridState, resize
-} from '../utils'
+import { getGridState } from '../utils'
 import { extensionScaffold } from './ExtensionController'
 export interface ResizeData {
-    parentDiv: HTMLElement
+    panelDiv: HTMLElement
+    extensionDiv: HTMLElement | HTMLDivElement
     origPageX: number
     origPageY: number
     origWidth: number
     origHeight: number
+}
+
+function updateHidden(size: number, extensionDiv: HTMLDivElement | HTMLElement) {
+    if (size === 100) {
+        extensionScaffold.chrome.panels.hidePanel(extensionDiv.id)
+    } else {
+        extensionScaffold.chrome.panels.showPanel(extensionDiv.id)
+    }
 }
 
 function applyLeft(rd: ResizeData, e: PointerEvent) {
@@ -16,17 +23,15 @@ function applyLeft(rd: ResizeData, e: PointerEvent) {
     const dx = e.pageX - rd.origPageX
     const width = rd.origWidth + dx
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
-    //@ts-ignore
-    //const size: number = rd.parentDiv.style.width.match(/\d+/)[0]
-    rd.parentDiv.style.width = `${newWidth}px`
-    resize(width, newWidth, rd, 'left')
+    rd.panelDiv.style.width = `${newWidth}px`
+    updateHidden(newWidth, rd.extensionDiv)
 }
 
 function applyTop(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
     const dy = e.pageY - rd.origPageY
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
-    rd.parentDiv.style.height = `${newHeight}px`
+    rd.panelDiv.style.height = `${newHeight}px`
 }
 
 function applyRight(rd: ResizeData, e: PointerEvent) {
@@ -34,15 +39,15 @@ function applyRight(rd: ResizeData, e: PointerEvent) {
     const dx = -1 * (e.pageX - rd.origPageX)
     const width = rd.origWidth + dx
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
-    rd.parentDiv.style.width = `${newWidth}px`
-    resize(width, newWidth, rd, 'right')
+    rd.panelDiv.style.width = `${newWidth}px`
+    updateHidden(newWidth, rd.extensionDiv)
 }
 
 function applyBottom(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
     const dy = -1 * (e.pageY - rd.origPageY)
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
-    rd.parentDiv.style.height = `${newHeight}px`
+    rd.panelDiv.style.height = `${newHeight}px`
 }
 
 function doNothing() {
@@ -62,21 +67,27 @@ export function beginResize(
     dragDiv: HTMLDivElement,
     e: PointerEvent,
     applyFunction: (rd: ResizeData, e: PointerEvent) => void) {
-    const parentDiv = dragDiv.parentElement
-    if (!parentDiv) {
+    const panelDiv = dragDiv.parentElement
+    if (!panelDiv) {
+        return
+    }
+
+    const extensionDiv = panelDiv.querySelector('.active') as HTMLDivElement
+    if (!extensionDiv) {
         return
     }
 
     const resizeData: ResizeData = {
-        parentDiv,
+        panelDiv,
+        extensionDiv,
         origPageX: e.pageX,
         origPageY: e.pageY,
-        origWidth: parentDiv.clientWidth,
-        origHeight: parentDiv.clientHeight,
+        origWidth: panelDiv.clientWidth,
+        origHeight: panelDiv.clientHeight,
     }
 
     function doResize(e: PointerEvent) {
-        if (parentDiv) {
+        if (panelDiv) {
             applyFunction(resizeData, e)
         }
     }

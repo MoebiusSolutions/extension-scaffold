@@ -88,9 +88,9 @@ export class BarController {
         panelOptions.forEach((panelOptions, idx) => {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
-            const panelDiv = document.getElementById(panelOptions.id)
-            if (panelDiv && !oneIsMaximized) {
-                if (isActive(panelDiv)) {
+            const extensionDiv = document.getElementById(panelOptions.id)
+            if (extensionDiv && !oneIsMaximized) {
+                if (isActive(extensionDiv) && !extensionDiv.parentElement?.classList.contains('hidden')) {
                     //const parentElement = panelDiv.parentElement
                     btn.classList.add('active')
                 }

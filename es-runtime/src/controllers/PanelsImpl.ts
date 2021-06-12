@@ -4,8 +4,8 @@ import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, showPanelsWithLocation,
-    locationFromDiv, isActive, setActive, setInactive,
-    getGridState, withPanel, withGrid, copyStyles
+    locationFromDiv, isActive, setActive,
+    getGridState, withPanel, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
@@ -66,7 +66,6 @@ export class PanelsImpl implements Panels {
         document.querySelectorAll('.grid-maximized').forEach(el => el.classList.remove('grid-maximized'))
 
         return withPanel(id, (parent, div) => {
-
             const location = locationFromDiv(parent)
             hidePanelsWithLocation(location)
             switch (location) {
@@ -75,6 +74,7 @@ export class PanelsImpl implements Panels {
                 case 'top':
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
+                    parent.classList.remove('hidden')
                     setActive(div)
                     showPanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
@@ -102,7 +102,7 @@ export class PanelsImpl implements Panels {
                 case 'top':
                 case 'bottom':
                 case 'top':
-                    parent.style.display = 'none'
+                    parent.classList.add('hidden')
                     hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
@@ -126,7 +126,7 @@ export class PanelsImpl implements Panels {
         }
 
         return withPanel(id, (parent, div) => {
-            if (parent.style.display !== 'none' && isActive(div)) {
+            if (!parent.classList.contains('hidden') && isActive(div)) {
                 this.hidePanel(id)
             } else {
                 this.showPanel(id)
