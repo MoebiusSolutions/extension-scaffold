@@ -32,6 +32,7 @@ function applyTop(rd: ResizeData, e: PointerEvent) {
     const dy = e.pageY - rd.origPageY
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
     rd.panelDiv.style.height = `${newHeight}px`
+    updateHidden(newHeight, rd.extensionDiv)
 }
 
 function applyRight(rd: ResizeData, e: PointerEvent) {
@@ -48,6 +49,7 @@ function applyBottom(rd: ResizeData, e: PointerEvent) {
     const dy = -1 * (e.pageY - rd.origPageY)
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
     rd.panelDiv.style.height = `${newHeight}px`
+    updateHidden(newHeight, rd.extensionDiv)
 }
 
 function doNothing() {
