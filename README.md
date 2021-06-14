@@ -69,14 +69,12 @@ Each extension should be a JavaScript module which exports a single function nam
 When using typescript, `activate` should be declared using the syntax:
 
 ```typescript
-import { extensionScaffold } from '@gots/es-runtime/build/es-api'
+import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 
 // .. declare the activate function
 
-export async function activate(scaffold: ExtensionScaffoldApi) { ... }
+export async function activate(scaffold: ExtensionScaffoldApi, baseUrl: string) { ... }
 ```
-
-
 
 Once the browser has downloaded (or loaded from cache) the JavaScript module,
 the `es-runtime` will call the exported `activate` method.
@@ -127,6 +125,25 @@ Using the `portal` panel location you can pop panels over the `center` grid area
 and place them along any of its borders.
 > Note: Since these `portal` panels will cover part of the `center` panel
 > you should provide the user a way to close them.
+
+# Resolving relative resources
+
+If you chose to not use an `iframe` for your extension panel, 
+then you must be aware that resources you load with relative URLs 
+will be resolved using the `baseUrl` from the "hosting" page.
+
+To make finding relative resources easier the `activate` function receives the `baseUrl` of the extension script.
+You can turn this into a fully qualified URL by using the browsers `URL` class.
+Below, we compute `href`, a fully qualified URL, from the relative resource path `/global.css`.
+
+```typescript
+activate(..., baseUrl: string) {
+	const href = new URL('/global.css', baseUrl)
+}
+```
+
+For example, `es-extension-examples/ext-example-svelte/src/main.js` 
+shows how you can use the technique above to load style sheet links into the shadow DOM.
 
 # Directory Layout
 
