@@ -84,7 +84,6 @@ export class PanelsImpl implements Panels {
                     setActive(div)
                     break
             }
-            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -111,7 +110,6 @@ export class PanelsImpl implements Panels {
                     div.style.display = 'none'
                     break
             }
-            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -131,6 +129,7 @@ export class PanelsImpl implements Panels {
             } else {
                 this.showPanel(id)
             }
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -139,6 +138,7 @@ export class PanelsImpl implements Panels {
             parent.classList.add('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -147,6 +147,7 @@ export class PanelsImpl implements Panels {
             parent.classList.remove('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -174,6 +175,7 @@ export class PanelsImpl implements Panels {
             }
             nextDiv.style.display = 'block'
             this.updateBars(location)
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -198,6 +200,7 @@ export class PanelsImpl implements Panels {
             })
             // If the parent window closes, close the children
             window.addEventListener('beforeunload', handleBeforeUnload)
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
