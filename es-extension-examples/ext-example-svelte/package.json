@@ -10,7 +10,7 @@
     "container": "npm run maybe-install && npm run build && sirv public --host 0.0.0.0 --no-clear --cors"
   },
   "devDependencies": {
-    "@gots/es-runtime": "file:../../es-runtime",
+    "@gots/es-runtime": "^1.1.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "rollup": "^2.3.4",

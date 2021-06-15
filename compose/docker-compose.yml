@@ -132,7 +132,6 @@ services:
       - "../:/home/extension-scaffold"
       - "./home-node:/home/node"
     ports:
-      - "127.0.0.1:7080:7080"
       - "127.0.0.1:3000:3000"
     environment: 
       - NPM_CONFIG_PREFIX=/home/node/.npm-global
