@@ -30,7 +30,7 @@ export type SubLocation =
     'top' |
     'bottom'
 
-export type Event = 'grid-changed'
+export type Event = 'grid-changed' | 'ext-shown-changed'
 
 export interface AddPanelOptions {
     location: Location
@@ -51,6 +51,10 @@ export interface LoadWebpackScriptOptions {
 export interface PanelState {
     size: string
     activeId: string | null
+    isShown: boolean
+}
+export interface ExtensionIds {
+    ids: string[]
 }
 
 export interface Fulfilled {
@@ -61,6 +65,11 @@ export interface Fulfilled {
 export interface Rejected {
     status: "rejected",
     reason: any
+}
+
+export interface Showing {
+    id: string | null
+    showing: boolean
 }
 
 export interface GridState {
@@ -85,6 +94,7 @@ export interface Panels {
     popOutPanel: (id: string) => boolean
     popInPanel: (id: string) => boolean
     isPanelPoppedOut: (id: string) => boolean
+    trackExtensions: (ids: ExtensionIds) => void
 }
 
 export interface Chrome {

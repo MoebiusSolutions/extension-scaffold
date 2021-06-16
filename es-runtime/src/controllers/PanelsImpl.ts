@@ -1,10 +1,10 @@
 import { LocationStack } from '../models/LocationStack'
-import type { Location, AddPanelOptions, Panels } from "../es-api";
+import type { ExtensionIds, Location, AddPanelOptions, Panels } from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, showPanelsWithLocation,
-    locationFromDiv, isActive, setActive,
+    locationFromDiv, isActive, setActive, toSessionStorage,
     getGridState, withPanel, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
@@ -227,6 +227,10 @@ export class PanelsImpl implements Panels {
             return false
         }
         return true
+    }
+
+    trackExtensions(ids: ExtensionIds) {
+        toSessionStorage('track-ext-shown-change', ids)
     }
 
     focusPopOut(id: string) {
