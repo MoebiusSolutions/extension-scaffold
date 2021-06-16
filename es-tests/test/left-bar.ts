@@ -16,6 +16,10 @@ LeftBar.after(tearDown)
 LeftBar('should initially have rollup as active panel', async ctx => {
   const { page } = ctx
   assert.ok(await page.isVisible('text=MyPanel - rollup'))
+
+  // The rollup button is active
+  const title = await page.getAttribute('.left-bar .es-bar-button.active', 'title')
+  assert.is(title, 'Rollup Left')
 })
 
 LeftBar('click Snowpack Left button', async ctx => {
@@ -26,6 +30,10 @@ LeftBar('click Snowpack Left button', async ctx => {
   // Clicking the same button will close the panel
   await page.click('button[title="Snowpack Left"]')
   assert.ok(! await page.isVisible('text=Left example from snowpack'))
+
+  // The snowpack button is not-active
+  const classList = await page.getAttribute('button[title="Snowpack Left"]', 'class')
+  assert.is(classList, 'es-bar-button')
 
   // And again will open the panel
   await page.click('button[title="Snowpack Left"]')
