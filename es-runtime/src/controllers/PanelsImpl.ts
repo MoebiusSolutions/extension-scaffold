@@ -1,15 +1,62 @@
 import { LocationStack } from '../models/LocationStack'
-import type { ExtensionIds, Location, AddPanelOptions, Panels } from "../es-api";
+import type {
+    ExtensionIds, Location, AddPanelOptions,
+    Panels, OrigSize
+} from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, showPanelsWithLocation,
-    locationFromDiv, isActive, setActive, toSessionStorage,
-    getGridState, withPanel, copyStyles
+    locationFromDiv, isActive, setActive, toStorage,
+    fromStorage, getGridState, withPanel, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_FLEX = 'flex'
+
+function getDivSize(div: HTMLElement | null): OrigSize {
+    const origSize = { size: '', location: '' }
+    console.log('getDivSize', div)
+    if (div !== null) {
+        if (div.classList.contains('left')) {
+            if (div.style.width === '100px') {
+                origSize.size = fromStorage('left-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.width
+            }
+            origSize.location = 'left'
+        }
+        if (div.classList.contains('right')) {
+            if (div.style.width === '100px') {
+                origSize.size = fromStorage('right-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.width
+            }
+            origSize.location = 'right'
+        }
+        if (div.classList.contains('top')) {
+            if (div.style.height === '100px') {
+                origSize.size = fromStorage('top-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.height
+            }
+            origSize.location = 'top'
+        }
+        if (div.classList.contains('bottom')) {
+            if (div.style.height === '100px') {
+                origSize.size = fromStorage('bottom-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.height
+            }
+            origSize.location = 'bottom'
+        }
+    }
+    return origSize
+}
 
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
@@ -127,6 +174,13 @@ export class PanelsImpl implements Panels {
             if (!parent.classList.contains('hidden') && isActive(div)) {
                 this.hidePanel(id)
             } else {
+                const orig = getDivSize(parent)
+                if (orig.location === 'left' || orig.location === 'right') {
+                    parent.style.width = orig.size
+                }
+                else if (orig.location === 'top' || orig.location === 'bottom') {
+                    parent.style.height = orig.size
+                }
                 this.showPanel(id)
             }
             extensionScaffold.events.emit('grid-changed', getGridState())
@@ -230,7 +284,7 @@ export class PanelsImpl implements Panels {
     }
 
     trackExtensions(ids: ExtensionIds) {
-        toSessionStorage('track-ext-shown-change', ids)
+        toStorage('track-ext-shown-change', ids)
     }
 
     focusPopOut(id: string) {

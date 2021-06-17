@@ -79,6 +79,11 @@ export interface GridState {
     bottom: PanelState
 }
 
+export interface OrigSize {
+    size: string
+    location: string
+}
+
 export interface Panels {
     /** Panels "stack" in a location */
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>

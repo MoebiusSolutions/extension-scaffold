@@ -2,24 +2,40 @@ import type { ExtensionIds, PanelState, GridState, Showing } from "./es-api"
 import { extensionScaffold } from "./controllers/ExtensionController"
 import { LOCATIONS } from "./es-api"
 
-export function toJson(obj: GridState | ExtensionIds): string {
+const storage = {}
+
+function setStorageItem(key: string, val: string) {
+    //@ts-ignore
+    storage[key] = val
+}
+
+function getStorageItem(key: string) {
+    //@ts-ignore
+    if (storage[key] === undefined) {
+        return null
+    }
+    //@ts-ignore
+    return storage[key]
+}
+
+export function toJson(obj: GridState | ExtensionIds | string): string {
     const json = JSON.stringify(obj)
     return json
 }
 
-export function toTSobject(json: string | null): GridState | ExtensionIds | null {
+export function toObject(json: string | null): GridState | ExtensionIds | null {
     if (json === null) {
         return null
     }
     return JSON.parse(json)
 }
 
-export function toSessionStorage(key: string, obj: GridState | ExtensionIds) {
-    sessionStorage.setItem(key, toJson(obj))
+export function toStorage(key: string, obj: GridState | ExtensionIds | string) {
+    setStorageItem(key, toJson(obj))
 }
 
-export function fromSessionStorage(key: string): GridState | ExtensionIds | null {
-    return toTSobject(sessionStorage.getItem(key))
+export function fromStorage(key: string): GridState | ExtensionIds | string | null {
+    return toObject(getStorageItem(key))
 }
 
 export function hidePanelsWithLocation(location: string) {
@@ -125,7 +141,7 @@ function showChanged(p: PanelState, q: PanelState): Showing {
 export function checkForShownChange(curGridstate: GridState, gridstate: GridState) {
     const sc = []
     if (curGridstate !== null) {
-        const ext = fromSessionStorage('track-ext-shown-change') as ExtensionIds
+        const ext = fromStorage('track-ext-shown-change') as ExtensionIds
         if (ext !== null) {
             let s = showChanged(curGridstate.left, gridstate.left)
             if (s.id !== null && ext.ids.includes(s.id)) {
@@ -183,13 +199,13 @@ export function getGridState(): GridState {
         left: { size: '0px', activeId: null, isShown: false }, right: { size: '0px', activeId: null, isShown: false },
         top: { size: '0px', activeId: null, isShown: false }, bottom: { size: '0px', activeId: null, isShown: false }
     }
-    const curGridstate = fromSessionStorage('gridstate') as GridState
+    const curGridstate = fromStorage('gridstate') as GridState
     gridstate.left = getLocationdState('left')
     gridstate.right = getLocationdState('right')
     gridstate.top = getLocationdState('top')
     gridstate.bottom = getLocationdState('bottom')
     checkForShownChange(curGridstate, gridstate)
-    toSessionStorage('gridstate', gridstate)
+    toStorage('gridstate', gridstate)
     return gridstate
 }
 
