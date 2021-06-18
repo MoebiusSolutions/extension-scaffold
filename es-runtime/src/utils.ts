@@ -60,18 +60,6 @@ export function showPanelsWithLocation(location: string) {
     }
 }
 
-export function showPanelWithLocation(location: string, width: number) {
-    for (const el of document.getElementsByClassName(location)) {
-        for (const child of el.children) {
-            if (child.classList.contains('shadow-div')) {
-                const div = child as HTMLDivElement
-                setActive(div)
-                div.style.width = `${width}px`
-            }
-        }
-    }
-}
-
 export function withGrid(location: string, f: (div: HTMLDivElement) => void) {
     for (const el of document.getElementsByClassName(location)) {
         if (el instanceof HTMLDivElement) {

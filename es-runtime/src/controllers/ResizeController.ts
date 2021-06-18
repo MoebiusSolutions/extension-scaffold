@@ -13,7 +13,6 @@ export interface ResizeData {
 function updateHidden(size: number, dz: number,
     panelDiv: HTMLDivElement | HTMLElement,
     extensionDiv: HTMLDivElement | HTMLElement) {
-    console.log('UPDATE HIDDEN')
     if (size === 100) {
         extensionScaffold.chrome.panels.hidePanel(extensionDiv.id)
     } else {
