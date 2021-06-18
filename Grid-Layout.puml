@@ -5,11 +5,13 @@ skinparam {
 }
 
 title
-  | header     | header     | header | header      | header      |
-  | above-left | above-left | top    | above-right | above-right |
-  | left-bar   | left       | center | right       | right-bar   |
-  | left-bar   | left       | bottom | right       | right-bar   |
-  | footer     | footer     | footer | footer      | footer      |
+  | header     | header     | header     | header      | header      |
+  | top-bar    | top-bar    | top-bar    | top-bar     | top-bar     |
+  | above-left | above-left | top        | above-right | above-right |
+  | left-bar   | left       | center     | right       | right-bar   |
+  | left-bar   | left       | bottom     | right       | right-bar   |
+  | bottom-bar | bottom-bar | bottom-bar | bottom-bar  | bottom-bar  |
+  | footer     | footer     | footer     | footer      | footer      |
 end title
 
 @enduml
