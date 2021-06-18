@@ -226,7 +226,7 @@ export class PanelsImpl implements Panels {
                 console.error('Panel missing', stack[0])
                 return
             }
-            nextDiv.style.display = 'block'
+            extensionScaffold.chrome.panels.showPanel(stack[0].id)
             this.updateBars(location)
             extensionScaffold.events.emit('grid-changed', getGridState())
         })

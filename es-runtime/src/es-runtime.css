@@ -260,3 +260,11 @@ code {
 .grid-panel.bottom.hidden > .shadow-div {
   display: none;
 }
+
+.grid-panel.center.hidden {
+  max-height: 4px;
+}
+
+.grid-panel.center.hidden > .shadow-div {
+  display: none;
+}
