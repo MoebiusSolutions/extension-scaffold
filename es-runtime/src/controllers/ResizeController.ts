@@ -89,7 +89,6 @@ export function beginResize(
     e: PointerEvent,
     applyFunction: (rd: ResizeData, e: PointerEvent) => void) {
     const panelDiv = dragDiv.parentElement
-    console.log('beginResize panelDiv', panelDiv)
     savePanelDivSize(panelDiv)
     if (!panelDiv) {
         return

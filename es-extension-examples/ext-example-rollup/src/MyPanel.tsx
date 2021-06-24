@@ -1,9 +1,8 @@
 import * as React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 
-export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
+export const MyPanel: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     function handleClick() {
-        console.log('Rollup was clicked - hiding')
         es.chrome.panels.hidePanel('ext.example.rollup')
     }
     const css = `
@@ -19,5 +18,5 @@ export const MyPanel: React.FC<{es: ExtensionScaffoldApi}> = ({es}) => {
             </div>
         </div>
     </>
-    
+
 }
