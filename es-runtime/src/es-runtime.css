@@ -216,10 +216,47 @@ code {
 .shadow-div {
   position: relative;
   flex: 1 1 auto;
+  display: none;
   /* z1 */
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 .shadow-portal {
   pointer-events: auto;
+}
+
+.shadow-div.active { 
+  display: block; 
+}
+
+.grid-panel.right.hidden {
+  max-width: 4px;
+}
+
+.grid-panel.right.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.left.hidden {
+  max-width: 4px;
+}
+
+.grid-panel.left.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.top.hidden {
+  max-height: 4px;
+}
+
+.grid-panel.top.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.bottom.hidden {
+  max-height: 4px;
+}
+
+.grid-panel.bottom.hidden > .shadow-div {
+  display: none;
 }

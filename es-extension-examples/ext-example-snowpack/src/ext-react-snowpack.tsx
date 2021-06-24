@@ -65,10 +65,10 @@ async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
 async function doLeft(scaffold: ExtensionScaffoldApi) {
   const span = document.createElement('span')
   const icon = <svg className="use-stroke" preserveAspectRatio="xMidYMid meet" viewBox="0 0 15 15">
-      <g fill="none">
-        <path d="M.5 0v14.5H15M5 2.5H2m6 3H3m5 3H5m10 3H8"/>
-      </g>
-    </svg>
+    <g fill="none">
+      <path d="M.5 0v14.5H15M5 2.5H2m6 3H3m5 3H5m10 3H8" />
+    </g>
+  </svg>
   ReactDOM.render(icon, span)
 
   return await doPanel(scaffold, {
@@ -95,7 +95,7 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
       <React.StrictMode>
-        <MyPanel es={scaffold}/>
+        <MyPanel es={scaffold} />
       </React.StrictMode>,
       div
     );
@@ -119,7 +119,5 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
 }
 
 export async function activate(scaffold: ExtensionScaffoldApi, url: string) {
-  console.log('snowpack extension activated', scaffold, url)
-
   return await doActivate(scaffold)
 }

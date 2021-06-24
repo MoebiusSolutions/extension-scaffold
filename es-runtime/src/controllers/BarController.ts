@@ -1,5 +1,5 @@
 import { AddPanelOptions, extensionScaffold, Location } from '../es-api'
-import { hidePanelsWithLocation } from '../utils'
+import { isActive } from '../utils'
 
 export class BarController {
     private readonly controlLocation: Location
@@ -17,10 +17,10 @@ export class BarController {
             location: this.barLocation,
             resizeHandle: false,
             initialWidthOrHeight: 'inherit'
-          }).then(div => {
-              this.divBar = div
-              this.updatePanel(panelOptions)
-          })
+        }).then(div => {
+            this.divBar = div
+            this.updatePanel(panelOptions)
+        })
     }
 
     updatePanel(panelOptions: AddPanelOptions[]) {
@@ -88,13 +88,11 @@ export class BarController {
         panelOptions.forEach((panelOptions, idx) => {
             const btn = document.createElement('button')
             btn.className = 'es-bar-button'
-            const panelDiv = document.getElementById(panelOptions.id)
-            if (panelDiv && !oneIsMaximized) {
-                if (panelDiv.style.display !== 'none') {
-                    const parentElement = panelDiv.parentElement
-                    if (parentElement && parentElement.style.display !== 'none') {
-                        btn.classList.add('active')
-                    }
+            const extensionDiv = document.getElementById(panelOptions.id)
+            if (extensionDiv && !oneIsMaximized) {
+                if (isActive(extensionDiv) && !extensionDiv.parentElement?.classList.contains('hidden')) {
+                    //const parentElement = panelDiv.parentElement
+                    btn.classList.add('active')
                 }
             }
             btn.title = panelOptions.title ?? ''

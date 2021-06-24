@@ -13,7 +13,5 @@ async function addBottomPanel(api: ExtensionScaffoldApi) {
 }
 
 export async function activate(scaffold: ExtensionScaffoldApi) {
-  console.log('lit-element activate', scaffold)
-
   addBottomPanel(scaffold)
 }

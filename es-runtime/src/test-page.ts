@@ -8,8 +8,10 @@ async function loadExtensions() {
 
   // We don't want 'top' to have a size. If it does it messes up the ribbon collapse function.
   const gridstate: GridState = {
-    left: { activeId: "ext.example.rollup", size: '360px' }, right: { activeId: null, size: '300px' },
-    top: { activeId: null, size: '' }, bottom: { activeId: null, size: '170px' }
+    left: { activeId: "ext.example.rollup", size: '300px', isShown: true },
+    right: { activeId: "ext.example.webpack", size: '300px', isShown: true },
+    top: { activeId: null, size: '', isShown: false },
+    bottom: { activeId: null, size: '170px', isShown: false }
   }
 
   const urls = ['http://localhost:9091/dist/ext-react-snowpack.js',
@@ -24,8 +26,9 @@ async function loadExtensions() {
 }
 
 loadExtensions()
-
+extensionScaffold.chrome.panels.trackExtensions({ ids: ['ext.example.rollup', 'ext.example.webpack'] })
 extensionScaffold.events.on('grid-changed', (gs) => { console.log('Pane!', gs) })
+extensionScaffold.events.on('ext-shown-changed', (gs) => { console.log('ExtChanged!', gs) })
 
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.

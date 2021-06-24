@@ -1,13 +1,60 @@
-import type { PanelState, GridState } from "./es-api"
+import type { ExtensionIds, PanelState, GridState, Showing } from "./es-api"
 import { extensionScaffold } from "./controllers/ExtensionController"
 import { LOCATIONS } from "./es-api"
+
+const storage = {}
+
+function setStorageItem(key: string, val: string) {
+    //@ts-ignore
+    storage[key] = val
+}
+
+function getStorageItem(key: string) {
+    //@ts-ignore
+    if (storage[key] === undefined) {
+        return null
+    }
+    //@ts-ignore
+    return storage[key]
+}
+
+export function toJson(obj: GridState | ExtensionIds | string): string {
+    const json = JSON.stringify(obj)
+    return json
+}
+
+export function toObject(json: string | null): GridState | ExtensionIds | null {
+    if (json === null) {
+        return null
+    }
+    return JSON.parse(json)
+}
+
+export function toStorage(key: string, obj: GridState | ExtensionIds | string) {
+    setStorageItem(key, toJson(obj))
+}
+
+export function fromStorage(key: string): GridState | ExtensionIds | string | null {
+    return toObject(getStorageItem(key))
+}
 
 export function hidePanelsWithLocation(location: string) {
     for (const el of document.getElementsByClassName(location)) {
         for (const child of el.children) {
             if (child.classList.contains('shadow-div')) {
                 const div = child as HTMLDivElement
-                div.style.display = 'none'
+                setInactive(div)
+            }
+        }
+    }
+}
+
+export function showPanelsWithLocation(location: string) {
+    for (const el of document.getElementsByClassName(location)) {
+        for (const child of el.children) {
+            if (child.classList.contains('shadow-div')) {
+                const div = child as HTMLDivElement
+                setActive(div)
             }
         }
     }
@@ -44,6 +91,12 @@ export function locationFromDiv(div: HTMLDivElement) {
     throw new Error('Div does not have a location class')
 }
 
+export const isActive = (div: HTMLDivElement | HTMLElement) => div.classList.contains('active')
+
+export const setActive = (div: HTMLDivElement) => div.classList.add('active')
+
+export const setInactive = (div: HTMLDivElement) => div.classList.remove('active')
+
 export function getLocationdState(loc: string): PanelState {
     const d = document.querySelector(`.${loc}`)
     if (d !== null) {
@@ -52,11 +105,53 @@ export function getLocationdState(loc: string): PanelState {
         //@ts-ignore
         const r = [...div?.querySelectorAll('.shadow-div')]
         //@ts-ignore
-        const id = r.find(div => div.style.display !== 'none')?.id
+        const id = r.find(div => isActive(div))?.id
         const size = div.style.width ? div.style.width : div.style.height
-        return { size, activeId: (id === undefined ? null : id) }
+        const activeId = (id === undefined ? null : id)
+        const isShown = !div.classList.contains('hidden')
+        return { size, activeId, isShown }
     }
-    return { size: '0px', activeId: null }
+    return { size: '0px', activeId: null, isShown: false }
+}
+
+function showChanged(p: PanelState, q: PanelState): Showing {
+    if (p.activeId === q.activeId) {
+        if (p.isShown !== q.isShown) {
+            return { id: p.activeId, showing: q.isShown }
+        }
+    }
+    else {
+        return { id: q.activeId, showing: q.isShown }
+    }
+    return { id: null, showing: false }
+}
+
+export function checkForShownChange(curGridstate: GridState, gridstate: GridState) {
+    const sc = []
+    if (curGridstate !== null) {
+        const ext = fromStorage('track-ext-shown-change') as ExtensionIds
+        if (ext !== null) {
+            let s = showChanged(curGridstate.left, gridstate.left)
+            if (s.id !== null && ext.ids.includes(s.id)) {
+                sc.push(s)
+            }
+            s = showChanged(curGridstate.right, gridstate.right)
+            if (s.id !== null && ext.ids.includes(s.id)) {
+                sc.push(s)
+            }
+            s = showChanged(curGridstate.top, gridstate.top)
+            if (s.id !== null && ext.ids.includes(s.id)) {
+                sc.push(s)
+            }
+            s = showChanged(curGridstate.bottom, gridstate.bottom)
+            if (s.id !== null && ext.ids.includes(s.id)) {
+                sc.push(s)
+            }
+            if (sc.length > 0) {
+                extensionScaffold.events.emit('ext-shown-changed', sc)
+            }
+        }
+    }
 }
 
 function applySize(loc: string, size: string) {
@@ -89,14 +184,16 @@ export function applyGridState(gridstate: GridState) {
 
 export function getGridState(): GridState {
     const gridstate: GridState = {
-        left: { size: '0px', activeId: null }, right: { size: '0px', activeId: null },
-        top: { size: '0px', activeId: null }, bottom: { size: '0px', activeId: null }
+        left: { size: '0px', activeId: null, isShown: false }, right: { size: '0px', activeId: null, isShown: false },
+        top: { size: '0px', activeId: null, isShown: false }, bottom: { size: '0px', activeId: null, isShown: false }
     }
-
+    const curGridstate = fromStorage('gridstate') as GridState
     gridstate.left = getLocationdState('left')
     gridstate.right = getLocationdState('right')
     gridstate.top = getLocationdState('top')
     gridstate.bottom = getLocationdState('bottom')
+    checkForShownChange(curGridstate, gridstate)
+    toStorage('gridstate', gridstate)
     return gridstate
 }
 

@@ -1,15 +1,61 @@
 import { LocationStack } from '../models/LocationStack'
-import type { Location, AddPanelOptions, Panels } from "../es-api";
+import type {
+    ExtensionIds, Location, AddPanelOptions,
+    Panels, OrigSize
+} from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
 import {
-    hidePanelsWithLocation, locationFromDiv,
-    getGridState, withPanel, withGrid, copyStyles
+    hidePanelsWithLocation, showPanelsWithLocation,
+    locationFromDiv, isActive, setActive, toStorage,
+    fromStorage, getGridState, withPanel, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 
 const DISPLAY_FLEX = 'flex'
 
+function getDivSize(div: HTMLElement | null): OrigSize {
+    const origSize = { size: '', location: '' }
+    if (div !== null) {
+        if (div.classList.contains('left')) {
+            if (div.style.width === '100px') {
+                origSize.size = fromStorage('left-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.width
+            }
+            origSize.location = 'left'
+        }
+        if (div.classList.contains('right')) {
+            if (div.style.width === '100px') {
+                origSize.size = fromStorage('right-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.width
+            }
+            origSize.location = 'right'
+        }
+        if (div.classList.contains('top')) {
+            if (div.style.height === '100px') {
+                origSize.size = fromStorage('top-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.height
+            }
+            origSize.location = 'top'
+        }
+        if (div.classList.contains('bottom')) {
+            if (div.style.height === '100px') {
+                origSize.size = fromStorage('bottom-panel-width') as string
+            }
+            else {
+                origSize.size = div.style.height
+            }
+            origSize.location = 'bottom'
+        }
+    }
+    return origSize
+}
 
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
@@ -35,6 +81,8 @@ export class PanelsImpl implements Panels {
         if (options.title) {
             shadowDiv.title = options.title
         }
+        setActive(shadowDiv)
+
 
         // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {
@@ -64,7 +112,6 @@ export class PanelsImpl implements Panels {
         document.querySelectorAll('.grid-maximized').forEach(el => el.classList.remove('grid-maximized'))
 
         return withPanel(id, (parent, div) => {
-
             const location = locationFromDiv(parent)
             hidePanelsWithLocation(location)
             switch (location) {
@@ -73,18 +120,19 @@ export class PanelsImpl implements Panels {
                 case 'top':
                 case 'bottom':
                     parent.style.display = DISPLAY_FLEX
-                    withGrid(`above-${location}`, div => div.style.display = 'block')
-                    div.style.display = 'block'
+                    parent.classList.remove('hidden')
+                    setActive(div)
+                    showPanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
 
                 case 'center':
-                    div.style.display = 'block'
+                    setActive(div)
                     break
             }
-            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
+
 
     hidePanel(id: string) {
         if (this.isPanelPoppedOut(id)) {
@@ -98,8 +146,9 @@ export class PanelsImpl implements Panels {
                 case 'right':
                 case 'top':
                 case 'bottom':
-                    withGrid(`above-${location}`, div => div.style.display = 'none')
-                    parent.style.display = 'none'
+                case 'top':
+                    parent.classList.add('hidden')
+                    hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
 
@@ -107,7 +156,6 @@ export class PanelsImpl implements Panels {
                     div.style.display = 'none'
                     break
             }
-            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -122,11 +170,19 @@ export class PanelsImpl implements Panels {
         }
 
         return withPanel(id, (parent, div) => {
-            if (parent.style.display !== 'none' && div.style.display !== 'none') {
+            if (!parent.classList.contains('hidden') && isActive(div)) {
                 this.hidePanel(id)
             } else {
+                const orig = getDivSize(parent)
+                if (orig.location === 'left' || orig.location === 'right') {
+                    parent.style.width = orig.size
+                }
+                else if (orig.location === 'top' || orig.location === 'bottom') {
+                    parent.style.height = orig.size
+                }
                 this.showPanel(id)
             }
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -135,6 +191,7 @@ export class PanelsImpl implements Panels {
             parent.classList.add('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -143,6 +200,7 @@ export class PanelsImpl implements Panels {
             parent.classList.remove('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -170,6 +228,7 @@ export class PanelsImpl implements Panels {
             }
             nextDiv.style.display = 'block'
             this.updateBars(location)
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -183,7 +242,7 @@ export class PanelsImpl implements Panels {
 
             const { extWindow, popOutContainer } = this.getOrCreatePopOutWindow(id)
             extWindow.document.title = div.title
-    
+
             popOutContainer.appendChild(div)
 
             extWindow.addEventListener('beforeunload', () => {
@@ -194,6 +253,7 @@ export class PanelsImpl implements Panels {
             })
             // If the parent window closes, close the children
             window.addEventListener('beforeunload', handleBeforeUnload)
+            extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
 
@@ -220,6 +280,10 @@ export class PanelsImpl implements Panels {
             return false
         }
         return true
+    }
+
+    trackExtensions(ids: ExtensionIds) {
+        toStorage('track-ext-shown-change', ids)
     }
 
     focusPopOut(id: string) {

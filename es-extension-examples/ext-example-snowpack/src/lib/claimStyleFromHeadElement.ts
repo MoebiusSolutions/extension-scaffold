@@ -5,14 +5,12 @@
  * @param uniqSelector 
  */
 export function claimStyleFromHeadElement(parentDiv: HTMLDivElement, uniqSelector: string) {
-    console.log('claiming styles')
     for (let i = 0; i < document.styleSheets.length; i++) {
         const ss = document.styleSheets[i]
         for (let r = 0; r < ss.cssRules.length; r++) {
             const rule = ss.cssRules[r]
             if (rule instanceof CSSStyleRule) {
                 if (rule.selectorText === uniqSelector) {
-                    console.log('found stylesheet with uniqSelector', uniqSelector, ss)
 
                     const asText = Array.from(ss.cssRules).map(rule => rule.cssText).join('\n')
                     const styleElement = document.createElement('style')
@@ -20,7 +18,6 @@ export function claimStyleFromHeadElement(parentDiv: HTMLDivElement, uniqSelecto
                     parentDiv.appendChild(styleElement)
 
                     ss.disabled = true
-                    console.log('disabled styleSheet in head')
                 }
             }
         }
