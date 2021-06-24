@@ -3,7 +3,7 @@
 /** This script modifies the project to support TS code in .svelte files like:
 
   <script lang="ts">
-  	export let name: string;
+    export let name: string;
   </script>
  
   As well as validating the code for CI.
@@ -82,7 +82,7 @@ const tsconfig = `{
   "include": ["src/**/*"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }`
-const tsconfigPath =  path.join(projectRoot, "tsconfig.json")
+const tsconfigPath = path.join(projectRoot, "tsconfig.json")
 fs.writeFileSync(tsconfigPath, tsconfig)
 
 // Delete this script, but not during testing
@@ -109,8 +109,6 @@ fs.writeFileSync(path.join(projectRoot, ".vscode", "extensions.json"), `{
   "recommendations": ["svelte.svelte-vscode"]
 }
 `)
-
-console.log("Converted to TypeScript.")
 
 if (fs.existsSync(path.join(projectRoot, "node_modules"))) {
   console.log("\nYou will need to re-run your dependency manager to get started.")

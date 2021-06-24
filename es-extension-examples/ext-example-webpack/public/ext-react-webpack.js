@@ -5,10 +5,8 @@
  */
 
 export async function activate(scaffold) {
-    console.log('webpack loading...', scaffold)
     await scaffold.loadWebpackScript({
         url: 'http://localhost:9093/static/js/bundle.js',
         library: 'ext-example-webpack',
     })
-    console.log('webpack activated')
 }

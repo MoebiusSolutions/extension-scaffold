@@ -5,14 +5,13 @@ import { Center2 } from './Center2';
 import './MyPanel.css';
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 
-export const MyPanel: React.FC<{ 
+export const MyPanel: React.FC<{
     es: ExtensionScaffoldApi
 }> = ({ es }) => {
     function handleClick() {
         console.log('snowpack clicked')
     }
     function handleMaximize() {
-        console.log('snowpack maximize')
         es.chrome.panels.maximizePanel('ext.example.snowpack')
     }
     function handleRestore() {
@@ -28,7 +27,6 @@ export const MyPanel: React.FC<{
         }).then(onPanelAdded)
     }
     function onPanelAdded(div: HTMLDivElement) {
-        console.log('snowpack got a div for Center2', div)
         ReactDOM.render(
             <React.StrictMode>
                 <Center2 es={es} />
