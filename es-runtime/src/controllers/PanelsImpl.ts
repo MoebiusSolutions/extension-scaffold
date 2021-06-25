@@ -226,7 +226,7 @@ export class PanelsImpl implements Panels {
                 console.error('Panel missing', stack[0])
                 return
             }
-            nextDiv.style.display = 'block'
+            extensionScaffold.chrome.panels.showPanel(stack[0].id)
             this.updateBars(location)
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
@@ -247,7 +247,6 @@ export class PanelsImpl implements Panels {
 
             extWindow.addEventListener('beforeunload', () => {
                 parent.appendChild(div) // Move the div back
-                div.style.display = 'none'
                 extensionScaffold.chrome.panels.showPanel(id)
                 window.removeEventListener('beforeunload', handleBeforeUnload)
             })
@@ -264,6 +263,7 @@ export class PanelsImpl implements Panels {
             return false
         }
         externalWindow.close()
+        extensionScaffold.chrome.panels.showPanel(id)
         return true
     }
 
