@@ -2,6 +2,7 @@ import React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { addCenterPanel } from './ext-react-snowpack'
 import { Amplify } from './Amplify'
+import { SampleModal } from './SampleModal'
 
 export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
 
@@ -37,5 +38,8 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         </div>
 
         <Amplify es={es} />
+
+        <SampleModal es={es} />
+        
     </div>
 }
