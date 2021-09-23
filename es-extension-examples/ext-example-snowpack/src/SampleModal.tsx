@@ -19,13 +19,20 @@ const SampleModalPanel: React.FC<{
         padding-left: 1em;
         padding-right: 1em;
         padding-bottom: 1em;
-        padding-top: 0px;
+        padding-top: 1em;
         border: 1px solid grey;
         width: 100%; /* Full width */
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         background-color: rgb(0,0,0); /* Fallback color */
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    .sample-modal-frame {
+        border: 3px solid black;
+        margin: auto;
+        width: 30em;
+        height: 20em;
+        background-color: var(--es-theme-surface);
     }
     .sample-modal-title {
         margin: auto;
@@ -34,17 +41,32 @@ const SampleModalPanel: React.FC<{
     .sample-modal-content {
         margin: auto;
         width: 50%;
+        height: 50%;
+        margin: 10px;
     }
     .sample-modal-actions {
-        margin: auto;
-        width: 50%;
+        display: flex;
+        position: relative;
+        float: right;
+        padding: 10px;
+        bottom: 0;
     }
-    .sample-modal-frame {
-        border: 3px solid black;
-        margin: auto;
+    .sample-modal-actions-accept {
+        float: left;
+        margin: 10px;
+    }
+    .sample-modal-actions-cancel {
+        margin: 10px;
+    }
+    .form-label {
         width: 50%;
-        height: 50%;
-        background-color: rgb(128,128,128, 1);
+        margin: 10px;
+        white-space: nowrap;
+    }
+    .form-input {
+        width: 50%;
+        margin: 10px;
+        white-space: nowrap;
     }
     .close {
         cursor: pointer;
@@ -66,11 +88,15 @@ const SampleModalPanel: React.FC<{
                     Sample Content Below
                 </h3>
                 <div className = 'sample-modal-content'>
-                    <label htmlFor="button-name">Change Label of Modal Button:</label>
-                    <input type="text" id="button-name" name="button-name" required
-                        minLength={1} maxLength={20} size={20} value={text} onChange={handleChange}/>
+                    <div className = 'form-label'>
+                        <label htmlFor="button-name">Change Label of Modal Button:</label>
+                    </div>
+                   <div className = 'form-input' >
+                        <input type="text" id="button-name" name="button-name" required
+                            minLength={1} maxLength={20} size={20} value={text} onChange={handleChange}/>
+                   </div>
                 </div>
-                <div className = 'sample-modal.actions'>
+                <div className = 'sample-modal-actions'>
                     <div>
                         <button className = 'sample-modal-actions-cancel' onClick={onCancel}>Cancel</button>
                     </div>
