@@ -11,51 +11,39 @@ const SampleModalPanel: React.FC<{
     onCancel,
     buttonText
 }) => {
-    const css = `.sample-modal {
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        display: block;
-
-        padding-left: 1em;
-        padding-right: 1em;
-        padding-bottom: 1em;
-        padding-top: 1em;
-        border: 1px solid grey;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    const css = `
+    .modal {
+        position: fixed;
+        left: 0;
+        top:0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    .sample-modal-frame {
-        border: 3px solid black;
-        margin: auto;
-        width: 30em;
-        height: 20em;
+    .modal-content {
+        width: 500px;
         background-color: var(--es-theme-surface);
     }
-    .sample-modal-title {
-        margin: auto;
-        width: 50%;
-    }
-    .sample-modal-content {
-        margin: auto;
-        width: 50%;
-        height: 50%;
-        margin: 10px;
-    }
-    .sample-modal-actions {
-        display: flex;
-        position: relative;
-        float: right;
+    .modal-header {
         padding: 10px;
-        bottom: 0;
     }
-    .sample-modal-actions-accept {
-        float: left;
+    .modal-footer {
+        padding: 10px;
+    }
+    .modal-body {
+        padding: 10px;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+    .modal-accept {
+        float: right;
         margin: 10px;
     }
-    .sample-modal-actions-cancel {
+    .modal-cancel {
+        float: right;
         margin: 10px;
     }
     .form-label {
@@ -68,10 +56,6 @@ const SampleModalPanel: React.FC<{
         margin: 10px;
         white-space: nowrap;
     }
-    .close {
-        cursor: pointer;
-        float: right;
-    }
     `
     const [text, setText] = React.useState(buttonText)
 
@@ -79,29 +63,42 @@ const SampleModalPanel: React.FC<{
         setText(event.target.value)
     }
 
+    const modalContent = (
+        <div>
+            <div className = 'form-label'>
+                <label htmlFor="button-name">New Text For Modal Button</label>
+            </div>
+            <div className = 'form-input' >
+                <input type="text" id="button-name" name="button-name" required
+                    minLength={1} maxLength={20} size={20} value={text} onChange={handleChange}/>
+            </div>
+        </div>
+    );
+
+    const modalFooter = (
+        <div>
+            <div>
+                <button className = 'modal-cancel' onClick={onCancel}>Cancel</button>
+            </div>
+            <div>
+                <button className = 'modal-accept' onClick={() => onAccept(text)}>Accept</button>
+            </div>
+        </div>
+    );
+
     return <>
         <style>{css}</style>
-        <div className = 'sample-modal'>
-            <div className = 'sample-modal-frame'>
-                <div className="close" onClick={onCancel}>x</div>
-                <h3 className='sample-modal-title'>
-                    Sample Content Below
-                </h3>
-                <div className = 'sample-modal-content'>
-                    <div className = 'form-label'>
-                        <label htmlFor="button-name">Change Label of Modal Button:</label>
+        <div>
+            <div className="modal" onClick={onCancel}>
+                <div className="modal-content" onClick={e => e.stopPropagation()}>
+                    <div className="modal-header">
+                        <h4 className="modal-title">Example Modal</h4>
                     </div>
-                   <div className = 'form-input' >
-                        <input type="text" id="button-name" name="button-name" required
-                            minLength={1} maxLength={20} size={20} value={text} onChange={handleChange}/>
-                   </div>
-                </div>
-                <div className = 'sample-modal-actions'>
-                    <div>
-                        <button className = 'sample-modal-actions-cancel' onClick={onCancel}>Cancel</button>
+                    <div className="modal-body">
+                        {modalContent}
                     </div>
-                    <div>
-                        <button className = 'sample-modal-actions-accept' onClick={() => onAccept(text)}>Accept</button>
+                    <div className="modal-footer">
+                        {modalFooter}
                     </div>
                 </div>
             </div>
@@ -149,6 +146,6 @@ export const SampleModal: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             <button onClick={openModal}>{buttonText}</button>
         </div>
         { open && portalDiv && ReactDOM.createPortal(
-        <SampleModalPanel onCancel={onCancel} onAccept={onAccept} buttonText={buttonText} />, portalDiv) }
+            <SampleModalPanel onCancel={onCancel} onAccept={onAccept} buttonText={buttonText} />, portalDiv) }
     </>
 }
