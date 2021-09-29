@@ -6,7 +6,6 @@ async function loadExtensions() {
 
   await extensionScaffold.loadExtensions([
     'http://localhost:9091/dist/ext-react-snowpack.js',
-    'http://localhost:9091/dist/ext-react-snowpack.js',
     'http://localhost:9092/ext-react-rollup.js',
     'http://localhost:5000/build/ext-svelte-rollup.js',
     'http://localhost:9093/ext-react-webpack.js',
