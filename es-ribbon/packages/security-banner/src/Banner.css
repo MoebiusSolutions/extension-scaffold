@@ -1,0 +1,10 @@
+.banner {
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+}
+
+.unclassified {
+    background: darkgreen;
+}

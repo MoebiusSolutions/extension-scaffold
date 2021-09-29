@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "declaration": true,
+        "declarationDir": ".",
+    },
+    "include": ["./src/ribbon/**/*.tsx"],
+    "exclude": ["node_modules"]
+}

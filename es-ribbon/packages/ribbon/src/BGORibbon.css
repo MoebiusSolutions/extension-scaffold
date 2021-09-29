@@ -1,0 +1,34 @@
+.ribbon-titlebar {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.ribbon-coptitle {
+    display: flex;
+    padding-left: 4px;
+    align-items: center;
+}
+
+.ribbon-coptitle-title {
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+.ribbon-coptitle-subtitle {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.ribbon-right {
+    display: flex;
+    align-items: center;
+}
+
+.ribbon-right-name {
+    font-weight: bold;
+    padding-right: 4px;
+    margin-left: 20px;
+    margin-right: 10px;
+}

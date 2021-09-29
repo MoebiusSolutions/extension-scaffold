@@ -1,0 +1,206 @@
+.ribbon-header {
+    display: flex;
+    align-items: center;
+}
+
+.ribbon-tabs {
+    display: flex;
+    font-size: 14px;
+}
+
+.tabs-container {
+    width: 65%;
+    position: relative;
+}
+
+.tabs {
+    /* border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 5px;
+    bottom: 0;
+    position: absolute;
+}
+
+.tabs li {
+    display: inline;
+    border: solid;
+    border-width: 1px 1px 0 1px;
+    /* margin: 0 5px 0 0; */
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.tab {
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.tab.active {
+    padding-bottom: 1px;
+    color: var(--es-theme-text-primary-on-background);
+    background-color: var(--es-theme-surface);
+    border-left: 1px solid var(--es-theme-text-secondary-on-background);
+    border-top: 1px solid var(--es-theme-text-secondary-on-background);
+    border-right: 1px solid var(--es-theme-text-secondary-on-background);
+
+}
+
+.ribbon-tab {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 4px;
+}
+
+.ribbon-tab:hover {
+    cursor: pointer;
+}
+
+.ribbon-tab.active {
+    border-bottom: 1px solid;
+    color: var(--es-theme-text-primary-on-background);
+}
+
+
+.ribbon-menu {
+    display: flex;
+    padding-top: 4px;
+    border-bottom: 2px solid;
+}
+
+.ribbon-menu.pinned {
+    position: fixed;
+    width: 100%;
+    background-color: var(--es-theme-surface);
+    z-index: 9999;
+}
+
+.ribbon-section {
+    display: flex;
+    flex-direction: column;
+    /* border-right: 2px solid #c8c8c8; */
+    border-right: 2px solid var(--es-theme-text-secondary-on-background);
+    padding: 5px;
+    justify-content: space-around;
+}
+
+.ribbon-section-label {
+    font-size: 12px;
+    text-align: center;
+}
+
+.ribbon-section:hover .ribbon-section-label {
+    color: var(--es-theme-text-primary-on-background);
+}
+
+.ribbon-section-items {
+    display: flex;
+    justify-content: space-around;
+}
+
+.ribbon-button {
+    display: flex;
+    /* fill: #c8c8c8; */
+    fill: var(--es-theme-text-secondary-on-background);
+    /* color: #c8c8c8; */
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.ribbon-button:hover {
+    fill: var(--es-theme-text-primary-on-background);
+    color: var(--es-theme-text-primary-on-background);
+    cursor: pointer;
+}
+
+.vertical-divider {
+    /* border-left: 2px solid #c8c8c8; */
+    height: 100%;
+    border-left: 2px solid var(--es-theme-text-secondary-on-background);
+}
+
+.cop-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.cop-title-subtitle {
+    font-size: 10;
+}
+
+@media screen and (max-width: 600px) {
+    .ribbon-menu {
+        flex-direction: column;
+    }
+    .ribbon-section {
+        border-bottom: 2px solid var(--es-theme-text-primary-on-background);
+        border-right: 0px;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+}
+
+
+.content-section {
+    fill: var(--es-theme-text-secondary-on-background);
+    cursor: pointer;
+    display: flex;
+    /* flex-grow: 1;
+    flex-basis: 0; */
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+/* .content-section input {
+    background-color: var(--es-theme-surface);
+    color: var(--es-theme-text-secondary-on-background);
+    border: 1px solid var(--es-theme-text-secondary-on-background);
+    margin-right: 20px;
+    height: 1.5em;
+} */
+
+.plan-section {
+    border-right: 1px solid var(--es-theme-text-secondary-on-background);
+    /* flex-grow: 1; */
+    /* flex-basis: 0; */
+    margin-block-start: 0;
+    margin-block-end: 0;
+    width: 15%;
+}
+
+.plan-section dt {
+    float: left;
+    padding-right: 1em;
+}
+
+.plan-section dd {
+    color:  var(--es-theme-text-primary-on-background);
+}
+
+.search-input {
+    margin-right: 20px;
+}
+
+.search-input input {
+    padding-left: 40px;
+    background-color: var(--es-theme-surface);
+    color: var(--es-theme-text-secondary-on-background);
+    border: 1px solid var(--es-theme-text-secondary-on-background);
+    height: 1.5em;
+}
