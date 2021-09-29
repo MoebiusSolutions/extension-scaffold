@@ -56,8 +56,9 @@ export class BarController {
             background: rgba(0, 0, 0, 0.2);
         }
         .es-bar-button.active {
-            font-weight: bold;
             color: var(--es-theme-text-primary-on-background);
+            border-left: 2px solid var(--es-theme-text-primary-on-background);
+            padding-left: 12px;
         }
 
         .es-bar-button .use-fill {

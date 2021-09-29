@@ -202,6 +202,7 @@ code {
 
 .bottom {
   grid-area: bottom;
+  padding-top: 28px;
 }
 .bottom .shadow-div {
   margin-top: 2px;
@@ -267,4 +268,45 @@ code {
 
 .grid-panel.center.hidden > .shadow-div {
   display: none;
+}
+
+/* Tab Bar section */
+
+.es-tab-bar {
+  position: absolute;
+  top: 4px;
+  height: 24px;
+  left: 0px;
+  right: 0px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.es-tab-bar-button {
+  background: transparent;
+  border: none;
+  color: var(--es-theme-text-secondary-on-background);
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.es-tab-bar-button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+.es-tab-bar-button.active {
+  color: var(--es-theme-text-primary-on-background);
+  border-bottom: 2px solid var(--es-theme-text-primary-on-background);
+}
+.es-tab-bar-button .use-fill {
+  fill: var(--es-theme-text-secondary-on-background);
+}
+.es-tab-bar-button.active .use-fill {
+  fill: var(--es-theme-text-primary-on-background);
+}
+
+.es-tab-bar-button .use-stroke {
+  stroke: var(--es-theme-text-secondary-on-background);
+}
+.es-tab-bar-button.active .use-stroke {
+  stroke: var(--es-theme-text-primary-on-background);
 }

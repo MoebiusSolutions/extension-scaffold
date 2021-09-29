@@ -11,6 +11,7 @@ import {
     fromStorage, getGridState, withPanel, copyStyles
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
+import { TabController } from './TabController';
 
 const DISPLAY_FLEX = 'flex'
 
@@ -62,6 +63,8 @@ export class PanelsImpl implements Panels {
     private readonly locationStack = new LocationStack()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
+    private bottomTabs = new TabController('bottom')
+    private bottomBarTabs = new TabController('bottom-bar')
 
     gridContainer: HTMLElement | undefined
 
@@ -326,6 +329,12 @@ export class PanelsImpl implements Panels {
                 break;
             case 'right':
                 this.rightBar.updatePanel(this.locationStack.panelsAtLocation(location))
+                break;
+            case 'bottom':
+                this.bottomTabs.updatePanel(this.locationStack.panelsAtLocation(location))
+                break;
+            case 'bottom-bar':
+                this.bottomBarTabs.updatePanel(this.locationStack.panelsAtLocation(location))
                 break;
         }
     }
