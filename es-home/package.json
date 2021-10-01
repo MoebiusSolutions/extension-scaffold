@@ -12,7 +12,7 @@
     "pack-configs": "node ./scripts/pack-descriptors.js"
   },
   "dependencies": {
-    "@gots/es-runtime": "^1.1.0"
+    "@gots/es-runtime": "^1.2.0"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",
