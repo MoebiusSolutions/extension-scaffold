@@ -1,6 +1,6 @@
 {
   "name": "@gots/es-runtime",
-  "version": "1.2.0",
+  "version": "1.3.0-SNAPSHOT",
   "module": "./build/es-api.js",
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run cp:css && npm run cp:material",
