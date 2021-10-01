@@ -16,6 +16,10 @@
         {
             "title": "Time Slider",
             "id": "ext.snowpack.bottom"
+        },
+        {
+            "title": "Snowpack Left",
+            "id": "ext.snowpack.left"
         }
     ]
 }

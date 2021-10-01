@@ -1,0 +1,9 @@
+{
+    "url": "http://localhost:5000/build/ext-svelte-rollup.js",
+    "provides": [
+        {
+            "title": "Svelte Panel",
+            "id": "ext.example.svelte"
+        }
+    ]
+}
