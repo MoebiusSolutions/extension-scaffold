@@ -10,10 +10,10 @@ services:
     ports:
     - "127.0.0.1:80:80"
 
-  es-demo:
+  es-home:
     image: "node:12"
     user: "node"
-    working_dir: "/home/extension-scaffold/es-application-examples/es-demo"
+    working_dir: "/home/extension-scaffold/es-home"
     volumes: 
       - "/etc/ssl/certs:/etc/ssl/certs"
       - "../:/home/extension-scaffold"

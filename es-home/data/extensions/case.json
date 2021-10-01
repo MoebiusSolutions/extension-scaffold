@@ -1,0 +1,17 @@
+{
+    "url": "https://dev26/case/es-entry.js",
+    "provides": [
+        {
+            "title": "AASW",
+            "id": "aasw.ribbon.tab"
+        },
+        {
+            "title": "Case Explorer",
+            "id": "aasw.case.explorer"
+        },
+        {
+            "title": "Case Manager",
+            "id": "aasw.case.manager"
+        }
+    ]
+}

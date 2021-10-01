@@ -1,0 +1,34 @@
+{
+    "url": "https://dev26/wasp/es-wasp-entry.js",
+    "provides": [
+        {
+            "title": "Mission Planning",
+            "id": "wasp.mission.planning"
+        },
+        {
+            "title": "Plan Summary",
+            "id": "wasp.plan.summary",
+            "iframe": "https://dev26/wasp/plan-summary.html"
+        },
+        {
+            "title": "Timeline",
+            "id": "wasp.timeline"
+        },
+        {
+            "title": "Assignment Summary",
+            "id": "wasp.assignments.summary"
+        },
+        {
+            "title": "Area Summary",
+            "id": "wasp.area.summary"
+        },
+        {
+            "title": "Interference Check",
+            "id": "wasp.interference.check"
+        },
+        {
+            "title": "WSM Check",
+            "id": "wasp.wsm.check"
+        }
+    ]
+}

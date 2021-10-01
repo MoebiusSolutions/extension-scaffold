@@ -1,0 +1,30 @@
+{
+    "name": "example",
+    "title": "ES Example",
+    "ribbon": [
+    ],
+    "header": [
+        "ext.snowpack.header"
+    ],
+    "footer": [
+        "ext.snowpack.footer"
+    ],
+    "left": [
+        "ext.snowpack.left"
+    ],
+    "center": [ 
+        "ext.aeolus.map"
+    ],
+    "top-bar": [
+        "ext.snowpack.ribbon"
+    ],
+    "bottom-bar": [ 
+        "ext.snowpack.bottom"
+    ],
+    "extensions": [
+        "http://localhost:9092/ext-react-rollup.js",
+        "http://localhost:5000/build/ext-svelte-rollup.js",
+        "http://localhost:9093/ext-react-webpack.js",
+        "http://localhost:9094/dist/ext-lit-element.js"
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "url": "https://dev26/atf/es-entry.js",
+    "provides": [
+        {
+            "title": "Scenario",
+            "id": "bgo.scenario"
+        },
+        {
+            "title": "Plan",
+            "id": "bgo.plan"
+        },
+        {
+            "title": "Optimization",
+            "id": "bgo.optimization"
+        },
+        {
+            "title": "Assets",
+            "id": "bgo.assets"
+        },
+        {
+            "title": "Targets",
+            "id": "bgo.input.targets"
+        },
+        {
+            "title": "Results",
+            "id": "bgo.results"
+        }
+    ]
+}

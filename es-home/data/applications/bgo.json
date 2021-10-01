@@ -1,0 +1,22 @@
+{
+    "name": "bgo",
+    "title": "Blue/Green Optimizer",
+    "ribbon": [
+        "aeolus.view",
+        "aeolus.chart.settings",
+        "bgo.scenario",
+        "bgo.plan",
+        "bgo.optimization",
+        "dss.help"
+    ],
+    "left": [
+        "bgo.assets"
+    ],
+    "center": [ "aeolus.map" ],
+    "bottom-bar": [ 
+        "wasp.timeline", "bgo.input.targets", "bgo.results"
+    ],
+    "extensions": [
+        "https://dev26/added-extension/init.js"
+    ]
+}

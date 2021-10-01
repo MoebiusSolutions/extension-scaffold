@@ -1,0 +1,9 @@
+{
+    "url": "https://dev26/help/es-entry.js",
+    "provides": [
+        {
+            "title": "Help",
+            "id": "dss.help"
+        }
+    ]
+}
