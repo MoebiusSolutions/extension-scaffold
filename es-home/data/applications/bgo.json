@@ -17,6 +17,6 @@
         "wasp.timeline", "bgo.input.targets", "bgo.results"
     ],
     "extensions": [
-        "https://dev26/added-extension/init.js"
+        "https://localhost/bgo/snowpack-extension/dist/ext-react-snowpack.js"
     ]
 }

@@ -21,7 +21,7 @@
     "bgo.results"
   ],
   "extensions": [
-    "https://dev26/added-extension/init.js",
+    "https://localhost/bgo/snowpack-extension/dist/ext-react-snowpack.js",
     "https://dev26/aeolus/es-init.js",
     "https://dev26/atf/es-entry.js",
     "https://dev26/help/es-entry.js",
