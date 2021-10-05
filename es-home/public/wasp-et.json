@@ -12,7 +12,7 @@
     "dss.help"
   ],
   "left": [
-    "wasp.plan.summary",
+    "plan.summary.experimental",
     "aeolus.layer.manager"
   ],
   "center": [
@@ -28,6 +28,7 @@
   "extensions": [
     "https://dev26/aeolus/es-init.js",
     "https://dev26/wasp/es-wasp-entry.js",
-    "https://dev26/help/es-entry.js"
+    "https://dev26/help/es-entry.js",
+    "https://security.dev26.minerva.navy.mil/bgapp/dist/App.js"
   ]
 }

@@ -1,0 +1,9 @@
+{
+    "url": "https://security.dev26.minerva.navy.mil/bgapp/dist/App.js",
+    "provides": [
+        {
+            "title": "Plan Summary",
+            "id": "plan.summary.experimental"
+        }
+    ]
+}

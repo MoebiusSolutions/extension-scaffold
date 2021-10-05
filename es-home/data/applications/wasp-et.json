@@ -12,7 +12,7 @@
         "dss.help"
     ],
     "left": [
-        "wasp.plan.summary",
+        "plan.summary.experimental",
         "aeolus.layer.manager"
     ],
     "center": [ "aeolus.map" ],
