@@ -6,10 +6,7 @@ if (import.meta.hot) {
   import.meta.hot.accept();
 }
 
-async function loadAppConfig() {
-  if (!location.hash) {
-    location.hash = '#example'
-  }
+async function applyHash() {
   const app = location.hash.replace('#', '').replace('..', '')
   console.log('app', app)
 
@@ -26,6 +23,16 @@ async function loadAppConfig() {
   } else {
     console.error('Application configuration missing extensions:', app)
   }
+}
+
+async function loadAppConfig() {
+  if (!location.hash) {
+    location.hash = '#example'
+  }
+  applyHash()
+  window.addEventListener('hashchange', () => {
+    window.location.reload()
+  })
 }
 
 loadAppConfig()
