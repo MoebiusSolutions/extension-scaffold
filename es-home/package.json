@@ -3,7 +3,7 @@
   "version": "1.1.1-SNAPSHOT",
   "scripts": {
     "start": "snowpack dev --polyfill-node",
-    "build": "snowpack build --polyfill-node",
+    "build": "npm run pack-configs && snowpack build --polyfill-node",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
