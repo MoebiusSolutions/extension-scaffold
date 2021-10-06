@@ -88,7 +88,10 @@ function resolveApplications() {
 }
 
 function writeApplications() {
-    const directory = 'public'
+    const directory = 'public/apps'
+    if (!fs.existsSync(directory)){
+        fs.mkdirSync(directory);
+    }
     applications.forEach(app => {
         const full = path.resolve(directory, `${app.name}.json`)
         console.log(`Info: writing ${full}`)

@@ -10,7 +10,7 @@ async function applyHash() {
   const app = location.hash.replace('#', '').replace('..', '')
   console.log('app', app)
 
-  const rsp = await fetch(`${app}.json`)
+  const rsp = await fetch(`apps/${app}.json`)
   const config = await rsp.json()
 
   if (config.title) {
