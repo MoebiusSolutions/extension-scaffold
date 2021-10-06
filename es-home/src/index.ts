@@ -1,9 +1,22 @@
-import { extensionScaffold } from '@gots/es-runtime/build/es-api'
+import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
 if (import.meta.hot) {
   import.meta.hot.accept();
+}
+
+interface IFramePanel {
+  id: string
+  title: string
+  location: Location
+  iframeSource: string
+  resizeHandle?: boolean
+}
+function loadIframePanels(iframes: IFramePanel[]) {
+  iframes.forEach(async (config) => {
+    await extensionScaffold.chrome.panels.addPanel(config) 
+  })
 }
 
 async function applyHash() {
@@ -19,6 +32,7 @@ async function applyHash() {
 
   if (config.extensions) {
     extensionScaffold.boot(document.getElementById('demo-grid-container'))
+    await loadIframePanels(config.iframes)
     await extensionScaffold.loadExtensions(config.extensions)
   } else {
     console.error('Application configuration missing extensions:', app)
@@ -36,3 +50,5 @@ async function loadAppConfig() {
 }
 
 loadAppConfig()
+
+console.log('************ updated')
