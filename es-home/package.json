@@ -3,16 +3,16 @@
   "version": "1.1.1-SNAPSHOT",
   "scripts": {
     "start": "snowpack dev --polyfill-node",
-    "build": "npm run pack-configs && snowpack build --polyfill-node",
+    "build": "npm run resolve-applications && snowpack build --polyfill-node",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
     "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
     "container": "npm run maybe-install && snowpack dev",
-    "pack-configs": "node ./scripts/pack-descriptors.js"
+    "resolve-applications": "node ./scripts/resolve-applications.js"
   },
   "dependencies": {
-    "@gots/es-runtime": "^1.2.0"
+    "@gots/es-runtime": "file:../es-runtime"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",

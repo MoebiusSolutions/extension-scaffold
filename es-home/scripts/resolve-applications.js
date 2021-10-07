@@ -1,3 +1,9 @@
+/*
+ * Read application definitions from data/applications, then
+ * read extension definitions from data/extensions, then
+ * resolve panel IDs to build the list of required extensions, finally
+ * write the full application description to public/apps
+ */
 const fs = require('fs')
 const path = require('path');
 
