@@ -118,6 +118,17 @@ export interface ExtensionScaffoldApi {
      */
     readonly gridContainer: HTMLElement
 
+    /**
+     * Warning: this API is under consideration. The `context` may be added
+     * as a parameter to `boot` instead of allowing any extension with
+     * the api reference a chance to call this method
+     * 
+     * @deprecated
+     * @param context 
+     */
+    setContext: (context: any | null) => void
+    getContext: () =>  any | null
+
     boot: (gridContainer: HTMLElement | null) => void
 
     loadExtensions: (urls: string[], gridState?: GridState) => Promise<(Fulfilled | Rejected)[]>
