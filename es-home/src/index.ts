@@ -50,5 +50,3 @@ async function loadAppConfig() {
 }
 
 loadAppConfig()
-
-console.log('************ updated')

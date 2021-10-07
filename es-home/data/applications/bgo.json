@@ -10,28 +10,29 @@
         "dss.help"
     ],
     "left": [
-        "bgo.assets"
+        "bgo.assets",
+        "plan.summary.experimental"
     ],
     "center": [ "dev26.aeolus.map" ],
     "bottom-bar": [ 
         "wasp.timeline", "bgo.input.targets", "bgo.results"
     ],
     "extensions": [
-        "https://localhost/bgo/snowpack-extension/dist/ext-react-snowpack.js"
+        "/bgo/snowpack-extension/dist/ext-react-snowpack.js"
     ],
     "iframes": [
         {
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "https://security.dev26.minerva.navy.mil/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
+            "iframeSource": "/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
             "resizeHandle": true
         },
         {
             "id": "bgo.bottom",
             "title": "ATF BGO",
             "location": "bottom",
-            "iframeSource": "https://localhost/bgo/WeaponSystem",
+            "iframeSource": "/bgo/WeaponSystem",
             "resizeHandle": true
         }
     ]
