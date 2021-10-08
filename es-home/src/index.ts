@@ -31,11 +31,19 @@ async function applyHash() {
   }
 
   if (config.extensions) {
+    const busUrl = new URL('/bgapp/bcst-bus/index.html', window.location.toString()).toJSON()
+    const provider = 'broadcast'
+    extensionScaffold.setContext({
+      busUrl,
+      provider
+    })
+
     extensionScaffold.boot(document.getElementById('demo-grid-container'))
     await loadIframePanels(config.iframes)
     await extensionScaffold.loadExtensions(config.extensions)
   } else {
-    console.error('Application configuration missing extensions:', app)
+    console.error(`Application configuration missing extensions: ${app}`)
+    alert(`Application configuration missing extensions: ${app}`)
   }
 }
 
