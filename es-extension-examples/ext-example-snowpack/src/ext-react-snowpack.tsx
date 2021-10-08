@@ -85,22 +85,7 @@ async function doLeft(scaffold: ExtensionScaffoldApi) {
     title: 'Snowpack Left',
     icon: span,
     location: 'left',
-    resizeHandle: true,
   }, <Left es={scaffold} />)
-}
-
-async function addMap(scaffold: ExtensionScaffoldApi) {
-  const mapUrl = 'http://localhost:8082/'
-  // const mapUrl = 'http://localhost:8082/map.html?aeo_logo=true&aeo_dc=false&aeo_top=1.9886362552642822&aeo_left=1.9886362552642822&aeo_viewport_w=1745&aeo_viewport_h=961&xdm_e=http%3A%2F%2Flocalhost%3A8082%2F&xdm_c=default3300&xdm_p=4'
-  // const mapUrl = 'https://security.dev26.minerva.navy.mil/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html'
-  // See aeolus/README.md
-  const panelDiv = await scaffold.chrome.panels.addPanel({
-    id: 'ext.aeolus.map',
-    title: 'Snowpack Left',
-    location: 'center',
-    resizeHandle: true,
-    iframeSource: mapUrl,
-  })
 }
 
 export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
@@ -123,7 +108,6 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doRibbon(scaffold)
   // We add center from the left panel as a demo of doing that...
   // addCenterPanel(scaffold)
-  await addMap(scaffold)
   await doHeader(scaffold)
   await doFooter(scaffold)
   await doBottom(scaffold)

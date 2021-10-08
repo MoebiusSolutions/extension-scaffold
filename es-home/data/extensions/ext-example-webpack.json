@@ -1,0 +1,9 @@
+{
+    "url": "http://localhost:9093/ext-react-webpack.js",
+    "provides": [
+        {
+            "title": "Create React App",
+            "id": "ext.example.webpack"
+        }
+    ]
+}

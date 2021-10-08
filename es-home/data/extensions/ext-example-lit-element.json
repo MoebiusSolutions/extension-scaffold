@@ -1,0 +1,9 @@
+{
+    "url": "http://localhost:9094/dist/ext-lit-element.js",
+    "provides": [
+        {
+            "id": "ext.example.lit-element"
+        }
+        
+    ]
+}

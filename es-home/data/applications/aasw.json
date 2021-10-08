@@ -1,0 +1,19 @@
+{
+    "name": "aasw",
+    "title": "Adaptive ASW",
+    "ribbon": [
+        "aeolus.view",
+        "aeolus.chart.settings",
+        "aasw.ribbon.tab",
+        "dss.help"
+    ],
+    "left": [ 
+        "aasw.case.explorer" 
+    ],
+    "center": [
+        "aeolus.map"
+    ],
+    "bottom-bar": [
+        "aasw.case.manager"
+    ]
+}

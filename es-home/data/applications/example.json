@@ -1,0 +1,31 @@
+{
+    "name": "example",
+    "title": "ES Example",
+    "ribbon": [
+    ],
+    "header": [
+        "ext.snowpack.header"
+    ],
+    "footer": [
+        "ext.snowpack.footer"
+    ],
+    "left": [
+        "ext.snowpack.left",
+        "ext.example.rollup"
+    ],
+    "right": [
+        "ext.example.webpack",
+        "ext.example.svelte"
+    ],
+    "center": [ 
+        "ext.aeolus.map"
+    ],
+    "top-bar": [
+        "ext.snowpack.ribbon"
+    ],
+    "bottom-bar": [ 
+        "ext.snowpack.bottom", "ext.example.lit-element"
+    ],
+    "extensions": [
+    ]
+}

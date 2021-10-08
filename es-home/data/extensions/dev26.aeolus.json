@@ -1,0 +1,15 @@
+{
+    "comment": "IFrame only extension",
+    "provides": [
+
+    ],
+    "iframes": [
+        {
+            "id": "dev26.aeolus.map",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "https://security.dev26.minerva.navy.mil/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
+            "resizeHandle": true
+        }
+    ]
+}

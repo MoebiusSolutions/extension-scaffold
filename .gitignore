@@ -1,3 +1,4 @@
 node_modules/
 build/
 es-runtime/gots-es-runtime-*.tgz
+es-home/public/apps/

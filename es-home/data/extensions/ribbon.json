@@ -1,0 +1,9 @@
+{
+    "url": "https://dev26/bgo-ribbon/es-entry.js",
+    "provides": [
+        {
+            "title": "Ribbon Bar",
+            "id": "bgo.ribbon.bar"
+        }
+    ]
+}

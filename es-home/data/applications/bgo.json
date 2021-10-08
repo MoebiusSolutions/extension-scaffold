@@ -1,0 +1,39 @@
+{
+    "name": "bgo",
+    "title": "Blue/Green Optimizer",
+    "ribbon": [
+        "aeolus.view",
+        "aeolus.chart.settings",
+        "bgo.scenario",
+        "bgo.plan",
+        "bgo.optimization",
+        "dss.help"
+    ],
+    "left": [
+        "bgo.assets",
+        "plan.summary.experimental"
+    ],
+    "center": [ "dev26.aeolus.map" ],
+    "bottom-bar": [ 
+        "wasp.timeline", "bgo.input.targets", "bgo.results"
+    ],
+    "extensions": [
+        "/bgo/snowpack-extension/dist/ext-react-snowpack.js"
+    ],
+    "iframes": [
+        {
+            "id": "map.iframe",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
+            "resizeHandle": true
+        },
+        {
+            "id": "bgo.bottom",
+            "title": "ATF BGO",
+            "location": "bottom",
+            "iframeSource": "/bgo/WeaponSystem",
+            "resizeHandle": true
+        }
+    ]
+}

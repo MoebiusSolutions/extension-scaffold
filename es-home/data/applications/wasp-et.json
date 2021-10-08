@@ -1,0 +1,24 @@
+{
+    "name": "wasp-et",
+    "title": "WaSP-ET",
+    "ribbon": [
+        "aeolus.view",
+        "aeolus.chart.settings",
+        "ctm.track",
+        "ctm.tactical",
+        "ctm.tda",
+        "dss.text2tactical",
+        "wasp.mission.planning",
+        "dss.help"
+    ],
+    "left": [
+        "plan.summary.experimental",
+        "aeolus.layer.manager"
+    ],
+    "center": [ "aeolus.map" ],
+    "bottom-bar": [ 
+        "wasp.timeline", "wasp.assignments.summary", 
+        "wasp.area.summary", "wasp.interference.check", 
+        "wasp.wsm.check"
+    ]
+}

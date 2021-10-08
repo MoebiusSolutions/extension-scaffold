@@ -1,0 +1,9 @@
+{
+    "url": "/bgapp/dist/App.js",
+    "provides": [
+        {
+            "title": "Plan Summary",
+            "id": "plan.summary.experimental"
+        }
+    ]
+}

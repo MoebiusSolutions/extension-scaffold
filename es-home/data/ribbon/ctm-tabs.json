@@ -1,0 +1,19 @@
+[
+    {
+        "tab": "Track"
+    },
+    {
+        "tab": "Communications",
+        "groups": [
+            {
+                "group": "A"
+            },
+            {
+                "group": "B"
+            }
+        ]
+    },
+    {
+        "tab": "Tactical"
+    }
+]

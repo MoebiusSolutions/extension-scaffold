@@ -167,7 +167,6 @@ git remote
 
 For each remote:
 ```
-git push {remote} develop release
 git push {remote} develop release --tags
 ```
 

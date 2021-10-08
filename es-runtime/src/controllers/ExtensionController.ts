@@ -15,6 +15,7 @@ class ChromeImpl implements Chrome {
 
 class ApiImpl implements ExtensionScaffoldApi {
     private _gridContainer?: HTMLElement
+    private _context: any = undefined;
 
     readonly chrome = new ChromeImpl()
     readonly events = new EventEmitter()
@@ -25,6 +26,19 @@ class ApiImpl implements ExtensionScaffoldApi {
         return this._gridContainer
     }
 
+    /**
+     * Warning: this API is under consideration. The `context` may be added
+     * as a parameter to `boot`
+     * 
+     * @deprecated
+     * @param context 
+     */
+    setContext(context: any | null) {
+        this._context = context;
+    }
+    getContext() {
+        return this._context;
+    }
     boot(gridContainer: HTMLElement | null) {
         if (!gridContainer) {
             throw new Error('Missing gridContainer')
@@ -101,7 +115,7 @@ class ApiImpl implements ExtensionScaffoldApi {
 
     private async activateExtension(module: any, url: string) {
         if (module.activate) {
-            return module.activate(extensionScaffold, url)
+            return module.activate(extensionScaffold, url, this._context)
         } else {
             throw new Error(`Extension does not export activate: ${url}`)
         }

@@ -1,0 +1,22 @@
+{
+    "url": "https://dev26/aeolus/es-init.js",
+    "provides": [
+        {
+            "title": "Map",
+            "id": "aeolus.map"
+        },
+        {
+            "title": "View",
+            "id": "aeolus.view"
+        },
+        {
+            "title": "View",
+            "id": "aeolus.chart.settings"
+        },
+        {
+            "title": "Layer Manager",
+            "id": "aeolus.layer.manager",
+            "iframe": "https://dev26/aeolus/map.layer.html"
+        }
+    ]
+}
