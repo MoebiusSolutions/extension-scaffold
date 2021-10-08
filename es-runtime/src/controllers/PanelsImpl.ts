@@ -16,46 +16,37 @@ import { TabController } from './TabController';
 const DISPLAY_FLEX = 'flex'
 
 function getDivSize(div: HTMLElement | null): OrigSize {
-    const origSize = { size: '', location: '' }
+    const origSize: OrigSize = { size: '', location: '' }
     if (div !== null) {
-        if (div.classList.contains('left')) {
-            if (div.style.width === '100px') {
-                origSize.size = fromStorage('left-panel-width') as string
+        const orientation = [
+            { contains: 'left',   size: () => div.style.width },
+            { contains: 'right',  size: () => div.style.width },
+            { contains: 'top',    size: () => div.style.height },
+            { contains: 'bottom', size: () => div.style.height },
+        ]
+        orientation.forEach(o => {
+            if (div.classList.contains(o.contains)) {
+                const size = o.size()
+                if (size === '100px') {
+                    origSize.size = fromStorage(`${o.contains}-panel-size`) as string
+                }
+                else {
+                    origSize.size = size
+                }
+                origSize.location = o.contains as Location
             }
-            else {
-                origSize.size = div.style.width
-            }
-            origSize.location = 'left'
-        }
-        if (div.classList.contains('right')) {
-            if (div.style.width === '100px') {
-                origSize.size = fromStorage('right-panel-width') as string
-            }
-            else {
-                origSize.size = div.style.width
-            }
-            origSize.location = 'right'
-        }
-        if (div.classList.contains('top')) {
-            if (div.style.height === '100px') {
-                origSize.size = fromStorage('top-panel-width') as string
-            }
-            else {
-                origSize.size = div.style.height
-            }
-            origSize.location = 'top'
-        }
-        if (div.classList.contains('bottom')) {
-            if (div.style.height === '100px') {
-                origSize.size = fromStorage('bottom-panel-width') as string
-            }
-            else {
-                origSize.size = div.style.height
-            }
-            origSize.location = 'bottom'
-        }
+        })
     }
     return origSize
+}
+
+// Some panels have a resize handle by default
+function defaultResizeHandle(options: AddPanelOptions) {
+    if (options.resizeHandle === undefined) {
+        const defaultTrue = [ 'left', 'right', 'top', 'bottom']
+        return defaultTrue.findIndex(s => s === options.location) >= 0
+    }
+    return options.resizeHandle
 }
 
 export class PanelsImpl implements Panels {
@@ -355,16 +346,17 @@ export class PanelsImpl implements Panels {
     }
 
     private getOrCreateOuterPanel(gridContainer: HTMLElement, options: AddPanelOptions): HTMLDivElement {
+        const resizeHandle = defaultResizeHandle(options)
         let r = gridContainer.querySelector(`.${options.location}`)
         if (r) {
-            if (options.resizeHandle && r.querySelectorAll('.drag').length === 0) {
+            if (resizeHandle && r.querySelectorAll('.drag').length === 0) {
                 r.appendChild(this.makeResizeHandle(options))
             }
             return r as HTMLDivElement
         }
 
         r = document.createElement('div')
-        if (options.resizeHandle) {
+        if (resizeHandle) {
             r.appendChild(this.makeResizeHandle(options))
         }
         gridContainer.appendChild(r)

@@ -81,7 +81,7 @@ export interface GridState {
 
 export interface OrigSize {
     size: string
-    location: string
+    location: Location | ''
 }
 
 export interface Panels {
