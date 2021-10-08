@@ -13,8 +13,8 @@ interface IFramePanel {
   iframeSource: string
   resizeHandle?: boolean
 }
-function loadIframePanels(iframes: IFramePanel[]) {
-  iframes.forEach(async (config) => {
+function loadIframePanels(iframes?: IFramePanel[]) {
+  iframes?.forEach(async (config) => {
     await extensionScaffold.chrome.panels.addPanel(config) 
   })
 }
