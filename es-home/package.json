@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@gots/es-runtime": "file:../es-runtime",
+    "@optoolco/tonic": "^13.3.6",
     "git-describe": "^4.1.0"
   },
   "devDependencies": {

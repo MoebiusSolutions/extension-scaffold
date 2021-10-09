@@ -57,3 +57,15 @@ declare module '*.png' {
 }
 
 /* CUSTOM: ADD YOUR OWN HERE */
+declare module '@optoolco/tonic' {
+  declare class Tonic extends HTMLElement {
+    html(t: TemplateStringsArray, ... args: any)
+    get state(): any
+    set state(n: any)
+    reRender(v?: any)
+    click(e: MouseEvent)
+    blur(e: FocusEvent)
+    static add(t: any)
+  }
+  export default Tonic
+}

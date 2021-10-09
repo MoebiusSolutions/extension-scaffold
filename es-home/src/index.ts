@@ -1,4 +1,11 @@
 import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import Tonic from '@optoolco/tonic'
+import { EsAddExtension } from './components/add-extension';
+import { EsKbar } from './components/kbar'
+import { EsKbarResults } from './components/kbar-results';
+import { EsKbarRoute } from './components/kbar-route';
+import { EsShowContext } from './components/show-context';
+import { EsShowPanelList } from './components/show-panel-list';
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
@@ -56,5 +63,12 @@ async function loadAppConfig() {
     window.location.reload()
   })
 }
+
+Tonic.add(EsKbarRoute)
+Tonic.add(EsKbar)
+Tonic.add(EsKbarResults)
+Tonic.add(EsAddExtension)
+Tonic.add(EsShowContext)
+Tonic.add(EsShowPanelList)
 
 loadAppConfig()
