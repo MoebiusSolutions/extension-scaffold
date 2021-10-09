@@ -14,8 +14,7 @@
         "ext.example.rollup"
     ],
     "right": [
-        "ext.example.webpack",
-        "ext.example.svelte"
+        "ext.example.webpack"
     ],
     "center": [ 
         "ext.aeolus.map"
