@@ -119,7 +119,6 @@ export const SampleModal: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             id: 'ext.snowpack.samplemodal.portal',
             location: 'portal-wide',
         }).then(div => setPanelDiv(div))
-        es.chrome.panels.maximizePanel('ext.snowpack.samplemodal.portal');
         return () => { es.chrome.panels.removePanel('ext.snowpack.samplemodal') }
     }, [])
 
