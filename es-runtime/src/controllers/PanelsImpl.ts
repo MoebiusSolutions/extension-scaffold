@@ -59,6 +59,9 @@ export class PanelsImpl implements Panels {
 
     gridContainer: HTMLElement | undefined
 
+    panelIds(location: Location) {
+        return this.locationStack.get(location)
+    }
     addPanel(options: AddPanelOptions) {
         if (document.getElementById(options.id)) {
             return Promise.reject(new Error(`Already exists ${options.id}`))

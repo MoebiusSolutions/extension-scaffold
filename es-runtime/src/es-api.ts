@@ -100,6 +100,8 @@ export interface Panels {
     popInPanel: (id: string) => boolean
     isPanelPoppedOut: (id: string) => boolean
     trackExtensions: (ids: ExtensionIds) => void
+
+    panelIds: (location: Location) => AddPanelOptions[] | undefined
 }
 
 export interface Chrome {
