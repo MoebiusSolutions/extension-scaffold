@@ -1,26 +1,22 @@
 import Tonic from '@optoolco/tonic'
-import { extensionScaffold } from '@gots/es-runtime/build/es-api'
+import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
 
 export class EsShowPanelList extends Tonic {
-  styles() {
-    return {
-        open: {
-          display: 'block',
-          padding: '8px',
-          position: 'fixed',
-          top: '4em',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: 'var(--es-theme-text-primary-on-background)',
-          background: 'var(--es-theme-surface)',
-          minWidth: '20em',
-        },
-    }
+  panelIds(location: Location) {
+    return extensionScaffold.chrome.panels.panelIds(location)?.map(p => p.id)
   }
-
   render() {
-    const c = ['panel list todo']
-    const cs = JSON.stringify(c, null, "  ")
-    return this.html`<div styles="open"><pre>${cs}</pre></div>`
+    const p = {
+      left: this.panelIds('left'),
+      right: this.panelIds('right'),
+      top: this.panelIds('top'),
+      bottom: this.panelIds('bottom'),
+      header: this.panelIds('header'),
+      footer: this.panelIds('footer'),
+      'top-bar': this.panelIds('top-bar'),
+      'bottom-bar': this.panelIds('bottom-bar'),
+    }
+    const msg = JSON.stringify(p, null, "  ")
+    return this.html`<es-popup message="${msg}"></es-popup>`
   }
 }

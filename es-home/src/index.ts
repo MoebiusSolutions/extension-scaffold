@@ -4,8 +4,12 @@ import { EsAddExtension } from './components/add-extension';
 import { EsKbar } from './components/kbar'
 import { EsKbarResults } from './components/kbar-results';
 import { EsKbarRoute } from './components/kbar-route';
+import { EsPopup } from './components/popup';
+import { EsPrompt } from './components/propmpt';
+import { EsRemovePanel } from './components/remove-panel';
 import { EsShowContext } from './components/show-context';
 import { EsShowPanelList } from './components/show-panel-list';
+import { EsTogglePanel } from './components/toggle-panel';
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
@@ -68,7 +72,11 @@ Tonic.add(EsKbarRoute)
 Tonic.add(EsKbar)
 Tonic.add(EsKbarResults)
 Tonic.add(EsAddExtension)
-Tonic.add(EsShowContext)
+Tonic.add(EsTogglePanel)
 Tonic.add(EsShowPanelList)
+Tonic.add(EsRemovePanel)
+Tonic.add(EsShowContext)
+Tonic.add(EsPrompt)
+Tonic.add(EsPopup)
 
 loadAppConfig()

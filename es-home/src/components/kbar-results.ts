@@ -14,6 +14,8 @@ export class EsKbarResults extends Tonic {
   commands: Command[] = [
     { label: 'Add Extension', command: this.addExtension },
     { label: 'Panel List',   command: this.panelList },
+    { label: 'Toggle Panel', command: this.togglePanel },
+    { label: 'Remove Panel', command: this.removePanel },
     { label: 'Show Context', command: this.showContext },
   ]
 
@@ -27,11 +29,17 @@ export class EsKbarResults extends Tonic {
   panelList() {
     this.getRoute()?.doOpen('show-panel-list')
   }
+  togglePanel() {
+    this.getRoute()?.doOpen('toggle-panel')
+  }
   removePanel() {
-    console.log('remove panel')
+    this.getRoute()?.doOpen('remove-panel')
   }
   showContext() {
     this.getRoute()?.doOpen('show-context')
+  }
+  launchDebugger() {
+    debugger;
   }
   doFilter() {
     const value = this.getKbarInput()?.value
@@ -54,7 +62,6 @@ export class EsKbarResults extends Tonic {
     }
   }
   doCommand(a: Command) {
-    console.log('Execute', a)
     // this.getKbar()?.doClose()
     a.command.call(this)
   }

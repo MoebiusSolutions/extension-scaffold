@@ -62,6 +62,7 @@ declare module '@optoolco/tonic' {
     html(t: TemplateStringsArray, ... args: any)
     get state(): any
     set state(n: any)
+    get props(): any
     reRender(v?: any)
     click(e: MouseEvent)
     blur(e: FocusEvent)

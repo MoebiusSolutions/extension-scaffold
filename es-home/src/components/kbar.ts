@@ -15,9 +15,17 @@ export class EsKbar extends Tonic {
   getKbarResults(): EsKbarResults | null {
     return document.getElementById('es-kbar-results') as any
   }
+  handleInputBlur(e: FocusEvent) {
+    if (!this.mouseIsDown) {
+      this.getKbarRoute()?.doClose()
+    } else {
+      this.blurHappened = true
+    }
+  }
 
   connected() {
     this.getKbarInput()?.focus()
+    this.getKbarInput()?.addEventListener('blur', e => this.handleInputBlur(e))
   }
   mousedown(e: MouseEvent) {
     this.mouseIsDown = true
@@ -27,19 +35,6 @@ export class EsKbar extends Tonic {
     if (this.blurHappened) {
       this.blurHappened = false
       this.getKbarRoute()?.doClose()
-    }
-  }
-  updated() {
-    if (this.state.wantFocus) {
-      this.state.wantFocus = false
-      this.getKbarInput()?.focus()
-      this.getKbarInput()?.addEventListener('blur', (e) => {
-        if (!this.mouseIsDown) {
-          this.getKbarRoute()?.doClose()
-        } else {
-          this.blurHappened = true
-        }
-      })
     }
   }
   input(e: InputEvent) {

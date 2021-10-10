@@ -41,13 +41,20 @@ export class EsKbarRoute extends Tonic {
       case 'add-extension':
         return this.html`<es-add-extension id="es-add-extension"></es-add-extension>`
 
-      case 'show-context':
-        return this.html`<es-show-context id="es-show-context"></es-show-context>`
-
       case 'show-panel-list':
         return this.html`<es-show-panel-list id="es-show-context"></es-show-panel-list>`
 
+      case 'toggle-panel':
+        return this.html`<es-toggle-panel></es-toggle-panel>`
+  
+      case 'remove-panel':
+        return this.html`<es-remove-panel></es-remove-panel>`
+
+      case 'show-context':
+        return this.html`<es-show-context id="es-show-context"></es-show-context>`
+
       default:
+        console.log('unknown route id', this.state.name)
         return undefined
     }
   }
