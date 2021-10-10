@@ -1,5 +1,40 @@
 # Change Log
 
+## [1.3.0] - 2021-10-09
+
+### Added
+
+* `es-home` is a data driven hosting page using the #hash 
+  to select which application configuration to load
+* Context API to support passing around the `bcst-bus` URL and provider configuration
+* Record package and git version information in version.json
+* Default resizeHandle to true for some panel locations.
+
+* Use Control+k to access admin functions:
+  * Add Extension
+  * Panel List
+  * Toggle Panel
+  * Remove Panel
+  * Show Context
+### Changed
+    
+* Configured `#example` to no longer make a center panel from a non-existing map URL
+* Refactor getDivSize to use lookup table.
+
+## [1.2.0] - 2021-09-30
+
+### Added
+
+* Document what to install to run the unit tests
+* Remove ext-react-snowpack from default list so we can test adding int dynamically
+* Added tabs to bottom panel area
+* Added es-ribbon source code
+* Store grid information in localStorage
+
+### Changed
+
+* Use classes instead of style in more places
+
 ## [1.1.0] - 2021-06-09
 
 ### Added
