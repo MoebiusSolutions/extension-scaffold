@@ -80,7 +80,6 @@ export class PanelsImpl implements Panels {
         }
         setActive(shadowDiv)
 
-
         // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {
             const iframe = document.createElement('iframe')
