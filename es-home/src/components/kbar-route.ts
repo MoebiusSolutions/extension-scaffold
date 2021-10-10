@@ -17,6 +17,10 @@ export function addKeydownForIFrame(iframe: HTMLIFrameElement) {
 }
 
 export class EsKbarRoute extends Tonic {
+  static fromEvent(e: Event) : EsKbarRoute | null {
+    const target = e.target as HTMLElement | null
+    return target?.closest('es-kbar-route') as EsKbarRoute
+  }
   handleKeyDown(event: KeyboardEvent) {
     if ((event.metaKey || event.ctrlKey) && event.key === "k" && !event.repeat) {
       event.preventDefault()

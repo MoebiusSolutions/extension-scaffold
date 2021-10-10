@@ -1,14 +1,11 @@
 import Tonic from '@optoolco/tonic'
 import type { EsKbarResults } from './kbar-results'
-import type { EsKbarRoute } from './kbar-route'
+import { EsKbarRoute } from './kbar-route'
 
 export class EsKbar extends Tonic {
   mouseIsDown: boolean = false
   blurHappened: boolean = false
 
-  getKbarRoute(): EsKbarRoute | null {
-    return document.getElementById('es-kbar-route') as any
-  }
   getKbarInput() : HTMLInputElement | null {
     return document.getElementById('es-kbar-input') as HTMLInputElement
   }
@@ -17,7 +14,7 @@ export class EsKbar extends Tonic {
   }
   handleInputBlur(e: FocusEvent) {
     if (!this.mouseIsDown) {
-      this.getKbarRoute()?.doClose()
+      EsKbarRoute.fromEvent(e)?.doClose()
     } else {
       this.blurHappened = true
     }
@@ -34,7 +31,7 @@ export class EsKbar extends Tonic {
     this.mouseIsDown = false
     if (this.blurHappened) {
       this.blurHappened = false
-      this.getKbarRoute()?.doClose()
+      EsKbarRoute.fromEvent(e)?.doClose()
     }
   }
   input(e: InputEvent) {

@@ -1,20 +1,20 @@
 import Tonic from '@optoolco/tonic'
-import type { EsKbarRoute } from './kbar-route'
+import { EsKbarRoute } from './kbar-route'
 
 export class EsPopup extends Tonic {
-  private getRoute(): EsKbarRoute | null {
-    return document.getElementById("es-kbar-route") as any
-  }
   private getTextArea() : HTMLInputElement | null {
     return document.getElementById("es-text-area") as HTMLInputElement
   }
-  handleInputBlur(e: FocusEvent) {
-    this.getRoute()?.doClose()
+  static handleFocusOut(e: FocusEvent) {
+    EsKbarRoute.fromEvent(e)?.doClose()
   }
 
   connected() {
     this.getTextArea()!.focus()
-    this.getTextArea()?.addEventListener('blur', e => this.handleInputBlur(e))
+    this.addEventListener('focusout', EsPopup.handleFocusOut)
+  }
+  disconnected() {
+    this.removeEventListener('focusout', EsPopup.handleFocusOut)
   }
   static stylesheet() {
     return `

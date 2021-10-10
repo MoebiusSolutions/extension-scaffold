@@ -1,20 +1,15 @@
 import Tonic from '@optoolco/tonic'
 import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
-import type { EsKbarRoute } from './kbar-route'
+import { EsKbarRoute } from './kbar-route'
 
 export class EsPrompt extends Tonic {
-  private getRoute(): EsKbarRoute | null {
-    return document.getElementById("es-kbar-route") as any
-  }
   private getTextInput() : HTMLInputElement | null {
     return document.getElementById("es-add-extension-input") as HTMLInputElement
   }
 
-  handleInputBlur(e: FocusEvent) {
-    this.getRoute()?.doClose()
+  static handleFocusOut(e: FocusEvent) {
+    EsKbarRoute.fromEvent(e)?.doClose()
   }
-
-  /* event handlers */
 
   // e.g. "http://localhost:5000/build/ext-svelte-rollup.js",
   submit(e: Event) {
@@ -22,12 +17,16 @@ export class EsPrompt extends Tonic {
     const url = this.getTextInput()!.value
     console.log('adding', url)
     extensionScaffold.loadExtensions([ url ])
-    
-    this.getRoute()?.doClose()
+
+    EsKbarRoute.fromEvent(e)?.doClose()
   }
   connected() {
     this.getTextInput()?.focus()
-    this.getTextInput()?.addEventListener('blur', e => this.handleInputBlur(e))
+    this.getTextInput()?.select()
+    this.addEventListener('focusout', EsPrompt.handleFocusOut)
+  }
+  disconnected() {
+    this.removeEventListener('focusout', EsPrompt.handleFocusOut)
   }
 
   static stylesheet() {
