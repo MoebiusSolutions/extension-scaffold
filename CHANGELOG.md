@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.4.0] - 2021-10-10
+
+### Added
+
+* Custom event `add-iframe`, which passes the `iframe` as the event argument
+
 ## [1.3.0] - 2021-10-09
 
 ### Added

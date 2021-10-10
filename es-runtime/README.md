@@ -20,11 +20,12 @@ Determine what the next version number will be.
 
 ## 2. Update Version Number
 
-Use the `npm version` command. 
+From the `es-runtime` folder, use the `npm version` command. 
 To go to the next minor release you can use:
 
-```
-npm version minor
+```bash
+$ cd es-runtime
+$ npm version minor
 ```
 
 Or to set a specific version, say 1.0.8 use `npm version 1.0.8`
