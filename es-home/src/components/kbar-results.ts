@@ -94,12 +94,15 @@ export class EsKbarResults extends Tonic {
   }
   styles() {
     return {
+        common: {
+          cursor: 'pointer',
+          padding: '8px',
+        },
         selected: {
           background: 'rgba(255,255,255,0.1)',
           padding: '8px'
         },
         unselected: {
-          padding: '8px'
         }
     }
 }
@@ -107,7 +110,7 @@ render() {
     this.wrapSelectIndex()
     const commands: any = this.doFilter().map((c, idx) => { 
       const styles = idx === this.selectIndex ? 'selected' : 'unselected'
-      return this.html`<div class="command" styles="${styles}">${c.label}</div>`
+      return this.html`<div class="command" styles="common ${styles}">${c.label}</div>`
     })
     return this.html`${commands}`
   }
