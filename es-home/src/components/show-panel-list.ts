@@ -7,6 +7,7 @@ export class EsShowPanelList extends Tonic {
   }
   render() {
     const p = {
+      center: this.panelIds('center'),
       left: this.panelIds('left'),
       right: this.panelIds('right'),
       top: this.panelIds('top'),

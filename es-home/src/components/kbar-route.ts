@@ -5,6 +5,17 @@ function handleKeyDown(event: KeyboardEvent) {
   r?.handleKeyDown(event)
 }
 
+export function addKeydownForIFrame(iframe: HTMLIFrameElement) {
+  if (!iframe.contentDocument) {
+      // If the frame never loads we still want its keydown events, so keep trying until is resolves
+      setTimeout(() => addKeydownForIFrame(iframe))
+  }
+  iframe.addEventListener('load', () => addKeydownForIFrame(iframe))
+
+  // If the contents loads later, add keydown
+  iframe.contentDocument?.addEventListener('keydown', handleKeyDown)
+}
+
 export class EsKbarRoute extends Tonic {
   handleKeyDown(event: KeyboardEvent) {
     if ((event.metaKey || event.ctrlKey) && event.key === "k" && !event.repeat) {
@@ -52,6 +63,9 @@ export class EsKbarRoute extends Tonic {
 
       case 'show-context':
         return this.html`<es-show-context id="es-show-context"></es-show-context>`
+
+      case undefined:
+        return undefined
 
       default:
         console.log('unknown route id', this.state.name)

@@ -3,7 +3,7 @@ import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
 import { EsKbar } from './components/kbar'
 import { EsKbarResults } from './components/kbar-results';
-import { EsKbarRoute } from './components/kbar-route';
+import { addKeydownForIFrame, EsKbarRoute } from './components/kbar-route';
 import { EsPopup } from './components/popup';
 import { EsPrompt } from './components/propmpt';
 import { EsRemovePanel } from './components/remove-panel';
@@ -50,6 +50,7 @@ async function applyHash() {
     })
 
     extensionScaffold.boot(document.getElementById('demo-grid-container'))
+    extensionScaffold.events.on('add-iframe', addKeydownForIFrame)
     await loadIframePanels(config.iframes)
     await extensionScaffold.loadExtensions(config.extensions)
   } else {
