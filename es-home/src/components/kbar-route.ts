@@ -8,9 +8,9 @@ function handleKeyDown(event: KeyboardEvent) {
 export function addKeydownForIFrame(iframe: HTMLIFrameElement) {
   if (!iframe.contentDocument) {
       // If the frame never loads we still want its keydown events, so keep trying until is resolves
-      setTimeout(() => addKeydownForIFrame(iframe))
+      setTimeout(() => addKeydownForIFrame(iframe), 100)
   }
-  iframe.addEventListener('load', () => addKeydownForIFrame(iframe))
+  iframe.addEventListener('DOMContentLoaded', () => addKeydownForIFrame(iframe))
 
   // If the contents loads later, add keydown
   iframe.contentDocument?.addEventListener('keydown', handleKeyDown)
@@ -51,10 +51,14 @@ export class EsKbarRoute extends Tonic {
   }
 
   connected() {
-      window.addEventListener('keydown', handleKeyDown)
+      window.addEventListener('keydown', handleKeyDown, {
+        capture: true
+      })
   }
   disconnected() {
-    window.removeEventListener('keydown', handleKeyDown)
+    window.removeEventListener('keydown', handleKeyDown, {
+      capture: true
+    })
   }
   render() {
     switch (this.state.name) {
