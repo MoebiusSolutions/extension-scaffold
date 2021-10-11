@@ -74,6 +74,7 @@ async function loadAppConfig() {
   if (!configString) {
     applyHash()
   } else {
+    // TODO restrict this operation to developers
     const config = JSON.parse(configString)
     localStorage.removeItem(itemName)
     applyConfiguration(config, '#uploaded')
