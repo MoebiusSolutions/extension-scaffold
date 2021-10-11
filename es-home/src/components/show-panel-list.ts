@@ -1,5 +1,26 @@
 import Tonic from '@optoolco/tonic'
-import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import { extensionScaffold, Location, LOCATIONS } from '@gots/es-runtime/build/es-api'
+
+function panelIDs() {
+  const ids: string[] = []
+  LOCATIONS.forEach(l => {
+    extensionScaffold.chrome.panels.panelIds(l)?.map(p => p.id).forEach(pid => {
+      ids.push(pid)
+    })
+  })
+  return ids
+}
+
+export function datalistPanelIDs<T extends Tonic>(t: T) {
+  const options = panelIDs().map(pid => {
+    return t.html`<option>${pid}</option>`
+  })
+  return t.html`
+  <datalist id="es-panel-ids">
+    ${options}
+  </datalist>
+  `
+}
 
 export class EsShowPanelList extends Tonic {
   panelIds(location: Location) {
@@ -17,7 +38,7 @@ export class EsShowPanelList extends Tonic {
       'top-bar': this.panelIds('top-bar'),
       'bottom-bar': this.panelIds('bottom-bar'),
     }
-    const msg = JSON.stringify(p, null, "  ")
-    return this.html`<es-popup message="${msg}"></es-popup>`
+    const text = JSON.stringify(p, null, "  ")
+    return this.html`<es-popup-textarea value="${text}"></es-popup-textarea>`
   }
 }

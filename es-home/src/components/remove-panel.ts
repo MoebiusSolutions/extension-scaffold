@@ -1,6 +1,7 @@
 import Tonic from '@optoolco/tonic'
 import { extensionScaffold } from '@gots/es-runtime/build/es-api'
 import type { EsKbarRoute } from './kbar-route'
+import { datalistPanelIDs } from './show-panel-list'
 
 export class EsRemovePanel extends Tonic {
   private getRoute(): EsKbarRoute | null {
@@ -19,6 +20,9 @@ export class EsRemovePanel extends Tonic {
     this.getRoute()?.doClose()
   }
   render() {
-    return this.html`<es-prompt label="Remove Panel:" placeholder="id"></es-prompt>`
+    return this.html`
+      <es-prompt list="es-panel-ids" label="Remove Panel:" placeholder="id"></es-prompt>
+      ${datalistPanelIDs(this)}
+    `
   }
 }

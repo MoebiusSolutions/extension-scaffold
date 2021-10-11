@@ -4,7 +4,7 @@ import { extensionScaffold } from '@gots/es-runtime/build/es-api'
 export class EsShowContext extends Tonic {
   render() {
     const c = extensionScaffold.getContext()
-    const msg = JSON.stringify(c, null, "  ")
-    return this.html`<es-popup message="${msg}"></es-popup>`
+    const text = JSON.stringify(c, null, "  ")
+    return this.html`<es-popup-textarea readonly value="${text}"></es-popup-textarea>`
   }
 }

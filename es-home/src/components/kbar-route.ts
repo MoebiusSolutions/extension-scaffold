@@ -41,6 +41,14 @@ export class EsKbarRoute extends Tonic {
     this.state.name = undefined
     this.reRender()
   }
+  doBlurClose() {
+    // Allow debug sessions to globally disable auto close on focusout
+    //   window.kbar = { noBlurClose: true }
+    const w: any = window
+    if (w.kbar?.noBlurClose) { return }
+
+    this.doClose()
+  }
 
   connected() {
       window.addEventListener('keydown', handleKeyDown)
@@ -56,6 +64,9 @@ export class EsKbarRoute extends Tonic {
       case 'add-extension':
         return this.html`<es-add-extension id="es-add-extension"></es-add-extension>`
 
+      case 'load-application':
+        return this.html`<es-load-application></es-load-application>`
+  
       case 'show-panel-list':
         return this.html`<es-show-panel-list id="es-show-context"></es-show-panel-list>`
 

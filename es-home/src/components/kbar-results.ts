@@ -12,19 +12,26 @@ export class EsKbarResults extends Tonic {
   selectIndex: number = 0
 
   commands: Command[] = [
+    { label: 'Show Context', command: this.showContext },
     { label: 'Add Extension', command: this.addExtension },
-    { label: 'Panel List',   command: this.panelList },
+    { label: 'Load Application', command: this.loadApplication },
+    { label: 'List Panels',   command: this.panelList },
     { label: 'Toggle Panel', command: this.togglePanel },
     { label: 'Remove Panel', command: this.removePanel },
-    { label: 'Show Context', command: this.showContext },
   ]
 
   private getRoute(): EsKbarRoute | null {
     return document.getElementById("es-kbar-route") as any
   }
 
+  showContext() {
+    this.getRoute()?.doOpen('show-context')
+  }
   addExtension() {
     this.getRoute()?.doOpen('add-extension')
+  }
+  loadApplication() {
+    this.getRoute()?.doOpen('load-application')
   }
   panelList() {
     this.getRoute()?.doOpen('show-panel-list')
@@ -34,9 +41,6 @@ export class EsKbarResults extends Tonic {
   }
   removePanel() {
     this.getRoute()?.doOpen('remove-panel')
-  }
-  showContext() {
-    this.getRoute()?.doOpen('show-context')
   }
   launchDebugger() {
     debugger;

@@ -3,36 +3,27 @@ import type { EsKbarResults } from './kbar-results'
 import { EsKbarRoute } from './kbar-route'
 
 export class EsKbar extends Tonic {
-  mouseIsDown: boolean = false
-  blurHappened: boolean = false
-
   getKbarInput() : HTMLInputElement | null {
     return document.getElementById('es-kbar-input') as HTMLInputElement
   }
   getKbarResults(): EsKbarResults | null {
     return document.getElementById('es-kbar-results') as any
   }
-  handleInputBlur(e: FocusEvent) {
-    if (!this.mouseIsDown) {
-      EsKbarRoute.fromEvent(e)?.doClose()
-    } else {
-      this.blurHappened = true
+  static handleFocusOut(e: FocusEvent) {
+    // If some other element on this popup is getting focus stay here
+    const related: HTMLElement | null = e.relatedTarget as any
+    if (related?.closest('es-kbar')) {
+      return
     }
+    EsKbarRoute.fromEvent(e)?.doBlurClose()
   }
 
   connected() {
     this.getKbarInput()?.focus()
-    this.getKbarInput()?.addEventListener('blur', e => this.handleInputBlur(e))
+    this.addEventListener('focusout', EsKbar.handleFocusOut)
   }
-  mousedown(e: MouseEvent) {
-    this.mouseIsDown = true
-  }
-  mouseup(e: MouseEvent) {
-    this.mouseIsDown = false
-    if (this.blurHappened) {
-      this.blurHappened = false
-      EsKbarRoute.fromEvent(e)?.doClose()
-    }
+  disconnect() {
+    this.removeEventListener('focusout', EsKbar.handleFocusOut)
   }
   input(e: InputEvent) {
       const el: HTMLInputElement = e.target as any
@@ -71,7 +62,7 @@ export class EsKbar extends Tonic {
       }
   }
   render() {
-    return this.html`<form styles="open">
+    return this.html`<form styles="open" tabindex="0">
       <div style="display: flex; padding-top: 8px; padding-bottom: 8px;">
         <input id="es-kbar-input" autocomplete="off" styles="filter" type="text">
       </div>

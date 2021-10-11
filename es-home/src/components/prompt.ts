@@ -8,7 +8,7 @@ export class EsPrompt extends Tonic {
   }
 
   static handleFocusOut(e: FocusEvent) {
-    EsKbarRoute.fromEvent(e)?.doClose()
+    EsKbarRoute.fromEvent(e)?.doBlurClose()
   }
 
   // e.g. "http://localhost:5000/build/ext-svelte-rollup.js",
@@ -61,9 +61,10 @@ export class EsPrompt extends Tonic {
     }
   }
   render() {
+    const list = this.props.list ? `list=${this.props.list}` : ''
     return this.html`<form styles="open">
       <label for="es-add-extension-input">${this.props.label}</label>
-      <input id="es-add-extension-input" placeholder="${this.props.placeholder}" value="${this.props.value}">
+      <input ${list} id="es-add-extension-input" placeholder="${this.props.placeholder}" value="${this.props.value}" />
     </form>`
   }
 }

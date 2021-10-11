@@ -1,20 +1,25 @@
 import Tonic from '@optoolco/tonic'
 import { EsKbarRoute } from './kbar-route'
 
-export class EsPopup extends Tonic {
+export class EsPopupTextarea extends Tonic {
   private getTextArea() : HTMLInputElement | null {
     return document.getElementById("es-text-area") as HTMLInputElement
   }
   static handleFocusOut(e: FocusEvent) {
-    EsKbarRoute.fromEvent(e)?.doClose()
+    // If some other element on this popup is getting focus stay here
+    const related: HTMLElement | null = e.relatedTarget as any
+    if (related?.closest('es-popup-textarea')) {
+      return
+    }
+    EsKbarRoute.fromEvent(e)?.doBlurClose()
   }
 
   connected() {
     this.getTextArea()!.focus()
-    this.addEventListener('focusout', EsPopup.handleFocusOut)
+    this.addEventListener('focusout', EsPopupTextarea.handleFocusOut)
   }
   disconnected() {
-    this.removeEventListener('focusout', EsPopup.handleFocusOut)
+    this.removeEventListener('focusout', EsPopupTextarea.handleFocusOut)
   }
   static stylesheet() {
     return `
@@ -45,9 +50,10 @@ export class EsPopup extends Tonic {
     }
   }
   render() {
-    return this.html`<div styles="open">
-      <textarea styles="area" id="es-text-area" class="es-popup" readonly>${this.props.message}
-      </textarea>
-    </div>`
+    const readonly = this.props.readonly !== undefined ? 'readonly' : ''
+    return this.html`<form styles="open" tabindex="0">
+      <textarea styles="area" id="es-text-area" class="es-popup" ${readonly}>${this.props.value}</textarea>
+      ${this.children}
+    </form>`
   }
 }

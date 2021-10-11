@@ -4,8 +4,9 @@ import { EsAddExtension } from './components/add-extension';
 import { EsKbar } from './components/kbar'
 import { EsKbarResults } from './components/kbar-results';
 import { addKeydownForIFrame, EsKbarRoute } from './components/kbar-route';
-import { EsPopup } from './components/popup';
-import { EsPrompt } from './components/propmpt';
+import { EsLoadApplication } from './components/load-application';
+import { EsPopupTextarea } from './components/popup-textarea';
+import { EsPrompt } from './components/prompt';
 import { EsRemovePanel } from './components/remove-panel';
 import { EsShowContext } from './components/show-context';
 import { EsShowPanelList } from './components/show-panel-list';
@@ -37,25 +38,29 @@ async function applyHash() {
   const rsp = await fetch(`apps/${app}.json`)
   const config = await rsp.json()
 
+  await applyConfiguration(config, app);
+}
+
+export async function applyConfiguration(config: any, app: string) {
   if (config.title) {
-    document.title = config.title
+    document.title = config.title;
   }
 
   if (config.extensions) {
-    const busUrl = new URL('/bgapp/bcst-bus/index.html', window.location.toString()).toJSON()
-    const provider = 'broadcast'
+    const busUrl = new URL('/bgapp/bcst-bus/index.html', window.location.toString()).toJSON();
+    const provider = 'broadcast';
     extensionScaffold.setContext({
       busUrl,
       provider
-    })
+    });
 
-    extensionScaffold.boot(document.getElementById('demo-grid-container'))
-    extensionScaffold.events.on('add-iframe', addKeydownForIFrame)
-    await loadIframePanels(config.iframes)
-    await extensionScaffold.loadExtensions(config.extensions)
+    extensionScaffold.boot(document.getElementById('demo-grid-container'));
+    extensionScaffold.events.on('add-iframe', addKeydownForIFrame);
+    await loadIframePanels(config.iframes);
+    await extensionScaffold.loadExtensions(config.extensions);
   } else {
-    console.error(`Application configuration missing extensions: ${app}`)
-    alert(`Application configuration missing extensions: ${app}`)
+    console.error(`Application configuration missing extensions: ${app}`);
+    alert(`Application configuration missing extensions: ${app}`);
   }
 }
 
@@ -78,6 +83,7 @@ Tonic.add(EsShowPanelList)
 Tonic.add(EsRemovePanel)
 Tonic.add(EsShowContext)
 Tonic.add(EsPrompt)
-Tonic.add(EsPopup)
+Tonic.add(EsPopupTextarea)
+Tonic.add(EsLoadApplication)
 
 loadAppConfig()
