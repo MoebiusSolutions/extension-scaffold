@@ -1,11 +1,8 @@
 import Tonic from '@optoolco/tonic'
 import { extensionScaffold } from '@gots/es-runtime/build/es-api'
-import type { EsKbarRoute } from './kbar-route'
+import { EsKbarRoute } from './kbar-route'
 
 export class EsAddExtension extends Tonic {
-  private getRoute(): EsKbarRoute | null {
-    return document.getElementById("es-kbar-route") as any
-  }
   private getTextInput() : HTMLInputElement | null {
     return document.getElementById("es-add-extension-input") as HTMLInputElement
   }
@@ -18,7 +15,7 @@ export class EsAddExtension extends Tonic {
     const url = this.getTextInput()!.value
     extensionScaffold.loadExtensions([ url ])
     
-    this.getRoute()?.doClose()
+    EsKbarRoute.fromEvent(e)?.doClose()
   }
   render() {
     return this.html`<es-prompt label="Add Extension:" value="http://localhost:5000/build/ext-svelte-rollup.js"></es-prompt>`
