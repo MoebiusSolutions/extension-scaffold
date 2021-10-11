@@ -15,7 +15,8 @@ export class EsPopupTextarea extends Tonic {
   }
 
   connected() {
-    this.getTextArea()!.focus()
+    this.getTextArea()?.focus()
+    this.getTextArea()?.select()
     this.addEventListener('focusout', EsPopupTextarea.handleFocusOut)
   }
   disconnected() {

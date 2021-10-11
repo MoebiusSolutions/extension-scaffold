@@ -68,7 +68,16 @@ async function loadAppConfig() {
   if (!location.hash) {
     location.hash = '#example'
   }
-  applyHash()
+
+  const itemName = 'es-kbar-load-application'
+  const configString = localStorage.getItem(itemName)
+  if (!configString) {
+    applyHash()
+  } else {
+    const config = JSON.parse(configString)
+    localStorage.removeItem(itemName)
+    applyConfiguration(config, '#uploaded')
+  }
   window.addEventListener('hashchange', () => {
     window.location.reload()
   })
