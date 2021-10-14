@@ -78,6 +78,7 @@ export class PanelsImpl implements Panels {
         if (options.title) {
             shadowDiv.title = options.title
         }
+        shadowDiv.parentElement?.classList.remove('hidden')
         setActive(shadowDiv)
 
         // We cannot use our CSS here because `extPanel` is in the shadow
@@ -207,21 +208,25 @@ export class PanelsImpl implements Panels {
         this.restorePanel(id)
 
         return withPanel(id, (parent, div) => {
-            div.remove()
             const location = locationFromDiv(parent)
-            this.locationStack.popLocation(location, id)
             const stack = this.locationStack.get(location)
             if (!stack) {
                 console.error('Class name list changed since there is no location stack', location)
                 return
             }
-            if (stack.length === 0) {
-                // We remove them all
-                return
+            if (stack.length === 1) {
+                // We are about to remove the last panel in this location
+                this.hidePanel(id)
             }
+
+            div.remove()
+            this.locationStack.popLocation(location, id)
+
             const nextDiv = document.getElementById(stack[0].id)
             if (!nextDiv) {
-                console.error('Panel missing', stack[0])
+                // stack is empty
+                this.updateBars(location)
+                this.removeResizeHandle(location)
                 return
             }
             extensionScaffold.chrome.panels.showPanel(stack[0].id)
@@ -374,6 +379,13 @@ export class PanelsImpl implements Panels {
         dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
         dragDiv.onpointerup = e => endResize(dragDiv, e)
         return dragDiv
+    }
+
+    private removeResizeHandle(location: Location) {
+        const dragDiv = document.querySelector(`.drag.drag-for-${location}`)
+        if (dragDiv) {
+            dragDiv.remove()
+        }
     }
 
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
