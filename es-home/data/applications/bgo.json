@@ -28,12 +28,110 @@
             "iframeSource": "/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
             "resizeHandle": true
         },
+
+
         {
-            "id": "bgo.bottom",
-            "title": "ATF BGO",
-            "location": "bottom",
+            "id": "atf.scenario",
+            "title": "ATF Scenarios",
+            "location": "left",
+            "iframeSource": "/bgo/Scenario",
+            "resizeHandle": true
+        },
+        {
+            "id": "atf.weapon.system",
+            "title": "ATF Weapon Systems",
+            "location": "left",
             "iframeSource": "/bgo/WeaponSystem",
             "resizeHandle": true
+        },
+
+
+        {
+            "id": "atf.output",
+            "title": "ATF Optimizer Output",
+            "location": "right",
+            "iframeSource": "/bgo/Output",
+            "resizeHandle": "true"
+        },
+
+
+        {
+            "id": "atf.database.upload",
+            "title": "ATF Data Uploads",
+            "location": "bottom",
+            "iframeSource": "/bgo/DatabaseUpload",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.weapon",
+            "title": "ATF Weapons",
+            "location": "bottom",
+            "iframeSource": "/bgo/Target",
+            "resizeHandle": "true"
+            
+        },
+        {
+            "id": "atf.target",
+            "title": "ATF Targets",
+            "location": "bottom",
+            "iframeSource": "/bgo/Target",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.jmems",
+            "title": "ATF JMEMs Data",
+            "location": "bottom",
+            "iframeSource": "/bgo/WeaponTargetProbability",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.mission.type",
+            "title": "ATF Mission Types",
+            "location": "bottom",
+            "iframeSource": "/bgo/MissionType",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.weapon.system.type",
+            "title": "ATF Weapon System Types",
+            "location": "bottom",
+            "iframeSource": "/bgo/WeaponSystemType",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.weapon.system.locations",
+            "title": "ATF Weapon System Locations",
+            "location": "bottom",
+            "iframeSource": "/bgo/WeaponSystemLocation",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.sam.location",
+            "title": "ATF SAM Locations",
+            "location": "bottom",
+            "iframeSource": "/bgo/SAMLocation",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.sam.location.type",
+            "title": "ATF SAM Location Types",
+            "location": "bottom",
+            "iframeSource": "/bgo/SAMLocationType",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.target.description",
+            "title": "ATF Target Descriptions",
+            "location": "bottom",
+            "iframeSource": "/bgo/TargetDescription",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.survival.probability",
+            "title": "ATF Survival Probability",
+            "location": "bottom",
+            "iframeSource": "/bgo/SurvivalProbability",
+            "resizeHandle": "true"
         }
     ]
 }
