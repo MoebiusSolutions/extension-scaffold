@@ -1,4 +1,5 @@
 import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
 import { EsKbar } from './components/kbar'
@@ -53,6 +54,11 @@ export async function applyConfiguration(config: any, app: string) {
       busUrl,
       provider
     });
+
+    initialize({ provider, busUrl })
+    subscribeJson('es.ping.topic', (sender, message, topic) => {
+      console.log(sender, message, topic)
+    })
 
     extensionScaffold.boot(document.getElementById('demo-grid-container'));
     extensionScaffold.events.on('add-iframe', addKeydownForIFrame);

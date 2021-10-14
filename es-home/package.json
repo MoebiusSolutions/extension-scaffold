@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@gots/es-runtime": "^1.4.0",
+    "@gots/noowf-inter-widget-communication": "^2.4.4",
     "@optoolco/tonic": "^13.3.6",
     "git-describe": "^4.1.0"
   },

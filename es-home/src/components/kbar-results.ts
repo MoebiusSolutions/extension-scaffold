@@ -1,8 +1,8 @@
 import Tonic from '@optoolco/tonic'
-import { extensionScaffold } from '@gots/es-runtime/build/es-api'
 import type { EsAddExtension } from './add-extension'
 import type { EsKbar } from './kbar'
 import type { EsKbarRoute } from './kbar-route'
+import { publishJson } from '@gots/noowf-inter-widget-communication'
 
 interface Command {
   label: string
@@ -18,6 +18,7 @@ export class EsKbarResults extends Tonic {
     { label: 'List Panels',   command: this.panelList },
     { label: 'Toggle Panel', command: this.togglePanel },
     { label: 'Remove Panel', command: this.removePanel },
+    { label: 'Ping IWC', command: this.pingInterWidgetComms },
   ]
 
   private getRoute(): EsKbarRoute | null {
@@ -42,8 +43,12 @@ export class EsKbarResults extends Tonic {
   removePanel() {
     this.getRoute()?.doOpen('remove-panel')
   }
-  launchDebugger() {
-    debugger;
+  pingInterWidgetComms() {
+    publishJson('es.ping.topic', {
+      message: 'ping',
+      now: Date.now()
+    })
+    this.getRoute()?.doClose()
   }
   doFilter() {
     const value = this.getKbarInput()?.value
