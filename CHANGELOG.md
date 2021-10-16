@@ -1,5 +1,20 @@
 # Change Log
 
+## [1.5.0] - 2021-10-15
+
+### Added
+
+* kbar - Load Application allows an application JSON file to be paste into a textarea then applied
+* kbar - Simple use of IWC sends a message to `es.ping.topic`
+
+### Changed
+
+* Control+k bar uses `focusout` event instead of `blur` since `focusout` bubbles
+* kbar matches use pointer cursor to indicate they can be clicked
+* Fixed bug introduced by modal example
+* Fixed artifacts left on page after removing the last panel in a grid location
+* Example `bgo.json` now adds many of the ATF pages as panels
+
 ## [1.4.0] - 2021-10-10
 
 ### Added
