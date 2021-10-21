@@ -2,6 +2,10 @@
   "name": "@gots/es-runtime",
   "version": "1.6.0-SNAPSHOT",
   "module": "./build/es-api.js",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.di2e.net/scm/dfntc/extension-scaffold.git"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run cp:css && npm run cp:material",
     "cp:css": "copyfiles -u 1 src/*.css build",
