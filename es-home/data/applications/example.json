@@ -26,5 +26,14 @@
         "ext.snowpack.bottom", "ext.example.lit-element"
     ],
     "extensions": [
+    ],
+    "iframes": [
+        {
+            "id": "es.example.iframe",
+            "title": "Iframe",
+            "location": "right",
+            "iframeSource": "http://localhost:9095/",
+            "resizeHandle": true
+        }
     ]
 }
