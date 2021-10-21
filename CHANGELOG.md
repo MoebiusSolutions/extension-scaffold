@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.6.0] - 2021-10-21
+
+### Added
+
+* Blocked extensions (including iframes)
+### Changed
+
+* Fix access to iframe.contentWindow during `add-frame` event.
+
 ## [1.5.0] - 2021-10-15
 
 ### Added
