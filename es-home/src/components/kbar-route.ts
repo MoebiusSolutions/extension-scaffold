@@ -70,6 +70,9 @@ export class EsKbarRoute extends Tonic {
 
       case 'load-application':
         return this.html`<es-load-application></es-load-application>`
+
+      case 'blocked-extensions':
+        return this.html`<es-blocked-extensions></es-blocked-extensions>`
   
       case 'show-panel-list':
         return this.html`<es-show-panel-list id="es-show-context"></es-show-panel-list>`

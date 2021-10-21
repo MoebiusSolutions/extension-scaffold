@@ -2,6 +2,7 @@ import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
+import { EsBlockedExtensions } from './components/blocked-extensions';
 import { EsKbar } from './components/kbar'
 import { EsKbarResults } from './components/kbar-results';
 import { addKeydownForIFrame, EsKbarRoute } from './components/kbar-route';
@@ -42,6 +43,34 @@ async function applyHash() {
   await applyConfiguration(config, app);
 }
 
+function getBlockedUrls(): Set<string> {
+  const BLOCKED_KEY = 'es-kbar-blocked-extensions'
+  const blockedString = localStorage.getItem(BLOCKED_KEY) || '[ ]'
+  try {
+    const blocked = JSON.parse(blockedString)
+    return new Set(blocked)
+  } catch (e) {
+    console.error('Unable to parse blocked string', e)
+    return new Set()
+  }
+}
+
+function enabledIframes(iframes?: IFramePanel[]) {
+  if (!iframes) {
+    return []
+  }
+  const blockedSet = getBlockedUrls()
+  return iframes.filter(i => !blockedSet.has(i.iframeSource))
+}
+
+function enabledExtensions(urls?: string[]): string[] {
+  if (!urls) {
+    return []
+  }
+  const blockedSet = getBlockedUrls()
+  return urls.filter(url => !blockedSet.has(url))
+}
+
 export async function applyConfiguration(config: any, app: string) {
   if (config.title) {
     document.title = config.title;
@@ -62,8 +91,9 @@ export async function applyConfiguration(config: any, app: string) {
 
     extensionScaffold.boot(document.getElementById('demo-grid-container'));
     extensionScaffold.events.on('add-iframe', addKeydownForIFrame);
-    await loadIframePanels(config.iframes);
-    await extensionScaffold.loadExtensions(config.extensions);
+    
+    await loadIframePanels(enabledIframes(config.iframes));
+    await extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
   } else {
     console.error(`Application configuration missing extensions: ${app}`);
     alert(`Application configuration missing extensions: ${app}`);
@@ -94,6 +124,7 @@ Tonic.add(EsKbarRoute)
 Tonic.add(EsKbar)
 Tonic.add(EsKbarResults)
 Tonic.add(EsAddExtension)
+Tonic.add(EsBlockedExtensions)
 Tonic.add(EsTogglePanel)
 Tonic.add(EsShowPanelList)
 Tonic.add(EsRemovePanel)

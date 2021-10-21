@@ -6,18 +6,20 @@ import { publishJson } from '@gots/noowf-inter-widget-communication'
 
 interface Command {
   label: string
-  command: () => void
+  command?: (cmd: Command) => void
+  route?: string
 }
 export class EsKbarResults extends Tonic {
   selectIndex: number = 0
 
   commands: Command[] = [
-    { label: 'Show Context', command: this.showContext },
-    { label: 'Add Extension', command: this.addExtension },
-    { label: 'Load Application', command: this.loadApplication },
-    { label: 'List Panels',   command: this.panelList },
-    { label: 'Toggle Panel', command: this.togglePanel },
-    { label: 'Remove Panel', command: this.removePanel },
+    { label: 'Show Context', route: 'show-context' },
+    { label: 'Add Extension', route: 'add-extension' },
+    { label: 'Load Application', route: 'load-application' },
+    { label: 'Blocked Extensions', route: 'blocked-extensions' },
+    { label: 'List Panels',  route: 'show-panel-list' },
+    { label: 'Toggle Panel', route: 'toggle-panel' },
+    { label: 'Remove Panel', route: 'remove-panel' },
     { label: 'Ping IWC', command: this.pingInterWidgetComms },
   ]
 
@@ -70,9 +72,13 @@ export class EsKbarResults extends Tonic {
       this.doCommand(commands[this.selectIndex])
     }
   }
-  doCommand(a: Command) {
-    // this.getKbar()?.doClose()
-    a.command.call(this)
+  doCommand(cmd: Command) {
+    if (cmd.command) {
+      cmd.command.call(this, cmd)
+    }
+    if (cmd.route) {
+      this.getRoute()?.doOpen(cmd.route)
+    }
   }
   wrapSelectIndex() {
     if (this.selectIndex < 0) { 
