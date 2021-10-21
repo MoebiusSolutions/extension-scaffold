@@ -88,10 +88,9 @@ export class PanelsImpl implements Panels {
             iframe.style.width = '100%'
             iframe.style.height = '100%'
             iframe.style.border = 'none'
+            extPanel.appendChild(iframe) // iframe gets contentWindow during this call
             
             extensionScaffold.events.emit('add-iframe', iframe)
-
-            extPanel.appendChild(iframe)
         } if (options.location !== 'portal') {
             extPanel.style.width = '100%'
             extPanel.style.height = '100%'
