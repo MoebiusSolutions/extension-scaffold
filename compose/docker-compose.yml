@@ -66,6 +66,20 @@ services:
       - DO_INSTALL
     command: "npm run container"
 
+  iframe-example:
+    image: "node:12"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/iframe-example"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:9095:8080"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
   ext-example-svelte:
     image: "node:12"
     user: "node"
