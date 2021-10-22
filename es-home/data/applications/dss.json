@@ -1,0 +1,32 @@
+{
+    "name": "dss",
+    "title": "Decision Support System",
+    "ribbon": [
+        "aeolus.view",
+        "aeolus.chart.settings",
+        "bgo.scenario",
+        "bgo.plan",
+        "bgo.optimization",
+        "dss.help"
+    ],
+    "left": [
+        "bgo.assets",
+        "plan.summary.experimental"
+    ],
+    "center": [ "dev26.aeolus.map" ],
+    "bottom-bar": [ 
+        "wasp.timeline", "bgo.input.targets", "bgo.results"
+    ],
+    "extensions": [
+        "/bgo/snowpack-extension/dist/ext-react-snowpack.js"
+    ],
+    "iframes": [
+        {
+            "id": "map.iframe",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "/usw-dss-map-dfmotf/index.html",
+            "resizeHandle": true
+        }
+    ]
+}
