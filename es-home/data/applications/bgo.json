@@ -83,55 +83,6 @@
             "location": "bottom",
             "iframeSource": "/bgo/WeaponTargetProbability",
             "resizeHandle": "true"
-        },
-        {
-            "id": "atf.mission.type",
-            "title": "ATF Mission Types",
-            "location": "bottom",
-            "iframeSource": "/bgo/MissionType",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.weapon.system.type",
-            "title": "ATF Weapon System Types",
-            "location": "bottom",
-            "iframeSource": "/bgo/WeaponSystemType",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.weapon.system.locations",
-            "title": "ATF Weapon System Locations",
-            "location": "bottom",
-            "iframeSource": "/bgo/WeaponSystemLocation",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.sam.location",
-            "title": "ATF SAM Locations",
-            "location": "bottom",
-            "iframeSource": "/bgo/SAMLocation",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.sam.location.type",
-            "title": "ATF SAM Location Types",
-            "location": "bottom",
-            "iframeSource": "/bgo/SAMLocationType",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.target.description",
-            "title": "ATF Target Descriptions",
-            "location": "bottom",
-            "iframeSource": "/bgo/TargetDescription",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.survival.probability",
-            "title": "ATF Survival Probability",
-            "location": "bottom",
-            "iframeSource": "/bgo/SurvivalProbability",
-            "resizeHandle": "true"
         }
     ]
 }
