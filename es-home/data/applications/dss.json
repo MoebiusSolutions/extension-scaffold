@@ -17,7 +17,7 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map-dfmotf/index.html",
+            "iframeSource": "/usw-dss-map-dfmotf/index.html?extensions=phoenix",
             "resizeHandle": true
         }
     ]
