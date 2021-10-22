@@ -18,7 +18,6 @@
         "wasp.timeline", "bgo.input.targets", "bgo.results"
     ],
     "extensions": [
-        "/bgo/snowpack-extension/dist/ext-react-snowpack.js"
     ],
     "iframes": [
         {
