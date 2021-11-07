@@ -50,7 +50,6 @@ export class BarController {
             cursor: pointer;
             padding: 14px;
             width: 58px;
-            height: 58px;
         }
         .es-bar-button:hover {
             background: rgba(0, 0, 0, 0.2);
