@@ -13,7 +13,11 @@ pipeline {
             }
             steps {
                 script {
-                    echo "hello"
+                    sh '''
+                    uname -a
+                    ls
+                    ls /etc/
+                    '''
                 }
             }
         }
