@@ -8,7 +8,7 @@ pipeline {
     }
   }
   stages {
-    stage('Prepare') {
+    stage('Build es-home') {
       agent {
         docker {
           image "node:14"
@@ -16,7 +16,9 @@ pipeline {
       }
       steps {
         script {
-          sh 'npm ci'
+          dir("es-home") {
+            sh 'npm ci'
+          }
         }
       }
     }
