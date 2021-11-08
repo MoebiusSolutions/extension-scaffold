@@ -1,25 +1,24 @@
 pipeline {
-    agent {
-        node {
-          label 'docker'
-        }
+  options {
+    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '5')
+  }
+  agent {
+    node {
+      label 'docker'
     }
-    stages {
-        stage('Prepare') {
-            agent {
-                docker {
-                    image "node:14"
-                }
-            }
-            steps {
-                script {
-                    sh '''
-                    uname -a
-                    ls
-                    ls /etc/
-                    '''
-                }
-            }
+  }
+  stages {
+    stage('Prepare') {
+      agent {
+        docker {
+          image "node:14"
         }
+      }
+      steps {
+        script {
+          sh 'npm ci'
+        }
+      }
     }
+  }
 }
