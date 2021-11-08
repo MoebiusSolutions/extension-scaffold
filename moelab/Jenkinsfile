@@ -20,7 +20,7 @@ pipeline {
       steps {
         withNPM(npmrcConfig: "npmrc-moelab") {
           dir("es-home") {
-            sh 'cp ../.npmrc'
+            sh 'cp ../.npmrc .'
             sh 'npm ci'
             sh 'npm run build'
           }
