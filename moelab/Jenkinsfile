@@ -1,4 +1,9 @@
 pipeline {
+    agent {
+        node {
+          label 'docker'
+        }
+    }
     stages {
         stage('Prepare') {
             agent {
