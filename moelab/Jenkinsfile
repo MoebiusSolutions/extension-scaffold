@@ -1,0 +1,16 @@
+pipeline {
+    stages {
+        stage('Prepare') {
+            agent {
+                docker {
+                    image node:14
+                }
+            }
+            steps {
+                script {
+                    echo "hello"
+                }
+            }
+        }
+    }
+}
