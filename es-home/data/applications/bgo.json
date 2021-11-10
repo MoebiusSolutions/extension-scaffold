@@ -13,7 +13,6 @@
         "bgo.assets",
         "plan.summary.experimental"
     ],
-    "center": [ "dev26.aeolus.map" ],
     "bottom-bar": [ 
         "wasp.timeline", "bgo.input.targets", "bgo.results"
     ],
@@ -24,48 +23,24 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
+            "iframeSource": "/webmap",
             "resizeHandle": true
         },
 
 
         {
-            "id": "atf.scenario",
-            "title": "ATF Scenarios",
+            "id": "atf.assets",
+            "title": "ATF Assets",
             "location": "left",
-            "iframeSource": "/bgo/Scenario",
-            "resizeHandle": true
-        },
-        {
-            "id": "atf.weapon.system",
-            "title": "ATF Weapon Systems",
-            "location": "left",
-            "iframeSource": "/bgo/WeaponSystem",
+            "iframeSource": "/bgo/Assets",
             "resizeHandle": true
         },
 
-
-        {
-            "id": "atf.output",
-            "title": "ATF Optimizer Output",
-            "location": "right",
-            "iframeSource": "/bgo/Output",
-            "resizeHandle": "true"
-        },
-
-
-        {
-            "id": "atf.database.upload",
-            "title": "ATF Data Uploads",
-            "location": "bottom",
-            "iframeSource": "/bgo/DatabaseUpload",
-            "resizeHandle": "true"
-        },
         {
             "id": "atf.weapon",
             "title": "ATF Weapons",
             "location": "bottom",
-            "iframeSource": "/bgo/Target",
+            "iframeSource": "/bgo/WeaponSystem",
             "resizeHandle": "true"
             
         },
@@ -74,6 +49,13 @@
             "title": "ATF Targets",
             "location": "bottom",
             "iframeSource": "/bgo/Target",
+            "resizeHandle": "true"
+        },
+        {
+            "id": "atf.recommendations",
+            "title": "ATF Recommendations",
+            "location": "bottom",
+            "iframeSource": "/bgo/Output",
             "resizeHandle": "true"
         },
         {
