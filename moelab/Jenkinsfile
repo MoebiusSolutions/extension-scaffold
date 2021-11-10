@@ -11,12 +11,20 @@ pipeline {
     NPM_TOKEN = credentials('moelab-npm-token')
   }
   stages {
-    stage('Build es-home') {
-      agent {
-        docker {
-          image "node:14"
+    stage('Build es-runtime')     {
+      agent { docker { image "node:14" } }
+      steps {
+        withNPM(npmrcConfig: "npmrc-moelab") {
+          dir("es-runtime") {
+            sh 'cp ../.npmrc .'
+            sh 'npm ci'
+            sh 'npm run build'
+          }
         }
       }
+    }
+    stage('Build es-home') {
+      agent { docker { image "node:14" } }
       steps {
         withNPM(npmrcConfig: "npmrc-moelab") {
           dir("es-home") {
