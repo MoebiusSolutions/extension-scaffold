@@ -1,6 +1,6 @@
 {
-    "name": "dss",
-    "title": "Decision Support System",
+    "name": "dss-ocp",
+    "title": "Decision Support System (OCP)",
     "ribbon": [],
     "left": [],
     "center": [],
@@ -13,7 +13,7 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/wasp-et-usw-dss-map/index.html?extensions=phoenix",
+            "iframeSource": "/usw-dss-map-dfmotf/index.html?extensions=phoenix",
             "resizeHandle": true
         }
     ]
