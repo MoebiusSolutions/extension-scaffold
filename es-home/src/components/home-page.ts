@@ -1,13 +1,24 @@
 import Tonic from '@optoolco/tonic'
 
+interface AppInfo {
+  label: string
+  hash: string
+}
+
 export class EsHomePage extends Tonic {
-  private apps = [
-    { label: "BG Optimizer", hash: "#bgo" },
-    { label: "Adaptive ASW", hash: "#aasw" },
-    { label: "Decision Support System", hash: "#dss" },
-    { label: "Example", hash: "#example" },
-    { label: "WasP-ET", hash: "#wasp-et" },
-  ]
+  private apps: AppInfo[] = [ ]
+  private error?: Error = undefined
+  connected = async () => {
+    try {
+      const rsp = await fetch(`apps/index.json`)
+      this.apps = await rsp.json()
+      this.error = undefined
+    } catch (e) {
+      this.apps = []
+      this.error = e as Error
+    }
+    this.reRender()
+  }
   onclick = (e: MouseEvent) => {
     console.log('click', e)
     const card = e.target
@@ -19,7 +30,14 @@ export class EsHomePage extends Tonic {
       }
     }
   }
+  renderError() {
+    return this.html`<div class="es-error">
+      Failed to load application list: ${this.error}
+    </div>
+    `
+  }
   render() {
+    const errorMessage = this.error ? this.renderError() : undefined
     const appDivs = this.apps.map(
       a => this.html`<div class="es-card" data-app="${a.hash}">${a.label}</div>`)
     return this.html`
@@ -30,6 +48,11 @@ export class EsHomePage extends Tonic {
 }
 .es-title {
   padding-left: 2rem;
+}
+.es-error {
+  background: rgba(255,0,0,0.3);
+  padding: 1rem;
+  text-align: center
 }
 .es-apps {
   display: grid;
@@ -49,6 +72,7 @@ export class EsHomePage extends Tonic {
 </style>
 <h1 class="es-title">Applications</h1>
 <div style="padding: 1rem;">
+  ${errorMessage}
   <div class="es-apps">
     ${appDivs}
   </div>
