@@ -3,6 +3,7 @@ import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communicatio
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
 import { EsBlockedExtensions } from './components/blocked-extensions';
+import { EsHomePage } from './components/home-page';
 import { EsKbar } from './components/kbar'
 import { EsKbarResults } from './components/kbar-results';
 import { addKeydownForIFrame, EsKbarRoute } from './components/kbar-route';
@@ -102,7 +103,13 @@ export async function applyConfiguration(config: any, app: string) {
 
 async function loadAppConfig() {
   if (!location.hash) {
-    location.hash = '#example'
+    const hp = document.getElementById('es-home-page')
+    if (hp) {
+      hp.style.display = 'block'
+    } else {
+      console.error('Could not find #es-home-page')
+    }
+    return
   }
 
   const itemName = 'es-kbar-load-application'
@@ -132,5 +139,6 @@ Tonic.add(EsShowContext)
 Tonic.add(EsPrompt)
 Tonic.add(EsPopupTextarea)
 Tonic.add(EsLoadApplication)
+Tonic.add(EsHomePage)
 
 loadAppConfig()

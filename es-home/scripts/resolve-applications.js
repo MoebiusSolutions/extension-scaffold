@@ -106,11 +106,25 @@ function writeApplications() {
     })
 }
 
+function writeIndex() {
+    const directory = 'public/apps'
+    const index = applications.map(a => {
+        return {
+            label: a.title,
+            hash: `#${a.name}`,
+        }
+    })
+    const full = path.resolve(directory, `index.json`)
+    const bytes = JSON.stringify(index, null, 2)
+    fs.writeFileSync(full, bytes)
+}
+
 function main() {
     readExtensions()
     readApplications()
     resolveApplications()
     writeApplications()
+    writeIndex()
 }
 
 main()
