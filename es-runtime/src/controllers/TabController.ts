@@ -53,5 +53,29 @@ export class TabController {
             }
             tabBar!.appendChild(btn)
         })
+        const maximize = document.createElement('button')
+        maximize.className = 'es-tab-bar-button'
+        maximize.innerText = '_'
+        maximize.style.float = 'right'
+        maximize.title = 'Maximize Panel'
+        maximize.onclick = () => {
+            const grid = document.querySelector(`.${this.tabLocation}`)
+            const s = 'grid-bottom-maximized'
+            if (grid) {
+                if (grid.classList.contains(s)) {
+                    grid.classList.remove(s)
+                } else {
+                    // TODO clear style.height
+                    /*
+                    element.style...
+                    --height: 229px;
+                    grid-bottom: { var(--height); }
+                    grig-bottom-maximized: { height: initial }
+                    */
+                    grid.classList.add(s)
+                }
+            }
+        }
+        tabBar.appendChild(maximize)
     }
 }
