@@ -1,6 +1,8 @@
 import { AddPanelOptions, extensionScaffold, Location } from '../es-api'
 import { isActive } from '../utils'
 
+const maximizedClass = 'grid-expanded'
+
 export class TabController {
     private readonly tabLocation: Location
     private tabBar: HTMLDivElement | undefined
@@ -17,6 +19,53 @@ export class TabController {
             grid.appendChild(this.tabBar)
         }
         return this.tabBar
+    }
+    appendExpandButton(tabBar: HTMLDivElement) {
+        const grid = document.querySelector(`.${this.tabLocation}`)
+        if (!grid) {
+            return
+        }
+
+        const maximize = document.createElement('button')
+        this.syncMaximizeButton(grid, maximize)
+        maximize.onclick = () => {
+            if (grid.classList.contains(maximizedClass)) {
+                grid.classList.remove(maximizedClass)
+                this.syncMaximizeButton(grid, maximize)
+            } else {
+                grid.classList.add(maximizedClass)
+                this.syncMaximizeButton(grid, maximize)
+            }
+        }
+        tabBar.appendChild(maximize)
+    }
+    syncMaximizeButton(grid: Element, maximize: HTMLButtonElement) {
+        const expandDownSvg = `
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px">
+          <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+          </svg>`
+        const expandUpSvg = `
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px" >
+          <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+        </svg>`
+
+        const isMaximized = grid.classList.contains(maximizedClass)
+        if (isMaximized) {
+            maximize.innerHTML = expandDownSvg
+            maximize.title = 'Restore Panel'
+    
+        } else {
+            maximize.innerHTML = expandUpSvg
+            maximize.title = 'Expand Panel'
+        }
+        maximize.className = 'es-tab-bar-button'
+        maximize.style.float = 'right'
+
+        if (grid.classList.contains('hidden')) {
+            maximize.style.display = 'none'
+        } else {
+            maximize.style.display = ''
+        }
     }
 
     updatePanel(panelOptions: AddPanelOptions[]) {
@@ -53,29 +102,6 @@ export class TabController {
             }
             tabBar!.appendChild(btn)
         })
-        const maximize = document.createElement('button')
-        maximize.className = 'es-tab-bar-button'
-        maximize.innerText = '_'
-        maximize.style.float = 'right'
-        maximize.title = 'Maximize Panel'
-        maximize.onclick = () => {
-            const grid = document.querySelector(`.${this.tabLocation}`)
-            const s = 'grid-bottom-maximized'
-            if (grid) {
-                if (grid.classList.contains(s)) {
-                    grid.classList.remove(s)
-                } else {
-                    // TODO clear style.height
-                    /*
-                    element.style...
-                    --height: 229px;
-                    grid-bottom: { var(--height); }
-                    grig-bottom-maximized: { height: initial }
-                    */
-                    grid.classList.add(s)
-                }
-            }
-        }
-        tabBar.appendChild(maximize)
+        this.appendExpandButton(tabBar)
     }
 }

@@ -106,7 +106,7 @@ export function getLocationdState(loc: string): PanelState {
         const r = [...div?.querySelectorAll('.shadow-div')]
         //@ts-ignore
         const id = r.find(div => isActive(div))?.id
-        const size = div.style.width ? div.style.width : div.style.height
+        const size = div.style.getPropertyValue('--size')
         const activeId = (id === undefined ? null : id)
         const isShown = !div.classList.contains('hidden')
         return { size, activeId, isShown }
@@ -159,12 +159,10 @@ function applySize(loc: string, size: string) {
     if (d !== null) {
         //@ts-ignore
         const div: HTMLDivElement = d
-        if (size.length < 1)
+        if (size.length < 1) {
             return
-        if (loc === 'left' || loc === 'right')
-            div.style.width = size
-        else if (loc === 'top' || loc === 'bottom')
-            div.style.height = size
+        }
+        div.style.setProperty('--size', size)
     }
 }
 

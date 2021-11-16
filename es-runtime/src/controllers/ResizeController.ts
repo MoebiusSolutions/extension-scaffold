@@ -25,16 +25,8 @@ function applyLeft(rd: ResizeData, e: PointerEvent) {
     const dx = e.pageX - rd.origPageX
     const width = rd.origWidth + dx
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
-    rd.panelDiv.style.width = `${newWidth}px`
+    rd.panelDiv.style.setProperty('--size', `${newWidth}px`)
     updateHidden(newWidth, dx, rd.panelDiv, rd.extensionDiv)
-}
-
-function applyTop(rd: ResizeData, e: PointerEvent) {
-    const h = window.innerHeight
-    const dy = e.pageY - rd.origPageY
-    const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
-    rd.panelDiv.style.height = `${newHeight}px`
-    updateHidden(newHeight, dy, rd.panelDiv, rd.extensionDiv)
 }
 
 function applyRight(rd: ResizeData, e: PointerEvent) {
@@ -42,16 +34,29 @@ function applyRight(rd: ResizeData, e: PointerEvent) {
     const dx = -1 * (e.pageX - rd.origPageX)
     const width = rd.origWidth + dx
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
-    rd.panelDiv.style.width = `${newWidth}px`
+    rd.panelDiv.style.setProperty('--size', `${newWidth}px`)
     updateHidden(newWidth, dx, rd.panelDiv, rd.extensionDiv)
+}
+
+function applyTop(rd: ResizeData, e: PointerEvent) {
+    const h = window.innerHeight
+    const dy = e.pageY - rd.origPageY
+    const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
+    rd.panelDiv.style.setProperty('--size', `${newHeight}px`)
+    updateHidden(newHeight, dy, rd.panelDiv, rd.extensionDiv)
 }
 
 function applyBottom(rd: ResizeData, e: PointerEvent) {
     const h = window.innerHeight
     const dy = -1 * (e.pageY - rd.origPageY)
     const newHeight = Math.min(Math.max(100, rd.origHeight + dy), h / 2)
-    rd.panelDiv.style.height = `${newHeight}px`
+    rd.panelDiv.style.setProperty('--size', `${newHeight}px`)
     updateHidden(newHeight, dy, rd.panelDiv, rd.extensionDiv)
+    if (newHeight === h / 2) {
+        rd.panelDiv.classList.add('grid-expanded')
+    } else {
+        rd.panelDiv.classList.remove('grid-expanded')
+    }
 }
 
 function doNothing() {
@@ -69,17 +74,18 @@ export function getApplyFunction(location: Location) {
 
 function savePanelDivSize(div: HTMLElement | null) {
     if (div !== null) {
+        const size = div.style.getPropertyValue('--size')
         if (div.classList.contains('left')) {
-            toStorage('left-panel-width', div.style.width)
+            toStorage('left-panel-width', size)
         }
         else if (div.classList.contains('right')) {
-            toStorage('right-panel-width', div.style.width)
+            toStorage('right-panel-width', size)
         }
         else if (div.classList.contains('top')) {
-            toStorage('top-panel-height', div.style.height)
+            toStorage('top-panel-height', size)
         }
         else if (div.classList.contains('bottom')) {
-            toStorage('bottom-panel-height', div.style.height)
+            toStorage('bottom-panel-height', size)
         }
     }
 }
@@ -87,25 +93,33 @@ function savePanelDivSize(div: HTMLElement | null) {
 export function beginResize(
     dragDiv: HTMLDivElement,
     e: PointerEvent,
-    applyFunction: (rd: ResizeData, e: PointerEvent) => void) {
+    applyFunction: (rd: ResizeData, e: PointerEvent) => void) 
+{
     const panelDiv = dragDiv.parentElement
-    savePanelDivSize(panelDiv)
     if (!panelDiv) {
         return
     }
+    savePanelDivSize(panelDiv)
 
-    const extensionDiv = panelDiv.querySelector('.active') as HTMLDivElement
+    const extensionDiv = panelDiv.querySelector('.shadow-div.active') as HTMLDivElement
     if (!extensionDiv) {
         return
     }
 
+    let verticalPadding = 0
+    try{
+        verticalPadding = parseInt(window.getComputedStyle(panelDiv).paddingTop) + parseInt(window.getComputedStyle(panelDiv).paddingBottom)
+    } catch (e) {
+        console.warn('Ignoring parseInt error')
+    }
+        
     const resizeData: ResizeData = {
         panelDiv,
         extensionDiv,
         origPageX: e.pageX,
         origPageY: e.pageY,
         origWidth: panelDiv.clientWidth,
-        origHeight: panelDiv.clientHeight,
+        origHeight: panelDiv.clientHeight - verticalPadding,
     }
 
     function doResize(e: PointerEvent) {
