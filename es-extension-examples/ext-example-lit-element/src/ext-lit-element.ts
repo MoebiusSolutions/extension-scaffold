@@ -5,6 +5,7 @@ async function addBottomPanel(api: ExtensionScaffoldApi) {
   const div = await api.chrome.panels.addPanel({
     id: 'ext.example.lit-element',
     location: 'bottom',
+    title: 'Lit Element',
     resizeHandle: true,
   })
 

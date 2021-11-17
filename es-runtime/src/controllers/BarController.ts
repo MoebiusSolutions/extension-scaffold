@@ -99,7 +99,11 @@ export class BarController {
             if (panelOptions.icon) {
                 btn.appendChild(panelOptions.icon)
             } else {
-                btn.innerText = `B${idx}`
+                const div = document.createElement('span')
+                div.innerText = panelOptions.title ?? `B${idx}`
+                div.style.writingMode = 'tb'
+                div.style.transform = 'rotate(180deg)'
+                btn.appendChild(div)
             }
             btn.onclick = () => {
                 extensionScaffold.chrome.panels.togglePanel(panelOptions.id)

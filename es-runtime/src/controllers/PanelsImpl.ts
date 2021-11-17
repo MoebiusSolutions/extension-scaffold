@@ -19,22 +19,20 @@ function getDivSize(div: HTMLElement | null): OrigSize {
     const origSize: OrigSize = { size: '', location: '' }
     if (div !== null) {
         const orientation = [
-            { contains: 'left',   size: () => div.style.width },
-            { contains: 'right',  size: () => div.style.width },
-            { contains: 'top',    size: () => div.style.height },
-            { contains: 'bottom', size: () => div.style.height },
+            { contains: 'left',   },
+            { contains: 'right',  },
+            { contains: 'top',    },
+            { contains: 'bottom', },
         ]
-        orientation.forEach(o => {
-            if (div.classList.contains(o.contains)) {
-                const size = o.size()
-                if (size === '100px') {
-                    origSize.size = fromStorage(`${o.contains}-panel-size`) as string
-                }
-                else {
-                    origSize.size = size
-                }
-                origSize.location = o.contains as Location
+        orientation.filter(o => div.classList.contains(o.contains)).forEach(o => {
+            const size = div.style.getPropertyValue('--size')
+            if (size === '100px') {
+                origSize.size = fromStorage(`${o.contains}-panel-size`) as string
             }
+            else {
+                origSize.size = size
+            }
+            origSize.location = o.contains as Location
         })
     }
     return origSize
@@ -106,7 +104,7 @@ export class PanelsImpl implements Panels {
             this.focusPopOut(id)
             return true
         }
-        // Restore any maximized grid
+        // Restore any maximized center
         document.querySelectorAll('.grid-maximized').forEach(el => el.classList.remove('grid-maximized'))
 
         return withPanel(id, (parent, div) => {
@@ -146,6 +144,7 @@ export class PanelsImpl implements Panels {
                 case 'bottom':
                 case 'top':
                     parent.classList.add('hidden')
+                    parent.classList.remove('grid-expanded')
                     hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
@@ -172,11 +171,8 @@ export class PanelsImpl implements Panels {
                 this.hidePanel(id)
             } else {
                 const orig = getDivSize(parent)
-                if (orig.location === 'left' || orig.location === 'right') {
-                    parent.style.width = orig.size
-                }
-                else if (orig.location === 'top' || orig.location === 'bottom') {
-                    parent.style.height = orig.size
+                if (['left', 'right', 'top', 'bottom'].findIndex(l => orig.location === l) >= 0) {
+                    parent.style.setProperty('--size', orig.size)
                 }
                 this.showPanel(id)
             }
@@ -344,11 +340,11 @@ export class PanelsImpl implements Panels {
             case 'right':
             case 'left-bar':
             case 'right-bar':
-                div.style.width = initialWidthOrHeight ?? '20em'
+                div.style.setProperty('--size', initialWidthOrHeight ?? '20em')
                 break;
             case 'top':
             case 'bottom':
-                div.style.height = initialWidthOrHeight ?? '10em'
+                div.style.setProperty('--size', initialWidthOrHeight ?? '10em')
                 break;
         }
     }
