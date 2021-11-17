@@ -1,7 +1,7 @@
 import { AddPanelOptions, extensionScaffold, Location } from '../es-api'
 import { isActive } from '../utils'
 
-const maximizedClass = 'grid-expanded'
+const expandClass = 'grid-expanded'
 
 export class TabController {
     private readonly tabLocation: Location
@@ -26,20 +26,20 @@ export class TabController {
             return
         }
 
-        const maximize = document.createElement('button')
-        this.syncMaximizeButton(grid, maximize)
-        maximize.onclick = () => {
-            if (grid.classList.contains(maximizedClass)) {
-                grid.classList.remove(maximizedClass)
-                this.syncMaximizeButton(grid, maximize)
+        const expandBtn = document.createElement('button')
+        this.syncExpandButton(grid, expandBtn)
+        expandBtn.onclick = () => {
+            if (grid.classList.contains(expandClass)) {
+                grid.classList.remove(expandClass)
+                this.syncExpandButton(grid, expandBtn)
             } else {
-                grid.classList.add(maximizedClass)
-                this.syncMaximizeButton(grid, maximize)
+                grid.classList.add(expandClass)
+                this.syncExpandButton(grid, expandBtn)
             }
         }
-        tabBar.appendChild(maximize)
+        tabBar.appendChild(expandBtn)
     }
-    syncMaximizeButton(grid: Element, maximize: HTMLButtonElement) {
+    syncExpandButton(grid: Element, expandBtn: HTMLButtonElement) {
         const expandDownSvg = `
         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px">
           <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
@@ -49,22 +49,22 @@ export class TabController {
           <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
         </svg>`
 
-        const isMaximized = grid.classList.contains(maximizedClass)
-        if (isMaximized) {
-            maximize.innerHTML = expandDownSvg
-            maximize.title = 'Restore Panel'
+        const isExpanded = grid.classList.contains(expandClass)
+        if (isExpanded) {
+            expandBtn.innerHTML = expandDownSvg
+            expandBtn.title = 'Restore Panel'
     
         } else {
-            maximize.innerHTML = expandUpSvg
-            maximize.title = 'Expand Panel'
+            expandBtn.innerHTML = expandUpSvg
+            expandBtn.title = 'Expand Panel'
         }
-        maximize.className = 'es-tab-bar-button'
-        maximize.style.float = 'right'
+        expandBtn.className = 'es-tab-bar-button'
+        expandBtn.style.float = 'right'
 
         if (grid.classList.contains('hidden')) {
-            maximize.style.display = 'none'
+            expandBtn.style.display = 'none'
         } else {
-            maximize.style.display = ''
+            expandBtn.style.display = ''
         }
     }
 
