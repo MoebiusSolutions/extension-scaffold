@@ -11,7 +11,7 @@
         "container": "npm run maybe-install && DO_SERVE=true rollup --config --watch"
     },
     "devDependencies": {
-        "@gots/es-runtime": "^1.7.0",
+        "@gots/es-runtime": "^1.8.0",
         "@rollup/plugin-commonjs": "^18.0.0",
         "@rollup/plugin-node-resolve": "^11.2.1",
         "@rollup/plugin-replace": "^2.4.2",

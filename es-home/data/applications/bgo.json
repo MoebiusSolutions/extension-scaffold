@@ -2,19 +2,11 @@
     "name": "bgo",
     "title": "Blue/Green Optimizer",
     "ribbon": [
-        "aeolus.view",
-        "aeolus.chart.settings",
-        "bgo.scenario",
-        "bgo.plan",
-        "bgo.optimization",
-        "dss.help"
     ],
     "left": [
-        "bgo.assets",
         "plan.summary.experimental"
     ],
     "bottom-bar": [ 
-        "wasp.timeline", "bgo.input.targets", "bgo.results"
     ],
     "extensions": [
     ],

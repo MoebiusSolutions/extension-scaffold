@@ -1,6 +1,19 @@
-# Change Log
+## Change Log
 
-## [1.6.0] - 2021-10-21
+# [1.8.0]  - 2021-11-17
+### Added
+* When environment variable URLPATH is set, relocates `es-home`
+* Add expand button to bottom panel
+
+### Changed
+* Instead of defaulting to `#example` list available applications.
+* Buttons on left/right show rotated title if `icon` is not provided.
+
+# [1.7.0]  - 2021-11-06
+### Removed
+* Removed hardcoded height on left/right bar controller buttons.
+
+# [1.6.0] - 2021-10-21
 
 ### Added
 
@@ -9,7 +22,7 @@
 
 * Fix access to iframe.contentWindow during `add-frame` event.
 
-## [1.5.0] - 2021-10-15
+# [1.5.0] - 2021-10-15
 
 ### Added
 
@@ -24,13 +37,13 @@
 * Fixed artifacts left on page after removing the last panel in a grid location
 * Example `bgo.json` now adds many of the ATF pages as panels
 
-## [1.4.0] - 2021-10-10
+# [1.4.0] - 2021-10-10
 
 ### Added
 
 * Custom event `add-iframe`, which passes the `iframe` as the event argument
 
-## [1.3.0] - 2021-10-09
+# [1.3.0] - 2021-10-09
 
 ### Added
 
@@ -51,7 +64,7 @@
 * Configured `#example` to no longer make a center panel from a non-existing map URL
 * Refactor getDivSize to use lookup table.
 
-## [1.2.0] - 2021-09-30
+# [1.2.0] - 2021-09-30
 
 ### Added
 
@@ -65,7 +78,7 @@
 
 * Use classes instead of style in more places
 
-## [1.1.0] - 2021-06-09
+# [1.1.0] - 2021-06-09
 
 ### Added
 
@@ -81,9 +94,9 @@
 ### Removed
 
 * Removed `position: absolute` when using `iframe` support.
-  @evans.good found this was causing his ribbon an issue.
+  `@evans.good` found this was causing his ribbon an issue.
 
-## [1.0.0] - 2021-05-27
+# [1.0.0] - 2021-05-27
 
 ### **Breaking API** Changes
 
@@ -104,7 +117,7 @@
 
 * Documentation Updates
 
-## [0.7.0] - 2021-05-13
+# [0.7.0] - 2021-05-13
 
 Initial feature set.
 
@@ -118,7 +131,7 @@ Initial feature set.
 
 * Documentation Updates
 
-## [0.6.0] - 2021-05-10 
+# [0.6.0] - 2021-05-10 
 
 ### Added
 
@@ -129,7 +142,7 @@ Initial feature set.
 * Documentation Updates
 * min/max size for center panel is now ensured
 
-## [0.5.0] - 2021-05-10 
+# [0.5.0] - 2021-05-10 
 
 ### Added
 
@@ -147,14 +160,12 @@ Initial feature set.
 
 * Removed the `ping` method
 
-## [0.2.0] - 2021-05-04
+# [0.2.0] - 2021-05-04
 
 ### Changed
 
 * Documentation Updates
 
-## [0.1.0] - 2021-05-04
+# [0.1.0] - 2021-05-04
 
 Work in progress
-
-
