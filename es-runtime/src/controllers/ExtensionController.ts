@@ -1,6 +1,6 @@
 import type {
     ExtensionScaffoldApi, LoadWebpackScriptOptions,
-    GridState, Chrome, Fulfilled, Rejected
+    GridState, Chrome, Fulfilled, Rejected, RibbonBar
 } from '../es-api'
 import {
     applyGridState
@@ -9,7 +9,12 @@ import {
 import { PanelsImpl } from './PanelsImpl'
 import EventEmitter from 'events'
 
+class NullRibbonBar implements RibbonBar {
+    claimRibbonTab(title: string) { return null }
+    claimRibbonPanel(id: string) { return null }
+}
 class ChromeImpl implements Chrome {
+    public ribbonBar: RibbonBar = new NullRibbonBar()
     readonly panels = new PanelsImpl()
 }
 
@@ -119,6 +124,12 @@ class ApiImpl implements ExtensionScaffoldApi {
         } else {
             throw new Error(`Extension does not export activate: ${url}`)
         }
+    }
+
+    provideRibbonBar(ribbonBar: RibbonBar) {
+        const old = this.chrome.ribbonBar
+        this.chrome.ribbonBar = ribbonBar
+        return old
     }
 }
 

@@ -10,6 +10,7 @@ import { Left } from './Left'
 import { Footer } from './Footer';
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 import { Bottom } from './Bottom';
+import { doClaimRibbon } from './ribbon-panels';
 
 /**
  * Reduces React broiler plate code for adding an extension panel.
@@ -105,7 +106,8 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
 }
 
 async function doActivate(scaffold: ExtensionScaffoldApi) {
-  await doRibbon(scaffold)
+  doClaimRibbon(scaffold)
+  // await doRibbon(scaffold)
   // We add center from the left panel as a demo of doing that...
   // addCenterPanel(scaffold)
   await doHeader(scaffold)

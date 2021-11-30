@@ -1,4 +1,4 @@
-import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import { extensionScaffold, Location, RibbonBar } from '@gots/es-runtime/build/es-api'
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
@@ -14,6 +14,7 @@ import { EsRemovePanel } from './components/remove-panel';
 import { EsShowContext } from './components/show-context';
 import { EsShowPanelList } from './components/show-panel-list';
 import { EsTogglePanel } from './components/toggle-panel';
+import { EsRibbon } from './components/ribbon/ribbon';
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
@@ -92,9 +93,13 @@ export async function applyConfiguration(config: any, app: string) {
 
     extensionScaffold.boot(document.getElementById('demo-grid-container'));
     extensionScaffold.events.on('add-iframe', addKeydownForIFrame);
+
+    const ribbon = await EsRibbon.addPanel(extensionScaffold, config.ribbon)
+    extensionScaffold.provideRibbonBar(ribbon)
     
-    await loadIframePanels(enabledIframes(config.iframes));
-    await extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
+    const p1 = loadIframePanels(enabledIframes(config.iframes));
+    const p2 = extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
+    await Promise.all([p1, p2])
   } else {
     console.error(`Application configuration missing extensions: ${app}`);
     alert(`Application configuration missing extensions: ${app}`);

@@ -4,7 +4,8 @@
     "module": "ES2020",
     "target": "ES2016",
     "lib": [
-      "DOM"
+      "DOM",
+      "ES2016",
     ],
     "moduleResolution": "node",
     "jsx": "preserve",

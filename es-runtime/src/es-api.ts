@@ -104,7 +104,13 @@ export interface Panels {
     panelIds: (location: Location) => AddPanelOptions[] | undefined
 }
 
+export interface RibbonBar {
+    claimRibbonTab: (title: string) => HTMLDivElement | null
+    claimRibbonPanel: (id: string) => HTMLDivElement | null
+}
+
 export interface Chrome {
+    readonly ribbonBar: RibbonBar
     readonly panels: Panels
 }
 
@@ -140,6 +146,12 @@ export interface ExtensionScaffoldApi {
      * To workaround this issue, declare a small extension, that then calls this method.
      */
     loadWebpackScript: (options: LoadWebpackScriptOptions) => Promise<any>
+
+    /**
+     * `es-home` provides an implementation of the RibbonBar.
+     * However, an alternate hosting page could provide an alternate implementation.
+     */
+    provideRibbonBar: (ribbonBar: RibbonBar) => RibbonBar
 }
 
 export { extensionScaffold }
