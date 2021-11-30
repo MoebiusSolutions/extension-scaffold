@@ -13,6 +13,7 @@ export class LocationStack {
     popLocation(location: Location, id: string) {
         const stack = this.locationStack.get(location) ?? []
         this.locationStack.set(location, stack.filter(opt => opt.id !== id)) // needed for first time
+        return this.panelsAtLocation(location)[0]?.id
     }
     panelsAtLocation(location: Location) {
         return this.locationStack.get(location) ?? []

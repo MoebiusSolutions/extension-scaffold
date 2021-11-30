@@ -215,16 +215,16 @@ export class PanelsImpl implements Panels {
             }
 
             div.remove()
-            this.locationStack.popLocation(location, id)
+            const nextId = this.locationStack.popLocation(location, id)
 
-            const nextDiv = document.getElementById(stack[0].id)
+            const nextDiv = document.getElementById(nextId)
             if (!nextDiv) {
                 // stack is empty
                 this.updateBars(location)
                 this.removeResizeHandle(location)
                 return
             }
-            extensionScaffold.chrome.panels.showPanel(stack[0].id)
+            extensionScaffold.chrome.panels.showPanel(nextId)
             this.updateBars(location)
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
