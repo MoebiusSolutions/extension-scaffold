@@ -43,6 +43,7 @@ code {
   grid-row: top / bottom;
   z-index: 2; /* above drag handle */
   height: initial;
+  background: var(--es-theme-surface, green);
 }
 
 .pop-out-container {
@@ -188,6 +189,7 @@ code {
 
 .top-bar {
   grid-area: top-bar;
+  background: rgba(255, 255, 255, 0.03);
 }
 .top-bar .shadow-div {
   margin-bottom: 1px;
