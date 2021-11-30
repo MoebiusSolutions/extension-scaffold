@@ -8,16 +8,10 @@ services:
         - 80
         - 443
         ports:
-            - "127.0.0.1:80:80"
+            - "127.0.0.1:8090:80"
         environment:
             - REACT_UI_PORT=${REACT_UI_PORT}
             - STATIC_PORT=${STATIC_PORT}
-        networks:
-            ctm_network:
-            default:
-                ipv4_address: ${WMC_PROXY}
-                aliases:
-                - proxy.gccs-m.test
 
     react-ui:
         image: "node:12"
@@ -28,8 +22,6 @@ services:
         expose:
             - ${REACT_UI_PORT}
         command: "npm run start"
-        ports:
-            - ${REACT_UI_PORT}:${REACT_UI_PORT}
         environment:
             - PORT=${REACT_UI_PORT}
 
@@ -40,8 +32,6 @@ services:
         expose:
             - ${STATIC_PORT}
         command: "npx http-server -e js"
-        ports:
-            - ${STATIC_PORT}:${STATIC_PORT}
         environment:
             - PORT=${STATIC_PORT}
         volumes:
@@ -52,12 +42,3 @@ services:
             - ./packages/ribbon/node_modules/@material:/home/node/static/material
             - ./packages/ribbon/dist/bgo:/home/node/static/ribbon
             - ./packages/security-banner/dist:/home/node/static/security-banner
-
-networks:
-    ctm_network:
-        external:
-            name: ${CTM_NETWORK_NAME}
-    default:
-        ipam:
-            config:
-                - subnet: ${WMC_NETWORK}
