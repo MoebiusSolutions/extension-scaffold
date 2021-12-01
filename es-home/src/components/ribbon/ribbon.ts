@@ -49,7 +49,7 @@ export class EsRibbon extends Tonic {
     .ribbon-tab.active {
       margin-bottom: -1px;
       color: var(--es-theme-text-primary-on-background);
-      background-color: var(--es-theme-surface);
+      background-color: #191919;
       border-left: 1px solid var(--es-theme-text-secondary-on-background);
       border-top: 1px solid var(--es-theme-text-secondary-on-background);
       border-right: 1px solid var(--es-theme-text-secondary-on-background);
