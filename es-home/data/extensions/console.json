@@ -1,0 +1,9 @@
+{
+    "url": "/dist/extensions/console-extension.js",
+    "provides": [
+        {
+            "title": "Help Console",
+            "id": "help.console"
+        }
+    ]
+}

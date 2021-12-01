@@ -1,4 +1,4 @@
-import { extensionScaffold, Location, RibbonBar } from '@gots/es-runtime/build/es-api'
+import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';

@@ -30,6 +30,7 @@
             "tab": "Help",
             "sections": [
                 "help.about",
+                "help.console",
                 "help.version"
             ]
         }

@@ -71,6 +71,7 @@ export class EsRibbon extends Tonic {
       border-right: 1px solid;
       padding: 8px;
       display: flex;
+      user-select: none;
     }
     .ribbon-button {
       fill: var(--es-theme-text-secondary-on-background);
@@ -97,9 +98,6 @@ export class EsRibbon extends Tonic {
     .ribbon-section-label {
       font-size: 12px;
       text-align: center;
-    }
-    .ribbon-section:hover .ribbon-section-label {
-      color: var(--es-theme-text-primary-on-background);
     }
     `
   }
