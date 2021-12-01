@@ -24,10 +24,12 @@ export function toJson(obj: GridState | ExtensionIds | string): string {
 }
 
 export function toObject(json: string | null): GridState | ExtensionIds | null {
-    if (json === null) {
+    try {
+        if (json === null) { return null}
+        return JSON.parse(json)
+    } catch (e) {
         return null
     }
-    return JSON.parse(json)
 }
 
 export function toStorage(key: string, obj: GridState | ExtensionIds | string) {

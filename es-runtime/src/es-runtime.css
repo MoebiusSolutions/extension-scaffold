@@ -45,6 +45,13 @@ code {
   height: initial;
   background: var(--es-theme-surface, green);
 }
+.grid-panel.bottom-bar.grid-expanded {
+  grid-column: left-bar / right-bar;
+  grid-row: top / bottom;
+  z-index: 2; /* above drag handle */
+  height: initial;
+  background: var(--es-theme-surface, green);
+}
 
 .pop-out-container {
   background: var(--es-theme-surface, green);
@@ -76,7 +83,7 @@ code {
   width: 4px;
   cursor: ew-resize;
 }
-.drag-for-left:hover, .drag-for-right:hover, .drag-for-top:hover, .drag-for-bottom:hover {
+.drag-for-left:hover, .drag-for-right:hover, .drag-for-top:hover, .drag-for-bottom:hover, .drag-for-bottom-bar:hover {
   background: rgb(25 112 179);
 }
 
@@ -89,7 +96,7 @@ code {
   height: 4px;
   cursor: ns-resize;
 }
-.drag-for-bottom {
+.drag-for-bottom, .drag-for-bottom-bar {
   display: block;
   position: absolute;
   top: 0px;
@@ -207,6 +214,8 @@ code {
 
 .bottom-bar {
   grid-area: bottom-bar;
+  padding-top: 28px;
+  height: var(--size, initial);
 }
 .bottom-bar .shadow-div {
   margin-top: 12px;
@@ -267,12 +276,14 @@ code {
   display: none;
 }
 
-.grid-panel.bottom.hidden {
+.grid-panel.bottom.hidden,
+.grid-panel.bottom-bar.hidden {
   max-height: 0px;
   overflow: hidden;
 }
 
-.grid-panel.bottom.hidden > .shadow-div {
+.grid-panel.bottom.hidden > .shadow-div,
+.grid-panel.bottom-bar.hidden > .shadow-div {
   display: none;
 }
 

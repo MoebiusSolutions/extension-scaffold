@@ -17,24 +17,19 @@ const DISPLAY_FLEX = 'flex'
 
 function getDivSize(div: HTMLElement | null): OrigSize {
     const origSize: OrigSize = { size: '', location: '' }
-    if (div !== null) {
-        const orientation = [
-            { contains: 'left',   },
-            { contains: 'right',  },
-            { contains: 'top',    },
-            { contains: 'bottom', },
-        ]
-        orientation.filter(o => div.classList.contains(o.contains)).forEach(o => {
-            const size = div.style.getPropertyValue('--size')
-            if (size === '100px') {
-                origSize.size = fromStorage(`${o.contains}-panel-size`) as string
-            }
-            else {
-                origSize.size = size
-            }
-            origSize.location = o.contains as Location
-        })
-    }
+    if (div === null) { return origSize }
+
+    const resizable: Location[] = [ 'left', 'right', 'top', 'bottom','bottom-bar' ]
+    resizable.filter(l => div.classList.contains(l)).forEach(l => {
+        const size = div.style.getPropertyValue('--size')
+        if (size === '100px') {
+            origSize.size = fromStorage(`${l}-panel-size`) as string || '101px'
+        }
+        else {
+            origSize.size = size
+        }
+        origSize.location = l
+    })
     return origSize
 }
 
@@ -115,6 +110,7 @@ export class PanelsImpl implements Panels {
                 case 'right':
                 case 'top':
                 case 'bottom':
+                case 'bottom-bar':
                     parent.style.display = DISPLAY_FLEX
                     parent.classList.remove('hidden')
                     setActive(div)
@@ -142,6 +138,7 @@ export class PanelsImpl implements Panels {
                 case 'right':
                 case 'top':
                 case 'bottom':
+                case 'bottom-bar':
                 case 'top':
                     parent.classList.add('hidden')
                     parent.classList.remove('grid-expanded')
@@ -171,7 +168,7 @@ export class PanelsImpl implements Panels {
                 this.hidePanel(id)
             } else {
                 const orig = getDivSize(parent)
-                if (['left', 'right', 'top', 'bottom'].findIndex(l => orig.location === l) >= 0) {
+                if (['left', 'right', 'top', 'bottom', 'bottom-bar'].findIndex(l => orig.location === l) >= 0) {
                     parent.style.setProperty('--size', orig.size)
                 }
                 this.showPanel(id)
@@ -344,6 +341,7 @@ export class PanelsImpl implements Panels {
                 break;
             case 'top':
             case 'bottom':
+            case 'bottom-bar':
                 div.style.setProperty('--size', initialWidthOrHeight ?? '10em')
                 break;
         }
