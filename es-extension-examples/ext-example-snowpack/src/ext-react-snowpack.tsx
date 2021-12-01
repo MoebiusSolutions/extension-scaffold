@@ -67,7 +67,7 @@ async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
 async function doBottom(scaffold: ExtensionScaffoldApi) {
   return await doPanel(scaffold, {
     id: 'ext.snowpack.bottom',
-    location: 'bottom',
+    location: 'bottom-bar',
     title: 'Time Slider'
   }, <Bottom es={scaffold} />)
 }
