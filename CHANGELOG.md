@@ -1,5 +1,21 @@
 ## Change Log
 
+# [1.9.0] - 2021-12-01
+
+### Added
+
+* Fixed developer mode failing to generate `index.json`
+* Fix bottom expanded and top-bar background.
+* Fix center stack bug.
+* Added feature for extensions to "claim" ribbon bar sections/panels.
+* Added a `console-extension` to show console output in a drop down panel.
+
+### Changed
+
+* Smaller security banner font
+* The `bottom-bar` location now supports resize, tabs, and expand.
+
+
 # [1.8.0]  - 2021-11-17
 ### Added
 * When environment variable URLPATH is set, relocates `es-home`
