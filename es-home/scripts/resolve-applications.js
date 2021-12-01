@@ -62,7 +62,6 @@ function resolveApplications() {
 
     applications.forEach(app => {
         const searchKeys = [
-            'ribbon',
             'header',
             'footer',
             'left',
@@ -74,16 +73,27 @@ function resolveApplications() {
 
         const neededExtensionUrls = new Set()
         const missingExtensions = new Set()
+
+        function ensureExtension(id) {
+            const url = idToExtension.get(id)
+            if (url) {
+                neededExtensionUrls.add(url)
+            } else {
+                missingExtensions.add(id)
+            }
+        }
+
+        // Ribbon needs a deeper search
+        if (app['ribbon']) {
+            app['ribbon'].forEach(r => {
+                if (r['sections']) {
+                    r['sections'].forEach(ensureExtension)
+                }
+            })
+        }
         searchKeys.forEach(key => {
             if (app[key]) {
-                app[key].forEach(id => {
-                    const url = idToExtension.get(id)
-                    if (url) {
-                        neededExtensionUrls.add(url)
-                    } else {
-                        missingExtensions.add(id)
-                    }
-                })
+                app[key].forEach(ensureExtension)
             }
         })
         if (missingExtensions.size > 0) {
