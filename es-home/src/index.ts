@@ -16,6 +16,8 @@ import { EsShowPanelList } from './components/show-panel-list';
 import { EsTogglePanel } from './components/toggle-panel';
 import { EsRibbon } from './components/ribbon/ribbon';
 
+import './index.css'
+
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
 if (import.meta.hot) {

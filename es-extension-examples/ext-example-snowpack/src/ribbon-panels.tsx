@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { ThemeSelect } from './ThemeSelect';
-import { addCenterPanel } from './ext-react-snowpack'
 import { ShowCode } from './snippets/ShowCode';
+import { RibbonButtonCode } from './snippets/RibbonButtonCode';
+import { RibbonDropdownCode } from './snippets/RibbonDropdownCode';
 
 const PlusSquareO = () => <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
 
+const ID_SNOWPACK_CODE = 'ext.example.snowpack.code'
 /**
  * Claim the ribbon panels that belong to this extension
  */
@@ -32,18 +34,28 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     div.innerText = "Example"
   })
   claimRibbonThen(scaffold, 'help.version', div => {
-    div.innerHTML = "Version<br>x.y.z"
+    ReactDOM.render(
+      <React.StrictMode>
+        <es-ribbon-section name="About">
+          <div>Version x.y.z</div>
+        </es-ribbon-section>
+      </React.StrictMode>,
+      div
+    )
   })
 
   claimRibbonThen(scaffold, 'mp.area.plans', div => {
-    async function handleClick(e: MouseEvent) {
+    async function showNewPlan(e: MouseEvent) {
+      scaffold.chrome.panels.removePanel(ID_SNOWPACK_CODE)
       const div = await scaffold.chrome.panels.addPanel({
-        id: 'ext.example.snowpack.code',
+        id: ID_SNOWPACK_CODE,
         location: 'center'
       })
       ReactDOM.render(
         <React.StrictMode>
-          <ShowCode es={scaffold} />
+          <ShowCode es={scaffold} >
+            <RibbonButtonCode/>
+          </ShowCode>
         </React.StrictMode>,
         div
       );
@@ -52,7 +64,7 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     ReactDOM.render(
       <React.StrictMode>
         <es-ribbon-section name="Area Plans">
-          <es-ribbon-button name="New Plan" onClick={handleClick}>
+          <es-ribbon-button name="New Plan" onClick={showNewPlan}>
             <PlusSquareO />
           </es-ribbon-button>
           <es-ribbon-button name="Edit Plan">
@@ -91,14 +103,37 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     )
   })
   claimRibbonThen(scaffold, 'mp.assets', div => {
+    async function showPucksCode() {
+      scaffold.chrome.panels.removePanel(ID_SNOWPACK_CODE)
+      const div = await scaffold.chrome.panels.addPanel({
+        id: ID_SNOWPACK_CODE,
+        location: 'center'
+      })
+      ReactDOM.render(
+        <React.StrictMode>
+          <ShowCode es={scaffold} >
+            <RibbonDropdownCode/>
+          </ShowCode>
+        </React.StrictMode>,
+        div
+      );
+    }
+
     ReactDOM.render(
       <React.StrictMode>
         <es-ribbon-section name="Assets">
           <es-ribbon-button name="OCB Manager">
             <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96v-192h-512v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96v-192h-512v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96v-192q0-52 38-90t90-38h512v-192h-96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"/></svg>
           </es-ribbon-button>
-          <es-ribbon-button name="Pucks">
+          <es-ribbon-button>
             <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 1555q19-19 45-19t45 19l128 128-90 90-83-83-83 83q-18 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-128-128 90-90 83 83 83-83q19-19 45-19t45 19l83 83 83-83q19-19 45-19t45 19l83 83 83-83q19-19 45-19t45 19l83 83 83-83q19-19 45-19t45 19l83 83 83-83q19-19 45-19t45 19l83 83 83-83q19-19 45-19t45 19l83 83zm-1574-38q-19 19-45 19t-45-19l-128-128 90-90 83 82 83-82q19-19 45-19t45 19l83 82 64-64v-293l-210-314q-17-26-7-56.5t40-40.5l177-58v-299h128v-128h256v-128h256v128h256v128h128v299l177 58q30 10 40 40.5t-7 56.5l-210 314v293l19-18q19-19 45-19t45 19l83 82 83-82q19-19 45-19t45 19l128 128-90 90-83-83-83 83q-18 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83-83 83q-19 19-45 19t-45-19l-83-83zm403-1133v128l384-128 384 128v-128h-128v-128h-512v128h-128z"/></svg>
+            <label>Pucks</label>
+            <es-ribbon-dropdown>
+              <div style={{ padding: '8px'}}>
+                <button onClick={showPucksCode}>Show the Code</button>
+                <div>This is row two</div>
+              </div>
+            </es-ribbon-dropdown>
           </es-ribbon-button>
         </es-ribbon-section>
       </React.StrictMode>

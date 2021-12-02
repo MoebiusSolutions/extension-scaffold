@@ -1,10 +1,6 @@
 import Tonic from '@optoolco/tonic'
 
 export class EsRibbonSection extends Tonic {
-  stylesheet() {
-    return `
-    `
-  }
   render() {
     return this.html`
       <div class="ribbon-section-items">

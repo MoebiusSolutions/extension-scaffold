@@ -12,8 +12,9 @@ export const RibbonButtonCode = () => {
     //
     declare namespace JSX {
       interface IntrinsicElements {
-        "es-ribbon-button": any;
         "es-ribbon-section": any;
+        "es-ribbon-button": any;
+        "es-ribbon-dropdown": any;
       }
     }
 
@@ -47,7 +48,9 @@ export const RibbonButtonCode = () => {
           })
           ReactDOM.render(
             <React.StrictMode>
-              <ShowCode es={scaffold} />
+              <ShowCode es={scaffold} >
+                <RibbonButtonCode/>
+              </ShowCode>
             </React.StrictMode>,
             div
           );

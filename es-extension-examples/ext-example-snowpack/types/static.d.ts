@@ -59,7 +59,8 @@ declare module '*.png' {
 /* CUSTOM: ADD YOUR OWN HERE */
 declare namespace JSX {
   interface IntrinsicElements {
-    "es-ribbon-button": any;
     "es-ribbon-section": any;
+    "es-ribbon-button": any;
+    "es-ribbon-dropdown": any;
   }
 }

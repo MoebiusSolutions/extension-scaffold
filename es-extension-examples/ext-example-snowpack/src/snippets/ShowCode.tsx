@@ -4,7 +4,7 @@ import { RibbonButtonCode } from './RibbonButtonCode'
 
 export const ShowCode: React.FC<{
   es: ExtensionScaffoldApi
-}> = ({ es }) => {
+}> = ({ es, children }) => {
   function handleClose() {
     es.chrome.panels.removePanel('ext.example.snowpack.code')
   }
@@ -16,6 +16,6 @@ export const ShowCode: React.FC<{
       paddingBottom: '0px',
       paddingLeft: '8px',
     }} onClick={handleClose}>Close</div>
-    <RibbonButtonCode></RibbonButtonCode>
+    {children}
   </div>
 }
