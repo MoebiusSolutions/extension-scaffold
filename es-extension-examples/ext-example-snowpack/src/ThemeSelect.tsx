@@ -10,10 +10,12 @@ export const ThemeSelect: React.FC<{container: HTMLElement}> = ({ container }) =
       container.classList.add('light')
     }
   }
-  return <label>
-    Theme:
-    <select name="theme" onChange={handleChange} value={theme}>
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-    </select></label>
+  return <es-ribbon-section name="Theme">
+    <div>
+      <select name="theme" onChange={handleChange} value={theme}>
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </div>
+  </es-ribbon-section>
 }
