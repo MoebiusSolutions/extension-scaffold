@@ -113,7 +113,7 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doHeader(scaffold)
   await doFooter(scaffold)
   await doBottom(scaffold)
-  await doAboveLeft(scaffold)
+  // await doAboveLeft(scaffold)
   await doLeft(scaffold)
 }
 
