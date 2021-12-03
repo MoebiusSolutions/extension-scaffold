@@ -32,7 +32,7 @@ interface IFramePanel {
   resizeHandle?: boolean
 }
 function loadIframePanels(iframes?: IFramePanel[]) {
-  iframes?.reverse()?.forEach(async (config) => {
+  return iframes?.reverse()?.map(async (config) => {
     await extensionScaffold.chrome.panels.addPanel(config) 
   })
 }
@@ -148,4 +148,8 @@ Tonic.add(EsPopupTextarea)
 Tonic.add(EsLoadApplication)
 Tonic.add(EsHomePage)
 
-loadAppConfig()
+try {
+  loadAppConfig()
+} catch (e) {
+  console.error(e)
+}

@@ -1,9 +1,5 @@
 import React from 'react'
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
-import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript'
-import a11yDark from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
-
-SyntaxHighlighter.registerLanguage('typescript', typescript)
+import { FormatCode } from './FormatCode'
 
 export const RibbonButtonCode = () => {
     const codeString = `
@@ -75,7 +71,5 @@ export const RibbonButtonCode = () => {
       })
     }
 `
-    return <SyntaxHighlighter language="typescript" style={a11yDark}>
-        {codeString}
-    </SyntaxHighlighter>
+    return <FormatCode source={codeString}/>
 }

@@ -40,8 +40,8 @@ export class EsRibbon extends Tonic {
     .ribbon-tab {
       border: solid;
       border-width: 1px 1px 0 1px;
-      border-top-right-radius: 5px;
-      border-top-left-radius: 5px;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
       user-select: none;
       padding-left: 10px;
       padding-right: 10px;
@@ -95,7 +95,7 @@ export class EsRibbon extends Tonic {
       flex-grow: 1;
     }
     .ribbon-section-label {
-      font-size: 12px;
+      font-size: 10px;
       text-align: center;
     }
 
@@ -107,11 +107,18 @@ export class EsRibbon extends Tonic {
       justify-content: center;
       text-align: center;
       cursor: pointer;
+      border: 1px solid transparent;
+    }
+    es-ribbon-button.disabled {
+      pointer-events: none;
+      fill: var(--es-theme-text-disabled-on-background);
+      color: var(--es-theme-text-disabled-on-background);
     }
     es-ribbon-button:hover {
       fill: var(--es-theme-text-primary-on-background);
       color: var(--es-theme-text-primary-on-background);
       background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--es-theme-text-secondary-on-background);
     }
     es-ribbon-button:hover svg {
       fill: var(--es-theme-text-primary-on-background);
