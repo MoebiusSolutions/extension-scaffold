@@ -3,6 +3,7 @@ import Tonic from '@optoolco/tonic'
 import { EsRibbonSection } from './ribbon-section';
 import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
+import { EsRibbonButtonSm } from './ribbon-button-sm';
 
 export interface Ribbon {
   tab?: string
@@ -99,33 +100,48 @@ export class EsRibbon extends Tonic {
       text-align: center;
     }
 
-    es-ribbon-button {
+    es-ribbon-button, 
+    es-ribbon-button-sm {
       fill: var(--es-theme-text-secondary-on-background);
-      padding-left: 4px;
-      padding-right: 4px;
       align-items: center;
       justify-content: center;
       text-align: center;
       cursor: pointer;
       border: 1px solid transparent;
+      position: relative; /* dropdown is relative the button */
     }
-    es-ribbon-button.disabled {
+    es-ribbon-button {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    es-ribbon-button.disabled,
+    es-ribbon-button-sm.disabled {
       pointer-events: none;
       fill: var(--es-theme-text-disabled-on-background);
       color: var(--es-theme-text-disabled-on-background);
     }
-    es-ribbon-button:hover {
+    es-ribbon-button:hover,
+    es-ribbon-button.open,
+    es-ribbon-button-sm:hover,
+    es-ribbon-button-sm.open {
       fill: var(--es-theme-text-primary-on-background);
       color: var(--es-theme-text-primary-on-background);
       background: rgba(0, 0, 0, 0.2);
       border: 1px solid var(--es-theme-text-secondary-on-background);
     }
-    es-ribbon-button:hover svg {
+    es-ribbon-button:hover svg,
+    es-ribbon-button.open svg,
+    es-ribbon-button-sm:hover svg,
+    es-ribbon-button-sm.open svg {
       fill: var(--es-theme-text-primary-on-background);
     }
     es-ribbon-button svg {
       width: 24px;
       height: 24px;
+    }
+    es-ribbon-button-sm svg {
+      height: 1em;
     }
     es-ribbon-button label {
       display: block;
@@ -133,19 +149,23 @@ export class EsRibbon extends Tonic {
     }
 
     es-ribbon-dropdown {
-      display: block;
-      height: 8px;
+      order: 1;
+      display: flex;
+      align-items: center;
     }
     es-ribbon-dropdown svg {
       fill: var(--es-theme-text-secondary-on-background);
       margin-top: -8px;
+      margin-bottom: -8px;
     }
     .ribbon-dropdown {
       visibility: hidden;
       display: block;
-      position: fixed;
+      position: absolute;
       z-index: 2;
-      margin-top: -12px;
+      top: calc(100% + 1px);
+      left: 0px;
+      width: max-content;
       background: var(--es-theme-surface);
       fill: var(--es-theme-text-secondary-on-background);
       color: var(--es-theme-text-secondary-on-background);
@@ -156,6 +176,11 @@ export class EsRibbon extends Tonic {
     }
     .ribbon-dropdown > div {
       background: rgba(255,255,255,0.06);
+    }
+    .ribbon-dropdown:focus,
+    .ribbon-dropdown:focus-within,
+    .ribbon-dropdown:focus-visible {
+      outline: none;
     }
     `
   }
@@ -230,4 +255,5 @@ export class EsRibbon extends Tonic {
 Tonic.add(EsRibbon)
 Tonic.add(EsRibbonSection)
 Tonic.add(EsRibbonButton)
+Tonic.add(EsRibbonButtonSm)
 Tonic.add(EsRibbonDropdown)

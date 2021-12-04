@@ -12,7 +12,8 @@
         {
             "tab": "Chart Settings",
             "sections": [
-                "chart.settings"
+                "chart.settings",
+                "chart.settings.options"
             ]
         },
         {

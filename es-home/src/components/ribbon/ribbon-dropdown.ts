@@ -17,11 +17,13 @@ export class EsRibbonDropdown extends Tonic {
 
     const show = () => {
       this.classList.add('open')
+      btn.classList.add('open')
       md.style.display = 'block'
       rd.focus()
     }
     const hide = () => {
       this.classList.remove('open')
+      btn.classList.remove('open')
       md.style.display = 'none'
     }
     const toggle = () => {
@@ -52,7 +54,9 @@ export class EsRibbonDropdown extends Tonic {
   }
   render() {
     return this.html`
-      <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 8 24 12" ><path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+        <path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/>
+      </svg>
       <div tabindex="0" class="ribbon-dropdown">
         <div class="elevation">
           ${this.children}

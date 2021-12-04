@@ -21,3 +21,7 @@
   z-index: 1;
   background: rgba(0,0,0,0.15);
 }
+
+.grid-panel.top-bar {
+  overflow: visible; /* so that ribbon menus leak out without scrollbar */
+}

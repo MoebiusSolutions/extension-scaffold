@@ -61,6 +61,7 @@ declare namespace JSX {
   interface IntrinsicElements {
     "es-ribbon-section": any;
     "es-ribbon-button": any;
+    "es-ribbon-button-sm": any;
     "es-ribbon-dropdown": any;
   }
 }

@@ -39,7 +39,7 @@ export const ShowCode: React.FC<{
   position: absolute;
   right: 8px;
   top: 2px;
-  z-index: 2;
+  z-index: 1;
   cursor: pointer;
   padding: 4px;
   background: rgba(0,0,0,0.4);
