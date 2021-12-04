@@ -69,6 +69,15 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
       </div>
     </es-ribbon-section>
   )
+  claimRibbonWith(scaffold, 'chart.settings.options',
+    <es-ribbon-section name="Options Example">
+      <div style={{ display: 'flex', flexDirection: 'column'}}>
+        <label><input type="radio" name="opt-example"></input>Option One</label>
+        <label><input type="radio" name="opt-example"></input>Option Two</label>
+        <label><input type="radio" name="opt-example"></input>Option Three</label>
+      </div>
+    </es-ribbon-section>
+  )
   claimRibbonThen(scaffold, 'help.about', div => {
     div.innerText = "Example"
   })
