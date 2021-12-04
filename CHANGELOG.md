@@ -1,5 +1,25 @@
 ## Change Log
 
+# [1.10.0] - 2021-12-03
+
+### Added
+
+* es-ribbon-dropdown web component
+* Added a LitElements ribbon example.
+* Demonstrate input type="checkbox" tied to Show Code
+* Demonstrate disabled ribbon button item
+* Demonstrate Layers ribbon button toggling a left panel.
+* Log error if extension throws during activate.
+
+### Changed
+
+* Made theme select look a little nicer.
+* Improved built-in console to print stack for errors
+
+### Removed
+
+* Removed above left example for now
+
 # [1.9.0] - 2021-12-01
 
 ### Added
