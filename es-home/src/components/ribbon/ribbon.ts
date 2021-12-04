@@ -1,7 +1,8 @@
 import type { ExtensionScaffoldApi, RibbonBar } from '@gots/es-runtime/build/es-api'
 import Tonic from '@optoolco/tonic'
-import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonSection } from './ribbon-section';
+import { EsRibbonButton } from './ribbon-button';
+import { EsRibbonDropdown } from './ribbon-dropdown';
 
 export interface Ribbon {
   tab?: string
@@ -39,8 +40,8 @@ export class EsRibbon extends Tonic {
     .ribbon-tab {
       border: solid;
       border-width: 1px 1px 0 1px;
-      border-top-right-radius: 5px;
-      border-top-left-radius: 5px;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
       user-select: none;
       padding-left: 10px;
       padding-right: 10px;
@@ -49,10 +50,20 @@ export class EsRibbon extends Tonic {
     .ribbon-tab.active {
       margin-bottom: -1px;
       color: var(--es-theme-text-primary-on-background);
-      background-color: #191919;
       border-left: 1px solid var(--es-theme-text-secondary-on-background);
       border-top: 1px solid var(--es-theme-text-secondary-on-background);
       border-right: 1px solid var(--es-theme-text-secondary-on-background);
+      position: relative;
+      background-color: var(--es-theme-surface);
+    }
+    .ribbon-tab.active::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      background: rgba(255,255,255,0.03);
     }
 
     .ribbon-body {
@@ -67,37 +78,84 @@ export class EsRibbon extends Tonic {
     .ribbon.active {
       visibility: visible;
     }
+    es-ribbon-section {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
     .ribbon-section {
       border-right: 1px solid;
       padding: 8px;
       display: flex;
       user-select: none;
     }
-    .ribbon-button {
+    .ribbon-section-items {
+      display: flex;
+      justify-content: space-around;
+      flex-grow: 1;
+    }
+    .ribbon-section-label {
+      font-size: 10px;
+      text-align: center;
+    }
+
+    es-ribbon-button {
       fill: var(--es-theme-text-secondary-on-background);
-      padding: 4px;
+      padding-left: 4px;
+      padding-right: 4px;
       align-items: center;
       justify-content: center;
       text-align: center;
       cursor: pointer;
+      border: 1px solid transparent;
     }
-    .ribbon-button:hover {
+    es-ribbon-button.disabled {
+      pointer-events: none;
+      fill: var(--es-theme-text-disabled-on-background);
+      color: var(--es-theme-text-disabled-on-background);
+    }
+    es-ribbon-button:hover {
       fill: var(--es-theme-text-primary-on-background);
       color: var(--es-theme-text-primary-on-background);
       background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--es-theme-text-secondary-on-background);
     }
-    .ribbon-button svg {
+    es-ribbon-button:hover svg {
+      fill: var(--es-theme-text-primary-on-background);
+    }
+    es-ribbon-button svg {
       width: 24px;
       height: 24px;
     }
-
-    .ribbon-section-items {
-      display: flex;
-      justify-content: space-around;
+    es-ribbon-button label {
+      display: block;
+      font-size: 10px;
     }
-    .ribbon-section-label {
-      font-size: 12px;
-      text-align: center;
+
+    es-ribbon-dropdown {
+      display: block;
+      height: 8px;
+    }
+    es-ribbon-dropdown svg {
+      fill: var(--es-theme-text-secondary-on-background);
+      margin-top: -8px;
+    }
+    .ribbon-dropdown {
+      visibility: hidden;
+      display: block;
+      position: fixed;
+      z-index: 2;
+      margin-top: -12px;
+      background: var(--es-theme-surface);
+      fill: var(--es-theme-text-secondary-on-background);
+      color: var(--es-theme-text-secondary-on-background);
+      box-shadow: 2px 2px 1px -1px rgba(0, 0, 0, 0.2), 2px 1px 1px 0px rgba(0, 0, 0, 0.14), 2px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+    es-ribbon-dropdown.open .ribbon-dropdown {
+      visibility: visible;
+    }
+    .ribbon-dropdown > div {
+      background: rgba(255,255,255,0.06);
     }
     `
   }
@@ -144,7 +202,7 @@ export class EsRibbon extends Tonic {
 
     const tabs = this.ribbon.map((r: Ribbon, idx) => {
       const cls = this.activeIndex === idx ? `ribbon-tab active` : `ribbon-tab`
-      return this.html`<div class="${cls}" data-idx="${String(idx)}">${r.tab}</div>`
+        return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
     })
     const ribbons = this.ribbon.map((r: Ribbon, idx: number) => {
       const cls = this.activeIndex === idx ? `ribbon active` : `ribbon`
@@ -170,5 +228,6 @@ export class EsRibbon extends Tonic {
 }
 
 Tonic.add(EsRibbon)
-Tonic.add(EsRibbonButton)
 Tonic.add(EsRibbonSection)
+Tonic.add(EsRibbonButton)
+Tonic.add(EsRibbonDropdown)

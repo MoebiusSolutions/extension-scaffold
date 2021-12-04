@@ -16,6 +16,8 @@ import { EsShowPanelList } from './components/show-panel-list';
 import { EsTogglePanel } from './components/toggle-panel';
 import { EsRibbon } from './components/ribbon/ribbon';
 
+import './index.css'
+
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
 if (import.meta.hot) {
@@ -30,7 +32,7 @@ interface IFramePanel {
   resizeHandle?: boolean
 }
 function loadIframePanels(iframes?: IFramePanel[]) {
-  iframes?.reverse()?.forEach(async (config) => {
+  return iframes?.reverse()?.map(async (config) => {
     await extensionScaffold.chrome.panels.addPanel(config) 
   })
 }
@@ -146,4 +148,8 @@ Tonic.add(EsPopupTextarea)
 Tonic.add(EsLoadApplication)
 Tonic.add(EsHomePage)
 
-loadAppConfig()
+try {
+  loadAppConfig()
+} catch (e) {
+  console.error(e)
+}

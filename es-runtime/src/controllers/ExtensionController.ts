@@ -76,6 +76,7 @@ class ApiImpl implements ExtensionScaffoldApi {
             }
         }
         function rejected<E>(reason: E) {
+            console.error('Failed to load extension', reason)
             return {
                 status: 'rejected' as const,
                 reason,

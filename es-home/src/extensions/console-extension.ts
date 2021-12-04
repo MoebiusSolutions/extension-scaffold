@@ -81,22 +81,6 @@ class EsDebugConsole extends Tonic {
       background: rgba(255,0,0,0.04);
       fill: darkred;
     }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: rgba(155, 155, 155, 0.5);
-      border-radius: 20px;
-      border: transparent;
-    }
-    ::-webkit-scrollbar-corner {
-      background: transparent;
-    }
     `
   }
   click(e: MouseEvent) {
@@ -106,6 +90,14 @@ class EsDebugConsole extends Tonic {
         this.dispatchEvent(e)
       }
     }
+  }
+  connected() {
+    const c: HTMLDivElement | null = this.querySelector('.console')
+    c?.addEventListener('blur', (evt: FocusEvent) => {
+      const e = new CustomEvent('console-close')
+      this.dispatchEvent(e)
+    })
+    c?.focus()
   }
   render() {
     const icons = {
@@ -128,7 +120,7 @@ class EsDebugConsole extends Tonic {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
           </div>
         </div>
-        <div class="console">
+        <div class="console" tabindex="0">
           ${lines}
         </div>
       </div>
@@ -138,6 +130,7 @@ class EsDebugConsole extends Tonic {
 
 class EsDebugConsoleRibbonPanel extends Tonic {
   private debugConsole: EsDebugConsole | null = null
+  private wasOpen = false
 
   async doOpen() {
     const div = await extensionScaffold.chrome.panels.addPanel({
@@ -157,19 +150,20 @@ class EsDebugConsoleRibbonPanel extends Tonic {
     this.debugConsole = null
   }
 
+  pointerdown(e: PointerEvent) {
+    this.wasOpen = this.debugConsole !== null
+  }
   click(e: MouseEvent) {
     if (e.target instanceof Element) {
       if (e.target.closest('es-ribbon-button[name="Console"]')) {
-        if (this.debugConsole === null) {
+        if (!this.wasOpen) {
           this.doOpen()
-        } else {
-          this.doClose()
         }
-      } else if (e.target.closest('es-ribbon-button[name="Crash"]')) {
+      } else if (e.target.closest('es-ribbon-button[data-name="Crash"]')) {
         throw new Error('Not handled')
-      } else if (e.target.closest('es-ribbon-button[name="Bad Fetch"]')) {
+      } else if (e.target.closest('es-ribbon-button[data-name="Bad Fetch"]')) {
         fetch('http://hastings-foundation.org')
-      } else if (e.target.closest('es-ribbon-button[name="Clear"]')) {
+      } else if (e.target.closest('es-ribbon-button[data-name="Clear"]')) {
         LOGS.records = []
         this.logPush('log', ['Console cleared.'])
       }
@@ -190,29 +184,46 @@ class EsDebugConsoleRibbonPanel extends Tonic {
         const origFn: any = console[level as keyof Console]
         function newFn(...args: any) { 
           origFn.apply(console, args)
-          self.logPush(level, args)
+          self.logPush(level, args.map(toString))
         }
         console[level as keyof Console] = newFn as any
       })
+      function toString(a: any) {
+        if (a instanceof Error) {
+          return a.stack ?? a
+        }
+        return a
+      }
       window.addEventListener('error', (evt: ErrorEvent) => {
-        this.logPush('error', [evt.message, evt.filename, evt.lineno, evt.error])
+        this.logPush('error', [toString(evt.error)])
       })
       window.addEventListener('unhandledrejection', (evt: PromiseRejectionEvent) => {
-        this.logPush('error', ['Unhandled promise rejection', evt.reason.stack || evt.reason])
+        this.logPush('error', ['Unhandled promise rejection', toString(evt.reason)])
       })
     } catch (e) {
       console.error('Failed to hook console functions')
     }
   }
+  styles() {
+    return {
+      left: {
+        textAlign: 'left',
+        fontSize: '12px',
+      }
+    }
+  }
   render() {
+    this.style.display = 'flex'
     return this.html`
       <es-ribbon-section name="Debug">
         <es-ribbon-button name="Console">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 5h10v2h2V3c0-1.1-.9-1.99-2-1.99L7 1c-1.1 0-2 .9-2 2v4h2V5zm8.41 11.59L20 12l-4.59-4.59L14 8.83 17.17 12 14 15.17l1.41 1.42zM10 15.17L6.83 12 10 8.83 8.59 7.41 4 12l4.59 4.59L10 15.17zM17 19H7v-2H5v4c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4h-2v2z"/></svg>
         </es-ribbon-button>
-        <es-ribbon-button name="Crash"></es-ribbon-button>
-        <es-ribbon-button name="Bad Fetch"></es-ribbon-button>
-        <es-ribbon-button name="Clear"></es-ribbon-button>
+        <div style="display: flex; flex-direction: column;">
+          <es-ribbon-button styles="left" data-name="Crash">    <div>Crash</div>    </es-ribbon-button>
+          <es-ribbon-button styles="left" data-name="Bad Fetch"><div>Bad Fetch</div></es-ribbon-button>
+          <es-ribbon-button styles="left" data-name="Clear">    <div>Clear</div>    </es-ribbon-button>
+      </div>
       </es-ribbon-section>
     `
   }

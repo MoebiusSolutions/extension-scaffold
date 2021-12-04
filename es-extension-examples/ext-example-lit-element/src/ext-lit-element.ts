@@ -1,5 +1,6 @@
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import './app-root';
+import './ribbon-view-section1'
 
 async function addBottomPanel(api: ExtensionScaffoldApi) {
   const div = await api.chrome.panels.addPanel({
@@ -13,6 +14,15 @@ async function addBottomPanel(api: ExtensionScaffoldApi) {
   div.appendChild(app)
 }
 
+function doRibbon(api: ExtensionScaffoldApi) {
+  const div = api.chrome.ribbonBar.claimRibbonPanel('view.section1')
+  if (!div) { return }
+  const el = document.createElement('lit-view-section')
+  div.innerText = ''
+  div.appendChild(el)
+}
+
 export async function activate(scaffold: ExtensionScaffoldApi) {
-  addBottomPanel(scaffold)
+  doRibbon(scaffold)
+  await addBottomPanel(scaffold)
 }
