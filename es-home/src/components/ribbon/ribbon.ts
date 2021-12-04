@@ -68,8 +68,11 @@ export class EsRibbon extends Tonic {
     }
 
     .ribbon-body {
-      display: grid;
+      display: none;
       grid-template-areas: 'ribbon';
+    }
+    .ribbon-body.open {
+      display: grid;
     }
     .ribbon {
       grid-area: ribbon;
@@ -219,6 +222,15 @@ export class EsRibbon extends Tonic {
   onclick = (e: MouseEvent) => {
     const div = e.target as HTMLDivElement
     if (div?.dataset['idx'] && div.classList.contains('ribbon-tab')) {
+      const rb = this.querySelector('.ribbon-body')
+
+      const nextIndex = Number(div?.dataset['idx'])
+      if (nextIndex === this.activeIndex) {
+        rb?.classList.remove('open')
+        this.activeIndex = -1
+        return
+      }
+      rb?.classList.add('open')
       this.activeIndex = Number(div?.dataset['idx'])
     }
   }
@@ -236,7 +248,7 @@ export class EsRibbon extends Tonic {
     })
     return this.html`<nav>
       <div class="ribbon-head">${tabs}</div>
-      <div class="ribbon-body">${ribbons}</div>
+      <div class="ribbon-body open">${ribbons}</div>
     </nav>`
   }
   static async addPanel(scaffold: ExtensionScaffoldApi, ribbon?: Ribbon[]) {
