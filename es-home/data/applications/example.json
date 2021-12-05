@@ -6,7 +6,8 @@
             "tab": "View",
             "sections": [
                 "view.section1",
-                "display.theme"
+                "display.theme",
+                "view.split.button"
             ]
         },
         {
@@ -43,7 +44,8 @@
             "tab": "Help",
             "sections": [
                 "help.about",
-                "help.console",
+                "debug.console",
+                "debug.metrics",
                 "help.version"
             ]
         }
