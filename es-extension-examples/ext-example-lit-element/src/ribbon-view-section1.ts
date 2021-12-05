@@ -36,8 +36,10 @@ export class RibbonViewSection extends LitElement {
               <button>Three</button>
             </es-ribbon-dropdown>
           </es-ribbon-button>
-          <es-ribbon-button name="Disabled" class="disabled">
+          <es-ribbon-button name="Disabled" disabled>
             \${icon}
+          </es-ribbon-button>
+          <es-ribbon-button name="Disabled Class" class="disabled">
           </es-ribbon-button>
         </es-ribbon-section>
       \`
@@ -66,8 +68,10 @@ export class RibbonViewSection extends LitElement {
             <button>Three</button>
           </es-ribbon-dropdown>
         </es-ribbon-button>
-        <es-ribbon-button name="Disabled" class="disabled">
+        <es-ribbon-button name="Disabled" disabled>
           ${icon}
+        </es-ribbon-button>
+        <es-ribbon-button name="Disabled Class" class="disabled">
         </es-ribbon-button>
       </es-ribbon-section>
     `

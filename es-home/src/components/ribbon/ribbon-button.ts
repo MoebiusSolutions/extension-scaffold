@@ -18,7 +18,8 @@ es-ribbon-button {
   padding-right: 4px;
 }
 
-.ribbon-button.disabled {
+.ribbon-button.disabled,
+.ribbon-button[disabled] {
   pointer-events: none;
   fill: var(--es-theme-text-disabled-on-background);
   color: var(--es-theme-text-disabled-on-background);
