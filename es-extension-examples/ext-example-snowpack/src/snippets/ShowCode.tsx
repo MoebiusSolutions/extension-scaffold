@@ -54,10 +54,11 @@ export const ShowCode: React.FC<{
 .es-source-code {
   position: absolute;
   inset: 0px;
+  background: rgb(43, 43, 43);
 }
 .es-source-code pre {
   margin: 0px;
-  width: 100%;
+  width: max-content;
 }
 .close-button {
   position: absolute;

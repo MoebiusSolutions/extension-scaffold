@@ -1,12 +1,9 @@
 import React from 'react'
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
-import typescript from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript'
-import a11yDark from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
-
-SyntaxHighlighter.registerLanguage('typescript', typescript)
+import Prism from 'prismjs';
+import 'prism-themes/themes/prism-a11y-dark.css'
 
 export const FormatCode: React.FC<{source: string}> = ({source}) => {
-  return <SyntaxHighlighter language="typescript" style={a11yDark}>
-    {source}
-  </SyntaxHighlighter>
+  const html = Prism.highlight(source, Prism.languages.javascript, 'javascript');
+
+  return <pre dangerouslySetInnerHTML={{__html: html}} />
 }
