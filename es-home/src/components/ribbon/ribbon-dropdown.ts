@@ -95,8 +95,6 @@ es-ribbon-dropdown.open .ribbon-dropdown {
       if (el.closest('es-ribbon-dropdown') && !el.closest('.ribbon-dropdown')) {
         toggle()
         e.stopPropagation()
-      } else {
-        console.log('clicked!')
       }
     })
     rd.addEventListener('blur', () => {
