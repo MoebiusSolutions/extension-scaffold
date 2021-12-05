@@ -122,6 +122,11 @@ ${EsRibbonDropdown.hoistedStylesheet()}
   }
   connected() {
     this.activeIndex = 0
+    const el: HTMLElement | null = document.querySelector('.grid-panel.top-bar')
+    if (el) {
+      // Otherwise the dropdown menus cause a scrollbar
+      el.style.overflow = 'visible'
+    }
   }
   onclick = (e: MouseEvent) => {
     const div = e.target as HTMLDivElement
