@@ -1,5 +1,38 @@
 ## Change Log
 
+# [2.0.0] - 2021-12-05
+
+### Added
+
+* `<es-ribbon-button-small>` - so that you can stack multiple buttons vertically
+* Example of using `<input type="radio">` in `<es-ribbon-dropdown>`
+* Ribbon collapse and expand (like the other tabbed areas)
+* `<es-ribbon-button-split>` - you can click the "quick action" to trigger it, or drop down other selections.
+* `<es-ribbon-button disabled>` now works
+* Fetch code snippets from the server instead of hard coding them into the Typescript code.
+* Display JavaScript engine memory usage on Help tab
+* `claimStyleFromHeadElementMatching` allows any `predicate` to check for claiming the stylesheet.
+* `<es-ribbon-dropdown-item>` provides default styling for items in a dropdown
+* `<es-ribbon-dropdown>` has two new methods: `open()` and `close()`
+  You can call them from the debug console after assigning
+  a temporary variable to the element.
+* Click handler to lit elements example
+* Three different examples of selecting the theme to show different ways of doing the dropdown menu.
+
+### Changed
+
+* Move adding `overflow: visible` on the `top-bar` grid area to the `ribbon.ts` code.
+* Replaced `react-syntax-highlighter` with `prismjs` (much better for Snowpack).
+* Cleaned up scrollbars on the source code viewer center panel
+* Fixed reRenderer closing the logs windows
+* Fixed scrolling issues in the debug console when new messages arrived
+
+### Removed
+
+* Breaking change - renamed `name` to `label`. 
+  For example: <es-ribbon-section name="Area Plans">
+  becomes <es-ribbon-section label="Area Plans">
+
 # [1.10.0] - 2021-12-03
 
 ### Added
