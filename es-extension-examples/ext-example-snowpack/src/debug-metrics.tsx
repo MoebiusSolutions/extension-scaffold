@@ -32,14 +32,15 @@ const DebugMetricsSection = () => {
       .debug-metrics {
         width: ${width}px;
         min-height: 20px;
-        border: 1px solid;
         fill: var(--es-theme-text-secondary-on-background);
+        font-size: 12px;
+        text-align: center;
       }
     `}</style>
     <div className="debug-metrics">
+      <div>{mbString}</div>
       <Sparklines data={data} limit={20} width={width} height={60} margin={5}>
         <SparklinesLine />
-        <SparklinesText point={{ x: 5, y: 10 }} text={mbString} />
       </Sparklines>
     </div>
   </>

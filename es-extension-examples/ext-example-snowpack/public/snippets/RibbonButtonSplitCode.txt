@@ -18,31 +18,21 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     const t = target?.innerText
     if (t === 'Source Code') {
       showCode(<RibbonButtonSplitCode/>)
-      const ae: HTMLElement | null = window.document.activeElement as any
-      ae?.blur() // Close dropdown
+      const dropdown: any = target?.closest('es-ribbon-dropdown')
+      dropdown?.close()
     } else {
       alert(`Child Clicked: ${t}`)
     }
   }
   claimRibbonWith(scaffold, "view.split.button",
     <div> {/* <- this div "soaks" up the flex space so the button can be small */}
-      <es-ribbon-button-split onClick={() => alert('Split Click')} name="Split Button">
+      <es-ribbon-button-split onClick={() => alert('Split Click')} label="Split Button">
         <es-ribbon-dropdown>
-          <style>{/*css*/`
-            .demo-item {
-              text-align: left;
-            }
-            .demo-item:hover {
-              background: rgba(255,255,255,0.38);
-            }
-          `}</style>
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'stretch'}}>
-            <div className="demo-item" onClick={handleClick}>Item One</div>
-            <div className="demo-item" onClick={handleClick}>Item Two</div>
-            <div className="demo-item" onClick={handleClick}>Item Three</div>
-            <div className="demo-item" onClick={handleClick}>Item Four</div>
-            <div className="demo-item" onClick={handleClick}>Source Code</div>
-          </div>
+          <es-ribbon-dropdown-item onClick={handleClick} label="Item One"></es-ribbon-dropdown-item>
+          <es-ribbon-dropdown-item onClick={handleClick}><div>Item Two</div></es-ribbon-dropdown-item>
+          <es-ribbon-dropdown-item onClick={handleClick} label="Ignored"><div >Item Three</div></es-ribbon-dropdown-item>
+          <es-ribbon-dropdown-item onClick={handleClick}><div>Item Four</div></es-ribbon-dropdown-item>
+          <es-ribbon-dropdown-item onClick={handleClick}><div>Source Code</div></es-ribbon-dropdown-item>
         </es-ribbon-dropdown>
       </es-ribbon-button-split>
     </div>

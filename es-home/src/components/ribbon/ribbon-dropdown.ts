@@ -22,6 +22,7 @@ es-ribbon-dropdown svg {
   top: calc(100% + 1px);
   left: 0px;
   width: max-content;
+
   background: var(--es-theme-surface);
   fill: var(--es-theme-text-secondary-on-background);
   color: var(--es-theme-text-secondary-on-background);
@@ -101,6 +102,21 @@ es-ribbon-dropdown.open .ribbon-dropdown {
       if (pointerDown) { return }
       hide()
     })
+    this.addEventListener('es-ribbon-dropdown-request', (e: Event) => {
+      const ce: CustomEvent = e as any
+      if (ce.detail === 'open') {
+        show()
+      }
+      if (ce.detail === 'close') {
+        hide()
+      }
+    })
+  }
+  open() {
+    this.dispatchEvent(new CustomEvent('es-ribbon-dropdown-request', { detail: 'open' }))
+  }
+  close() {
+    this.dispatchEvent(new CustomEvent('es-ribbon-dropdown-request', { detail: 'close' }))
   }
   render() {
     return this.html/*html*/`

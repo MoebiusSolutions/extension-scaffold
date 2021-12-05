@@ -5,6 +5,7 @@ import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
 import { EsRibbonButtonSmall } from './ribbon-button-small';
 import { EsRibbonButtonSplit } from './ribbon-button-split';
+import { EsRibbonDropdownItem } from './ribbon-dropdown-item';
 
 export interface Ribbon {
   tab?: string
@@ -89,6 +90,7 @@ ${EsRibbonButton.hoistedStylesheet()}
 ${EsRibbonButtonSmall.hoistedStylesheet()}
 ${EsRibbonButtonSplit.hoistedStylesheet()}
 ${EsRibbonDropdown.hoistedStylesheet()}
+${EsRibbonDropdownItem.hoistedStylesheet()}
 
   `}
   public set activeIndex(idx: number) {
@@ -179,3 +181,4 @@ Tonic.add(EsRibbonButton)
 Tonic.add(EsRibbonButtonSmall)
 Tonic.add(EsRibbonButtonSplit)
 Tonic.add(EsRibbonDropdown)
+Tonic.add(EsRibbonDropdownItem)

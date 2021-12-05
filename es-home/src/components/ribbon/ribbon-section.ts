@@ -30,7 +30,7 @@ es-ribbon-section {
       <div class="ribbon-section-items">
         ${this.children}
       </div>
-      <div class="ribbon-section-label">${this.props.name}</div>
+      <div class="ribbon-section-label">${this.props.label}</div>
     `
   }
 }

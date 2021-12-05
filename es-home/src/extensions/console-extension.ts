@@ -1,6 +1,6 @@
 import Tonic from '@optoolco/tonic'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
-import { EsDebugConsole, LOGS, MAX_LOGS } from './debug-console'
+import { EsDebugConsole } from './debug-console'
 import { EsConsoleLines } from './console-lines'
 import { EsDebugConsoleRibbonPanel } from './debug-console-ribbon-panel'
 

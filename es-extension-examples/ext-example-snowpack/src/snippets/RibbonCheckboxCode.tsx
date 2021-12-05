@@ -4,7 +4,7 @@ import { FormatCode } from './FormatCode'
 export const RibbonCheckboxCode = () => {
   const codeString = `
   claimRibbonWith(scaffold, 'chart.settings', 
-    <es-ribbon-section name="Status Bar">
+    <es-ribbon-section label="Status Bar">
       <label><CodeCheckBox />Show Code</label>
       <div style={{ display: 'flex', flexDirection: 'column'}}>
         <label><input type="checkbox"></input>Show Mouse Location</label>

@@ -8,6 +8,7 @@ declare namespace JSX {
     "es-ribbon-button-small": any;
     "es-ribbon-button-split": any;
     "es-ribbon-dropdown": any;
+    "es-ribbon-dropdown-item": any;
   }
 }
 
@@ -50,14 +51,14 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     showCode(<RibbonButtonCode/>)
   }
   claimRibbonWith(scaffold, 'mp.area.plans',
-    <es-ribbon-section name="Area Plans">
-      <es-ribbon-button name="New Plan" onClick={showNewPlan}>
+    <es-ribbon-section label="Area Plans">
+      <es-ribbon-button label="New Plan" onClick={showNewPlan}>
         <PlusSquareO />
       </es-ribbon-button>
-      <es-ribbon-button name="Edit Plan">
+      <es-ribbon-button label="Edit Plan">
         <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M888 1184l116-116-152-152-116 116v56h96v96h56zm440-720q-16-16-33 1l-350 350q-17 17-1 33t33-1l350-350q17-17 1-33zm80 594v190q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q63 0 117 25 15 7 18 23 3 17-9 29l-49 49q-14 14-32 8-23-6-45-6h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-126q0-13 9-22l64-64q15-15 35-7t20 29zm-96-738l288 288-672 672h-288v-288zm444 132l-92 92-288-288 92-92q28-28 68-28t68 28l152 152q28 28 28 68t-28 68z"/></svg>
       </es-ribbon-button>
-      <es-ribbon-button name="Filter Plan">
+      <es-ribbon-button label="Filter Plan">
         <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg>
       </es-ribbon-button>
     </es-ribbon-section>
