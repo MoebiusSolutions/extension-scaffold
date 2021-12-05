@@ -4,6 +4,7 @@ import { EsRibbonSection } from './ribbon-section';
 import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
 import { EsRibbonButtonSm } from './ribbon-button-sm';
+import { EsRibbonButtonSplit } from './ribbon-button-split';
 
 export interface Ribbon {
   tab?: string
@@ -30,163 +31,66 @@ export class EsRibbon extends Tonic {
   public ribbon?: Ribbon[]
   private _activeIndex = 1
 
-  stylesheet() {
-    return `
-    .ribbon-head {
-      display: flex;
-      padding-left: 4px;
-      padding-top: 4px;
-      border-bottom: 1px solid;
-    }
-    .ribbon-tab {
-      border: solid;
-      border-width: 1px 1px 0 1px;
-      border-top-right-radius: 3px;
-      border-top-left-radius: 3px;
-      user-select: none;
-      padding-left: 10px;
-      padding-right: 10px;
-      cursor: pointer;
-    }
-    .ribbon-tab.active {
-      margin-bottom: -1px;
-      color: var(--es-theme-text-primary-on-background);
-      border-left: 1px solid var(--es-theme-text-secondary-on-background);
-      border-top: 1px solid var(--es-theme-text-secondary-on-background);
-      border-right: 1px solid var(--es-theme-text-secondary-on-background);
-      position: relative;
-      background-color: var(--es-theme-surface);
-    }
-    .ribbon-tab.active::after {
-      content: "";
-      position: absolute;
-      top: 0px;
-      bottom: 0px;
-      left: 0px;
-      right: 0px;
-      background: rgba(255,255,255,0.03);
-    }
+  stylesheet() { return /*css*/`
 
-    .ribbon-body {
-      display: none;
-      grid-template-areas: 'ribbon';
-    }
-    .ribbon-body.open {
-      display: grid;
-    }
-    .ribbon {
-      grid-area: ribbon;
-      visibility: hidden;
-      display: flex;
-    }
-    .ribbon.active {
-      visibility: visible;
-    }
-    es-ribbon-section {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .ribbon-section {
-      border-right: 1px solid;
-      padding: 8px;
-      display: flex;
-      user-select: none;
-    }
-    .ribbon-section-items {
-      display: flex;
-      justify-content: space-around;
-      flex-grow: 1;
-    }
-    .ribbon-section-label {
-      font-size: 10px;
-      text-align: center;
-    }
+.ribbon-head {
+  display: flex;
+  padding-left: 4px;
+  padding-top: 4px;
+  border-bottom: 1px solid;
+}
+.ribbon-tab {
+  border: solid;
+  border-width: 1px 1px 0 1px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  user-select: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+.ribbon-tab.active {
+  margin-bottom: -1px;
+  color: var(--es-theme-text-primary-on-background);
+  border-left: 1px solid var(--es-theme-text-secondary-on-background);
+  border-top: 1px solid var(--es-theme-text-secondary-on-background);
+  border-right: 1px solid var(--es-theme-text-secondary-on-background);
+  position: relative;
+  background-color: var(--es-theme-surface);
+}
+.ribbon-tab.active::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(255,255,255,0.03);
+}
 
-    es-ribbon-button, 
-    es-ribbon-button-sm {
-      fill: var(--es-theme-text-secondary-on-background);
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      cursor: pointer;
-      border: 1px solid transparent;
-      position: relative; /* dropdown is relative the button */
-    }
-    es-ribbon-button {
-      padding-left: 4px;
-      padding-right: 4px;
-    }
+.ribbon-body {
+  display: none;
+  grid-template-areas: 'ribbon';
+}
+.ribbon-body.open {
+  display: grid;
+}
+.ribbon {
+  grid-area: ribbon;
+  visibility: hidden;
+  display: flex;
+}
+.ribbon.active {
+  visibility: visible;
+}
 
-    es-ribbon-button.disabled,
-    es-ribbon-button-sm.disabled {
-      pointer-events: none;
-      fill: var(--es-theme-text-disabled-on-background);
-      color: var(--es-theme-text-disabled-on-background);
-    }
-    es-ribbon-button:hover,
-    es-ribbon-button.open,
-    es-ribbon-button-sm:hover,
-    es-ribbon-button-sm.open {
-      fill: var(--es-theme-text-primary-on-background);
-      color: var(--es-theme-text-primary-on-background);
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--es-theme-text-secondary-on-background);
-    }
-    es-ribbon-button:hover svg,
-    es-ribbon-button.open svg,
-    es-ribbon-button-sm:hover svg,
-    es-ribbon-button-sm.open svg {
-      fill: var(--es-theme-text-primary-on-background);
-    }
-    es-ribbon-button svg {
-      width: 24px;
-      height: 24px;
-    }
-    es-ribbon-button-sm svg {
-      height: 1em;
-    }
-    es-ribbon-button label {
-      display: block;
-      font-size: 10px;
-    }
+${EsRibbonSection.hoistedStylesheet()}
+${EsRibbonButton.hoistedStylesheet()}
+${EsRibbonButtonSm.hoistedStylesheet()}
+${EsRibbonButtonSplit.hoistedStylesheet()}
+${EsRibbonDropdown.hoistedStylesheet()}
 
-    es-ribbon-dropdown {
-      order: 1;
-      display: flex;
-      align-items: center;
-    }
-    es-ribbon-dropdown svg {
-      fill: var(--es-theme-text-secondary-on-background);
-      margin-top: -8px;
-      margin-bottom: -8px;
-    }
-    .ribbon-dropdown {
-      visibility: hidden;
-      display: block;
-      position: absolute;
-      z-index: 2;
-      top: calc(100% + 1px);
-      left: 0px;
-      width: max-content;
-      background: var(--es-theme-surface);
-      fill: var(--es-theme-text-secondary-on-background);
-      color: var(--es-theme-text-secondary-on-background);
-      box-shadow: 2px 2px 1px -1px rgba(0, 0, 0, 0.2), 2px 1px 1px 0px rgba(0, 0, 0, 0.14), 2px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    }
-    es-ribbon-dropdown.open .ribbon-dropdown {
-      visibility: visible;
-    }
-    .ribbon-dropdown > div {
-      background: rgba(255,255,255,0.06);
-    }
-    .ribbon-dropdown:focus,
-    .ribbon-dropdown:focus-within,
-    .ribbon-dropdown:focus-visible {
-      outline: none;
-    }
-    `
-  }
+  `}
   public set activeIndex(idx: number) {
     this._activeIndex = idx
 
@@ -246,7 +150,7 @@ export class EsRibbon extends Tonic {
       const sections = r.sections?.map(s => this.html`<div class="ribbon-section" id="${s}">...</div>`)
       return this.html`<div id="${this.makeId(idx)}" class="${cls}">${sections}</div>`
     })
-    return this.html`<nav>
+    return this.html/*html*/`<nav>
       <div class="ribbon-head">${tabs}</div>
       <div class="ribbon-body open">${ribbons}</div>
     </nav>`
@@ -268,4 +172,5 @@ Tonic.add(EsRibbon)
 Tonic.add(EsRibbonSection)
 Tonic.add(EsRibbonButton)
 Tonic.add(EsRibbonButtonSm)
+Tonic.add(EsRibbonButtonSplit)
 Tonic.add(EsRibbonDropdown)

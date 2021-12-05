@@ -1,6 +1,45 @@
 import Tonic from '@optoolco/tonic'
 
 export class EsRibbonDropdown extends Tonic {
+  static hoistedStylesheet() { return /*css*/`
+
+es-ribbon-dropdown {
+  order: 1;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+es-ribbon-dropdown svg {
+  fill: var(--es-theme-text-secondary-on-background);
+  margin-top: -8px;
+  margin-bottom: -8px;
+}
+.ribbon-dropdown {
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 1px);
+  left: 0px;
+  width: max-content;
+  background: var(--es-theme-surface);
+  fill: var(--es-theme-text-secondary-on-background);
+  color: var(--es-theme-text-secondary-on-background);
+  box-shadow: 2px 2px 1px -1px rgba(0, 0, 0, 0.2), 2px 1px 1px 0px rgba(0, 0, 0, 0.14), 2px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+es-ribbon-dropdown.open .ribbon-dropdown {
+  visibility: visible;
+}
+.ribbon-dropdown > div {
+  background: rgba(255,255,255,0.06);
+}
+.ribbon-dropdown:focus,
+.ribbon-dropdown:focus-within,
+.ribbon-dropdown:focus-visible {
+  outline: none;
+}
+
+  `}
   connected() {
     const btn: HTMLElement | null = this.parentElement
     if (!btn) {
@@ -44,8 +83,21 @@ export class EsRibbonDropdown extends Tonic {
         hide()
       }
     })
-    btn.addEventListener('click', (e: MouseEvent) => {
-      toggle()
+    btn.addEventListener('click', (e) => {
+      const el: HTMLElement | null = e.target as any
+      if (!el) { return }
+
+      if (!el.closest('es-ribbon-button-split')) {
+        toggle()
+        return
+      }
+
+      if (el.closest('es-ribbon-dropdown') && !el.closest('.ribbon-dropdown')) {
+        toggle()
+        e.stopPropagation()
+      } else {
+        console.log('clicked!')
+      }
     })
     rd.addEventListener('blur', () => {
       if (pointerDown) { return }
@@ -53,7 +105,7 @@ export class EsRibbonDropdown extends Tonic {
     })
   }
   render() {
-    return this.html`
+    return this.html/*html*/`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
         <path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/>
       </svg>

@@ -62,6 +62,7 @@ declare namespace JSX {
     "es-ribbon-section": any;
     "es-ribbon-button": any;
     "es-ribbon-button-sm": any;
+    "es-ribbon-button-split": any;
     "es-ribbon-dropdown": any;
   }
 }
