@@ -14,7 +14,7 @@ export const ThemeSelect: React.FC<{container: HTMLElement}> = ({ container }) =
   }
   return <es-ribbon-section name="Theme">
     <div style={{ display: 'flex', flexDirection: "column"}}>
-      <es-ribbon-button-sm name="Dark">
+      <es-ribbon-button-small name="Dark">
         <SettingsIcon />
         <es-ribbon-dropdown>
           <div style={{ display: 'flex', flexDirection: 'column', paddingRight: '8px' }}>
@@ -22,7 +22,7 @@ export const ThemeSelect: React.FC<{container: HTMLElement}> = ({ container }) =
             <label><input tabIndex={-1} type="radio" name="pick-theme"></input>Light</label>
           </div>
         </es-ribbon-dropdown>
-      </es-ribbon-button-sm>
+      </es-ribbon-button-small>
       <select name="theme" onChange={handleChange} value={theme}>
         <option value="dark">Dark</option>
         <option value="light">Light</option>

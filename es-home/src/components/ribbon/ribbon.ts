@@ -3,7 +3,7 @@ import Tonic from '@optoolco/tonic'
 import { EsRibbonSection } from './ribbon-section';
 import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
-import { EsRibbonButtonSm } from './ribbon-button-sm';
+import { EsRibbonButtonSmall } from './ribbon-button-small';
 import { EsRibbonButtonSplit } from './ribbon-button-split';
 
 export interface Ribbon {
@@ -86,7 +86,7 @@ export class EsRibbon extends Tonic {
 
 ${EsRibbonSection.hoistedStylesheet()}
 ${EsRibbonButton.hoistedStylesheet()}
-${EsRibbonButtonSm.hoistedStylesheet()}
+${EsRibbonButtonSmall.hoistedStylesheet()}
 ${EsRibbonButtonSplit.hoistedStylesheet()}
 ${EsRibbonDropdown.hoistedStylesheet()}
 
@@ -176,6 +176,6 @@ ${EsRibbonDropdown.hoistedStylesheet()}
 Tonic.add(EsRibbon)
 Tonic.add(EsRibbonSection)
 Tonic.add(EsRibbonButton)
-Tonic.add(EsRibbonButtonSm)
+Tonic.add(EsRibbonButtonSmall)
 Tonic.add(EsRibbonButtonSplit)
 Tonic.add(EsRibbonDropdown)
