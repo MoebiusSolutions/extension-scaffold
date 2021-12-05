@@ -1,5 +1,29 @@
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import React from 'react'
+import { activatedAtUrl } from '../ext-react-snowpack'
+
+interface UseCode {
+  cachedCodeString?: string
+  fileName: string
+}
+export function useCode(options: UseCode) {
+  const [codeString, setCodeString] = React.useState(options.cachedCodeString)
+  React.useEffect(() => {
+    async function load() {
+      const url = new URL(`../snippets/${options.fileName}`, activatedAtUrl)
+      const rsp = await fetch(`${url}`)
+      const txt = await rsp.text()
+      options.cachedCodeString = txt
+      setCodeString(txt)
+    }
+    if (!codeString) {
+      load()
+    }
+  }, [])
+  return {
+    codeString: codeString ?? '...'
+  }
+}
 
 export const ShowCode: React.FC<{
   es: ExtensionScaffoldApi
@@ -10,7 +34,7 @@ export const ShowCode: React.FC<{
   }
 
   return <>
-    <style>{`
+    <style>{/*css*/`
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

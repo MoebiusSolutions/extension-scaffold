@@ -1,0 +1,53 @@
+/**
+ * Function to claim several ribbon sections/panels.
+ * 
+ * @param scaffold 
+ */
+export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
+
+// ...
+
+  /**
+   * Split Button handlers
+   * @param e 
+   */
+  function handleClick(e: React.MouseEvent) {
+    e.stopPropagation() // Prevents extra `Split Click` alert
+
+    const target: HTMLElement | null = e.target as any
+    const t = target?.innerText
+    if (t === 'Source Code') {
+      showCode(<RibbonButtonSplitCode/>)
+      const ae: HTMLElement | null = window.document.activeElement as any
+      ae?.blur() // Close dropdown
+    } else {
+      alert(`Child Clicked: ${t}`)
+    }
+  }
+  claimRibbonWith(scaffold, "view.split.button",
+    <div> {/* <- this div "soaks" up the flex space so the button can be small */}
+      <es-ribbon-button-split onClick={() => alert('Split Click')} name="Split Button">
+        <es-ribbon-dropdown>
+          <style>{/*css*/`
+            .demo-item {
+              text-align: left;
+            }
+            .demo-item:hover {
+              background: rgba(255,255,255,0.38);
+            }
+          `}</style>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'stretch'}}>
+            <div className="demo-item" onClick={handleClick}>Item One</div>
+            <div className="demo-item" onClick={handleClick}>Item Two</div>
+            <div className="demo-item" onClick={handleClick}>Item Three</div>
+            <div className="demo-item" onClick={handleClick}>Item Four</div>
+            <div className="demo-item" onClick={handleClick}>Source Code</div>
+          </div>
+        </es-ribbon-dropdown>
+      </es-ribbon-button-split>
+    </div>
+  )
+
+// ...
+
+}

@@ -13,8 +13,9 @@ import { RibbonButtonSplitCode } from './snippets/RibbonButtonSplitCode';
 const PlusSquareO = () => <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
 
 const ID_SNOWPACK_CODE = 'ext.example.snowpack.code'
+
 /**
- * Claim the ribbon panels that belong to this extension
+ * Helper functions to avoid if (div === null) broiler plate.
  */
 function claimRibbonThen(scaffold: ExtensionScaffoldApi, id: string, f: (div: HTMLDivElement) => void) {
   const div = scaffold.chrome.ribbonBar.claimRibbonPanel(id)
@@ -30,6 +31,11 @@ function claimRibbonWith(scaffold: ExtensionScaffoldApi, id: string, node: React
   })
 }
 
+/**
+ * Function to claim several ribbon sections/panels.
+ * 
+ * @param scaffold 
+ */
 export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
   const CodeCheckBox: React.FC<{}> = () => {
     const [open, setOpen] = React.useState(false)
@@ -57,6 +63,10 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
   claimRibbonWith(scaffold, 'display.theme', 
     <ThemeSelect container={ scaffold.gridContainer } />
   )
+
+  //
+  // Chart Settings
+  //
   function toggleLayers() {
     scaffold.chrome.panels.togglePanel('ext.snowpack.left')
   }
@@ -79,6 +89,7 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
       </div>
     </es-ribbon-section>
   )
+
   claimRibbonThen(scaffold, 'help.about', div => {
     div.innerText = "Example"
   })
@@ -109,34 +120,55 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     scaffold.chrome.panels.removePanel(ID_SNOWPACK_CODE)
     window.dispatchEvent(new CustomEvent('example-hide-code'))
   }
-  async function showNewPlan(e: MouseEvent) {
-    showCode(<RibbonButtonCode/>)
-  }
+
+  /**
+   * Split Button handlers
+   * @param e 
+   */
   function handleClick(e: React.MouseEvent) {
-    e.stopPropagation()
-    const el: HTMLElement | null = e.target as any
-    const t = el?.innerText
+    e.stopPropagation() // Prevents extra `Split Click` alert
+
+    const target: HTMLElement | null = e.target as any
+    const t = target?.innerText
     if (t === 'Source Code') {
       showCode(<RibbonButtonSplitCode/>)
+      const ae: HTMLElement | null = window.document.activeElement as any
+      ae?.blur() // Close dropdown
     } else {
-      alert(`Child Clicked: ${el?.innerText}`)
+      alert(`Child Clicked: ${t}`)
     }
   }
   claimRibbonWith(scaffold, "view.split.button",
-    <div>
+    <div> {/* <- this div "soaks" up the flex space so the button can be small */}
       <es-ribbon-button-split onClick={() => alert('Split Click')} name="Split Button">
         <es-ribbon-dropdown>
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'start'}}>
-            <div onClick={handleClick}>Item One</div>
-            <div onClick={handleClick}>Item Two</div>
-            <div onClick={handleClick}>Item Three</div>
-            <div onClick={handleClick}>Item Four</div>
-            <div onClick={handleClick}>Source Code</div>
+          <style>{/*css*/`
+            .demo-item {
+              text-align: left;
+            }
+            .demo-item:hover {
+              background: rgba(255,255,255,0.38);
+            }
+          `}</style>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'stretch'}}>
+            <div className="demo-item" onClick={handleClick}>Item One</div>
+            <div className="demo-item" onClick={handleClick}>Item Two</div>
+            <div className="demo-item" onClick={handleClick}>Item Three</div>
+            <div className="demo-item" onClick={handleClick}>Item Four</div>
+            <div className="demo-item" onClick={handleClick}>Source Code</div>
           </div>
         </es-ribbon-dropdown>
       </es-ribbon-button-split>
     </div>
   )
+
+  /**
+   * Adds a center panel showing the code for this ribbon section
+   * @param e 
+   */
+   async function showNewPlan(e: MouseEvent) {
+    showCode(<RibbonButtonCode/>)
+  }
   claimRibbonWith(scaffold, 'mp.area.plans',
     <es-ribbon-section name="Area Plans">
       <es-ribbon-button name="New Plan" onClick={showNewPlan}>

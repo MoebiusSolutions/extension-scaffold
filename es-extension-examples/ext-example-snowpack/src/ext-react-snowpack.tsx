@@ -117,6 +117,8 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doLeft(scaffold)
 }
 
+export let activatedAtUrl = ''
 export async function activate(scaffold: ExtensionScaffoldApi, url: string) {
+  activatedAtUrl = url
   return await doActivate(scaffold)
 }
