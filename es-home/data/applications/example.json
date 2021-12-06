@@ -57,10 +57,10 @@
         "ext.snowpack.footer"
     ],
     "left": [
-        "ext.snowpack.left",
-        "ext.example.rollup"
+        "ext.snowpack.left"
     ],
     "right": [
+        "ext.example.rollup",
         "ext.example.webpack"
     ],
     "center": [

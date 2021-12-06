@@ -39,7 +39,7 @@ export class BarController {
 
         const styleElement = document.createElement('style')
         styleElement.setAttribute('type', 'text/css')
-        styleElement.textContent = `
+        styleElement.textContent = /*css*/`
         .es-bar {
             background: rgba(255, 255, 255, 0.05);
         }
@@ -96,6 +96,14 @@ export class BarController {
                 }
             }
             btn.title = panelOptions.title ?? ''
+
+            const orderEvent = {
+                options: panelOptions,
+                order: ''
+            }
+            extensionScaffold.events.emit('order-panel-button', orderEvent)
+            btn.style.order = orderEvent.order
+
             if (panelOptions.icon) {
                 btn.appendChild(panelOptions.icon)
             } else {

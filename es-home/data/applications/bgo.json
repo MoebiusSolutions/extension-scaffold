@@ -2,26 +2,29 @@
     "name": "bgo",
     "title": "Blue/Green Optimizer",
     "ribbon": [
-        { "tab": "View" },
+        { "tab": "View", "sections": [
+            "display.theme"
+        ]},
         { "tab": "Chart Settings" },
-        { "tab": "Tracks" },
-        { "tab": "Tactical" },
-        { "tab": "TDA" },
-        { "tab": "Text2Tactical" },
-        { "tab": "Mission Planning", "sections": [
+        { "tab": "Optimization", "sections": [
             "mp.area.plans",
             "mp.general.area",
             "mp.assets",
             "mp.asw.search.planning",
             "mp.review",
             "mp.messages"
-        ] },
-        { "tab": "Help" }
+        ]},
+        { "tab": "Developer", "sections": [
+            "debug.console",
+            "debug.metrics"
+        ]}
+    ],
+    
+    "header": [
+        "es.common.classification.banner.header"
     ],
     "left": [
         "plan.summary.experimental"
-    ],
-    "bottom-bar": [ 
     ],
     "extensions": [
     ],
@@ -45,32 +48,11 @@
 
         {
             "id": "atf.weapon",
-            "title": "ATF Weapons",
+            "title": "Blue Green Optimizer",
             "location": "bottom",
             "iframeSource": "/bgo/WeaponSystem",
             "resizeHandle": "true"
             
-        },
-        {
-            "id": "atf.target",
-            "title": "ATF Targets",
-            "location": "bottom",
-            "iframeSource": "/bgo/Target",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.recommendations",
-            "title": "ATF Recommendations",
-            "location": "bottom",
-            "iframeSource": "/bgo/Output",
-            "resizeHandle": "true"
-        },
-        {
-            "id": "atf.jmems",
-            "title": "ATF JMEMs Data",
-            "location": "bottom",
-            "iframeSource": "/bgo/WeaponTargetProbability",
-            "resizeHandle": "true"
         }
     ]
 }

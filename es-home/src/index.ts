@@ -1,4 +1,4 @@
-import { extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import { AddPanelOptions, extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
@@ -22,6 +22,11 @@ import './index.css'
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
 if (import.meta.hot) {
   import.meta.hot.accept();
+}
+
+interface Placement {
+  location: Location
+  order: string
 }
 
 interface IFramePanel {
@@ -74,6 +79,48 @@ function enabledExtensions(urls?: string[]): string[] {
   const blockedSet = getBlockedUrls()
   return urls.filter(url => !blockedSet.has(url))
 }
+function makeIdToPlacement(config: any): Map<string, Placement> {
+  const searchKeys: Location[] = [
+    'header',
+    'footer',
+    'left',
+    'right',
+    'center',
+    "top-bar",
+    'bottom-bar'
+  ]
+  const result = new Map<string, Placement>()
+  searchKeys.forEach(key => {
+    if (!(config[key] instanceof Array)) {
+      return
+    }
+    const panels: string[] = config[key]
+    if (!(panels instanceof Array)) {
+      return
+    }
+    panels.forEach((pid, idx) => {
+      result.set(pid, { location: key, order: `${idx}`})
+    })
+  })
+  return result
+}
+function updateLocation(options: AddPanelOptions, id2placement: Map<string, Placement>): AddPanelOptions | undefined {
+  const placement: Placement | undefined = id2placement.get(options.id)
+  if (!placement) {
+    return undefined
+  }
+  return {
+    ...options,
+    location: placement.location
+  }
+}
+function order(options: AddPanelOptions, is2placement: Map<string, Placement>): string {
+  const placement: Placement | undefined = is2placement.get(options.id)
+  if (!placement) {
+    return '100'
+  }
+  return placement.order
+}
 
 export async function applyConfiguration(config: any, app: string) {
   if (config.title) {
@@ -93,9 +140,16 @@ export async function applyConfiguration(config: any, app: string) {
       console.log(sender, message, topic)
     })
 
+    const id2placement = makeIdToPlacement(config)
     extensionScaffold.boot(document.getElementById('demo-grid-container'));
     extensionScaffold.events.on('add-iframe', addKeydownForIFrame);
-
+    extensionScaffold.events.on('before-add-panel', (event: any) => {
+      event.response = updateLocation(event.options, id2placement)
+    });
+    extensionScaffold.events.on('order-panel-button', (event: any) => {
+      event.order = order(event.options, id2placement)
+    });
+    
     const ribbon = await EsRibbon.addPanel(extensionScaffold, config.ribbon)
     extensionScaffold.provideRibbonBar(ribbon)
     
