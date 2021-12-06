@@ -22,6 +22,7 @@ services:
       - "127.0.0.1:8080:8080"
     environment:
       - DO_INSTALL
+      - URLPATH=/ui
     command: "npm run container"
 
   es-runtime:
@@ -36,6 +37,19 @@ services:
       - "127.0.0.1:8081:8081"
     environment:
       - DO_INSTALL
+    command: "npm run container"
+
+  es-common-extensions:
+    image: "node:14"
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-common-extensions"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    environment:
+      - DO_INSTALL
+      - URLPATH=/ui/common
     command: "npm run container"
 
   ext-example-rollup:
