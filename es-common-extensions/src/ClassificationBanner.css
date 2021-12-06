@@ -1,0 +1,12 @@
+#es.common.classification.banner {
+    background-color: lightblue;
+}
+
+.classification-banner {
+    background: darkgreen;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
