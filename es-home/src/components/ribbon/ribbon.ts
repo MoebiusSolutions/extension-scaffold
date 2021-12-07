@@ -17,7 +17,14 @@ class RibbonBarImpl implements RibbonBar {
   constructor(ribbon: EsRibbon) {
     this.ribbon = ribbon
   }
-  claimRibbonTab(title: string) {return null}
+  claimRibbonTab(title: string) {
+    try {
+      return this.ribbon.claimRibbonTab(title)
+    } catch (e) {
+      console.error('Error', e)
+      return null
+    }
+  }
   claimRibbonPanel(id: string) {
     try {
       return this.ribbon.claimRibbonPanel(id)
@@ -30,7 +37,6 @@ class RibbonBarImpl implements RibbonBar {
 
 export class EsRibbon extends Tonic {
   public ribbon?: Ribbon[]
-  private _activeIndex = 1
 
   stylesheet() { return /*css*/`
 
@@ -49,9 +55,15 @@ export class EsRibbon extends Tonic {
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
+  margin-top: auto;
+}
+#ribbon-right-of-tabs {
+  flex-grow: 1;
+  display: flex;
 }
 .ribbon-tab.active {
   margin-bottom: -1px;
+  padding-bottom: 1px;
   color: var(--es-theme-text-primary-on-background);
   border-left: 1px solid var(--es-theme-text-secondary-on-background);
   border-top: 1px solid var(--es-theme-text-secondary-on-background);
@@ -93,20 +105,17 @@ ${EsRibbonDropdown.hoistedStylesheet()}
 ${EsRibbonDropdownItem.hoistedStylesheet()}
 
   `}
-  public set activeIndex(idx: number) {
-    this._activeIndex = idx
 
-    this.querySelectorAll('.ribbon-tab').forEach(e => e.classList.remove('active'))
-    this.querySelector(`.ribbon-tab[data-idx="${idx}"]`)?.classList.add('active')
-
-    this.querySelectorAll('.ribbon').forEach(e => e.classList.remove('active'))
-    this.querySelector(`#${this.makeId(idx)}`)?.classList.add('active')
+  claimRibbonTab(title: string) { 
+    let tabDiv: HTMLDivElement | null = null
+    this.querySelectorAll('.ribbon-tab').forEach(d => {
+      const div = d as HTMLDivElement
+      if (div.innerText === title) {
+        tabDiv = div
+      }
+    })
+    return tabDiv
   }
-  public get activeIndex() {
-    return this._activeIndex
-  }
-
-  claimRibbonTab(title: string) { return null }
 
   claimRibbonPanel(id: string): HTMLDivElement | null {
     const matches = this.querySelectorAll(`#${id.replace(/\./g, '\\.')}`)
@@ -115,7 +124,16 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     } else if (matches.length < 1) {
       console.error('Element not found', id)
     } else {
-      return matches.item(0) as HTMLDivElement
+      const sectionDiv = matches.item(0) as HTMLDivElement
+      try {
+        if (sectionDiv.innerText !== '...') {
+          throw new Error(`Claiming an already claimed ribbon panel: ${id}`)
+        }
+      } catch (e) {
+        // Logs stack to issue
+        console.warn(e)
+      }
+      return sectionDiv
     }
     return null
   }
@@ -123,42 +141,51 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     return `es-ribbon-${idx}`
   }
   connected() {
-    this.activeIndex = 0
     const el: HTMLElement | null = document.querySelector('.grid-panel.top-bar')
     if (el) {
       // Otherwise the dropdown menus cause a scrollbar
       el.style.overflow = 'visible'
     }
   }
+  clearActive() {
+    this.querySelectorAll('.ribbon-tab').forEach(el => el.classList.remove('active'))
+    this.querySelectorAll('.ribbon').forEach(el => el.classList.remove('active'))
+  }
   onclick = (e: MouseEvent) => {
     const div = e.target as HTMLDivElement
-    if (div?.dataset['idx'] && div.classList.contains('ribbon-tab')) {
-      const rb = this.querySelector('.ribbon-body')
+    const rb = this.querySelector('.ribbon-body')
+    const tab = div.closest('.ribbon-tab') as HTMLDivElement
+    const idx = Number(tab?.dataset['idx'])
 
-      const nextIndex = Number(div?.dataset['idx'])
-      if (nextIndex === this.activeIndex) {
-        rb?.classList.remove('open')
-        this.activeIndex = -1
-        return
-      }
-      rb?.classList.add('open')
-      this.activeIndex = Number(div?.dataset['idx'])
+    if (!tab) { return }
+    if (tab.classList.contains('active')) {
+      rb?.classList.remove('open')
+      this.clearActive()
+      return
     }
+    rb?.classList.add('open')
+    this.clearActive()
+    tab.classList.add('active')
+    this.querySelector(`#${this.makeId(idx)}`)?.classList.add('active')
   }
   render() {
     if (!this.ribbon) { return }
 
     const tabs = this.ribbon.map((r: Ribbon, idx) => {
-      const cls = this.activeIndex === idx ? `ribbon-tab active` : `ribbon-tab`
+      const cls = idx === 0 ? `ribbon-tab active` : `ribbon-tab`
         return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
     })
     const ribbons = this.ribbon.map((r: Ribbon, idx: number) => {
-      const cls = this.activeIndex === idx ? `ribbon active` : `ribbon`
+      const cls = idx === 0 ? `ribbon active` : `ribbon`
       const sections = r.sections?.map(s => this.html`<div class="ribbon-section" id="${s}">...</div>`)
       return this.html`<div id="${this.makeId(idx)}" class="${cls}">${sections}</div>`
     })
     return this.html/*html*/`<nav>
-      <div class="ribbon-head">${tabs}</div>
+      <div class="ribbon-head">
+        <div id="ribbon-left-of-tabs"></div>
+        ${tabs}
+        <div id="ribbon-right-of-tabs"></div>
+      </div>
       <div class="ribbon-body open">${ribbons}</div>
     </nav>`
   }
