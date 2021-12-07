@@ -126,8 +126,10 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     } else {
       const sectionDiv = matches.item(0) as HTMLDivElement
       try {
-        if (sectionDiv.innerText !== '...') {
+        if (!sectionDiv.classList.contains('loading')) {
           throw new Error(`Claiming an already claimed ribbon panel: ${id}`)
+        } else {
+          sectionDiv.classList.remove('loading')
         }
       } catch (e) {
         // Logs stack to issue
@@ -177,14 +179,14 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     })
     const ribbons = this.ribbon.map((r: Ribbon, idx: number) => {
       const cls = idx === 0 ? `ribbon active` : `ribbon`
-      const sections = r.sections?.map(s => this.html`<div class="ribbon-section" id="${s}">...</div>`)
+      const sections = r.sections?.map(s => this.html`<div class="ribbon-section loading" id="${s}">...</div>`)
       return this.html`<div id="${this.makeId(idx)}" class="${cls}">${sections}</div>`
     })
     return this.html/*html*/`<nav>
       <div class="ribbon-head">
-        <div id="ribbon-left-of-tabs"></div>
+        <div id="ribbon-left-of-tabs" class="loading"></div>
         ${tabs}
-        <div id="ribbon-right-of-tabs"></div>
+        <div id="ribbon-right-of-tabs" class="loading"></div>
       </div>
       <div class="ribbon-body open">${ribbons}</div>
     </nav>`

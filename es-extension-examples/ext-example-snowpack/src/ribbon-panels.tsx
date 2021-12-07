@@ -278,9 +278,6 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
       </es-ribbon-button>
     </es-ribbon-section>
   )
-  claimRibbonWith(scaffold, 'ribbon-left-of-tabs', <div>
-    Left of tabs
-  </div>)
   claimRibbonWith(scaffold, 'ribbon-left-of-tabs', 
   <div style={{ paddingRight: '8px' }}>
     <div>Plan: Untitled</div>
