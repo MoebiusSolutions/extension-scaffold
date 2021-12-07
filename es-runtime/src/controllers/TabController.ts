@@ -26,11 +26,6 @@ export class TabController {
             return
         }
 
-        const emptyGrow = document.createElement('div')
-        emptyGrow.style.flexGrow = '1'
-        emptyGrow.style.order = '1000'
-        tabBar.appendChild(emptyGrow)
-
         const expandBtn = document.createElement('button')
         this.syncExpandButton(grid, expandBtn)
         expandBtn.onclick = () => {
@@ -64,13 +59,13 @@ export class TabController {
             expandBtn.title = 'Expand Panel'
         }
         expandBtn.className = 'es-tab-bar-button'
+        expandBtn.style.float = 'right'
 
         if (grid.classList.contains('hidden')) {
             expandBtn.style.display = 'none'
         } else {
             expandBtn.style.display = ''
         }
-        expandBtn.style.order = '1000'
     }
 
     updatePanel(panelOptions: AddPanelOptions[]) {
@@ -95,14 +90,6 @@ export class TabController {
                 }
             }
             btn.title = panelOptions.title ?? ''
-
-            const orderEvent = {
-                options: panelOptions,
-                order: ''
-            }
-            extensionScaffold.events.emit('order-panel-button', orderEvent)
-            btn.style.order = orderEvent.order
-
             if (panelOptions.icon) {
                 btn.appendChild(panelOptions.icon)
             } else if (panelOptions.title) {

@@ -303,8 +303,6 @@ code {
   left: 0px;
   right: 0px;
   background: rgba(255, 255, 255, 0.05);
-
-  display: flex;
 }
 .es-tab-bar-button {
   background: transparent;

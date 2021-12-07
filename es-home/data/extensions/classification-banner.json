@@ -1,9 +1,0 @@
-{
-    "url": "/ui/common/dist/classification-banner.js",
-    "provides": [
-        {
-            "title": "Metrics",
-            "id": "es.common.classification.banner.header"
-        }
-    ]
-}
