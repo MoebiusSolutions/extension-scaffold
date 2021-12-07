@@ -42,6 +42,12 @@ function defaultResizeHandle(options: AddPanelOptions) {
     return options.resizeHandle
 }
 
+interface BeforeAddPanelEvent {
+    options: AddPanelOptions
+    response: AddPanelOptions | null | undefined
+}
+
+
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
     private readonly locationStack = new LocationStack()
@@ -62,6 +68,19 @@ export class PanelsImpl implements Panels {
         const gridContainer = this.gridContainer
         if (!gridContainer) {
             throw new Error('Missing call to boot')
+        }
+        const event: BeforeAddPanelEvent = {
+            options,
+            response: undefined
+        }
+        extensionScaffold.events.emit('before-add-panel', event)
+        if (event.response === null) {
+            // handler does not want to add this panel
+            const fakeDiv = document.createElement('div')
+            return Promise.resolve(fakeDiv)
+        }
+        if (event.response) {
+            options = event.response
         }
         hidePanelsWithLocation(options.location)
 
@@ -419,7 +438,6 @@ export class PanelsImpl implements Panels {
 
         return {
             shadowDiv, extPanel
-
         }
     }
 }
