@@ -33,13 +33,22 @@ function getDivSize(div: HTMLElement | null): OrigSize {
     return origSize
 }
 
-// Some panels have a resize handle by default
 function defaultResizeHandle(options: AddPanelOptions) {
-    if (options.resizeHandle === undefined) {
+    return defaultSomeOptions(options.location, options.resizeHandle)
+}
+function defaultPopOutButton(options: AddPanelOptions) {
+    return defaultSomeOptions(options.location, options.popOutButton)
+}
+function defaultShowHide(options: AddPanelOptions) {
+    return defaultSomeOptions(options.location, options.hideButton)
+}
+// Some panels have a resize handle, pop out by default
+function defaultSomeOptions(location: Location, setting?: boolean) {
+    if (setting === undefined) {
         const defaultTrue = [ 'left', 'right', 'top', 'bottom']
-        return defaultTrue.findIndex(s => s === options.location) >= 0
+        return defaultTrue.findIndex(s => s === location) >= 0
     }
-    return options.resizeHandle
+    return setting
 }
 
 interface BeforeAddPanelEvent {
@@ -368,6 +377,9 @@ export class PanelsImpl implements Panels {
 
     private getOrCreateOuterPanel(gridContainer: HTMLElement, options: AddPanelOptions): HTMLDivElement {
         const resizeHandle = defaultResizeHandle(options)
+        const popOutButton = defaultPopOutButton(options)
+        const hideButton = defaultShowHide(options)
+
         let r = gridContainer.querySelector(`.${options.location}`)
         if (r) {
             if (resizeHandle && r.querySelectorAll('.drag').length === 0) {
@@ -380,6 +392,13 @@ export class PanelsImpl implements Panels {
         if (resizeHandle) {
             r.appendChild(this.makeResizeHandle(options))
         }
+        if (popOutButton || hideButton) {
+            r.appendChild(this.makePanelHeaderBar({
+                ...options,
+                popOutButton,
+                hideButton,
+            }))
+        }
         gridContainer.appendChild(r)
 
         return r as HTMLDivElement
@@ -391,6 +410,62 @@ export class PanelsImpl implements Panels {
         dragDiv.onpointerdown = e => beginResize(dragDiv, e, getApplyFunction(options.location))
         dragDiv.onpointerup = e => endResize(dragDiv, e)
         return dragDiv
+    }
+    private makePanelHeaderBar(options: AddPanelOptions) {
+        const openInNew = `
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+        </svg>`
+        const closeIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>`
+        const panelHeaderBar = document.createElement('div')
+        panelHeaderBar.className = `panel-header-bar ${options.location}`
+        panelHeaderBar.style.background = 'transparent'
+
+        if (options.popOutButton) {
+            const popOutBtn = document.createElement('div')
+            popOutBtn.onclick = e => this.popOutLocation(e)
+            popOutBtn.innerHTML = openInNew
+            panelHeaderBar.appendChild(popOutBtn)
+        }
+        if (options.hideButton) {
+            const popOutBtn = document.createElement('div')
+            popOutBtn.onclick = e => this.hideLocation(e)
+            popOutBtn.innerHTML = closeIcon
+            panelHeaderBar.appendChild(popOutBtn)
+        }
+        return panelHeaderBar
+    }
+    private findActiveIdFromEvent(e: MouseEvent) {
+        const div = e.target as HTMLDivElement
+        const active = div.closest('.grid-panel')?.querySelectorAll('.shadow-div.active')
+        if (!active || !active.length) {
+            console.warn('Issue finding active panel to popOut', e)
+            return
+        }
+        if (active.length != 1) {
+            console.warn('Too many active panels to popOut', e)
+            return
+        }
+        if (!active.item(0).id) {
+            console.warn('Active panel is missing id attribute', e)
+            return
+        }
+        return active.item(0).id
+    }
+    private popOutLocation(e: MouseEvent) {
+        const panelId = this.findActiveIdFromEvent(e)
+        if (!panelId) { return }
+        extensionScaffold.chrome.panels.popOutPanel(panelId)
+    }
+    private hideLocation(e: MouseEvent) {
+        const panelId = this.findActiveIdFromEvent(e)
+        if (!panelId) { return }
+        extensionScaffold.chrome.panels.hidePanel(panelId)
     }
 
     private removeResizeHandle(location: Location) {

@@ -38,6 +38,8 @@ export interface AddPanelOptions {
     icon?: HTMLElement
     title?: string
     resizeHandle?: boolean
+    popOutButton?: boolean
+    hideButton?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
     iframeSource?: string // injects an iframe if set
 }

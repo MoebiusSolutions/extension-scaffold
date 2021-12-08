@@ -106,6 +106,39 @@ code {
   cursor: ns-resize
 }
 
+.hidden .panel-header-bar {
+  display: none;
+}
+.panel-header-bar {
+  position: absolute;
+  z-index: 1;
+  color: transparent;
+  fill: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.panel-header-bar:hover {
+  color: var(--es-theme-text-secondary-on-background);
+  fill: var(--es-theme-text-secondary-on-background);
+}
+.panel-header-bar div {
+  cursor: pointer;
+  user-select: none;
+  width: 16px;
+  height: 16px;
+}
+.panel-header-bar div:hover,
+.panel-header-bar svg:hover {
+  color: var(--es-theme-text-primary-on-background);
+  fill: var(--es-theme-text-primary-on-background);
+}
+
+.panel-header-bar svg {
+  width: 16px;
+  height: 16px;
+}
+
 .portal {
   grid-column: 3 / 4;
   grid-row: 4 / 6;
@@ -154,9 +187,6 @@ code {
 .center {
   grid-area: center;
 }
-/* .center .shadow-div {
-  margin: 2px;
-} */
 
 .left-bar {
   grid-area: left-bar;
@@ -165,7 +195,6 @@ code {
 .left-bar .shadow-div {
   margin-right: 2px;
   margin-top: 2px;
-  margin-bottom: 2px;
 }
 
 .right-bar {
@@ -175,7 +204,6 @@ code {
 .right-bar .shadow-div {
   margin-left: 2px;
   margin-top: 2px;
-  margin-bottom: 2px;
 }
 
 .above-left {
@@ -249,7 +277,7 @@ code {
 }
 
 .shadow-div.active { 
-  display: block; 
+  display: block;
 }
 
 .grid-panel.right.hidden {
