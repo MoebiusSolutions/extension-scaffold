@@ -27,12 +27,11 @@ for e in ${EXAMPLES}; do
   echo $f
 done
 
-PAGES="es-application-examples/es-demo/ es-home"
+PAGES="es-application-examples/es-demo/ es-home/ es-common-extensions/"
 for e in ${PAGES}; do
   PAGE_DIR="${BASE}/${e}"
   echo "${PAGE_DIR}"
     if [[ -f ${PAGE_DIR}/package.json ]]; then
-        cd "${PAGE_DIR}"
-        npm install @gots/es-runtime@latest
+        (cd "${PAGE_DIR}"; npm install @gots/es-runtime@latest)
     fi
 done
