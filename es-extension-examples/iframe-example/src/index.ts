@@ -13,3 +13,5 @@ function handleLoad() {
 }
 // window.addEventListener('load', handleLoad)
 window.addEventListener('message', console.log)
+
+console.log('IFrame example loaded')
