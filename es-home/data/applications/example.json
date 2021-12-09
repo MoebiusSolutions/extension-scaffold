@@ -77,7 +77,7 @@
     "iframes": [
         {
             "id": "es.example.iframe",
-            "title": "Iframe",
+            "title": "IFrame",
             "location": "right",
             "iframeSource": "http://localhost:9095/",
             "resizeHandle": true
