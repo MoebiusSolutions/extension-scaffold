@@ -1,5 +1,45 @@
 ## Change Log
 
+# [2.1.0] - 2021-12-09
+
+### Added
+
+* Description of how `es-home` works.
+* A hover panel header has been added. 
+  The areas `left`, `right`, `top`, and `bottom` get a "pop out button" and a "hide button" by default.
+  > Note: that future releases plan to make this per extension instead of shared by all panels in the area.
+* If an extension tries to call `claimRibbonPanel` with a section ID that has
+  already been claimed, we give a `console.warn` message.
+* JSON configuration for `iframe` now supports a `hidden` option.
+  By hiding the `iframe` ES can emulate OWF background widgets.
+  > Note: the hidden iframe ignores the location option and attaches the `iframe`
+  > under the `root` `div`. Therefore, you cannot later switch the `iframe` to visible.
+* A beta implementation of pseudo ribbon section IDs named: `ribbon-left-of-tabs` and `ribbon-left-of-tabs`.
+  > Note: this will be changed in the next release!
+  > In the next release we plan to have pseudo tabs with `"area": "tab-left"` or `"area": "tab-right"`.
+  > Those areas will be like tabs in that they will have section IDs that can be "claimed",
+  > but they will not be decorated as tabs.
+
+### Changed
+
+* Extracted common extensions into their own folder so that they can be separately hosted
+  and used across any applications that want them.
+  * `console-extension.json` provides `debug.console`
+  * `debug-metrics.json` provides `debug.metrics`
+  * `classification-banner.json` provides `es.common.classification.banner.header`
+    > Note: This is still coded to unclassified.
+* Finally, the panel placement engine will use the location from the application JSON
+  instead of the `addPanel options.location`.
+* Also, the JSON order defines the button order in the left/right/bottom bars.
+  Panels added with IDs not in the JSON definition are placed after the ordered panels, 
+  in the order they are registered.
+  > Note: Still need a configuration to define which panel is "active" at startup
+* Local `compose` development URLs updated to match production so that the
+  configurations for the URLs can be used in production.
+* In webpack example use `baseUrl` to find self to load webpack script.
+* In IFrame example log when loaded.
+* Fixed css binding so that we can style head-bar via classes.
+
 # [2.0.0] - 2021-12-05
 
 ### Added
@@ -29,7 +69,7 @@
 
 ### Removed
 
-* Breaking change - renamed `name` to `label`. 
+* Breaking change - renamed `name` to `label` in all of the <es-ribbon-*> components. 
   For example: <es-ribbon-section name="Area Plans">
   becomes <es-ribbon-section label="Area Plans">
 
