@@ -433,7 +433,6 @@ export class PanelsImpl implements Panels {
         </svg>`
         const panelHeaderBar = document.createElement('div')
         panelHeaderBar.className = `panel-header-bar ${options.location}`
-        panelHeaderBar.style.background = 'transparent'
 
         if (options.popOutButton) {
             const popOutBtn = document.createElement('div')

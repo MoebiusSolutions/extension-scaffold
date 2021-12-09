@@ -111,6 +111,9 @@ code {
 }
 .panel-header-bar {
   position: absolute;
+  left: 0px;
+  right: 0px;
+  padding-right: 16px;
   z-index: 1;
   color: transparent;
   fill: transparent;
@@ -139,122 +142,122 @@ code {
   height: 16px;
 }
 
-.portal {
+.grid-panel.portal {
   grid-column: 3 / 4;
   grid-row: 4 / 6;
   z-index: 3; /* portal */
   pointer-events: none;
 }
-.portal-wide {
+.grid-panel.portal-wide {
   grid-column: 1 / 6;
   grid-row: 4 / 6;
   z-index: 3; /* portal */
   pointer-events: none;
 }
 
-.header {
+.grid-panel.header {
   grid-area: header;
   color: white;
   background-color: green;
 }
 
-.footer {
+.grid-panel.footer {
   grid-area: footer;
   color: white;
   background-color: green;
 }
 
-.left {
+.grid-panel.left {
   grid-area: left;
   background:rgb(255, 255, 255, 0.03);
   width: var(--size, initial);
 }
-.left .shadow-div {
+.grid-panel.left .shadow-div {
   margin-right: 2px;
   margin-top: 2px;
 }
 
-.right {
+.grid-panel.right {
   grid-area: right;
   background:rgb(255, 255, 255, 0.03);
   width: var(--size, initial);
 }
-.right .shadow-div {
+.grid-panel.right .shadow-div {
   margin-left: 2px;
   margin-top: 2px;
 }
 
-.center {
+.grid-panel.center {
   grid-area: center;
 }
 
-.left-bar {
+.grid-panel.left-bar {
   grid-area: left-bar;
   margin-right: 2px;
 }
-.left-bar .shadow-div {
+.grid-panel.left-bar .shadow-div {
   margin-right: 2px;
   margin-top: 2px;
 }
 
-.right-bar {
+.grid-panel.right-bar {
   grid-area: right-bar;
   margin-left: 2px;
 }
-.right-bar .shadow-div {
+.grid-panel.right-bar .shadow-div {
   margin-left: 2px;
   margin-top: 2px;
 }
 
-.above-left {
+.grid-panel.above-left {
   grid-area: above-left;
 }
-.above-left .shadow-div {
+.grid-panel.above-left .shadow-div {
   margin-top: 2px;
   margin-right: 2px;
 }
 
-.above-right {
+.grid-panel.above-right {
   grid-area: above-right;
 }
-.above-right .shadow-div {
+.grid-panel.above-right .shadow-div {
   margin-top: 2px;
   margin-left: 2px;
 }
 
-.top-bar {
+.grid-panel.top-bar {
   grid-area: top-bar;
   background: rgba(255, 255, 255, 0.03);
 }
-.top-bar .shadow-div {
+.grid-panel.top-bar .shadow-div {
   margin-bottom: 1px;
 }
 
-.top {
+.grid-panel.top {
   grid-area: top;
   height: var(--size, initial);
 }
-.top .shadow-div {
+.grid-panel.top .shadow-div {
   margin-bottom: 2px;
   margin-left: 2px;
   margin-right: 2px;
 }
 
-.bottom-bar {
+.grid-panel.bottom-bar {
   grid-area: bottom-bar;
   padding-top: 28px;
   height: var(--size, initial);
 }
-.bottom-bar .shadow-div {
+.grid-panel.bottom-bar .shadow-div {
   margin-top: 12px;
 }
 
-.bottom {
+.grid-panel.bottom {
   grid-area: bottom;
   padding-top: 28px;
   height: var(--size, initial);
 }
-.bottom .shadow-div {
+.grid-panel.bottom .shadow-div {
   margin-top: 12px;
 }
 
