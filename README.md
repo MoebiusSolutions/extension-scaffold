@@ -27,6 +27,29 @@ Below is a screenshot of a "hosting" page and several extensions loaded:
 
 ## Getting Started
 
+While the original design for `ES` was to deliver it as a NPM module and allow multiple "hosting" pages,
+based on ONR feedback, we pivoted the design and created a common `es-home` "hosting page".
+`es-home` is a data-driven hosting page.
+However, it currently avoids the requirement to have a server side component, 
+such as `JBoss` or `nodejs`, by using simple JSON files that can be served from any
+static web server such as Apache `httpd`.
+Currently the deployment plan is to deploy `es-home` under the `/ui/` URL.
+At startup `es-home` loads `./apps/index.json` (which resolves to `/ui/apps/index.json`).
+For integration purposes this file is volume mounted from `/opt/bgo/apps/`.
+When the user clicks a button for an application, the `name` "slug" in the `index.json`
+is appended to the URL as a fragment location (`#` hash).
+For example, if the user clicks on BGO, then `es-home` navigates to `/ui/#bgo`.
+This URL can be bookmarked for direct traversal.
+At this URL, `es-home` fetches the `./apps/bgo.json` file which defines
+the ribbon, panel, and iframe URLs to pull into `ES`.
+To make these files easier to build, there is a set of files in source code
+under `data/applications`, and `data/extensions`.
+During `npm run build` these files are cross referenced to convert IDs
+into the list of `extensions` that are defined to provide those IDs.
+Also, `index.json` is generated.
+
+## Alternate Use Case for `ES`
+
 `ES` is delivered as a NPM module.
 Create a "hosting" single page application (SPA), and bundle `@gots/es-runtime`, with your SPA.
 When creating a new "hosting" SPA, follow the instructions for the bundler you want to use to setup
@@ -64,6 +87,8 @@ async function loadExtensions() {
 
 loadExtensions()
 ```
+
+## Extensions
 
 Each extension should be a JavaScript module which exports a single function named `activate`.
 When using typescript, `activate` should be declared using the syntax:
