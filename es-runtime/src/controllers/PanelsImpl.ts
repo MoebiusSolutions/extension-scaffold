@@ -78,6 +78,15 @@ export class PanelsImpl implements Panels {
         if (!gridContainer) {
             throw new Error('Missing call to boot')
         }
+
+        if (options.iframeSource && options.hidden) {
+            const iframe = document.createElement('iframe')
+            iframe.src = options.iframeSource
+            iframe.style.display = 'none'
+            gridContainer.appendChild(iframe)
+            return Promise.resolve(gridContainer as HTMLDivElement)
+        }    
+
         const event: BeforeAddPanelEvent = {
             options,
             response: undefined
@@ -110,7 +119,7 @@ export class PanelsImpl implements Panels {
             iframe.style.height = '100%'
             iframe.style.border = 'none'
             extPanel.appendChild(iframe) // iframe gets contentWindow during this call
-            
+
             extensionScaffold.events.emit('add-iframe', iframe)
         } if (options.location !== 'portal') {
             extPanel.style.width = '100%'

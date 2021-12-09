@@ -42,6 +42,7 @@ export interface AddPanelOptions {
     hideButton?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
     iframeSource?: string // injects an iframe if set
+    hidden?: boolean // connects the iframe, but does not show it in the UI - useful for background iframes
 }
 
 export interface LoadWebpackScriptOptions {
