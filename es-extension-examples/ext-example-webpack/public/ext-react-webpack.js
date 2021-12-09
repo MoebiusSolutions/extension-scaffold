@@ -4,9 +4,10 @@
  * under `src` get bundled by `webpack`.
  */
 
-export async function activate(scaffold) {
+export async function activate(scaffold, baseUrl) {
+    const url = new URL('../static/js/bundle.js', baseUrl)
     await scaffold.loadWebpackScript({
-        url: 'http://localhost:9093/static/js/bundle.js',
+        url,
         library: 'ext-example-webpack',
     })
 }
