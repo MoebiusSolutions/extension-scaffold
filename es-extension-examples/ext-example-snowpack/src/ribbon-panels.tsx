@@ -121,15 +121,6 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     </es-ribbon-section>
   )
 
-  claimRibbonThen(scaffold, 'help.about', div => {
-    div.innerText = "Example"
-  })
-  claimRibbonWith(scaffold, 'help.version',
-    <es-ribbon-section label="About">
-      <div>Version x.y.z</div>
-    </es-ribbon-section>
-  )
-
   async function showCode(node: React.ReactNode) {
     if (scaffold.chrome.panels.panelIds('center')?.find(p => p.id === ID_SNOWPACK_CODE)) {
       hideCode()

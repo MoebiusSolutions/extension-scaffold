@@ -10,7 +10,7 @@
     "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
     "container": "npm run maybe-install && npm run resolve-applications && snowpack dev",
     "resolve-applications": "node ./scripts/resolve-applications.js",
-    "git-describe": "node scripts/git-describe.js > build/version.json"
+    "git-describe": "node scripts/git-describe.js > public/version.json"
   },
   "dependencies": {
     "@gots/es-runtime": "^2.1.0",

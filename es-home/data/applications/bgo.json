@@ -17,7 +17,11 @@
         { "tab": "Developer", "sections": [
             "debug.console",
             "debug.metrics"
+        ]},
+        { "tab": "Help", "sections": [
+            "help.about.es-home"
         ]}
+
     ],
     
     "header": [

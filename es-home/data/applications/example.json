@@ -43,10 +43,9 @@
         {
             "tab": "Help",
             "sections": [
-                "help.about",
                 "debug.console",
                 "debug.metrics",
-                "help.version"
+                "help.about.es-home"
             ]
         }
     ],

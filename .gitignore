@@ -3,3 +3,4 @@ build/
 es-runtime/gots-es-runtime-*.tgz
 es-home/public/apps/
 es-runtime/target/npmlist.json
+es-home/public/version.json
