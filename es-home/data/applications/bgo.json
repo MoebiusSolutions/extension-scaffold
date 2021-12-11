@@ -30,10 +30,10 @@
     ],
     "iframes": [
         {
-            "id": "map.iframe",
+            "id": "aeolus.map",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/webmap",
+            "iframeSource": "/usw-dss-map/index.html?lang=en_US&owf=true&extensions=phoenix,opt&themeName=a_default&themeContrast=standard&themeFontSize=12&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html",
             "resizeHandle": true
         },
 

@@ -5,10 +5,10 @@
     ],
     "iframes": [
         {
-            "id": "dev26.aeolus.map",
+            "id": "aeolus.map",
             "title": "Map",
             "location": "center",
-            "iframeSource": "https://security.dev26.minerva.navy.mil/usw-dss-map-namejs/index.html?extensions=cesium,phoenix&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp/bcst-bus/index.html",
+            "iframeSource":  "/usw-dss-map/index.html?lang=en_US&owf=true&extensions=phoenix,opt&themeName=a_default&themeContrast=standard&themeFontSize=12&iwc=broadcast&busUrl=https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html",
             "resizeHandle": true
         }
     ]
