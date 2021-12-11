@@ -74,10 +74,7 @@ export class EsRibbon extends Tonic {
 .ribbon-tab.active::after {
   content: "";
   position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  inset: 0px;
   background: rgba(255,255,255,0.03);
 }
 
@@ -87,6 +84,30 @@ export class EsRibbon extends Tonic {
 }
 .ribbon-body.open {
   display: grid;
+}
+.ribbon-body.float.open {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  z-index: 5;
+  background: var(--es-theme-surface);
+}
+.ribbon-controls {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  user-select: none;
+  fill: var(--es-theme-text-secondary-on-background);
+  cursor: pointer;
+}
+.ribbon-body.float.open .unfold-less {
+  display: none;
+}
+.ribbon-body.un-float.open .unfold-more {
+  display: none;
+}
+.ribbon-body.float.open .ribbon {
+  background: rgba(255,255,255, 0.03);
 }
 .ribbon {
   grid-area: ribbon;
@@ -153,13 +174,36 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     this.querySelectorAll('.ribbon-tab').forEach(el => el.classList.remove('active'))
     this.querySelectorAll('.ribbon').forEach(el => el.classList.remove('active'))
   }
+  handleUnfold(e: MouseEvent) {
+    const div = e.target as HTMLDivElement
+    const rb = this.querySelector('.ribbon-body')
+    const btn = div.closest('.ribbon-controls')
+    if (!btn) { return }
+
+    const less = div.closest('.expand-less')
+    if (less) {
+      this.clearActive()
+      rb?.classList.remove('open')
+      return
+    }
+
+    if (rb?.classList.contains('float')) {
+      rb?.classList.add('un-float')
+      rb?.classList.remove('float')
+    } else {
+      rb?.classList.add('float')
+      rb?.classList.remove('un-float')
+    }
+  }  
   onclick = (e: MouseEvent) => {
     const div = e.target as HTMLDivElement
     const rb = this.querySelector('.ribbon-body')
     const tab = div.closest('.ribbon-tab') as HTMLDivElement
     const idx = Number(tab?.dataset['idx'])
 
-    if (!tab) { return }
+    if (!tab) { 
+      return this.handleUnfold(e)
+    }
     if (tab.classList.contains('active')) {
       rb?.classList.remove('open')
       this.clearActive()
@@ -188,7 +232,22 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
         ${tabs}
         <div id="ribbon-right-of-tabs" class="loading"></div>
       </div>
-      <div class="ribbon-body open">${ribbons}</div>
+      <div class="ribbon-body un-float open">${ribbons}
+        <div class="ribbon-controls">
+          <svg class="unfold-more" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"/>
+          </svg>
+          <svg class="unfold-less" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7.41 18.59L8.83 20 12 16.83 15.17 20l1.41-1.41L12 14l-4.59 4.59zm9.18-13.18L15.17 4 12 7.17 8.83 4 7.41 5.41 12 10l4.59-4.59z"/>
+          </svg>
+          <svg class="expand-less" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+          </svg>
+        </div>
+      </div>
     </nav>`
   }
   static async addPanel(scaffold: ExtensionScaffoldApi, ribbon?: Ribbon[]) {
