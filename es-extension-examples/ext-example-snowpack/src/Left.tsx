@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
-import { addCenterPanel } from './ext-react-snowpack'
+import { addCenterPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
 import { Amplify } from './Amplify'
 import { SampleModal } from './SampleModal'
 
@@ -17,6 +17,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     }
     function handleHide() {
         es.chrome.panels.hidePanel('ext.snowpack.left')
+    }
+    function handleMoveToRight() {
+        moveLeftToRight(es)
+    }
+    function handleMoveToLeft() {
+        moveRightToLeft(es)
     }
 
     return <div style={{
@@ -35,6 +41,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         </div>
         <div>
             <button onClick={handleHide}>X</button>
+        </div>
+        <div>
+            <button onClick={handleMoveToRight}>Move to Right</button>
+        </div>
+        <div>
+            <button onClick={handleMoveToLeft}>Move to Left</button>
         </div>
 
         <Amplify es={es} />
