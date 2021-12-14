@@ -59,18 +59,21 @@ const AmplifyPanel: React.FC<{
 
 export const Amplify: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     const [open, setOpen] = React.useState(false)
-    const [portalDiv, setPanelDiv] = React.useState<HTMLDivElement>()
+    const amplifyPanelID = 'ext.snowpack.amplify.portal'
 
     React.useEffect(() => {
-        if (portalDiv) {
-            return
+        if (open) {
+            function addAmplify(portalDiv: HTMLDivElement) {
+                ReactDOM.render(<AmplifyPanel handleClose={handleClose}/>, portalDiv)
+            }
+            es.chrome.panels.addPanel({
+                id: amplifyPanelID,
+                location: 'portal',
+            }).then(div => addAmplify(div))
+        } else {
+            es.chrome.panels.removePanel(amplifyPanelID)
         }
-        es.chrome.panels.addPanel({
-            id: 'ext.snowpack.amplify.portal',
-            location: 'portal',
-        }).then(div => setPanelDiv(div))
-        return () => { es.chrome.panels.removePanel('ext.snowpack.amplify') }
-    }, [])
+    }, [open])
 
     function handleAmplify() {
         setOpen(o => !o)
@@ -83,6 +86,5 @@ export const Amplify: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <div>
             <button onClick={handleAmplify}>Amplify Example</button>
         </div>
-        { open && portalDiv && ReactDOM.createPortal(<AmplifyPanel handleClose={handleClose}/>, portalDiv) }
     </>
 }
