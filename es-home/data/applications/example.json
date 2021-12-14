@@ -78,7 +78,9 @@
         "ext.snowpack.bottom",
         "ext.example.lit-element"
     ],
-    "extensions": [],
+    "extensions": [
+        "/ui/ext-example-snowpack/dist/ext-react-snowpack.js"
+    ],
     "iframes": [
         {
             "id": "es.example.iframe",
