@@ -9,6 +9,7 @@ import { EsRibbonDropdownItem } from './ribbon-dropdown-item';
 
 export interface Ribbon {
   tab?: string
+  hidden?: boolean
   sections?: string[]
 }
 
@@ -60,6 +61,9 @@ export class EsRibbon extends Tonic {
 #ribbon-right-of-tabs {
   flex-grow: 1;
   display: flex;
+}
+.ribbon-tab.hidden {
+  display: none;
 }
 .ribbon-tab.active {
   margin-bottom: -1px;
@@ -218,8 +222,11 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     if (!this.ribbon) { return }
 
     const tabs = this.ribbon.map((r: Ribbon, idx) => {
-      const cls = idx === 0 ? `ribbon-tab active` : `ribbon-tab`
-        return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
+      let cls = idx === 0 ? `ribbon-tab active` : `ribbon-tab`
+      if (r.hidden) {
+        cls = `${cls} hidden`
+      }
+      return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
     })
     const ribbons = this.ribbon.map((r: Ribbon, idx: number) => {
       const cls = idx === 0 ? `ribbon active` : `ribbon`
