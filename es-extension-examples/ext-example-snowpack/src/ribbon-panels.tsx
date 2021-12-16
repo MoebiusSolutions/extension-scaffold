@@ -47,7 +47,7 @@ function claimTrackTab(scaffold: ExtensionScaffoldApi) {
           fill: green;
           height: 1em;
           padding-top: 2px;
-          animation: Loop-icon-spin infinite 20s linear;
+          animation: Loop-icon-spin infinite 20s linear reverse;
         }
       }
       @keyframes Loop-icon-spin {
