@@ -264,13 +264,13 @@ code {
 .grid-panel {
   display: none;
   position: relative; /* New coordinate space for any children */
-  overflow: auto;
 }
 
 .shadow-div {
   position: relative;
   flex: 1 1 auto;
   display: none;
+  overflow: auto;
   /* z1 */
   box-shadow: 2px 2px 1px -1px rgba(0, 0, 0, 0.2), 2px 1px 1px 0px rgba(0, 0, 0, 0.14), 2px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
