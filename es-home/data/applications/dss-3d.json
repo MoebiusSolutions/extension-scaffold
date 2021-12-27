@@ -1,6 +1,6 @@
 {
-    "name": "dss-ocp",
-    "title": "Decision Support System (OCP)",
+    "name": "dss-3d",
+    "title": "Decision Support System (3D)",
     "ribbon": [
         {
             "tab": "Developer",
@@ -23,7 +23,7 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map-dfmotf/index.html?extensions=phoenix",
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix",
             "resizeHandle": true
         },
         {
