@@ -77,6 +77,7 @@ async function doLeft(scaffold: ExtensionScaffoldApi) {
     title: 'Snowpack Left',
     icon: span,
     location: 'left',
+    popOutButton: false,
   }, <Left es={scaffold} />)
 }
 
