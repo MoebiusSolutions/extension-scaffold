@@ -40,7 +40,7 @@ function claimTrackTab(scaffold: ExtensionScaffoldApi) {
     <style>{/*css*/`
       .wrapper {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
       }
       @media (prefers-reduced-motion: no-preference) {
         .loop-icon {
