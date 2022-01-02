@@ -1,4 +1,5 @@
 {
+  "name": "@gots/ext-example-lit-element",
   "scripts": {
     "start": "snowpack dev --port 9094",
     "build": "snowpack build",

@@ -2,6 +2,7 @@ const urlPath = process.env.URLPATH || ''
 
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
+  workspaceRoot: '..',
   mount: {
     public: { url: `${urlPath}/`, static: true },
     src: { url: `${urlPath}/dist` },
@@ -33,6 +34,6 @@ module.exports = {
   },
   buildOptions: {
     baseUrl: urlPath,
-    metaUrlPath: `${urlPath}/_snowpack`
+    metaUrlPath: `${urlPath}/_snowpack`,
   },
 };

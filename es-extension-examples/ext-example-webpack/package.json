@@ -1,5 +1,5 @@
 {
-  "name": "ext-example-webpack",
+  "name": "@gots/ext-example-webpack",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -48,7 +48,7 @@
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "5.0.2",
-    "prompts": "2.4.0",
+    "prompts": "2.4.2",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.3",
