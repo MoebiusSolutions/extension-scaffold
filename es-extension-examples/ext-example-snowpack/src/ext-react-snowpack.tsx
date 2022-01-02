@@ -4,7 +4,6 @@ import { MyPanel } from './MyPanel';
 
 import type { AddPanelOptions, ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { Header } from './Header';
-import { Ribbon } from './Ribbon';
 import { AboveLeft } from './AboveLeft'
 import { Left } from './Left'
 import { Footer } from './Footer';
@@ -47,14 +46,6 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
     location: 'footer'
   }, <Footer es={scaffold} />)
   claimStyleFromHeadElement(panelDiv, '#ext.example.snowpack')
-}
-
-async function doRibbon(scaffold: ExtensionScaffoldApi) {
-  return await doPanel(scaffold, {
-    id: 'ext.snowpack.ribbon',
-    location: 'top-bar',
-    initialWidthOrHeight: '',
-  }, <Ribbon es={scaffold} />)
 }
 
 async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
