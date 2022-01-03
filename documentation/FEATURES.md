@@ -151,6 +151,39 @@ function claimRibbonWith(scaffold: ExtensionScaffoldApi, id: string, node: React
 
 * switch bottom-bar tabs active, close bottom, open bottom
 
+## Examples
+
+### Rollup
+
+* Close button
+
+### Snowpack
+
+* `Add Center` - adds a stacked center panel.
+  * `Maximize Me` - maximizes the center panel
+  * `Restore Me` - restores a maximized center panel
+  * `Close Me`
+  * `Add Center` - stacks another center
+    * `Add Another` - stacks another center - to show Third Center Panel
+  * `Show Rollup`
+  * `Show Snowpack` - also check clicking when maximized
+
+* `Pop Out`
+
+* `Pop In`
+
+* `X` (close)
+
+* `Move to Right`
+
+* `Move to Left`
+
+* `Show Example Content` - in ribbon
+
+* `Amplify Example` - model
+
+* `Sample Modal Example`
+
 # Road Map
 
 * left/right of tabs as a "pseudo" tab with sections
