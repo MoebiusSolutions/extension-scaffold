@@ -19,8 +19,6 @@ es-ribbon-dropdown svg {
   display: block;
   position: absolute;
   z-index: 2;
-  top: calc(100% + 1px);
-  left: 0px;
   width: max-content;
 
   background: var(--es-theme-surface);
@@ -56,9 +54,12 @@ es-ribbon-dropdown.open .ribbon-dropdown {
     }
 
     const show = () => {
+      const rel = this.parentElement || this
       this.classList.add('open')
       btn.classList.add('open')
       md.style.display = 'block'
+      rd.style.left = `${rel.offsetLeft}px`
+      rd.style.top = `${rel.offsetTop + rel.offsetHeight}px`
       rd.focus()
     }
     const hide = () => {

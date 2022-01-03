@@ -11,7 +11,6 @@ export class EsRibbonButton extends Tonic {
   cursor: pointer;
   border: 1px solid transparent;
   border-radius: 1px;
-  position: relative; /* dropdown is relative the button */
 }
 es-ribbon-button {
   padding-left: 4px;

@@ -55,8 +55,10 @@ export class EsRibbon extends Tonic {
   user-select: none;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 4px;
   cursor: pointer;
   margin-top: auto;
+  overflow: hidden; /* prevents track animation from toggling vscroll */
 }
 #ribbon-right-of-tabs {
   flex-grow: 1;
@@ -67,7 +69,7 @@ export class EsRibbon extends Tonic {
 }
 .ribbon-tab.active {
   margin-bottom: -1px;
-  padding-bottom: 1px;
+  padding-bottom: 5px;
   color: var(--es-theme-text-primary-on-background);
   border-left: 1px solid var(--es-theme-text-secondary-on-background);
   border-top: 1px solid var(--es-theme-text-secondary-on-background);
@@ -168,10 +170,11 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     return `es-ribbon-${idx}`
   }
   connected() {
-    const el: HTMLElement | null = document.querySelector('.grid-panel.top-bar')
+    const el: HTMLElement | null = document.getElementById('es-home.ribbon')
     if (el) {
-      // Otherwise the dropdown menus cause a scrollbar
-      el.style.overflow = 'visible'
+      // Otherwise the dropdown menus cause a scrollbar, see
+      // https://front-back.com/how-to-make-absolute-positioned-elements-overlap-their-overflow-hidden-parent/
+      el.style.position = 'static' // 
     }
   }
   clearActive() {
