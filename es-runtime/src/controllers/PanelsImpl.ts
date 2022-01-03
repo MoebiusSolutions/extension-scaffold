@@ -356,6 +356,9 @@ export class PanelsImpl implements Panels {
             copyStyles(document, extWindow.document)
             const popOutContainer = document.createElement('div')
             popOutContainer.className = 'pop-out-container'
+            const baseUrl = document.createElement('base')
+            baseUrl.setAttribute('href', window.location.href)
+            popOutContainer.appendChild(baseUrl)
             extWindow.document.body.appendChild(popOutContainer)
 
             this.externalWindows.set(id, extWindow)
