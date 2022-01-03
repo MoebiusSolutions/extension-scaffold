@@ -21,17 +21,16 @@ for e in ${EXAMPLES}; do
     EXAMPLE_DIR="${BASE}/es-extension-examples/${e}"
     echo "${EXAMPLE_DIR}"
     if [[ -f ${EXAMPLE_DIR}/package.json ]]; then
-        cd "${EXAMPLE_DIR}"
-        npm install -D @gots/es-runtime@latest
+        (cd "${EXAMPLE_DIR}"; npm install -D "file:../../es-runtime")
     fi
   echo $f
 done
 
-PAGES="es-application-examples/es-demo/ es-home/ es-common-extensions/"
+PAGES="es-home/ es-common-extensions/"
 for e in ${PAGES}; do
   PAGE_DIR="${BASE}/${e}"
   echo "${PAGE_DIR}"
     if [[ -f ${PAGE_DIR}/package.json ]]; then
-        (cd "${PAGE_DIR}"; npm install @gots/es-runtime@latest)
+        (cd "${PAGE_DIR}"; npm install "file:../es-runtime")
     fi
 done
