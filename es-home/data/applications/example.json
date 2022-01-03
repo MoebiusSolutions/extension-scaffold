@@ -18,7 +18,10 @@
             ]
         },
         {
-            "tab": "Track"
+            "tab": "Track",
+            "sections": [
+                "track.show.code"
+            ]
         },
         {
             "tab": "Tactical"

@@ -40,6 +40,7 @@ export interface AddPanelOptions {
     resizeHandle?: boolean
     popOutButton?: boolean
     hideButton?: boolean
+    expandButton?: boolean
     initialWidthOrHeight?: string // defaults to "30em"
     iframeSource?: string // injects an iframe if set
     hidden?: boolean // connects the iframe, but does not show it in the UI - useful for background iframes
@@ -97,6 +98,8 @@ export interface Panels {
     /** show if `id` is hidden, otherwise hide `id` */
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
+    expandPanel: (id: string) => void
+    /** Restore from maximized or expanded */
     restorePanel: (id: string) => void
 
     popOutPanel: (id: string) => boolean

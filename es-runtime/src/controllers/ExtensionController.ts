@@ -57,15 +57,6 @@ class ApiImpl implements ExtensionScaffoldApi {
 
         // Pass down the grid container
         this.chrome.panels.gridContainer = this.gridContainer
-
-        // Without this empty panel the top grid area will split 
-        // and show an empty section if no extension claims it.
-        // With this empty panel it works as expected.
-        this.chrome.panels.addPanel({
-            id: 'es.internal.empty.top',
-            location: 'top',
-            initialWidthOrHeight: '0px',
-        })
     }
 
     loadExtensions(urls: string[], gridState?: GridState): Promise<(Fulfilled | Rejected)[]> {
