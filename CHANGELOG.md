@@ -1,5 +1,45 @@
 ## Change Log
 
+# [2.2.0] - 2022-01-03
+
+### Added
+
+* Example of moving a panel between left/right
+* `relocate` option to override JSON location when moving a panel
+* About Runtime to ribbon
+* Allow a tab to be hidden at startup - use case is a context tab
+  that is only visible when the right items are selected.
+* Example with `popOutButton: false`
+* `FEATURES.md`
+* Show code for track tab icon
+* `expandPanel()` API
+* `<baseurl href="...">` to pop out container window
+* Show source for radio button section
+* Radio buttons synchronize to the show source state
+
+### Changed
+
+* Restored ribbon "float" feature
+* Fix amplify button when moving panel left/right
+* Fix modal button when moving panel left/right
+* Fix track tab icon rotation direction
+* Fix background color for objects w/z-index
+* Fix where left panel resize bar shows up when left has scrollbar.
+* Fix `snowpack` caching of `es-runtime` in `es-home`
+  During development, update `es-runtime` by running `npm run build`
+  from the `es-runtime` directory.
+* Minor vertical align tweak in ribbon tab
+* Fix relative position causing scrollbar when ribbon dropdown open
+* Switch `bottom-bar` to `es-panel-header-bar` web component
+* Refactor show source code to use `<FormatFileName>`
+* Fix maximize center not working
+* Fix left/right bar state not correct if center was maximized
+  but a request to show a left/right panel was made
+
+### Removed
+
+* Remove old example Ribbon.tsx
+
 # [2.1.0] - 2021-12-09
 
 ### Added

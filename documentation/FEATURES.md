@@ -149,6 +149,10 @@ function claimRibbonWith(scaffold: ExtensionScaffoldApi, id: string, node: React
 
 * resize bottom-bar, resize close/open
 
+* resize left/right, resize close/open
+
+* Verify location of drag-handle after forcing left/right vertical scrollbar
+
 * switch bottom-bar tabs active, close bottom, open bottom
 
 ## Examples
