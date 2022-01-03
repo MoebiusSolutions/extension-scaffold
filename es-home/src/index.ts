@@ -109,6 +109,9 @@ function updateLocation(options: AddPanelOptions, id2placement: Map<string, Plac
   if (!placement) {
     return undefined
   }
+  if (options.relocating) {
+    return undefined
+  }
   return {
     ...options,
     location: placement.location

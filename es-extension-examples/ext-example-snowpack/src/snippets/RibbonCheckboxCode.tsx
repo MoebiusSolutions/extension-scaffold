@@ -3,6 +3,9 @@ import { FormatCode } from './FormatCode'
 
 export const RibbonCheckboxCode = () => {
   const codeString = `
+  function toggleLayers() {
+    scaffold.chrome.panels.togglePanel('ext.snowpack.left')
+  }
   claimRibbonWith(scaffold, 'chart.settings', 
     <es-ribbon-section label="Status Bar">
       <label><CodeCheckBox />Show Code</label>

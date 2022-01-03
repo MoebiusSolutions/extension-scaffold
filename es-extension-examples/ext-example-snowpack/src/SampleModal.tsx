@@ -109,21 +109,23 @@ const SampleModalPanel: React.FC<{
 export const SampleModal: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     const [open, setOpen] = React.useState(false)
     const [buttonText, setButtonText] = React.useState('Sample Modal Example')
-    const [portalDiv, setPanelDiv] = React.useState<HTMLDivElement>()
 
     React.useEffect(() => {
-        if (portalDiv) {
-            return
+        if (open) {
+            es.chrome.panels.addPanel({
+                id: 'ext.snowpack.samplemodal.portal',
+                location: 'portal-wide',
+            }).then(portalDiv => {
+                ReactDOM.render(
+                    <SampleModalPanel onCancel={onCancel} onAccept={onAccept} 
+                        buttonText={buttonText} />, portalDiv)
+            })
+        } else {
+            es.chrome.panels.removePanel('ext.snowpack.samplemodal.portal')
         }
-        es.chrome.panels.addPanel({
-            id: 'ext.snowpack.samplemodal.portal',
-            location: 'portal-wide',
-        }).then(div => setPanelDiv(div))
-        return () => { es.chrome.panels.removePanel('ext.snowpack.samplemodal') }
-    }, [])
+    }, [open])
 
     function openModal() {
-
         setOpen(true)
     }
 
@@ -144,7 +146,5 @@ export const SampleModal: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <div>
             <button onClick={openModal}>{buttonText}</button>
         </div>
-        { open && portalDiv && ReactDOM.createPortal(
-            <SampleModalPanel onCancel={onCancel} onAccept={onAccept} buttonText={buttonText} />, portalDiv) }
     </>
 }

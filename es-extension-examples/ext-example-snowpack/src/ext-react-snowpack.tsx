@@ -63,7 +63,7 @@ async function doBottom(scaffold: ExtensionScaffoldApi) {
   }, <Bottom es={scaffold} />)
 }
 
-async function doLeft(scaffold: ExtensionScaffoldApi) {
+async function doLeft(scaffold: ExtensionScaffoldApi, forceRight?: boolean) {
   const span = document.createElement('span')
   const icon = <svg className="use-stroke" preserveAspectRatio="xMidYMid meet" viewBox="0 0 15 15">
     <g fill="none">
@@ -76,30 +76,18 @@ async function doLeft(scaffold: ExtensionScaffoldApi) {
     id: 'ext.snowpack.left',
     title: 'Snowpack Left',
     icon: span,
-    location: 'left',
+    location: forceRight ? 'right' : 'left',
+    relocating: forceRight ? true : false,
     popOutButton: false,
   }, <Left es={scaffold} />)
 }
 
 export async function moveLeftToRight(scaffold: ExtensionScaffoldApi) {
   scaffold.chrome.panels.removePanel('ext.snowpack.left')
-  const span = document.createElement('span')
-  const icon = <svg className="use-stroke" preserveAspectRatio="xMidYMid meet" viewBox="0 0 15 15">
-    <g fill="none">
-      <path d="M.5 0v14.5H15M5 2.5H2m6 3H3m5 3H5m10 3H8" />
-    </g>
-  </svg>
-  ReactDOM.render(icon, span)
-
-  return await doPanel(scaffold, {
-    id: 'ext.snowpack.left.on.right',
-    title: 'Snowpack Left',
-    icon: span,
-    location: 'right',
-  }, <Left es={scaffold} />)
+  doLeft(scaffold, true)
 }
 export async function moveRightToLeft(scaffold: ExtensionScaffoldApi) {
-  scaffold.chrome.panels.removePanel('ext.snowpack.left.on.right')
+  scaffold.chrome.panels.removePanel('ext.snowpack.left')
   doLeft(scaffold)
 }
 
