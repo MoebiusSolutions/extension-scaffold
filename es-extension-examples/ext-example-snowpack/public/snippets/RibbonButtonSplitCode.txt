@@ -17,7 +17,7 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
     const target: HTMLElement | null = e.target as any
     const t = target?.innerText
     if (t === 'Source Code') {
-      showCode(<RibbonButtonSplitCode/>)
+      showCode(<FormatFileName fileName='RibbonButtonSplitCode.txt' />)
       const dropdown: any = target?.closest('es-ribbon-dropdown')
       dropdown?.close()
     } else {

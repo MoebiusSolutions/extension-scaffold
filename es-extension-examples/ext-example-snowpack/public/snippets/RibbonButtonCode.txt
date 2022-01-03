@@ -48,7 +48,7 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
    * @param e 
    */
   async function showNewPlan(e: MouseEvent) {
-    showCode(<RibbonButtonCode/>)
+    showCode(<FormatFileName fileName='RibbonButtonCode.txt'/>)
   }
   claimRibbonWith(scaffold, 'mp.area.plans',
     <es-ribbon-section label="Area Plans">
