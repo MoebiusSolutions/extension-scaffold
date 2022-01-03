@@ -6,7 +6,7 @@
 
 * Example of moving a panel between left/right
 * `relocate` option to override JSON location when moving a panel
-* About Runtime to ribbon
+* `About Runtime` to ribbon
 * Allow a tab to be hidden at startup - use case is a context tab
   that is only visible when the right items are selected.
 * Example with `popOutButton: false`
