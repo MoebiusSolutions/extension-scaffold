@@ -20,30 +20,24 @@ export class TabController {
         }
         return this.tabBar
     }
-    appendExpandButton(tabBar: HTMLDivElement) {
-        const grid = document.querySelector(`.${this.tabLocation}`)
-        if (!grid) {
-            return
-        }
-
-        const emptyGrow = document.createElement('div')
-        emptyGrow.style.flexGrow = '1'
-        emptyGrow.style.order = '1000'
-        tabBar.appendChild(emptyGrow)
-
-        const expandBtn = document.createElement('button')
-        this.syncExpandButton(grid, expandBtn)
-        expandBtn.onclick = () => {
-            if (grid.classList.contains(expandClass)) {
-                grid.classList.remove(expandClass)
-                this.syncExpandButton(grid, expandBtn)
-            } else {
-                grid.classList.add(expandClass)
-                this.syncExpandButton(grid, expandBtn)
-            }
-        }
-        tabBar.appendChild(expandBtn)
+    appendPanelHeaderBar(tabBar: HTMLDivElement, panelOptions: AddPanelOptions) {
+        tabBar.appendChild(this.makePanelHeaderBar({
+            ...panelOptions,
+            expandButton: true,
+            hideButton: true,
+        }))
     }
+
+    private makePanelHeaderBar(options: AddPanelOptions) {
+        const panelHeaderBar = document.createElement('es-panel-header-bar')
+        panelHeaderBar.className = `panel-header-bar ${options.location}`
+        panelHeaderBar.style.order = '1000'
+        panelHeaderBar.style.flexGrow = '1'
+        const p: any = panelHeaderBar
+        p.panelOptions = options
+        return panelHeaderBar
+    }
+    
     syncExpandButton(grid: Element, expandBtn: HTMLButtonElement) {
         const expandDownSvg = `
         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px">
@@ -115,6 +109,8 @@ export class TabController {
             }
             tabBar!.appendChild(btn)
         })
-        this.appendExpandButton(tabBar)
+        if (panelOptions[0]) {
+            this.appendPanelHeaderBar(tabBar, panelOptions[0])
+        }
     }
 }

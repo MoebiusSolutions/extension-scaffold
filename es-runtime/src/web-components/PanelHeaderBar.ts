@@ -33,24 +33,41 @@ export class PanelHeaderBar extends HTMLElement {
         </svg>`
 
         if (this._panelOptions?.popOutButton) {
-            this.appendButton(openInNew, e => this.popOutLocation(e))
-        }
-        if (this._panelOptions?.hideButton) {
-            this.appendButton(closeIcon, e => this.hideLocation(e))
+            this.addButton(btn => {
+                btn.innerHTML = openInNew
+                btn.title = 'Pop Out'
+                btn.onclick = e => this.popOutLocation(e)
+            })
         }
         if (this._panelOptions?.expandButton) {
-            this.appendButton(expandDownSvg, e => this.restoreLocation(e)).className = 'restore'
-            this.appendButton(expandUpSvg, e => this.expandLocation(e)).className = 'expand'
+            this.addButton(btn => {
+                btn.innerHTML = expandDownSvg
+                btn.title = 'Restore'
+                btn.className = 'restore'
+                btn.onclick = e => this.restoreLocation(e)
+            })
+            this.addButton(btn => {
+                btn.innerHTML = expandUpSvg
+                btn.title = 'Expand'
+                btn.className = 'expand'
+                btn.onclick = e => this.expandLocation(e)
+            })
+        }
+        if (this._panelOptions?.hideButton) {
+            this.addButton(btn => {
+                btn.innerHTML = closeIcon
+                btn.title = 'Hide'
+                btn.onclick = e => this.hideLocation(e)
+            })
         }
     }
 
-    private appendButton(icon: string, handler: (e: MouseEvent) => void) {
+    private addButton(init: (btn: HTMLButtonElement) => void) {
         const btn = document.createElement('button')
-        btn.onclick = handler
-        btn.innerHTML = icon
+        init(btn)
         this.appendChild(btn)
-        return btn
     }
+
     private findActiveIdFromEvent(e: MouseEvent) {
         const div = e.target as HTMLDivElement
         const active = div.closest('.grid-panel')?.querySelectorAll('.shadow-div.active')

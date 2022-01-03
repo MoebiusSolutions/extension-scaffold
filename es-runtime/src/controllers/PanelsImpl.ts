@@ -13,8 +13,6 @@ import {
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { TabController } from './TabController';
 
-import '../web-components/PanelHeaderBar'
-
 const DISPLAY_FLEX = 'flex'
 
 function getDivSize(div: HTMLElement | null): OrigSize {
