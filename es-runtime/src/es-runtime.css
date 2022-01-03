@@ -32,7 +32,7 @@ code {
   color: var(--es-theme-text-secondary-on-background, orange);
 }
 
-.grid-panel.grid-maximized {
+.grid-panel.specific.grid-maximized {
   grid-column: left / right;
   grid-row: top / bottom;
   z-index: 2; /* above drag handle */

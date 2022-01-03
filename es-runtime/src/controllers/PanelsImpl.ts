@@ -140,8 +140,9 @@ export class PanelsImpl implements Panels {
             return true
         }
         // Restore any maximized center
-        document.querySelectorAll('.grid-maximized').forEach(el => el.classList.remove('grid-maximized'))
-
+        document.querySelectorAll('.grid-maximized .shadow-div.active').forEach(el => {
+            this.restorePanel(el.id)
+        })
         return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
             hidePanelsWithLocation(location)
@@ -219,6 +220,7 @@ export class PanelsImpl implements Panels {
 
     maximizePanel(id: string) {
         withPanel(id, (parent, div) => {
+            parent.classList.add('specific')
             parent.classList.add('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
@@ -228,6 +230,7 @@ export class PanelsImpl implements Panels {
 
     restorePanel(id: string) {
         withPanel(id, (parent, div) => {
+            parent.classList.remove('specific')
             parent.classList.remove('grid-maximized')
             parent.classList.remove('grid-expanded')
             this.updateBars('left')
