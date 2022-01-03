@@ -1,19 +1,36 @@
 {
     "name": "dss",
     "title": "Decision Support System",
-    "ribbon": [],
+    "ribbon": [
+        {
+            "tab": "Developer",
+            "sections": [
+                "debug.console",
+                "debug.metrics"
+            ]
+        }
+    ],
     "left": [],
     "center": [],
     "bottom-bar": [],
     "extensions": [
-        "/bgo/snowpack-extension/dist/ext-react-snowpack.js"
+        "/bgo/snowpack-extension/dist/ext-react-snowpack.js",
+        "/ui/dist/extensions/console-extension.js",
+        "/ui/common/dist/debug-metrics.js"
     ],
     "iframes": [
         {
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/wasp-et-usw-dss-map/index.html?extensions=phoenix",
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix",
+            "resizeHandle": true
+        },
+        {
+            "id": "ctmTrackSummary.iframe",
+            "title": "CTM Track Summary",
+            "location": "bottom-bar",
+            "iframeSource": "/otm-console/controllers/Track:Summary?console=1&zone=CIP",
             "resizeHandle": true
         }
     ]
