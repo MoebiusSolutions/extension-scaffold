@@ -18,8 +18,8 @@ services:
       - "/etc/ssl/certs:/etc/ssl/certs"
       - "../:/home/extension-scaffold"
       - "./home-node:/home/node"
-    ports: 
-      - "127.0.0.1:8080:8080"
+    # ports: 
+    #   - "127.0.0.1:8080:8080"
     environment:
       - DO_INSTALL
       - URLPATH=/ui
