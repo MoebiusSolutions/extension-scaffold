@@ -107,7 +107,6 @@ export class PanelsImpl implements Panels {
 
         const { outerPanel, shadowDiv, extPanel } = this.addShadowDomPanel(gridContainer, options)
         outerPanel.style.display = DISPLAY_FLEX
-        this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
         if (options.title) {
             shadowDiv.title = options.title
         }
@@ -400,7 +399,10 @@ export class PanelsImpl implements Panels {
         }
     }
 
-    private getOrCreateOuterPanel(gridContainer: HTMLElement, options: AddPanelOptions): HTMLDivElement {
+    private getOrCreateOuterPanel(gridContainer: HTMLElement, options: AddPanelOptions): {
+        outerPanel: HTMLDivElement
+        created: boolean
+    } {
         const resizeHandle = defaultResizeHandle(options)
         const popOutButton = defaultPopOutButton(options)
         const hideButton = defaultShowHide(options)
@@ -411,7 +413,11 @@ export class PanelsImpl implements Panels {
             if (resizeHandle && r.querySelectorAll('.drag').length === 0) {
                 r.appendChild(this.makeResizeHandle(options))
             }
-            return r as HTMLDivElement
+            return {
+                outerPanel: r as HTMLDivElement,
+                created: false
+            }
+            
         }
 
         r = document.createElement('div')
@@ -428,7 +434,10 @@ export class PanelsImpl implements Panels {
         }
         gridContainer.appendChild(r)
 
-        return r as HTMLDivElement
+        return {
+            outerPanel: r as HTMLDivElement,
+            created: true
+        }
     }
 
     private makeResizeHandle(options: AddPanelOptions) {
@@ -454,7 +463,7 @@ export class PanelsImpl implements Panels {
     }
 
     private addShadowDomPanel(gridContainer: HTMLElement, options: AddPanelOptions) {
-        const outerPanel = this.getOrCreateOuterPanel(gridContainer, options)
+        const { outerPanel, created } = this.getOrCreateOuterPanel(gridContainer, options)
 
         // the options.location className is used in querySelector searches
         outerPanel.classList.add('grid-panel', options.location)
@@ -462,6 +471,10 @@ export class PanelsImpl implements Panels {
         const { shadowDiv, extPanel } = this.makeShadowDomDivs(outerPanel)
         shadowDiv.id = options.id
         shadowDiv.className = options.location.startsWith('portal') ? 'shadow-portal' : 'shadow-div'
+
+        if (created) {
+            this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
+        }
 
         return {
             outerPanel,
