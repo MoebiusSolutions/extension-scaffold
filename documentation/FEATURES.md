@@ -32,6 +32,7 @@ An extension claiming a ribbon section can use these pre-registered web componen
 declare namespace JSX {
   interface IntrinsicElements {
     "es-ribbon-section": any;
+    "es-ribbon-column": any;
     "es-ribbon-button": any;
     "es-ribbon-button-small": any;
     "es-ribbon-button-split": any;
