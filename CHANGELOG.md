@@ -1,5 +1,29 @@
 ## Change Log
 
+# [2.3.0] - 2022-01-07
+
+### Added
+
+* Add es-ribbon-column web component.
+  Puts contained es-ribbon-button-small/split into a column layout.
+* Add Track ribbon tab example.
+  It has GCCS-M `webmap` ribbon buttons.
+  It toggles the track summary in the `bottom-bar`.
+  It opens CTM windows for the enabled buttons.
+  The disabled buttons need map selection integration.
+* Add a `scaffold.chrome.panels.closeLocation(location: Location)` api
+
+### Changed
+
+* Only set the width/height when adding the first panel. 
+  Otherwise, if you add/remove/add a panel you will reset any user defined width/height
+* Shorten the debug memory graph a bit to condense ribbon
+* Better dropdown icon positioning
+* Padding for small/split buttons with or without a nested dropdown.
+* Common 10pt font for text in ribbon section
+* Fix css typo that breaks `disabled`
+* Ribbon buttons small/split that have a dropdown do not stretch
+
 # [2.2.0] - 2022-01-03
 
 ### Added
