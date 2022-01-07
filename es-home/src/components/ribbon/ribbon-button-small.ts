@@ -26,6 +26,7 @@ es-ribbon-button-small es-ribbon-dropdown svg {
 }
 es-ribbon-button-small.has-dropdown {
   padding-right: 0px;
+  align-self: flex-start;
 }
 
   `}

@@ -22,6 +22,7 @@ es-ribbon-button-split.open es-ribbon-dropdown:hover {
 }
 es-ribbon-button-split.has-dropdown {
   padding-right: 0px;
+  align-self: flex-start;
 }
 
 .light es-ribbon-button-split:hover {
