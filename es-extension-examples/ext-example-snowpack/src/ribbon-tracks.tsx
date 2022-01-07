@@ -17,6 +17,15 @@ const HistoryIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2
 const DashboardIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
 const RestoreFromTrash = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14zM6 7v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zm8 7v4h-4v-4H8l4-4 4 4h-2z"/></svg>
 
+function ctmUrl(page: string) {
+    const configuredUrl = 'http://proxy.gccs-m.test:8080' // TODO lookup from configuration
+    const zone = 'MGF' // TODO bind to dropdown in ribbon
+    return `${configuredUrl}/otm-console/controllers/${page}?zone=${zone}`
+}
+function openCtm(page: string, target?: string, features?: string) {
+    return window.open(ctmUrl(page), target, features)
+}
+
 export function claimTracksRibbonSections(scaffold: ExtensionScaffoldApi) {
     const sections = [
         { id: 'tracks.manage', node: <TracksManage /> },
@@ -40,99 +49,187 @@ export function claimTracksRibbonSections(scaffold: ExtensionScaffoldApi) {
 }
 
 const TracksManage = () => {
+    const newTrackWindowRef = React.useRef<Window | null>(null)
+    function newTrack() {
+        let w = newTrackWindowRef.current
+        if (!w || w.closed) {
+            newTrackWindowRef.current = openCtm('Track:New', 'ctmNewTrackWindow', 'popup')
+            return
+        }
+        w.focus()
+    }
+    function findDuplications() {
+        openCtm('Track:Duplicates')
+    }
     return <es-ribbon-section label="Manage Tracks">
-        <es-ribbon-button>
+        <es-ribbon-button disabled>
             <SelectIcon />
             <label>Select</label>
             <label>Tracks</label>
         </es-ribbon-button>
-        <es-ribbon-button>
+        <es-ribbon-button onClick={newTrack}>
             <AddIcon />
             <label>New</label>
             <label>Track</label>
         </es-ribbon-button>
         <es-ribbon-column>
-            <es-ribbon-button-small label="Edit" ><EditIcon /></es-ribbon-button-small>
-            <es-ribbon-button-small label="Compare"><MergeIcon /></es-ribbon-button-small>
-            <es-ribbon-button-small label="Un-merge" ><UndoIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Edit" disabled ><EditIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Compare" disabled ><MergeIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Un-merge" disabled ><UndoIcon /></es-ribbon-button-small>
         </es-ribbon-column>
         <es-ribbon-column>
-            <es-ribbon-button-small label="Quick Report" ><AddLocationIcon /></es-ribbon-button-small>
-            <es-ribbon-button-small label="Find Duplicate"><SearchIcon /></es-ribbon-button-small>
-            <es-ribbon-button-small label="Transmit"><SendIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Quick Report" disabled ><AddLocationIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Find Duplicates" onClick={findDuplications} ><SearchIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Transmit" disabled ><SendIcon /></es-ribbon-button-small>
         </es-ribbon-column>
         <es-ribbon-column>
-            <es-ribbon-button-small label="Delete"><DeleteIcon /></es-ribbon-button-small>
+            <es-ribbon-button-small label="Delete" disabled ><DeleteIcon /></es-ribbon-button-small>
         </es-ribbon-column>
     </es-ribbon-section>
 }
 const TrackDisplay = () => {
+    function statusBoard() { openCtm('StatusBoard') }
     return <es-ribbon-section label="Track Display">
-        <es-ribbon-button>
+        <es-ribbon-button disabled>
             <HistoryIcon />
             <label>History</label>
             <es-ribbon-dropdown>
                 <es-ribbon-dropdown-item label="Display"></es-ribbon-dropdown-item>
             </es-ribbon-dropdown>
         </es-ribbon-button>
-        <es-ribbon-button label="Status Board"><DashboardIcon /></es-ribbon-button>
+        <es-ribbon-button label="Status Board" onClick={statusBoard}>
+            <DashboardIcon/>
+        </es-ribbon-button>
     </es-ribbon-section>
 }
 const TracksDatabase = () => {
     const scaffold = React.useContext(ExtensionScaffoldContext)
     const [summaryOpen, setSummaryOpen] = React.useState(false)
+    const [missilesOpen, setMissilesOpen] = React.useState(false)
     const CTM_TRACK_SUMMARY_ID = 'ctm.tracks.summary'
+    const CTM_MISSILE_SUMMARY_ID = 'ctm.missile.summary'
 
     React.useEffect(() => {
         if (summaryOpen) {
             scaffold.chrome.panels.addPanel({ 
-                "id": CTM_TRACK_SUMMARY_ID,
-                "title": "Tracks",
-                "location": "bottom-bar",
-                "iframeSource": "http://proxy.gccs-m.test:8080/otm-console/controllers/Track:Summary?zone=MGF",
-                "resizeHandle": true
+                id: CTM_TRACK_SUMMARY_ID,
+                title: 'Tracks',
+                location: 'bottom-bar',
+                iframeSource: ctmUrl('Track:Summary'),
+                resizeHandle: true,
             })
         } else {
             scaffold.chrome.panels.removePanel(CTM_TRACK_SUMMARY_ID)
+            scaffold.chrome.panels.closeLocation('bottom-bar')
         }
     }, [summaryOpen])
 
-    async function summary() {
+    React.useEffect(() => {
+        if (missilesOpen) {
+            scaffold.chrome.panels.addPanel({
+                id: CTM_MISSILE_SUMMARY_ID,
+                title: "Missiles",
+                location: 'bottom-bar',
+                iframeSource: ctmUrl('DynamicMissiles:Summary'),
+                resizeHandle: true,
+            })
+        } else {
+            scaffold.chrome.panels.removePanel(CTM_MISSILE_SUMMARY_ID)
+        }
+    }, [missilesOpen])
+
+    function home() { openCtm('HomePanel') }
+    function trackCounts() { openCtm('Track:TrackCounts') }
+    function bcstStatus() { openCtm('Broadcast:Status') }
+    function timelate() { openCtm('Track:Timelate') }
+    function closeDropdown(e: React.MouseEvent) {
+        const target: HTMLElement | null = e.target as any
+        const dropdown: any = target?.closest('es-ribbon-dropdown')
+        dropdown?.close()
+    }
+    function summary(e: React.MouseEvent) { 
+        e.stopPropagation() // Prevent second callback
         setSummaryOpen(p => !p)
+        closeDropdown(e)
+    }
+    function openSummary(e: React.MouseEvent) {
+        e.stopPropagation() // Prevent summary callback
+        openCtm('Track:Summary')
+    }
+    function missiles(e: React.MouseEvent) { 
+        e.stopPropagation() // Prevent second callback
+        setMissilesOpen(p => !p) 
+        closeDropdown(e)
+    }
+    function openMissiles(e: React.MouseEvent) {
+        e.stopPropagation() // Prevent missiles callback
+        openCtm('DynamicMissiles:Summary')
     }
     return <es-ribbon-section label="Track Database">
         <es-ribbon-column>
-            <es-ribbon-button-small label="Counts" />
-            <es-ribbon-button-small label="Bcst Status" />
+            <es-ribbon-button-small label="Home" onClick={home}/>
+            <es-ribbon-button-small label="Counts" onClick={trackCounts}/>
+            <es-ribbon-button-small label="Broadcast Status" onClick={bcstStatus}/>
         </es-ribbon-column>
         <es-ribbon-column>
-            <es-ribbon-button-small label="Timelate" />
-            <es-ribbon-button-small label="Track Summary" onClick={summary}/>
-            <es-ribbon-button-small label="Dynamic Missile Summary" />
+            <es-ribbon-button-small label="Timelate" onClick={timelate}/>
+            <es-ribbon-button-split label="Track Summary" onClick={summary}>
+                <es-ribbon-dropdown>
+                    <es-ribbon-dropdown-item label="Toggle Panel" onClick={summary}/>
+                    <es-ribbon-dropdown-item label="Open in Window" onClick={openSummary}/>
+                </es-ribbon-dropdown>
+            </es-ribbon-button-split>
+            <es-ribbon-button-split label="Dynamic Missile Summary" onClick={missiles}>
+                <es-ribbon-dropdown>
+                    <es-ribbon-dropdown-item label="Toggle Panel" onClick={missiles}/>
+                    <es-ribbon-dropdown-item label="Open in Window" onClick={openMissiles}/>
+                </es-ribbon-dropdown>
+            </es-ribbon-button-split>
         </es-ribbon-column>
     </es-ribbon-section>
 }
 const TracksCommunications = () => {
+    function cstConfiguration() { openCtm('CST:ShowConfig') }
+    function cstNodeTable() { openCtm('CST:ShowNodeSummary') }
+    function cstNodeTree() { openCtm('CST:ShowTreeView') }
+    function commsTaskMgr() { openCtm('Track:CommsTaskManager') }
+
     return <es-ribbon-section label="Communications" >
         <es-ribbon-column>
             <es-ribbon-button-small>
                 <label>CST</label>
                 <es-ribbon-dropdown>
-                    <es-ribbon-dropdown-item label="Configure" />
+                    <es-ribbon-dropdown-item label="Configuration" onClick={cstConfiguration}/>
+                    <es-ribbon-dropdown-item label="Node Table" onClick={cstNodeTable}/>
+                    <es-ribbon-dropdown-item label="Node Tree" onClick={cstNodeTree}/>
                 </es-ribbon-dropdown>
             </es-ribbon-button-small>
             <es-ribbon-button-small>
                 <label>Comms</label>
                 <es-ribbon-dropdown>
-                    <es-ribbon-dropdown-item label="Configure" />
+                    <es-ribbon-dropdown-item label="Launch Pad" onClick={() => openCtm('LaunchPad/')}/>
+                    <es-ribbon-dropdown-item label="Hosts Summary"onClick={() => openCtm('Track:HostsSummary')}/>
+                    <es-ribbon-dropdown-item label="Incoming Messages" onClick={() => openCtm('Track:ViewILOG')}/>
+                    <es-ribbon-dropdown-item label="Queued Messages"onClick={() => openCtm('MSG:ShowQueuedMessages')}/>
+                    <es-ribbon-dropdown-item label="Outgoing Message"onClick={() => openCtm('Track:ViewOLOG')}/>
+
+                    <es-ribbon-dropdown-item label="Link Messages"onClick={() => openCtm('Track:LinkMessages')}/>
+                    <es-ribbon-dropdown-item label="Tactical Messages"onClick={() => openCtm('Track:TacticalMessages')}/>
+                    <es-ribbon-dropdown-item label="CMF Messages"onClick={() => openCtm('CMF:ViewLogs')}/>
+                    <es-ribbon-dropdown-item label="MMS Messages"onClick={() => openCtm('Track:ViewMmsLog')}/>
+                    
+                    <es-ribbon-dropdown-item label="Track Filters"onClick={() => openCtm('MsgFilter')}/>
                 </es-ribbon-dropdown>
             </es-ribbon-button-small>
-            <es-ribbon-button label="Comms Task Manager" />
+            <es-ribbon-button label="Comms Task Manager" onClick={commsTaskMgr}/>
         </es-ribbon-column>
     </es-ribbon-section>
 }
 const TracksMisc = () => {
+    function trashCan() { openCtm('Track:TrashCan') }
     return <es-ribbon-section label="Misc" >
-        <es-ribbon-button label="Trash Can"><RestoreFromTrash /></es-ribbon-button>
+        <es-ribbon-button label="Trash Can" onClick={trashCan}>
+            <RestoreFromTrash />
+        </es-ribbon-button>
     </es-ribbon-section>
 }
