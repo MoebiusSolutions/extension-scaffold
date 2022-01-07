@@ -20,6 +20,9 @@ es-ribbon-button-split es-ribbon-dropdown:hover {
 es-ribbon-button-split.open es-ribbon-dropdown:hover {
   background: transparent;
 }
+es-ribbon-button-split.has-dropdown {
+  padding-right: 0px;
+}
 
 .light es-ribbon-button-split:hover {
   background: rgba(0,0,0, 0.38);
@@ -29,6 +32,11 @@ es-ribbon-button-split.open es-ribbon-dropdown:hover {
 }
 
   `}
+  connected() {
+    if (this.querySelectorAll('es-ribbon-dropdown').length) {
+      this.classList.add('has-dropdown')
+    }
+  }
   render() {
     this.classList.add('ribbon-button')
     return this.html/*html*/`

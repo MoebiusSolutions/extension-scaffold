@@ -10,18 +10,21 @@ es-ribbon-section {
 }
 .ribbon-section {
   border-right: 1px solid;
-  padding: 8px;
+  padding: 4px;
   display: flex;
   user-select: none;
+  font-size: 10pt;
 }
 .ribbon-section-items {
   display: flex;
+  align-items: start;
   justify-content: space-around;
   flex-grow: 1;
 }
 .ribbon-section-label {
   font-size: 10px;
   text-align: center;
+  color: var(--es-theme-text-disabled-on-background);
 }
 
   `}

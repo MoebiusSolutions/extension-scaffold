@@ -11,10 +11,9 @@ export class EsRibbonButton extends Tonic {
   cursor: pointer;
   border: 1px solid transparent;
   border-radius: 1px;
-}
-es-ribbon-button {
   padding-left: 4px;
   padding-right: 4px;
+}
 }
 
 .ribbon-button.disabled,
@@ -31,12 +30,13 @@ es-ribbon-button {
   border: 1px solid var(--es-theme-text-secondary-on-background);
 }
 es-ribbon-button svg {
-  width: 24px;
   height: 24px;
+  position: relative;
+  top: 8px;
+  margin-top: -8px;
 }
 es-ribbon-button label {
   display: block;
-  font-size: 10px;
 }
 
   `}

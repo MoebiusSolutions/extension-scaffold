@@ -5,14 +5,14 @@ export class EsRibbonDropdown extends Tonic {
 
 es-ribbon-dropdown {
   order: 1;
-  display: flex;
-  align-items: center;
   align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 es-ribbon-dropdown svg {
   fill: var(--es-theme-text-secondary-on-background);
-  margin-top: -8px;
-  margin-bottom: -8px;
+  top: 0px;
 }
 .ribbon-dropdown {
   visibility: hidden;
