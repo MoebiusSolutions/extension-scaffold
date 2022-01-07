@@ -102,6 +102,7 @@ export interface Panels {
     expandPanel: (id: string) => void
     /** Restore from maximized or expanded */
     restorePanel: (id: string) => void
+    closeLocation: (location: Location) => void
 
     popOutPanel: (id: string) => boolean
     popInPanel: (id: string) => boolean

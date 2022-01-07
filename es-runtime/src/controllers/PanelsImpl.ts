@@ -1,7 +1,7 @@
 import { LocationStack } from '../models/LocationStack'
-import type {
+import {
     ExtensionIds, Location, AddPanelOptions,
-    Panels, OrigSize
+    Panels, OrigSize, LOCATIONS
 } from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
@@ -180,8 +180,7 @@ export class PanelsImpl implements Panels {
                 case 'bottom':
                 case 'bottom-bar':
                 case 'top':
-                    parent.classList.add('hidden')
-                    parent.classList.remove('grid-expanded')
+                    this.closeLocation(location)
                     hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
                     break
@@ -191,6 +190,18 @@ export class PanelsImpl implements Panels {
                     break
             }
         })
+    }
+    closeLocation(location: Location) {
+        if (LOCATIONS.findIndex(l => l === location) < 0) {
+            console.error('Invalid location', location)
+            return
+        }
+        const gridDiv = document.querySelector(`.grid-panel.${location}`)
+        if (!gridDiv) {
+            return
+        }
+        gridDiv.classList.add('hidden')
+        gridDiv.classList.remove('grid-expanded')
     }
 
     togglePanel(id: string) {
