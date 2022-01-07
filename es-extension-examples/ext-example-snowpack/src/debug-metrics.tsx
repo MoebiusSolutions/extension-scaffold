@@ -39,7 +39,7 @@ const DebugMetricsSection = () => {
     `}</style>
     <div className="debug-metrics">
       <div>{mbString}</div>
-      <Sparklines data={data} limit={20} width={width} height={60} margin={5}>
+      <Sparklines data={data} limit={20} width={width} height={50} margin={5}>
         <SparklinesLine />
       </Sparklines>
     </div>
