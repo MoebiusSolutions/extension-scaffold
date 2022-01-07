@@ -20,7 +20,12 @@
         {
             "tab": "Track",
             "sections": [
-                "track.show.code"
+                "track.show.code",
+                "tracks.manage",
+                "tracks.display",
+                "tracks.database",
+                "tracks.communications",
+                "tracks.misc"
             ]
         },
         {
