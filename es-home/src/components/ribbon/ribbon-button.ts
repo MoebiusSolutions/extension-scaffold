@@ -14,7 +14,6 @@ export class EsRibbonButton extends Tonic {
   padding-left: 4px;
   padding-right: 4px;
 }
-}
 
 .ribbon-button.disabled,
 .ribbon-button[disabled] {
