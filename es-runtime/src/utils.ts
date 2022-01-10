@@ -222,3 +222,17 @@ export const copyStyles = (sourceDoc: HTMLDocument, targetDoc: HTMLDocument) => 
     })
     targetDoc.body.style.padding = '0px'
 }
+
+export function appendIwcContext(url: string): string {
+    const urlObject = new URL(url, window.location.href)
+    const context = extensionScaffold.getContext()
+    if (!context) { return url }
+    if (context.provider) {
+        urlObject.searchParams.append('provider', context.provider)
+    }
+    if (context.busUrl) {
+        urlObject.searchParams.append('busUrl', context.busUrl)
+    }
+
+    return urlObject.toJSON()
+}

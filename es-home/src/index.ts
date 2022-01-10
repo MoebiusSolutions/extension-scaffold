@@ -131,8 +131,8 @@ export async function applyConfiguration(config: any, app: string) {
   }
 
   if (config.extensions) {
-    const busUrl = new URL('/bgapp/bcst-bus/index.html', window.location.toString()).toJSON();
-    const provider = 'broadcast';
+    const busUrl = config.iwc?.busUrl ?? new URL('/bgapp2/bcst-bus/index.html', window.location.toString()).toJSON();
+    const provider = config.iwc?.provider ?? 'broadcast';
     extensionScaffold.setContext({
       busUrl,
       provider
