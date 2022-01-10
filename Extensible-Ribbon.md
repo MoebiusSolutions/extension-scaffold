@@ -8,10 +8,15 @@ applications to group functionality under different tabs if required.
 
 ## JSON definition for the application ribbon
 
-The `ribbon` property is an array tab definitions.
-The label on the tab is defined by the `tab` property.
-The seconds on the tab is defined by the `sections` property. 
+The `ribbon` property is an array of ribbon item definitions.
+For a ribbon tab, the label on the tab is defined by the `tab` property.
+The sections on the tab are defined by the `sections` property. 
 The `sections` property is an array of unique IDs.
+
+Two non-tab locations exist to support the HSI guidelines.
+To define these locations, declare the property `location`
+with the value of `left-of-tabs` or `right-of-tabs`.
+As with tabs, the sections in the area are defined by the `sections` property. 
 
 ```json
     "ribbon": [
@@ -48,6 +53,19 @@ The `sections` property is an array of unique IDs.
                 "help.about",
                 "help.version"
             ]
+        },
+        {
+            "location": "left-of-tabs",
+            "sections": [
+                "example.scenario.selector"
+            ]
+        },
+        {
+            "location": "right-of-tabs",
+            "sections": [
+                "ctm.users",
+                "shared.search"
+            ]
         }
     ],
 ```
@@ -83,3 +101,131 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
   // claim more ribbon panels for this extension
 
 ```
+
+## Ribbon Web Components
+
+Use of the ribbon web components by an extension is not mandatory.
+However, using them will give the ribbon components a common look and feel.
+These custom web components are pre-registered by the framework.
+A JavaScript framework can use these web components in a manner similar to using built-in html elements.
+Typescript programs may need to declare the components to avoid typescript errors.
+
+```ts
+//
+// Let typescript know about our web components
+//
+declare namespace JSX {
+  interface IntrinsicElements {
+    "es-ribbon-section": any;
+    "es-ribbon-column": any;
+    "es-ribbon-button": any;
+    "es-ribbon-button-small": any;
+    "es-ribbon-button-split": any;
+    "es-ribbon-dropdown": any;
+    "es-ribbon-dropdown-item": any;
+  }
+}
+```
+
+### Component `es-ribbon-section`
+
+Sets up a container to fill the available panel space.
+Adds its label to the bottom of the section to identify the section.
+Example:
+```tsx
+const TracksManage = () => {
+  return <es-ribbon-section label="Manage Tracks">
+    <es-ribbon-button disabled>
+        <SelectIcon />
+        <label>Select</label>
+        <label>Tracks</label>
+    </es-ribbon-button>
+    <es-ribbon-button onClick={newTrack}>
+        <AddIcon />
+        <label>New</label>
+        <label>Track</label>
+    </es-ribbon-button>
+    <es-ribbon-column>
+        <es-ribbon-button-small label="Edit" disabled ><EditIcon /></es-ribbon-button-small>
+        <es-ribbon-button-small label="Compare" disabled ><MergeIcon /></es-ribbon-button-small>
+        <es-ribbon-button-small label="Un-merge" disabled ><UndoIcon /></es-ribbon-button-small>
+    </es-ribbon-column>
+    <es-ribbon-column>
+        <es-ribbon-button-small label="Quick Report" disabled ><AddLocationIcon /></es-ribbon-button-small>
+        <es-ribbon-button-small label="Find Duplicates" onClick={findDuplications} ><SearchIcon /></es-ribbon-button-small>
+        <es-ribbon-button-small label="Transmit" disabled ><SendIcon /></es-ribbon-button-small>
+    </es-ribbon-column>
+    <es-ribbon-column>
+        <es-ribbon-button-small label="Delete" disabled ><DeleteIcon /></es-ribbon-button-small>
+    </es-ribbon-column>
+  </es-ribbon-section>
+}
+```
+
+#### Attributes
+
+* `label`
+
+### Component `es-ribbon-column`
+
+Lays its children out into a vertical column. Example:
+```tsx
+  const Example = () => ( <es-ribbon-column>
+      <es-ribbon-button-small label="Edit" disabled ><EditIcon /></es-ribbon-button-small>
+      <es-ribbon-button-small label="Compare" disabled ><MergeIcon /></es-ribbon-button-small>
+      <es-ribbon-button-small label="Un-merge" disabled ><UndoIcon /></es-ribbon-button-small>
+  </es-ribbon-column> )
+
+```
+
+### Component `es-ribbon-button`
+
+Groups an icon and labels together into a button. Example:
+
+```tsx
+  const Example = () => ( <es-ribbon-button onClick={newTrack}>
+      <AddIcon />
+      <label>New</label>
+      <label>Track</label>
+  </es-ribbon-button> )
+```
+#### Attributes
+
+* `label`
+* `disabled` 
+
+### Component `es-ribbon-button-small`
+
+A ribbon button on a single line of text.
+Slightly smaller icon.
+
+#### Attributes
+
+* `label`
+* `disabled` 
+
+### Component `es-ribbon-button-split`
+
+A split button/dropdown menu.
+Clicking the button portion triggers a click.
+Clicking the dropdown arrow opens the dropdown.
+
+#### Attributes
+
+* `label`
+* `disabled` 
+
+### Component `es-ribbon-dropdown`
+
+Add as a child to `es-ribbon-button`, `es-ribbon-button-small`, `es-ribbon-button-split` to add a dropdown arrow. 
+When the dropdown arrow is clicked a panel is displayed containing the children.
+When the dropdown button loses focus the dropdown is closed.
+
+### Component `es-ribbon-dropdown-item`
+
+Clickable dropdown menu items.
+
+#### Attributes
+
+* `label`
+* `disabled` - TODO
