@@ -1,6 +1,10 @@
 {
     "name": "example",
     "title": "ES Example",
+    "iwc": {
+        "provider": "broadcast",
+        "busUrl": "/test-c"
+    },
     "ribbon": [
         {
             "tab": "View",
