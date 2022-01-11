@@ -1,6 +1,10 @@
 {
     "name": "dss-ocp",
     "title": "Decision Support System (OCP)",
+    "context": {
+        "iwc": "broadcast",
+        "busUrl": "https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html"
+    },
     "ribbon": [
         {
             "tab": "Developer",

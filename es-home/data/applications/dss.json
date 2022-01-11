@@ -1,6 +1,10 @@
 {
     "name": "dss",
     "title": "Decision Support System",
+    "context": {
+        "iwc": "broadcast",
+        "busUrl": "https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html"
+    },
     "ribbon": [
         {
             "tab": "Developer",
