@@ -38,6 +38,14 @@ es-ribbon-button label {
 }
 
   `}
+
+  connected() {
+    this.addEventListener('click', (e: MouseEvent) => {
+      if (this.hasAttribute('disabled')) {
+        e.stopPropagation()
+      }
+    }, true)
+  }
   render() {
     this.classList.add('ribbon-button')
     return this.html/*html*/`

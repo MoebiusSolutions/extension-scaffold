@@ -228,4 +228,4 @@ Clickable dropdown menu items.
 #### Attributes
 
 * `label`
-* `disabled` - TODO
+* `disabled`

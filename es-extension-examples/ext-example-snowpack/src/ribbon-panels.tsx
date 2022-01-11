@@ -168,7 +168,7 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
           <es-ribbon-dropdown-item onClick={handleClick} label="Item One"></es-ribbon-dropdown-item>
           <es-ribbon-dropdown-item onClick={handleClick}><div>Item Two</div></es-ribbon-dropdown-item>
           <es-ribbon-dropdown-item onClick={handleClick} label="Ignored"><div >Item Three</div></es-ribbon-dropdown-item>
-          <es-ribbon-dropdown-item onClick={handleClick}><div>Item Four</div></es-ribbon-dropdown-item>
+          <es-ribbon-dropdown-item disabled onClick={handleClick}><div>Item Four</div></es-ribbon-dropdown-item>
           <es-ribbon-dropdown-item onClick={handleClick}><div>Source Code</div></es-ribbon-dropdown-item>
         </es-ribbon-dropdown>
       </es-ribbon-button-split>

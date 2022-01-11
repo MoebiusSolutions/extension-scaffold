@@ -23,13 +23,27 @@ es-ribbon-dropdown-item {
   fill: var(--es-theme-text-primary-on-background);
   background: rgba(0,0,0, 0.2);
 }
+.ribbon-dropdown-item.disabled,
+.ribbon-dropdown-item[disabled] {
+  fill: var(--es-theme-text-disabled-on-background);
+  color: var(--es-theme-text-disabled-on-background);
+}
 
   `}
+
+  connected() {
+    this.addEventListener('click', (e: MouseEvent) => {
+      if (this.hasAttribute('disabled')) {
+        e.stopPropagation()
+      }
+    }, true)
+  }
   render() {
+    this.classList.add('ribbon-dropdown-item')
     if (this.children.length) {
-      return this.html/*html*/`<div class="ribbon-dropdown-item">${this.children}</div>`
+      return this.html`${this.children}`
     } else {
-      return this.html/*html*/`<div class="ribbon-dropdown-item">${this.props.label}</div>`
+      return this.html/*html*/`<label>${this.props.label}</label>`
     }
   }
 }
