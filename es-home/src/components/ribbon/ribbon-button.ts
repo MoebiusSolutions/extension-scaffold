@@ -8,7 +8,6 @@ export class EsRibbonButton extends Tonic {
   align-items: center;
   justify-content: center;
   text-align: center;
-  cursor: pointer;
   border: 1px solid transparent;
   border-radius: 1px;
   padding-left: 4px;
