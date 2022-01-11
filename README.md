@@ -48,9 +48,13 @@ During `npm run build` these files are cross referenced to convert IDs
 into the list of `extensions` that are defined to provide those IDs.
 Also, `index.json` is generated.
 
+## JSON Based Configuration
+
+* See [Data Driven Panels](es-home/README.md)
+
 ## Extensible Ribbon Bar
 
-* See  [Extensible Ribbon](Extensible-Ribbon.md)
+* See [Extensible Ribbon](Extensible-Ribbon.md)
 
 ## Alternate Use Case for `ES`
 
