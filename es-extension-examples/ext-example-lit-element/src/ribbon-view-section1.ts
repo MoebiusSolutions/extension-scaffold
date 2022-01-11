@@ -112,7 +112,7 @@ export class RibbonViewSection extends LitElement {
             <button @click=${this.showButton}>Three</button>
           </es-ribbon-dropdown>
         </es-ribbon-button>
-        <es-ribbon-button label="Disabled" disabled>
+        <es-ribbon-button @click=${this.showButton} label="Disabled" disabled>
           ${icon}
         </es-ribbon-button>
         <es-ribbon-button label="Disabled Class" class="disabled">
