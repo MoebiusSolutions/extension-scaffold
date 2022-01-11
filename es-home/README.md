@@ -16,13 +16,13 @@ this web application makes a `fetch` request back to the server
 to load the data for the requested "application".
 
 We borrow a design from Linux where we allow the configuration data
-to be spread over many files. Then, we use a script `es-home/scripts/pack-descriptors.js`
+to be spread over many files. Then, we use a script `es-home/scripts/resolve-applications.js`
 to combine the files so that we only need to make a single `fetch` to get
 all of the configuration information we need to initialize the panels.
 
 ## Folder Layout
 
-* `data/applications/*.json`
+### Folder: `data/applications/*.json`
 
 We expect one file per "application". 
 An "application" configuration is defined in JSON.
@@ -33,42 +33,116 @@ Below is an example for `aasw.json`
 
 ```json
 {
-    "name": "aasw",
-    "title": "Adaptive ASW",
-    "ribbon": [
-        "aeolus.view",
-        "aeolus.chart.settings",
-        "aasw.ribbon.tab",
-        "dss.help"
-    ],
-    "left": [ 
-        "aasw.case.explorer" 
-    ],
-    "center": [
-        "aeolus.map"
-    ],
-    "bottom-bar": [
-        "aasw.case.manager"
-    ]
+  "name": "aasw",
+  "title": "Adaptive ASW",
+  "context": {
+    "iwc": "broadcast",
+    "busUrl": "https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html"
+  },
+  "ribbon": [
+    { "tab": "File", "sections": [
+      "file.section1",
+      "file.section2"
+    ]},
+    { "tab": "Display", "sections": [
+        "display.theme",
+        "display.map",
+        "display.tracks",
+        "display.controls"
+    ]}
+  ],
+  "left": [ 
+    "aasw.case.explorer" 
+  ],
+  "center": [
+    "aeolus.map"
+  ],
+  "bottom-bar": [
+    "aasw.case.manager"
+  ]
 }
 ```
 
-* `data/extensions/*.json`
+### Property: `"context"`
 
-We expect one file per "extension".
+Currently the `context` object defines the IWC parameters:
+
+```json
+  "context": {
+    "iwc": "broadcast",
+    "busUrl": "https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html"
+  },
+```
+
+### Property: `"ribbon"`
+
+* See [Extensible Ribbon](../Extensible-Ribbon.md)
+
+### Panel Location Properties: `"left"`, `"bottom-bar"`, etc.
+
+The IDs places into these panel locations will override the location of a panel 
+added via `addPanel` unless `relocating` is true in the `AddPanelOptions`.
+This way an application can declaratively control the layout of its panels.
+
+Example: 
+
+```json
+  "center": [
+      "ext.aeolus.map"
+  ],
+```
+
+### Property: `"iframes"`
+
+IFrames declared here are automatically loaded at startup.
+The JSON allows any of the `AddPanelOptions` to be passed through to the `addPanel` API.
+If the `iframeSource` is missing then the entry is ignored.
+
+Example:
+
+```json
+  "iframes": [
+    {
+      "id": "es.example.iframe",
+      "title": "IFrame",
+      "location": "right",
+      "iframeSource": "http://localhost:9095/",
+      "resizeHandle": true
+    }
+  ]
+```
+
+### Property: `"extensions"`
+
+Normally, you use `npm run resolve-applications` (automatically triggered from `npm run build`)
+to build the list of extensions to load.
+However, you can force extensions into the resulting `app` definition by including
+an `"extensions"` property.
+
+Example:
+
+```json
+    "extensions": [
+        "/ui/ext-example-snowpack/dist/ext-react-snowpack.js"
+    ],
+```
+
+### Folder: `data/extensions/*.json`
+
+We expect one file per *extension*.
 Extensions are defined in JSON format.
 
-> Note: a single extension can create and register multiple panels
+> Note: a single extension can create and provide multiple panels
 
 The extension configuration defines the "url" of the extension.
-It also defines an array panel IDs in the "provides" property.
+It also defines an array panel IDs in the `"provides"` property.
 The extensions configuration does not need to list every panel ID that is provides,
-but it should list the panel IDs that will be needed by "applications".
+but it should list the panel IDs that will be needed by *applications*.
 
-These IDs are then used by `es-home/scripts/pack-descriptors.js` to compute
-which extensions are needed by an "application".
+These IDs are then used by `es-home/scripts/resolve-applications.js` to compute
+which extensions are needed by an *application*.
 
-Below is an example for "aeolus":
+Below is a possible example for Aeolus:
 
 ```json
 {
@@ -88,8 +162,7 @@ Below is an example for "aeolus":
         },
         {
             "title": "Layer Manager",
-            "id": "aeolus.layer.manager",
-            "iframe": "https://dev26/aeolus/map.layer.html"
+            "id": "aeolus.layer.manager"
         }
     ]
 }
@@ -100,11 +173,21 @@ Finally, these files are combined to produce `public/aaws.json`:
 ```json
 {
   "name": "aasw",
+  "context": {
+    "iwc": "broadcast",
+    "busUrl": "https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html"
+  },
   "ribbon": [
-    "aeolus.view",
-    "aeolus.chart.settings",
-    "aasw.ribbon.tab",
-    "dss.help"
+    { "tab": "File", "sections": [
+      "file.section1",
+      "file.section2"
+    ]},
+    { "tab": "Display", "sections": [
+        "display.theme",
+        "display.map",
+        "display.tracks",
+        "display.controls"
+    ]}
   ],
   "left": [
     "aasw.case.explorer"
@@ -125,25 +208,11 @@ Finally, these files are combined to produce `public/aaws.json`:
 
 ## Login to Private NPM Registry
 
-You will need to access a private NPM registry to build this project.
-Depending on your development environment you will need to use a different login command.
-See below.
-
-### OSA/CSA Artifactory
-
-`npm login --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-group/ --scope @gots`
-
-### DI2E Nexus
-
-`npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/ --scope @gots`
-
-### Moebius Nexus
-
-`npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots`
+* See [Login to Private NPM Registry](../Login-to-Private-NPM-Registry.md)
 
 ## Available Scripts
 
-### npm start
+### `npm start`
 
 Runs the app in the development mode.
 Open http://localhost:8080 to view it in the browser.
@@ -151,14 +220,12 @@ Open http://localhost:8080 to view it in the browser.
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
-### npm run build
+### `npm run build`
 
 Builds a static copy of your site to the `build/` folder.
 Your app is ready to be deployed!
 
-**For the best production performance:** Add a build bundler plugin like "@snowpack/plugin-webpack" to your `snowpack.config.js` config file.
-
-### npm test
+### `npm test`
 
 Launches the application test runner.
 Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch mode.

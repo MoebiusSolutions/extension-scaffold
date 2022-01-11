@@ -115,6 +115,8 @@ export interface Panels {
 export interface RibbonBar {
     claimRibbonTab: (title: string) => HTMLDivElement | null
     claimRibbonPanel: (id: string) => HTMLDivElement | null
+    showRibbonTab: (id: string) => HTMLDivElement | null
+    hideRibbonTab: (id: string) => HTMLDivElement | null
 }
 
 export interface Chrome {

@@ -142,7 +142,7 @@ So for version 1.2.3, you would tag with this command:
 git tag v1.2.3
 ```
 
-### Setup for the next release
+## 7. Setup for the next release
 
 ```
 $ git checkout develop
@@ -158,7 +158,7 @@ $ git commit -m 'Prepare for next development cycle, set version to 1.2.1-SNAPSH
 $ gitk --all # Verify branches and tags
 ```
 
-## 7. Push to the repositories
+## 8. Push to the repositories
 
 You can get a list of the git repositories you have configured with
 

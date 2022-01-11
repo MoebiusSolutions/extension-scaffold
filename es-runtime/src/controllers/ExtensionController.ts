@@ -13,6 +13,8 @@ import '../web-components/PanelHeaderBar'
 class NullRibbonBar implements RibbonBar {
     claimRibbonTab(title: string) { return null }
     claimRibbonPanel(id: string) { return null }
+    showRibbonTab(id: string)  { return null }
+    hideRibbonTab(id: string)  { return null }
 }
 class ChromeImpl implements Chrome {
     public ribbonBar: RibbonBar = new NullRibbonBar()

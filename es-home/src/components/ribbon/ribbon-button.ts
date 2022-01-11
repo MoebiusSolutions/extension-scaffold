@@ -8,7 +8,6 @@ export class EsRibbonButton extends Tonic {
   align-items: center;
   justify-content: center;
   text-align: center;
-  cursor: pointer;
   border: 1px solid transparent;
   border-radius: 1px;
   padding-left: 4px;
@@ -39,6 +38,14 @@ es-ribbon-button label {
 }
 
   `}
+
+  connected() {
+    this.addEventListener('click', (e: MouseEvent) => {
+      if (this.hasAttribute('disabled')) {
+        e.stopPropagation()
+      }
+    }, true)
+  }
   render() {
     this.classList.add('ribbon-button')
     return this.html/*html*/`

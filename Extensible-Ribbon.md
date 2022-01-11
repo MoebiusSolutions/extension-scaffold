@@ -72,8 +72,10 @@ As with tabs, the sections in the area are defined by the `sections` property.
 
 ## Ribbon API
 
-The new API `scaffold.chrome.ribbonBar.claimRibbonPanel(id: string)` allows an extension to "claim" the panel 
-and place its content within the section.
+### API: `scaffold.chrome.ribbonBar.claimRibbonPanel(id: string)`
+
+The API `scaffold.chrome.ribbonBar.claimRibbonPanel(id: string)` 
+allows an extension to "claim" the panel and place its content within the section.
 
 ```ts
 /**
@@ -101,6 +103,58 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
   // claim more ribbon panels for this extension
 
 ```
+
+### API: `scaffold.chrome.ribbonBar.claimRibbonTab(tab: string)` 
+
+The API `scaffold.chrome.ribbonBar.claimRibbonTab(tab: string)` 
+allows an extension to claim a tab `<div>`.
+The example below adds a rotating icon to the *Tracks* tab:
+
+```tsx
+function claimTrackTab(scaffold: ExtensionScaffoldApi) {
+  const tab = scaffold.chrome.ribbonBar.claimRibbonTab('Track')
+  if (!tab) { return }
+
+  ReactDOM.render(<React.StrictMode>
+    <style>{/*css*/`
+      .wrapper {
+        display: flex;
+        align-items: flex-end;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .loop-icon {
+          fill: green;
+          height: 1em;
+          padding-top: 2px;
+          animation: Loop-icon-spin infinite 20s linear reverse;
+        }
+      }
+      @keyframes Loop-icon-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    `}</style>
+    <div className="wrapper">
+      <LoopIcon/>
+      <label>Track</label>
+    </div>
+    </React.StrictMode>, tab)
+}
+```
+
+### API: `scaffold.chrome.ribbonBar.showRibbonTab(tab: string)` 
+
+Shows a hidden ribbon tab.
+An extension can show a ribbon tab in response to an object being selected.
+
+### API: `scaffold.chrome.ribbonBar.hideRibbonTab(tab: string)` 
+
+Hides a ribbon tab.
+An extension can show a ribbon tab in response to an object being deselected.
 
 ## Ribbon Web Components
 
@@ -228,4 +282,4 @@ Clickable dropdown menu items.
 #### Attributes
 
 * `label`
-* `disabled` - TODO
+* `disabled`

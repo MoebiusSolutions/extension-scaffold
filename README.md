@@ -48,9 +48,13 @@ During `npm run build` these files are cross referenced to convert IDs
 into the list of `extensions` that are defined to provide those IDs.
 Also, `index.json` is generated.
 
+## JSON Based Configuration
+
+* See [Data Driven Panels](es-home/README.md)
+
 ## Extensible Ribbon Bar
 
-* See  [Extensible Ribbon](Extensible-Ribbon.md)
+* See [Extensible Ribbon](Extensible-Ribbon.md)
 
 ## Alternate Use Case for `ES`
 
@@ -201,32 +205,21 @@ Contains sub-directories with extensions written with snowpack, rollup, webpack,
 
 The examples show how to use different frameworks/bundlers to create an extension.
 
-# Developing `es-runtime`
 
-After making a change to the runtime, `http://localhost:8081` should update via *hot-module-replacement*.
-If not, refresh the browser.
+# Developing without Publishing `es-runtime`
 
-Testing the same changes for `es-demo`, requires updating `es-demo/node_modules/@gots/es-runtime`
-in such a way that `snowpack` will re-bundle `es-runtime`.
-To do this follows these five steps:
-1) Change `es-runtime/package.json` **version**. For example change `0.2.0-build-1` to `0.2.0-build-2`
-2) In same folder (`es-runtime`) run:
-   ```
-   npm pack
-   ```
-   This will generate a new `.tgz` file: `es-runtime/gots-es-runtime-{version}.tgz`
-3) In `es-demo` folder install new `.tgz` based npm package using
-   `npm i ../../es-runtime/gots-es-runtime-{version}.tgz`<br/>
-    For the example **version** above run:
-    ```
-    npm i ../../es-runtime/gots-es-runtime-0.2.0-build-2.tgz
-    ```
-4) Restart `es-demo` docker container, use UI, or use shell
-   ```
-   cd compose
-   docker-compose restart es-demo
-   ```
-5) Refresh browser
+You can use these steps to build `es-runtime` and see those changes
+after refreshing `eshome`.
+
+```bash
+cd `es-home`
+npm i file:../es-runtime`
+cd ../es-runtime
+npm i
+npm run build
+```
+
+Refresh in the browser to see changes in `es-runtime`
 
 # Injecting Material UI Styles into the Shadow DOM
 
@@ -354,6 +347,7 @@ Install packages with:
 Next cd to es-tests and type : npm install
 Finally to run test type : npm test
 ```
+
 # Releasing a New Version
 
 [See `es-runtime` README.md](es-runtime/README.md)
