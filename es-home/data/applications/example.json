@@ -7,6 +7,19 @@
     },
     "ribbon": [
         {
+            "location": "left-of-tabs",
+            "sections": [
+                "example.scenario.selector"
+            ]
+        },
+        {
+            "location": "right-of-tabs",
+            "sections": [
+                "ctm.users",
+                "shared.search"
+            ]
+        },
+        {
             "tab": "View",
             "sections": [
                 "view.section1",
