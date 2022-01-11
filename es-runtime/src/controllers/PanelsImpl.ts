@@ -8,7 +8,7 @@ import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, showPanelsWithLocation,
     locationFromDiv, isActive, setActive, toStorage,
-    fromStorage, getGridState, withPanel, copyStyles
+    fromStorage, getGridState, withPanel, copyStyles, appendIwcContext
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { TabController } from './TabController';
@@ -84,7 +84,7 @@ export class PanelsImpl implements Panels {
 
         if (options.iframeSource && options.hidden) {
             const iframe = document.createElement('iframe')
-            iframe.src = options.iframeSource
+            iframe.src = appendIwcContext(options.iframeSource)
             iframe.style.display = 'none'
             gridContainer.appendChild(iframe)
             return Promise.resolve(gridContainer as HTMLDivElement)
@@ -116,7 +116,7 @@ export class PanelsImpl implements Panels {
         // We cannot use our CSS here because `extPanel` is in the shadow
         if (options.iframeSource) {
             const iframe = document.createElement('iframe')
-            iframe.src = options.iframeSource
+            iframe.src = appendIwcContext(options.iframeSource)
             iframe.style.width = '100%'
             iframe.style.height = '100%'
             iframe.style.border = 'none'

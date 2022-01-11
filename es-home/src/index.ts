@@ -38,7 +38,7 @@ interface IFramePanel {
 }
 function loadIframePanels(iframes?: IFramePanel[]) {
   return iframes?.reverse()?.map(async (config) => {
-    await extensionScaffold.chrome.panels.addPanel(config) 
+    await extensionScaffold.chrome.panels.addPanel(config)
   })
 }
 
@@ -99,7 +99,7 @@ function makeIdToPlacement(config: any): Map<string, Placement> {
       return
     }
     panels.forEach((pid, idx) => {
-      result.set(pid, { location: key, order: `${idx}`})
+      result.set(pid, { location: key, order: `${idx}` })
     })
   })
   return result
@@ -131,14 +131,11 @@ export async function applyConfiguration(config: any, app: string) {
   }
 
   if (config.extensions) {
-    const busUrl = new URL('/bgapp/bcst-bus/index.html', window.location.toString()).toJSON();
-    const provider = 'broadcast';
-    extensionScaffold.setContext({
-      busUrl,
-      provider
-    });
+    const def = { iwc: 'broadcast', 'busUrl': new URL('/bgapp2/bcst-bus/index.html', window.location.toString()).toJSON() }
+    const resolved = { ...def, ...config.context }
+    extensionScaffold.setContext(resolved)
 
-    initialize({ provider, busUrl })
+    initialize({ provider: resolved.iwc, busUrl: resolved.busUrl })
     subscribeJson('es.ping.topic', (sender, message, topic) => {
       console.log(sender, message, topic)
     })
@@ -152,10 +149,10 @@ export async function applyConfiguration(config: any, app: string) {
     extensionScaffold.events.on('order-panel-button', (event: any) => {
       event.order = order(event.options, id2placement)
     });
-    
+
     const ribbon = await EsRibbon.addPanel(extensionScaffold, config.ribbon)
     extensionScaffold.provideRibbonBar(ribbon)
-    
+
     const p1 = loadIframePanels(enabledIframes(config.iframes));
     const p2 = extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
     await Promise.all([p1, p2])

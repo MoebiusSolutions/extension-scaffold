@@ -1,6 +1,10 @@
 {
     "name": "example",
     "title": "ES Example",
+    "context": {
+        "iwc": "broadcast",
+        "busUrl": "/test-c"
+    },
     "ribbon": [
         {
             "tab": "View",
@@ -48,11 +52,10 @@
                 "mp.messages"
             ]
         },
-        { 
+        {
             "tab": "Example Content",
             "hidden": true,
-            "sections": [
-            ]
+            "sections": []
         },
         {
             "tab": "Help",

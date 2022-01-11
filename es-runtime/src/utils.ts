@@ -25,7 +25,7 @@ export function toJson(obj: GridState | ExtensionIds | string): string {
 
 export function toObject(json: string | null): GridState | ExtensionIds | null {
     try {
-        if (json === null) { return null}
+        if (json === null) { return null }
         return JSON.parse(json)
     } catch (e) {
         return null
@@ -221,4 +221,18 @@ export const copyStyles = (sourceDoc: HTMLDocument, targetDoc: HTMLDocument) => 
         }
     })
     targetDoc.body.style.padding = '0px'
+}
+
+export function appendIwcContext(url: string): string {
+    const urlObject = new URL(url, window.location.href)
+    const context = extensionScaffold.getContext()
+    if (!context) { return url }
+    if (context.iwc) {
+        urlObject.searchParams.append('iwc', context.iwc)
+    }
+    if (context.busUrl) {
+        urlObject.searchParams.append('busUrl', context.busUrl)
+    }
+
+    return urlObject.toJSON()
 }
