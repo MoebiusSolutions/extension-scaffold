@@ -26,21 +26,25 @@ class RibbonBarImpl implements RibbonBar {
   constructor(ribbon: EsRibbon) {
     this.esRibbon = ribbon
   }
-  claimRibbonTab(title: string) {
+  private wrapCall(f: () => HTMLDivElement | null) {
     try {
-      return this.esRibbon.claimRibbonTab(title)
+      return f()
     } catch (e) {
       console.error('Error', e)
       return null
     }
   }
+  claimRibbonTab(title: string) {
+    return this.wrapCall(() => this.esRibbon.claimRibbonTab(title))
+  }
   claimRibbonPanel(id: string) {
-    try {
-      return this.esRibbon.claimRibbonPanel(id)
-    } catch (e) {
-      console.error('Error', e)
-      return null
-    }
+    return this.wrapCall(() => this.esRibbon.claimRibbonPanel(id))
+  }
+  showRibbonTab(id: string) {
+    return this.wrapCall(() => this.esRibbon.showRibbonTab(id))
+  }
+  hideRibbonTab(id: string) {
+    return this.wrapCall(() => this.esRibbon.hideRibbonTab(id))
   }
 }
 
@@ -148,15 +152,29 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
 
   `}
 
-  claimRibbonTab(title: string) { 
+  withTab(title: string, lamda: (tabDiv: HTMLDivElement) => void) {
     let tabDiv: HTMLDivElement | null = null
     this.querySelectorAll('.ribbon-tab').forEach(d => {
       const div = d as HTMLDivElement
       if (div.innerText === title) {
         tabDiv = div
+        lamda(tabDiv)
       }
     })
     return tabDiv
+  }
+  claimRibbonTab(title: string) { 
+    return this.withTab(title, () => {})
+  }
+  showRibbonTab(title: string) {
+    return this.withTab(title, tabDiv => {
+      tabDiv.style.display = 'block'
+    })
+  }
+  hideRibbonTab(title: string) {
+    return this.withTab(title, tabDiv => {
+      tabDiv.style.display = 'none'
+    })
   }
 
   claimRibbonPanel(id: string): HTMLDivElement | null {

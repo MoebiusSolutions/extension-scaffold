@@ -25,14 +25,11 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         moveRightToLeft(es)
     }
     function showExampleContent() {
-        const e = es.chrome.ribbonBar.claimRibbonTab('Example Content')
-        if (!e) { return }
-        e.style.display = 'block'
+        const e = es.chrome.ribbonBar.showRibbonTab('Example Content')
+    }
 
-        // TODO
-        // es.chrome.ribbonBar.showRibbonTab('Example Content')
-        // es.chrome.ribbonBar.hideRibbonTab('Example Content')
-        // es.chrome.ribbonBar.showRibbonTab(0)
+    function hideExampleContent() {
+        const e = es.chrome.ribbonBar.hideRibbonTab('Example Content')
     }
 
     return <div style={{
@@ -59,7 +56,10 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
             <button onClick={handleMoveToLeft}>Move to Left</button>
         </div>
         <div>
-            <button onClick={showExampleContent}>Show Example Content</button>
+            <button onClick={showExampleContent}>Show Example Content Tab</button>
+        </div>
+        <div>
+            <button onClick={hideExampleContent}>Hide Example Content Tab</button>
         </div>
 
         <Amplify es={es} />
