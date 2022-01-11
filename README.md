@@ -354,6 +354,22 @@ Install packages with:
 Next cd to es-tests and type : npm install
 Finally to run test type : npm test
 ```
+
+# Developing without Publishing `es-runtime`
+
+You can use these steps to build `es-runtime` and see those changes
+after refreshing `eshome`.
+
+```bash
+cd `es-home`
+npm i file:../es-runtime`
+cd ../es-runtime
+npm i
+npm run build
+```
+
+Refresh in the browser to see changes in `es-runtime`
+
 # Releasing a New Version
 
 [See `es-runtime` README.md](es-runtime/README.md)
