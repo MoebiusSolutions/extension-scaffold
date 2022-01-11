@@ -1,5 +1,23 @@
 ## Change Log
 
+# [2.4.0] - 2022-01-11
+
+### Added
+
+* More ribbon bar documentation
+* More json configuration documentation with links between README files.
+* IWC configuration passed as query parameters to iframes - `iwc` and `busUrl`
+* JSON configuration can define the IWC configuration
+* Ribbon json now supports "location" of `left-of-tabs` or `right-of-tabs`
+* `es-ribbon-dropdown-item` now supports `disabled`
+* Example to show/hide a ribbon tab
+
+### Changed
+
+* Documentation on how to develop `es-runtime` without having to run `npm pack`
+* Fix cursor flicker for ribbon buttons
+* Add onclick to disabled button to verify it is not called
+
 # [2.3.0] - 2022-01-07
 
 ### Added
