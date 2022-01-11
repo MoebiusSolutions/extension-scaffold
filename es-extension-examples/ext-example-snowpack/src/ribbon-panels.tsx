@@ -274,21 +274,24 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
       </es-ribbon-button>
     </es-ribbon-section>
   )
-  claimRibbonWith(scaffold, 'ribbon-left-of-tabs', 
+  claimRibbonWith(scaffold, 'example.scenario.selector', 
   <div style={{ paddingRight: '8px' }}>
     <div>Plan: Untitled</div>
     <div>OPAUTH: CTF-74</div>
   </div>
   )
-  claimRibbonWith(scaffold, 'ribbon-right-of-tabs', 
-  <div style={{display: 'flex', flexGrow: 1, justifyContent: 'flex-end', alignItems: 'baseline'}}>
+  claimRibbonWith(scaffold, 'ctm.users', <div style={{
+    paddingRight: '8px',
+  }}>Users: 1</div>)
+  
+  claimRibbonWith(scaffold, 'shared.search', 
     <input  style={{
       border: '1px solid var(--es-theme-text-secondary-on-background)',
       color: 'var(--es-theme-text-secondary-on-background)',
       background: 'transparent',
       marginRight: '4px'
     }} type="text" placeholder="Search"/>
-  </div>)
+  )
 
   claimTrackTab(scaffold)
   claimTracksRibbonSections(scaffold)

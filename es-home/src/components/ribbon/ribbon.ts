@@ -8,20 +8,27 @@ import { EsRibbonButtonSmall } from './ribbon-button-small';
 import { EsRibbonButtonSplit } from './ribbon-button-split';
 import { EsRibbonDropdownItem } from './ribbon-dropdown-item';
 
-export interface Ribbon {
+export interface RibbonTab {
   tab?: string
   hidden?: boolean
   sections?: string[]
 }
+export interface RibbonArea {
+  location?: 'left-of-tabs' | 'right-of-tabs'
+  hidden?: boolean
+  sections?: string[]
+}
+
+type RibbonTabOrArea = RibbonTab | RibbonArea
 
 class RibbonBarImpl implements RibbonBar {
-  private readonly ribbon
+  private readonly esRibbon
   constructor(ribbon: EsRibbon) {
-    this.ribbon = ribbon
+    this.esRibbon = ribbon
   }
   claimRibbonTab(title: string) {
     try {
-      return this.ribbon.claimRibbonTab(title)
+      return this.esRibbon.claimRibbonTab(title)
     } catch (e) {
       console.error('Error', e)
       return null
@@ -29,7 +36,7 @@ class RibbonBarImpl implements RibbonBar {
   }
   claimRibbonPanel(id: string) {
     try {
-      return this.ribbon.claimRibbonPanel(id)
+      return this.esRibbon.claimRibbonPanel(id)
     } catch (e) {
       console.error('Error', e)
       return null
@@ -38,7 +45,7 @@ class RibbonBarImpl implements RibbonBar {
 }
 
 export class EsRibbon extends Tonic {
-  public ribbon?: Ribbon[]
+  public ribbon?: RibbonTabOrArea[]
 
   stylesheet() { return /*css*/`
 
@@ -61,9 +68,15 @@ export class EsRibbon extends Tonic {
   margin-top: auto;
   overflow: hidden; /* prevents track animation from toggling vscroll */
 }
-#ribbon-right-of-tabs {
-  flex-grow: 1;
+.ribbon-left-of-tabs {
   display: flex;
+  margin-right: 8px;
+}
+.ribbon-right-of-tabs {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 8px;
+  justify-content: flex-end;
 }
 .ribbon-tab.hidden {
   display: none;
@@ -223,27 +236,42 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     tab.classList.add('active')
     this.querySelector(`#${this.makeId(idx)}`)?.classList.add('active')
   }
+  private tabs(): RibbonTab[] {
+    if (!this.ribbon) { return [] }
+    return this.ribbon.filter(rt => 'tab' in rt && rt.tab)
+  }
+  private sectionsFor(location: 'left-of-tabs' | 'right-of-tabs'): RibbonArea[] {
+    if (!this.ribbon) { return [] }
+    return this.ribbon.filter(rt => 'location' in rt && rt.location === location)
+  }
   render() {
-    if (!this.ribbon) { return }
-
-    const tabs = this.ribbon.map((r: Ribbon, idx) => {
+    const tabs = this.tabs().map((r: RibbonTab, idx) => {
       let cls = idx === 0 ? `ribbon-tab active` : `ribbon-tab`
       if (r.hidden) {
         cls = `${cls} hidden`
       }
       return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
     })
-    const ribbons = this.ribbon.map((r: Ribbon, idx: number) => {
+    const leftOfTabs = this.sectionsFor('left-of-tabs').map((r: RibbonArea) => {
+      const sections = r.sections?.map(s => this.html`<div class="loading" id="${s}">...</div>`)
+      return this.html`<div class="ribbon-left-of-tabs">${sections}</div>`
+    })
+    const rightOfTabs = this.sectionsFor('right-of-tabs').map((r: RibbonArea) => {
+      const sections =  r.sections?.map(s => this.html`<div class="loading" id="${s}">...</div>`)
+      return this.html`<div class="ribbon-right-of-tabs">${sections}</div>`
+    })
+    const ribbons = this.tabs().map((r: RibbonTabOrArea, idx: number) => {
       const cls = idx === 0 ? `ribbon active` : `ribbon`
       const sections = r.sections?.map(s => this.html`<div class="ribbon-section loading" id="${s}">...</div>`)
       return this.html`<div id="${this.makeId(idx)}" class="${cls}">${sections}</div>`
     })
     return this.html/*html*/`<nav>
       <div class="ribbon-head">
-        <div id="ribbon-left-of-tabs" class="loading"></div>
+        ${leftOfTabs}
         ${tabs}
-        <div id="ribbon-right-of-tabs" class="loading"></div>
+        ${rightOfTabs}
       </div>
+
       <div class="ribbon-body un-float open">${ribbons}
         <div class="ribbon-controls">
           <svg class="unfold-more" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
@@ -262,7 +290,7 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
       </div>
     </nav>`
   }
-  static async addPanel(scaffold: ExtensionScaffoldApi, ribbon?: Ribbon[]) {
+  static async addPanel(scaffold: ExtensionScaffoldApi, ribbon?: RibbonTabOrArea[]) {
     const panelDiv = await scaffold.chrome.panels.addPanel({
       id: 'es-home.ribbon',
       location: 'top-bar',
