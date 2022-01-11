@@ -74,7 +74,7 @@ Currently the `context` object defines the IWC parameters:
   },
 ```
 
-## Property: `"ribbon"`
+### Property: `"ribbon"`
 
 * See [Extensible Ribbon](../Extensible-Ribbon.md)
 
