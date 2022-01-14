@@ -55,6 +55,8 @@ Version:    ${APP_VERSION_RPM}
 Release:    1
 Summary:    ${APP_NAME}
 License:    DoD
+BuildRequires:   httpd
+Requires:   httpd
 
 %description
 
