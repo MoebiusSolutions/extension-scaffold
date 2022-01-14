@@ -10,6 +10,7 @@
     "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
+    "@gots/noowf-inter-widget-communication": "^2.5.0",
     "canvas-confetti": "^1.2.0"
   },
   "devDependencies": {
