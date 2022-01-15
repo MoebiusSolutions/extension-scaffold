@@ -1,10 +1,6 @@
 {
     "name": "example",
     "title": "ES Example",
-    "context": {
-        "iwc": "broadcast",
-        "busUrl": "/test-c"
-    },
     "ribbon": [
         {
             "location": "left-of-tabs",
