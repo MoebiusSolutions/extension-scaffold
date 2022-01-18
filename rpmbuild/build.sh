@@ -55,7 +55,6 @@ Version:    ${APP_VERSION_RPM}
 Release:    1
 Summary:    ${APP_NAME}
 License:    DoD
-BuildRequires:   httpd
 Requires:   httpd
 
 %description
@@ -93,19 +92,25 @@ mkdir -p "${APP_INSTALL_DIR}"
 %post
 ln -sf "${APP_INSTALL_DIR}/es-home" "/opt/scaffold/es-home"
 if ! grep es-home /etc/httpd/conf/httpd.conf; then   
+ echo "configurig httpd.conf"
  mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
- cp -i "${APP_INSTALL_DIR}/conf/. "/etc/httpd/conf"
+ cp -rfp "${APP_INSTALL_DIR}/httpd/conf/." "/etc/httpd/conf"
+else
+ echo "httpd.conf previously configured"
 fi
-systemctl rerestart httpd 
+systemctl restart httpd 
 # preun: Scripts to execute before uninstalling files from the target system
 %preun
 
 # postun: Scripts to execute after uninstalling files from the target system
 %postun
-if [ -f "/etc/httpd/conf/httpd.conf" ]; then
+if [ -f "/etc/httpd/conf/httpd.conf.orig" ]; then
   rm /etc/httpd/conf/httpd.conf
   mv /etc/httpd/conf/httpd.conf.orig /etc/httpd/conf/httpd.conf 
+else
+  echo "not removing es-home from http.conf. Please edit file to remove es-home references"
 fi
+rm -rf ${APP_INSTALL_DIR}
 systemctl restart httpd
 __EOF__
 
