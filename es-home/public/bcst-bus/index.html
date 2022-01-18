@@ -2,17 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="./favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Web site created using create-snowpack-app" />
-    <link rel="stylesheet" type="text/css" href="/index.css" />
-    <title>Snowpack App</title>
+    <title>noowf-inter-widget-communication / Cross origin bus</title>
   </head>
   <body>
-    <img id="img" src="/logo.svg" />
-    <div id="ping"></div>
+    <h2>Hidden Window</h2>
+    This page is used as a broadcast bus so that
+    multiple pages from different origins can use this
+    page as a common origin for exchanging in browser messages.
+    See busUrl option for initialize() call.
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script type="module" src="/dist/index.js"></script>
+    <script type="module" src="./../dist/bcst-bus.js"></script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

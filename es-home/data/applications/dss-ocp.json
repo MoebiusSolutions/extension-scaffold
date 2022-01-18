@@ -35,7 +35,8 @@
             "title": "CTM Track Summary",
             "location": "bottom-bar",
             "iframeSource": "/otm-console/controllers/Track:Summary?console=1&zone=CIP",
-            "resizeHandle": true
+            "resizeHandle": true,
+            "initialWidthOrHeight": "30em"
         }
     ]
 }

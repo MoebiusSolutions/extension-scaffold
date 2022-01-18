@@ -4,6 +4,7 @@
  **/
 
 import confetti from 'canvas-confetti';
+import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 
 function handleLoad() {
   confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
@@ -11,7 +12,25 @@ function handleLoad() {
     useWorker: true,
   })({ particleCount: 200, spread: 200 });
 }
-// window.addEventListener('load', handleLoad)
-window.addEventListener('message', console.log)
+
+function setupIwc() {
+  const url = new URL(window.location.toString())
+  const provider = url.searchParams.get('iwc') ?? 'broadcast'
+  const busUrl = url.searchParams.get('busUrl') ?? 'bcst-bus'
+
+  initialize({
+    // @ts-ignore
+    provider,
+    busUrl
+  })
+  subscribeJson('es.ping.topic', (sender, message, topic) => {
+    const div = document.getElementById('ping')
+    if (div) {
+      div.innerText = JSON.stringify({ sender, message, topic })
+    }
+  })
+}
+
+setupIwc()
 
 console.log('IFrame example loaded')

@@ -131,7 +131,8 @@ export async function applyConfiguration(config: any, app: string) {
   }
 
   if (config.extensions) {
-    const def = { iwc: 'broadcast', 'busUrl': new URL('/bgapp2/bcst-bus/index.html', window.location.toString()).toJSON() }
+    // The default bcst-bus is now contained within es-home
+    const def = { iwc: 'broadcast', 'busUrl': new URL('./bcst-bus/index.html', window.location.toString()).toJSON() }
     const resolved = { ...def, ...config.context }
     extensionScaffold.setContext(resolved)
 
