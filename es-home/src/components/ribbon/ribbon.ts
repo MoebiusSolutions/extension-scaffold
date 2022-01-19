@@ -255,12 +255,18 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
     this.querySelector(`#${this.makeId(idx)}`)?.classList.add('active')
   }
   private tabs(): RibbonTab[] {
+    function isTab(rt: any): rt is RibbonTab {
+      return rt.tab ? true : false
+    }
     if (!this.ribbon) { return [] }
-    return this.ribbon.filter(rt => 'tab' in rt && rt.tab)
+    return this.ribbon.filter(isTab)
   }
   private sectionsFor(location: 'left-of-tabs' | 'right-of-tabs'): RibbonArea[] {
+    function isArea(rt: any): rt is RibbonArea {
+      return rt.location ? true : false
+    }
     if (!this.ribbon) { return [] }
-    return this.ribbon.filter(rt => 'location' in rt && rt.location === location)
+    return this.ribbon.filter(rt => isArea(rt) && rt.location === location)
   }
   render() {
     const tabs = this.tabs().map((r: RibbonTab, idx) => {
