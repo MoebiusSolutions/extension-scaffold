@@ -51,7 +51,7 @@
             "id": "atf.weapon",
             "title": "Blue Green Optimizer",
             "location": "bottom",
-            "iframeSource": "/bgo/WeaponSystem?dod=true",
+            "iframeSource": "/bgo/WeaponSystem?dod=false",
             "resizeHandle": "true"
         }
     ]
