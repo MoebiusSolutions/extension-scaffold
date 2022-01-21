@@ -1,4 +1,5 @@
 import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api";
+import { WidgetLauncher } from "@gots/noowf-widget-launch";
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -49,14 +50,17 @@ export function claimTracksRibbonSections(scaffold: ExtensionScaffoldApi) {
 }
 
 const TracksManage = () => {
-    const newTrackWindowRef = React.useRef<Window | null>(null)
     function newTrack() {
-        let w = newTrackWindowRef.current
-        if (!w || w.closed) {
-            newTrackWindowRef.current = openCtm('Track:New', 'ctmNewTrackWindow', 'popup')
-            return
-        }
-        w.focus()
+        const wl = new WidgetLauncher()
+        wl.launch({
+            data: JSON.stringify({ guid: "test" }),
+            universalName: "ctm.new.track",
+            launchOnlyIfClosed: true,
+            title: "New Track",
+            guid: "",
+            url: ctmUrl('Track:New'),
+            // features: 'popup'
+        }, () => {})
     }
     function findDuplications() {
         openCtm('Track:Duplicates')
