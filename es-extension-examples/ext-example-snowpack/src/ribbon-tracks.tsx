@@ -59,7 +59,7 @@ const TracksManage = () => {
             title: "New Track",
             guid: "",
             url: ctmUrl('Track:New'),
-            // features: 'popup'
+            features: 'popup'
         }, () => {})
     }
     function findDuplications() {
