@@ -31,6 +31,24 @@
             ]
         },
         {
+            "tab": "Timeline",
+            "sections": [
+                "tpt2.file",
+                "tpt2.timescale",
+                "tpt2.planning.horizon",
+                "tpt2.plan.animation",
+                "tpt2.cursors"
+            ]
+        },
+        {
+            "tab": "Plans",
+            "sections": [
+                "tpt2.coas",
+                "tpt2.units",
+                "tpt2.events"
+            ]
+        },
+        {
             "tab": "Track",
             "sections": [
                 "track.show.code",

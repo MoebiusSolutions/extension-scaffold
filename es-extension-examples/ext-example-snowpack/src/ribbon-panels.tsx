@@ -9,6 +9,7 @@ import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 import { FormatFileName } from './snippets/FormatFileName';
 import { ChartOptions } from './ribbon-chart-options';
 import { claimTracksRibbonSections } from './ribbon-tracks';
+import { claimPlansRibbonSections } from './ribbon-plans';
 
 const PlusSquareO = () => <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
 const LoopIcon = () => <svg className="loop-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
@@ -295,4 +296,5 @@ export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
 
   claimTrackTab(scaffold)
   claimTracksRibbonSections(scaffold)
+  claimPlansRibbonSections(scaffold)
 }
