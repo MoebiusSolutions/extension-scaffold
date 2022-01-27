@@ -167,17 +167,22 @@ const TptTimescale = () => {
     background-color: transparent;
     border: 1px solid;
 }
+.calendar {
+    width: 9em;
+}
 `
     return <es-ribbon-section className="tpt2-ribbon" label="Timescale">
         <style>{css}</style>
         <es-ribbon-column>
             <es-ribbon-row>
-                <input value="2022/01/20 14:00Z" />
+                <input className="calendar" defaultValue="2022/01/20 14:00Z" />
                 <label>TO</label> 
-                <input value="2022/01/20 14:00Z" />
+                <input className="calendar" defaultValue="2022/01/20 14:00Z" />
 
                 <es-ribbon-button-split label="Select...">
                     <es-ribbon-dropdown>
+                        <es-ribbon-dropdown-item label="ESSEX" />
+                        <es-ribbon-dropdown-item label="LINCOLN" />
                     </es-ribbon-dropdown>
                 </es-ribbon-button-split>
 
@@ -193,6 +198,8 @@ const TptTimescale = () => {
                 <label>Duration:</label>
                 <es-ribbon-button-split label="Custom">
                     <es-ribbon-dropdown>
+                        <es-ribbon-dropdown-item label="1"/>
+                        <es-ribbon-dropdown-item label="7"/>
                     </es-ribbon-dropdown>
                 </es-ribbon-button-split>
                 <label>days</label>
@@ -227,14 +234,17 @@ const TptPlanningHorizon = () => {
     background-color: transparent;
     border: 1px solid;
 }
+.calendar {
+    width: 9em;
+}
 `
     return <es-ribbon-section className="tpt2-ribbon" label="Planning Horizon">
         <style>{css}</style>
         <es-ribbon-column>
             <es-ribbon-row>
-                <input value="2021/12/28 23:33Z" />
+                <input className="calendar" defaultValue="2021/12/28 23:33Z" />
                 <label>TO</label> 
-                <input value="2021/12/29 23:33Z" />
+                <input className="calendar" defaultValue="2021/12/29 23:33Z" />
 
                 <es-ribbon-button-small label="Timescale" >
                     <TopicIcon />
@@ -244,6 +254,8 @@ const TptPlanningHorizon = () => {
                 <label>Duration:</label>
                 <es-ribbon-button-split label="1">
                     <es-ribbon-dropdown>
+                        <es-ribbon-dropdown-item label="1"/>
+                        <es-ribbon-dropdown-item label="7"/>
                     </es-ribbon-dropdown>
                 </es-ribbon-button-split>
                 <label>day(s)</label>
@@ -263,18 +275,19 @@ const TptPlanAnimation = () => {
     background-color: transparent;
     border: 1px solid;
 }
+.calendar {
+    width: 9em;
+}
 `
     return <es-ribbon-section className="tpt2-ribbon" label="Plan Animation">
         <style>{css}</style>
         <es-ribbon-column>
             <es-ribbon-row>
                 <label>Start:</label>
-                <input style={{
-                    width: "9em",
-                }} value="2021-12/28 23:33Z" />
+                <input className="calendar" defaultValue="2021-12/28 23:33Z" />
                 <input style={{
                     width: "3em"
-                }} type="number" value="1" />
+                }} type="number" defaultValue="1" />
                 <label>min/sec</label>
             </es-ribbon-row>
             <es-ribbon-row>
