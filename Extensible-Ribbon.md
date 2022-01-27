@@ -171,6 +171,7 @@ Typescript programs may need to declare the components to avoid typescript error
 declare namespace JSX {
   interface IntrinsicElements {
     "es-ribbon-section": any;
+    "es-ribbon-row": any;
     "es-ribbon-column": any;
     "es-ribbon-button": any;
     "es-ribbon-button-small": any;
