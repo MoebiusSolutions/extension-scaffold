@@ -48,9 +48,10 @@ es-ribbon-button label {
   }
   render() {
     this.classList.add('ribbon-button')
+    const label = this.props.label ? this.html`<label>${this.props.label}</label>` : undefined
     return this.html/*html*/`
       ${this.children}
-      <label>${this.props.label}</label>
+      ${label}
     `
   }
 }
