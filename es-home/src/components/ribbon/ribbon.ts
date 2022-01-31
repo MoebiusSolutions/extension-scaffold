@@ -1,6 +1,7 @@
 import type { ExtensionScaffoldApi, RibbonBar } from '@gots/es-runtime/build/es-api'
 import Tonic from '@optoolco/tonic'
 import { EsRibbonSection } from './ribbon-section';
+import { EsRibbonRow } from './ribbon-row';
 import { EsRibbonColumn } from './ribbon-column';
 import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
@@ -143,6 +144,7 @@ export class EsRibbon extends Tonic {
 }
 
 ${EsRibbonSection.hoistedStylesheet()}
+${EsRibbonRow.hoistedStylesheet()}
 ${EsRibbonColumn.hoistedStylesheet()}
 ${EsRibbonButton.hoistedStylesheet()}
 ${EsRibbonButtonSmall.hoistedStylesheet()}
@@ -329,6 +331,7 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
 
 Tonic.add(EsRibbon)
 Tonic.add(EsRibbonSection)
+Tonic.add(EsRibbonRow)
 Tonic.add(EsRibbonColumn)
 Tonic.add(EsRibbonButton)
 Tonic.add(EsRibbonButtonSmall)

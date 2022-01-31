@@ -28,6 +28,12 @@ es-ribbon-section {
 }
 
   `}
+  connected() {
+    if (this.props.classname) {
+      // Help react set the class
+      this.className = this.props.classname
+    }
+  }
   render() {
     return this.html/*html*/`
       <div class="ribbon-section-items">
