@@ -18,13 +18,21 @@ const HistoryIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2
 const DashboardIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
 const RestoreFromTrash = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14zM6 7v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zm8 7v4h-4v-4H8l4-4 4 4h-2z"/></svg>
 
-function ctmUrl(page: string) {
+function ctmUrl(scaffold: ExtensionScaffoldApi, page: string) {
     const configuredUrl = 'http://proxy.gccs-m.test:8080' // TODO lookup from configuration
     const zone = 'MGF' // TODO bind to dropdown in ribbon
-    return `${configuredUrl}/otm-console/controllers/${page}?zone=${zone}`
+    const context = scaffold.getContext()
+    const iwc = context?.iwc
+    const busUrl = context?.busUrl
+    return `${configuredUrl}/otm-console/controllers/${page}?zone=${zone}&iwc=${iwc}&busUrl=${busUrl}`
 }
-function openCtm(page: string, target?: string, features?: string) {
-    return window.open(ctmUrl(page), target, features)
+function openCtm(scaffold: ExtensionScaffoldApi, page: string, target?: string, features?: string) {
+    return window.open(ctmUrl(scaffold, page), target, features)
+}
+function closeDropdown(e: React.MouseEvent) {
+    const target: HTMLElement | null = e.target as any
+    const dropdown: any = target?.closest('es-ribbon-dropdown')
+    dropdown?.close()
 }
 
 export function claimTracksRibbonSections(scaffold: ExtensionScaffoldApi) {
@@ -50,6 +58,25 @@ export function claimTracksRibbonSections(scaffold: ExtensionScaffoldApi) {
 }
 
 const TracksManage = () => {
+    const scaffold = React.useContext(ExtensionScaffoldContext)
+    const [newTrackOpen, setNewTrackOpen] = React.useState(false)
+    const CTM_NEW_TRACK_ID = 'ctm.new.track.panel'
+
+    React.useEffect(() => {
+        if (newTrackOpen) {
+            scaffold.chrome.panels.addPanel({ 
+                id: CTM_NEW_TRACK_ID,
+                title: 'New Track',
+                location: 'left',
+                iframeSource: ctmUrl(scaffold, 'Track:New'),
+                resizeHandle: true,
+            })
+        } else {
+            scaffold.chrome.panels.removePanel(CTM_NEW_TRACK_ID)
+            scaffold.chrome.panels.closeLocation('left')
+        }
+    }, [newTrackOpen])
+
     function newTrack() {
         const wl = new WidgetLauncher()
         wl.launch({
@@ -58,12 +85,18 @@ const TracksManage = () => {
             launchOnlyIfClosed: true,
             title: "New Track",
             guid: "",
-            url: ctmUrl('Track:New'),
+            url: ctmUrl(scaffold, 'Track:New'),
             features: 'popup'
         }, () => {})
     }
+    function toggleNewTrack(e: React.MouseEvent) {
+        e.stopPropagation() // Prevent second callback
+        setNewTrackOpen(p => !p)
+        closeDropdown(e)
+    }
+
     function findDuplications() {
-        openCtm('Track:Duplicates')
+        openCtm(scaffold, 'Track:Duplicates')
     }
     return <es-ribbon-section label="Manage Tracks">
         <es-ribbon-button disabled>
@@ -76,6 +109,14 @@ const TracksManage = () => {
             <label>New</label>
             <label>Track</label>
         </es-ribbon-button>
+
+        <es-ribbon-button-split label="New Track" onClick={toggleNewTrack}>
+            <es-ribbon-dropdown>
+                <es-ribbon-dropdown-item label="Toggle Panel" onClick={toggleNewTrack}/>
+                <es-ribbon-dropdown-item label="Open in Window" onClick={newTrack}/>
+            </es-ribbon-dropdown>
+        </es-ribbon-button-split>
+
         <es-ribbon-column>
             <es-ribbon-button-small label="Edit" disabled ><EditIcon /></es-ribbon-button-small>
             <es-ribbon-button-small label="Compare" disabled ><MergeIcon /></es-ribbon-button-small>
@@ -92,7 +133,8 @@ const TracksManage = () => {
     </es-ribbon-section>
 }
 const TrackDisplay = () => {
-    function statusBoard() { openCtm('StatusBoard') }
+    const scaffold = React.useContext(ExtensionScaffoldContext)
+    function statusBoard() { openCtm(scaffold, 'StatusBoard') }
     return <es-ribbon-section label="Track Display">
         <es-ribbon-button disabled>
             <HistoryIcon />
@@ -119,7 +161,7 @@ const TracksDatabase = () => {
                 id: CTM_TRACK_SUMMARY_ID,
                 title: 'Tracks',
                 location: 'bottom-bar',
-                iframeSource: ctmUrl('Track:Summary'),
+                iframeSource: ctmUrl(scaffold, 'Track:Summary'),
                 resizeHandle: true,
             })
         } else {
@@ -134,7 +176,7 @@ const TracksDatabase = () => {
                 id: CTM_MISSILE_SUMMARY_ID,
                 title: "Missiles",
                 location: 'bottom-bar',
-                iframeSource: ctmUrl('DynamicMissiles:Summary'),
+                iframeSource: ctmUrl(scaffold, 'DynamicMissiles:Summary'),
                 resizeHandle: true,
             })
         } else {
@@ -142,15 +184,10 @@ const TracksDatabase = () => {
         }
     }, [missilesOpen])
 
-    function home() { openCtm('HomePanel') }
-    function trackCounts() { openCtm('Track:TrackCounts') }
-    function bcstStatus() { openCtm('Broadcast:Status') }
-    function timelate() { openCtm('Track:Timelate') }
-    function closeDropdown(e: React.MouseEvent) {
-        const target: HTMLElement | null = e.target as any
-        const dropdown: any = target?.closest('es-ribbon-dropdown')
-        dropdown?.close()
-    }
+    function home() { openCtm(scaffold, 'HomePanel') }
+    function trackCounts() { openCtm(scaffold, 'Track:TrackCounts') }
+    function bcstStatus() { openCtm(scaffold, 'Broadcast:Status') }
+    function timelate() { openCtm(scaffold, 'Track:Timelate') }
     function summary(e: React.MouseEvent) { 
         e.stopPropagation() // Prevent second callback
         setSummaryOpen(p => !p)
@@ -158,7 +195,7 @@ const TracksDatabase = () => {
     }
     function openSummary(e: React.MouseEvent) {
         e.stopPropagation() // Prevent summary callback
-        openCtm('Track:Summary')
+        openCtm(scaffold, 'Track:Summary')
     }
     function missiles(e: React.MouseEvent) { 
         e.stopPropagation() // Prevent second callback
@@ -167,7 +204,7 @@ const TracksDatabase = () => {
     }
     function openMissiles(e: React.MouseEvent) {
         e.stopPropagation() // Prevent missiles callback
-        openCtm('DynamicMissiles:Summary')
+        openCtm(scaffold, 'DynamicMissiles:Summary')
     }
     return <es-ribbon-section label="Track Database">
         <es-ribbon-column>
@@ -193,10 +230,12 @@ const TracksDatabase = () => {
     </es-ribbon-section>
 }
 const TracksCommunications = () => {
-    function cstConfiguration() { openCtm('CST:ShowConfig') }
-    function cstNodeTable() { openCtm('CST:ShowNodeSummary') }
-    function cstNodeTree() { openCtm('CST:ShowTreeView') }
-    function commsTaskMgr() { openCtm('Track:CommsTaskManager') }
+    const scaffold = React.useContext(ExtensionScaffoldContext)
+
+    function cstConfiguration() { openCtm(scaffold, 'CST:ShowConfig') }
+    function cstNodeTable() { openCtm(scaffold, 'CST:ShowNodeSummary') }
+    function cstNodeTree() { openCtm(scaffold, 'CST:ShowTreeView') }
+    function commsTaskMgr() { openCtm(scaffold, 'Track:CommsTaskManager') }
 
     return <es-ribbon-section label="Communications" >
         <es-ribbon-column>
@@ -211,18 +250,18 @@ const TracksCommunications = () => {
             <es-ribbon-button-small>
                 <label>Comms</label>
                 <es-ribbon-dropdown>
-                    <es-ribbon-dropdown-item label="Launch Pad" onClick={() => openCtm('LaunchPad/')}/>
-                    <es-ribbon-dropdown-item label="Hosts Summary"onClick={() => openCtm('Track:HostsSummary')}/>
-                    <es-ribbon-dropdown-item label="Incoming Messages" onClick={() => openCtm('Track:ViewILOG')}/>
-                    <es-ribbon-dropdown-item label="Queued Messages"onClick={() => openCtm('MSG:ShowQueuedMessages')}/>
-                    <es-ribbon-dropdown-item label="Outgoing Message"onClick={() => openCtm('Track:ViewOLOG')}/>
+                    <es-ribbon-dropdown-item label="Launch Pad" onClick={() => openCtm(scaffold, 'LaunchPad/')}/>
+                    <es-ribbon-dropdown-item label="Hosts Summary"onClick={() => openCtm(scaffold, 'Track:HostsSummary')}/>
+                    <es-ribbon-dropdown-item label="Incoming Messages" onClick={() => openCtm(scaffold, 'Track:ViewILOG')}/>
+                    <es-ribbon-dropdown-item label="Queued Messages"onClick={() => openCtm(scaffold, 'MSG:ShowQueuedMessages')}/>
+                    <es-ribbon-dropdown-item label="Outgoing Message"onClick={() => openCtm(scaffold, 'Track:ViewOLOG')}/>
 
-                    <es-ribbon-dropdown-item label="Link Messages"onClick={() => openCtm('Track:LinkMessages')}/>
-                    <es-ribbon-dropdown-item label="Tactical Messages"onClick={() => openCtm('Track:TacticalMessages')}/>
-                    <es-ribbon-dropdown-item label="CMF Messages"onClick={() => openCtm('CMF:ViewLogs')}/>
-                    <es-ribbon-dropdown-item label="MMS Messages"onClick={() => openCtm('Track:ViewMmsLog')}/>
+                    <es-ribbon-dropdown-item label="Link Messages"onClick={() => openCtm(scaffold, 'Track:LinkMessages')}/>
+                    <es-ribbon-dropdown-item label="Tactical Messages"onClick={() => openCtm(scaffold, 'Track:TacticalMessages')}/>
+                    <es-ribbon-dropdown-item label="CMF Messages"onClick={() => openCtm(scaffold, 'CMF:ViewLogs')}/>
+                    <es-ribbon-dropdown-item label="MMS Messages"onClick={() => openCtm(scaffold, 'Track:ViewMmsLog')}/>
                     
-                    <es-ribbon-dropdown-item label="Track Filters"onClick={() => openCtm('MsgFilter')}/>
+                    <es-ribbon-dropdown-item label="Track Filters"onClick={() => openCtm(scaffold, 'MsgFilter')}/>
                 </es-ribbon-dropdown>
             </es-ribbon-button-small>
             <es-ribbon-button label="Comms Task Manager" onClick={commsTaskMgr}/>
@@ -230,7 +269,9 @@ const TracksCommunications = () => {
     </es-ribbon-section>
 }
 const TracksMisc = () => {
-    function trashCan() { openCtm('Track:TrashCan') }
+    const scaffold = React.useContext(ExtensionScaffoldContext)
+
+    function trashCan() { openCtm(scaffold, 'Track:TrashCan') }
     return <es-ribbon-section label="Misc" >
         <es-ribbon-button label="Trash Can" onClick={trashCan}>
             <RestoreFromTrash />
