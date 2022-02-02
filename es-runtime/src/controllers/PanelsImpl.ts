@@ -203,6 +203,13 @@ export class PanelsImpl implements Panels {
         gridDiv.classList.add('hidden')
         gridDiv.classList.remove('grid-expanded')
     }
+    isPanelHidden(id: string): boolean {
+        let result = false
+        withPanel(id, (parent, div) => {
+            result = parent.classList.contains('hidden')
+        })
+        return result
+    }
 
     togglePanel(id: string) {
         if (this.isPanelPoppedOut(id)) {

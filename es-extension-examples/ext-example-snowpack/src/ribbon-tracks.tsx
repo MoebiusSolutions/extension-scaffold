@@ -1,4 +1,4 @@
-import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api";
+import type { ExtensionScaffoldApi, Location } from "@gots/es-runtime/build/es-api";
 import { WidgetLauncher } from "@gots/noowf-widget-launch";
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -63,18 +63,15 @@ const TracksManage = () => {
     const CTM_NEW_TRACK_ID = 'ctm.new.track.panel'
 
     React.useEffect(() => {
-        if (newTrackOpen) {
-            scaffold.chrome.panels.addPanel({ 
-                id: CTM_NEW_TRACK_ID,
-                title: 'New Track',
-                location: 'left',
-                iframeSource: ctmUrl(scaffold, 'Track:New'),
-                resizeHandle: true,
-            })
-        } else {
-            scaffold.chrome.panels.removePanel(CTM_NEW_TRACK_ID)
-            scaffold.chrome.panels.closeLocation('left')
-        }
+        toggleCtmPanel({
+            isOpen: newTrackOpen,
+            setOpen: setNewTrackOpen,
+            scaffold,
+            panelId: CTM_NEW_TRACK_ID,
+            title: 'New Track',
+            location: 'left',
+            iframeUrl: ctmUrl(scaffold, 'Track:New'),
+        })
     }, [newTrackOpen])
 
     function newTrack() {
@@ -148,6 +145,49 @@ const TrackDisplay = () => {
         </es-ribbon-button>
     </es-ribbon-section>
 }
+
+interface ToggleCtmPanelOptions {
+    isOpen: boolean
+    setOpen: (v: boolean) => void
+    scaffold: ExtensionScaffoldApi
+    panelId: string
+    title: string
+    location: Location
+    iframeUrl: string
+}
+function toggleCtmPanel({
+    isOpen,
+    setOpen,
+    scaffold,
+    panelId,
+    title,
+    location,
+    iframeUrl
+}: ToggleCtmPanelOptions) {
+    if (scaffold.chrome.panels.panelIds(location)?.find(o => o.id === panelId)) {
+        // We have a panel registered
+        if (scaffold.chrome.panels.isPanelHidden(panelId)) {
+            // But it is hidden, force it open.
+            scaffold.chrome.panels.showPanel(panelId)
+            setOpen(true)
+            return
+        }
+    }
+
+    if (isOpen) {
+        scaffold.chrome.panels.addPanel({ 
+            id: panelId,
+            title,
+            location,
+            iframeSource: iframeUrl,
+            resizeHandle: true,
+        })
+    } else {
+        scaffold.chrome.panels.removePanel(panelId)
+        scaffold.chrome.panels.closeLocation(location)
+    }
+}
+
 const TracksDatabase = () => {
     const scaffold = React.useContext(ExtensionScaffoldContext)
     const [summaryOpen, setSummaryOpen] = React.useState(false)
@@ -156,32 +196,27 @@ const TracksDatabase = () => {
     const CTM_MISSILE_SUMMARY_ID = 'ctm.missile.summary'
 
     React.useEffect(() => {
-        if (summaryOpen) {
-            scaffold.chrome.panels.addPanel({ 
-                id: CTM_TRACK_SUMMARY_ID,
-                title: 'Tracks',
-                location: 'bottom-bar',
-                iframeSource: ctmUrl(scaffold, 'Track:Summary'),
-                resizeHandle: true,
-            })
-        } else {
-            scaffold.chrome.panels.removePanel(CTM_TRACK_SUMMARY_ID)
-            scaffold.chrome.panels.closeLocation('bottom-bar')
-        }
+        toggleCtmPanel({
+            isOpen: summaryOpen,
+            setOpen: setSummaryOpen,
+            scaffold,
+            panelId: CTM_TRACK_SUMMARY_ID,
+            title: 'Tracks',
+            location: 'bottom-bar',
+            iframeUrl: ctmUrl(scaffold, 'Track:Summary'),
+        })
     }, [summaryOpen])
 
     React.useEffect(() => {
-        if (missilesOpen) {
-            scaffold.chrome.panels.addPanel({
-                id: CTM_MISSILE_SUMMARY_ID,
-                title: "Missiles",
-                location: 'bottom-bar',
-                iframeSource: ctmUrl(scaffold, 'DynamicMissiles:Summary'),
-                resizeHandle: true,
-            })
-        } else {
-            scaffold.chrome.panels.removePanel(CTM_MISSILE_SUMMARY_ID)
-        }
+        toggleCtmPanel({
+            isOpen: missilesOpen,
+            setOpen: setMissilesOpen,
+            scaffold,
+            panelId: CTM_MISSILE_SUMMARY_ID,
+            title: 'Missiles',
+            location: 'bottom-bar',
+            iframeUrl: ctmUrl(scaffold, 'DynamicMissiles:Summary'),
+        })
     }, [missilesOpen])
 
     function home() { openCtm(scaffold, 'HomePanel') }
