@@ -166,3 +166,12 @@ services:
     stdin_open: true
     tty: true
     command: bash # Use docker-compose exec nodejs bash, then build/run
+
+  webmap:
+    image: node:12
+    user: "node"
+    working_dir: /home/node
+    volumes:
+      - "${WEBMAP_HOME}:/home/node"
+    command: "npm start"
+    
