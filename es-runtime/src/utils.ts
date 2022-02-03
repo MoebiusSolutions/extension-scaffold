@@ -92,6 +92,12 @@ export function locationFromDiv(div: HTMLDivElement) {
     }
     throw new Error('Div does not have a location class')
 }
+export function validateLocation(location: string) {
+    if (LOCATIONS.find(sl => sl === location)) {
+        return
+    }
+    throw new Error('Location string is invalid')
+}
 
 export const isActive = (div: HTMLDivElement | HTMLElement) => div.classList.contains('active')
 

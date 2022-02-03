@@ -8,7 +8,7 @@ import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, showPanelsWithLocation,
     locationFromDiv, isActive, setActive, toStorage,
-    fromStorage, getGridState, withPanel, copyStyles, appendIwcContext
+    fromStorage, getGridState, withPanel, copyStyles, appendIwcContext, validateLocation
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { TabController } from './TabController';
@@ -81,6 +81,7 @@ export class PanelsImpl implements Panels {
         if (!gridContainer) {
             throw new Error('Missing call to boot')
         }
+        validateLocation(options.location)
 
         if (options.iframeSource && options.hidden) {
             const iframe = document.createElement('iframe')
