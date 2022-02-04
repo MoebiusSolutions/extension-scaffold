@@ -29,6 +29,3 @@ for e in ${EXAMPLES}; do
     fi
   echo $f
 done
-
-cd ${BASE}/es-application-examples/es-demo/
-npm install "${BASE}/es-runtime"

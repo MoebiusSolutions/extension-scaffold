@@ -70,6 +70,8 @@ npm install -D @gots/es-runtime
 
 The `es-application-examples/es-demo` folder contains an example "hosting" SPA 
 that is based the `snowpack` bundler and the `typescript` language.
+> Note: To simplify information assurance scans `es-demo` was removed from the `develop` and `release` branches.
+> However, you can view `es-demo` by checking out the tag `v2.4.0`.
 
 The "hosting" webpage should contain a root element, similar to a React application.
 
@@ -182,11 +184,9 @@ shows how you can use the technique above to load style sheet links into the sha
 
 ## `compose`
 
-A docker compose environment that starts the demo 
-using the `es-demo` and `es-runtime` and starts the example extensions.
+A docker compose environment that starts the ES `/ui/` example. 
 This is primarily for developing the `extension-scaffold`.
-`es-demo` is running at `http://localhost:8080`.
-`es-runtime` is running at `http://localhost:8081`.
+`es-home` is running at `http://localhost/ui`.
 
 See [compose/README.md](compose/README.md) for more information.
 

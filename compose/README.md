@@ -16,7 +16,7 @@ To have `npm` log into Nexus:
 
 ```
     $ cd extension-scaffold/compose
-    $ docker-compose run es-demo bash
+    $ docker-compose run es-home bash
     $ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
 ```
 > Use your Moebius username and password.
