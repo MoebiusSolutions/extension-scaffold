@@ -96,6 +96,7 @@ export interface Panels {
     removePanel: (id: string) => boolean
     hidePanel: (id: string) => boolean
     showPanel: (id: string) => boolean
+    isPanelHidden: (id: string) => boolean
     /** show if `id` is hidden, otherwise hide `id` */
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void

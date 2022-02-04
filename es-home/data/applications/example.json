@@ -121,6 +121,11 @@
     ],
     "iframes": [
         {
+            "id": "example.webmap",
+            "location": "center",
+            "iframeSource": "/webmap/"
+        },
+        {
             "id": "es.example.iframe",
             "title": "IFrame",
             "location": "right",
