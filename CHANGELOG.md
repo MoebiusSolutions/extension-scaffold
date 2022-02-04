@@ -1,5 +1,32 @@
 ## Change Log
 
+# [2.5.0] - 2022-02-03
+
+### Added
+
+* Host broadcast bus from `es-home`, path `/ui/bcst-bus/index.html`
+* Validation of JSON for `ribbon`
+* Support for building an RPM to install `es-home`
+* Example of using `@gots/noowf-widget-launch`
+* `es-ribbon-row` web component
+* Support for React setting a components `className`
+* TPT 2.0 ribbon examples
+* New API method `api.chrome.panels.isPanelHidden(id: string)`
+  * See `ribbon-tracks.tsx` for example code.
+* Validate of `location` input parameter
+
+### Changes
+
+* Does not add an empty `<label>` if no `"label"` attribute was specified
+* Fix `align-self` when split in row.
+* All `npm login` examples show the CSA option
+
+### Removed
+
+* `es-demo` sample hosting page
+* `es-ribbon` sample React ribbon - superseded by `es-ribbon-*` web components
+* Unused dependency `@rmwc/elevation`
+
 # [2.4.0] - 2022-01-11
 
 ### Added
