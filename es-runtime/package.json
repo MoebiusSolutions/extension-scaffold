@@ -19,7 +19,6 @@
     "build"
   ],
   "dependencies": {
-    "@rmwc/elevation": "^6.1.4",
     "events": "^3.3.0"
   },
   "devDependencies": {
