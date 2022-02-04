@@ -56,12 +56,12 @@ mvn deploy:deploy-file \
 
 ## Keep in mind
 
- - Currently this script does not 'sign' the RPM.  This would typically be done by a Jenkins build.
+Currently this script does not 'sign' the RPM.  This would typically be done by a Jenkins build.
 
 ## Some utility commands if you want to look inside the RPM
 
-List files in the RPM:    rpm -qlp <rpmFile>
-Show RPM package scripts:   rpm -qp --scripts <rpmFile>
-Extract files from an RPM:  rpm2cpio <rpmFile> |cpio -idmv
+* List files in the RPM:    rpm -qlp <rpmFile>
+* Show RPM package scripts:   rpm -qp --scripts <rpmFile>
+* Extract files from an RPM:  rpm2cpio <rpmFile> |cpio -idmv
 
 
