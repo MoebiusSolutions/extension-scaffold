@@ -22,6 +22,11 @@ This script will checkout the latest 'release' branch and build an RPM.
 
 extension-scaffold/rpmbuild/build.sh
 
+### RPM Location
+extension-scaffold releases are avaialable for download here:
+
+<br>https://nexus.di2e.net/nexus/content/repositories/Private_DFNTC_Releases/extension-scaffold/extension-scaffold/
+
 ### Push RPM to Repo
 There are 2 options available:
 1. Upload the RPM to Nexus 
