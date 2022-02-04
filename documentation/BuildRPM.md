@@ -30,8 +30,8 @@ There are 2 options available:
 * List the nexus repositories in the GUI and click the Private_DFNTC_Releases repository.
 * At the bottom, a new tab will appear called Artifact Upload
 * Select GAV Parameters from the dropdown and enter values for the following:
-    Group: dfntc-owf
-    Artifact: usw-dss-map
+    Group: extension-scaffold
+    Artifact:extension-scaffold
     Version: 1.2.3  (ie. the x.y.z version for this release)
     Packaging: rpm   (type in "rpm", it won't appear as a choice in the dropdown)
 * Click "Select Artifact to Upload"
@@ -45,11 +45,11 @@ There are 2 options available:
 
 ```
 mvn deploy:deploy-file \
-    -DgroupId=dfntc-owf \
-    -DartifactId=usw-dss-map \
-    -Dversion=5.3.9 \
+    -DgroupId=extension-scaffold \
+    -DartifactId=extension-scaffold \
+    -Dversion=x.x.x \
     -Dpackaging=rpm \
-    -Dfile=usw-dss-map-5.3.9-1.noarch.rpm \
+    -Dfile=extension-scaffold-x.x.x-1.noarch.rpm \
     -DrepositoryId=di2e \
     -Durl=https://nexus.di2e.net/nexus/content/repositories/Private_DFNTC_Releases
 ```    
