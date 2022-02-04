@@ -20,8 +20,16 @@ To have `npm` log into Nexus:
     $ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
 ```
 > Use your Moebius username and password.
-> Once the modules are pushed to DI2E you will use:
-> `npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/ --scope @gots`
+
+To use DI2E's Nexus:
+```
+    $ npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/ --scope @gots
+```
+
+To use CSA's Artifactory:
+```
+    $ npm login --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-group/ --scope @gots
+```
 
 >  While still running bash in the container, verify `npm install` is going to work:
 
