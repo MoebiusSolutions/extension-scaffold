@@ -10,7 +10,7 @@ This RPM will fail to install if httpd is not installed on the target system.
 
 ## Steps for creating a release rpm
 
-The following steps can and should be automated. Automation vi Jenkins has been postponed at this point as DI2E sunsets Sept 2022.
+The following steps can and should be automated. Automation using Jenkins has been postponed at this point as DI2E sunsets Sept 2022.
 
 ### Build the latest release and RPM
 
