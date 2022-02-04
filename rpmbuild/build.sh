@@ -8,7 +8,7 @@ set -e
 # Name and location of this script file
 SCRIPT_FILE=$(basename "$0")
 SCRIPT_DIR=$(dirname `readlink -f "$0"`)
-VERSION_FILE="${SCRIPT_DIR}/../es-home/package.json"
+VERSION_FILE="${SCRIPT_DIR}/../es-runtime/package.json"
 if [[ ! -f "${VERSION_FILE}" ]]; then
   echo "" 1>&2
   echo "Missing Version file: '${VERSION_FILE}'." 1>&2
