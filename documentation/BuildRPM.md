@@ -55,10 +55,11 @@ mvn deploy:deploy-file \
     -Dversion=x.x.x \
     -Dpackaging=rpm \
     -Dfile=extension-scaffold-x.x.x-1.noarch.rpm \
-    -DrepositoryId=di2e \
+    -DrepositoryId=Private_DFNTC_Releases \
     -Durl=https://nexus.di2e.net/nexus/content/repositories/Private_DFNTC_Releases
 ```    
 
+*** NOTE!  `-DrepositoryId` must match one of your repos in your settings.xml
 ## Keep in mind
 
 Currently this script does not 'sign' the RPM.  This would typically be done by a Jenkins build.
