@@ -1,8 +1,0 @@
-export { Ribbon as FileRibbon } from './FileRibbon'
-export { Menu } from './Menu'
-export { MenuButton } from './MenuButton'
-export { MenuSection } from './MenuSection'
-export { ReactSVG } from './ReactSVG'
-export { Ribbon, SimpleRibbon } from './Ribbon'
-export { Tab, Tabs } from './Tabs'
-export { VerticalDivider } from './VerticalDivider'
