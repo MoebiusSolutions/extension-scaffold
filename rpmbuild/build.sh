@@ -21,7 +21,7 @@ APP_VERSION=` grep '"version"' ${VERSION_FILE}  |tr -d '\"version:, '`
 # Drop dashes
 APP_VERSION_RPM="${APP_VERSION//-/}"
 APP_INSTALL_DIR="${INSTALL_FOLDER}${APP_NAME}-${APP_VERSION}"
-JBOSS_USER=jboss
+SCAFFOLD_USER=root
 SOURCE_FOLDER="${SCRIPT_DIR}/../es-home/build"
 
 # Verify prerequisites
@@ -82,7 +82,7 @@ cp -a "${SCRIPT_DIR}/files/." "%{buildroot}${APP_INSTALL_DIR}/httpd/conf/"
 # These are expected to also exist as root-relative under the %{buildroot}
 # directory of the buildrpm machine.
 %files
-%attr(0640, ${JBOSS_USER}, ${JBOSS_USER}) ${APP_INSTALL_DIR}
+%attr(0644, ${SCAFFOLD_USER}, ${SCAFFOLD_USER}) ${APP_INSTALL_DIR}
 
 # pre: Scripts to execute before install files to the target system
 %pre
