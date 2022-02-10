@@ -92,7 +92,7 @@ mkdir -p "${APP_INSTALL_DIR}"
 %post
 ln -sf "${APP_INSTALL_DIR}/es-home" "/opt/scaffold/ui"
 #copy conf.files
-cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf"
+cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf.d"
 systemctl reload httpd 
 # preun: Scripts to execute before uninstalling files from the target system
 %preun
