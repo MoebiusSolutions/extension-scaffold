@@ -91,27 +91,17 @@ mkdir -p "${APP_INSTALL_DIR}"
 # pre: Scripts to execute after installing files to the target system
 %post
 ln -sf "${APP_INSTALL_DIR}/es-home" "/opt/scaffold/es-home"
-if ! grep es-home /etc/httpd/conf/httpd.conf; then   
- echo "configurig httpd.conf"
- mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
- cp -rfp "${APP_INSTALL_DIR}/httpd/conf/." "/etc/httpd/conf"
-else
- echo "httpd.conf previously configured"
-fi
-systemctl restart httpd 
+#copy conf.files
+cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf"
+systemctl reload httpd 
 # preun: Scripts to execute before uninstalling files from the target system
 %preun
 
 # postun: Scripts to execute after uninstalling files from the target system
 %postun
-if [ -f "/etc/httpd/conf/httpd.conf.orig" ]; then
-  rm /etc/httpd/conf/httpd.conf
-  mv /etc/httpd/conf/httpd.conf.orig /etc/httpd/conf/httpd.conf 
-else
-  echo "not removing es-home from http.conf. Please edit file to remove es-home references"
-fi
+rm /etc/httpd/conf/scaffold.conf
 rm -rf ${APP_INSTALL_DIR}
-systemctl restart httpd
+systemctl reload httpd
 __EOF__
 
 # Run rpmbuild
