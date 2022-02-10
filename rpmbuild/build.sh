@@ -90,7 +90,7 @@ mkdir -p "${APP_INSTALL_DIR}"
 
 # pre: Scripts to execute after installing files to the target system
 %post
-ln -sf "${APP_INSTALL_DIR}/es-home" "/opt/scaffold/es-home"
+ln -sf "${APP_INSTALL_DIR}/es-home" "/opt/scaffold/ui"
 #copy conf.files
 cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf"
 systemctl reload httpd 
