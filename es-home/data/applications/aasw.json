@@ -1,22 +1,11 @@
 {
     "name": "aasw",
     "title": "Adaptive ASW",
-    "ribbon": [
-        {
-            "tab": "Developer",
-            "sections": [
-                "debug.console",
-                "debug.metrics"
-            ]
-        }
-    ],
+    "ribbon": [],
     "left": [],
     "center": [],
     "bottom-bar": [],
-    "extensions": [
-        "/ui/dist/extensions/console-extension.js",
-        "/ui/common/dist/debug-metrics.js"
-    ],
+    "extensions": [],
     "iframes": [
         {
             "id": "caseFileExplorer.iframe",
