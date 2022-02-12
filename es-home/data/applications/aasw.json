@@ -1,19 +1,25 @@
 {
     "name": "aasw",
     "title": "Adaptive ASW",
-    "ribbon": [],
+    "ribbon": [
+        {
+            "tab": "AASW",
+            "sections": [
+                "asw.cases",
+                "asw.sessions",
+                "asw.intel",
+                "asw.incoming_reports",
+                "asw.products"
+            ]
+        }
+    ],
     "left": [],
     "center": [],
     "bottom-bar": [],
-    "extensions": [],
+    "extensions": [
+        "/aasw-es-extension/dist/ribbon-asw.js"
+    ],
     "iframes": [
-        {
-            "id": "caseFileExplorer.iframe",
-            "title": "Case Finder",
-            "location": "left",
-            "iframeSource": "/case-file-explorer",
-            "resizeHandle": true
-        },
         {
             "id": "sessionExplorer.iframe",
             "title": "Session Finder",
@@ -22,38 +28,10 @@
             "resizeHandle": true
         },
         {
-            "id": "contactLog.iframe",
-            "title": "Contact Log",
-            "location": "left",
-            "iframeSource": "/contact-log",
-            "resizeHandle": true
-        },
-        {
-            "id": "sensorReportManager.iframe",
-            "title": "Sensor Reports",
-            "location": "left",
-            "iframeSource": "/sensor-report-manager",
-            "resizeHandle": true
-        },
-        {
-            "id": "threatAreaManager.iframe",
-            "title": "Threat Areas",
-            "location": "left",
-            "iframeSource": "/threat-area-manager",
-            "resizeHandle": true
-        },
-        {
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
             "iframeSource": "/usw-dss-map-kevin/index.html?extensions=phoenix,opt&iwc=broadcast",
-            "resizeHandle": true
-        },
-        {
-            "id": "caseManager.iframe",
-            "title": "Case Manager",
-            "location": "right",
-            "iframeSource": "/case-manager-ui",
             "resizeHandle": true
         },
         {
@@ -71,31 +49,10 @@
             "resizeHandle": true
         },
         {
-            "id": "forTool.iframe",
-            "title": "FOR Tool",
-            "location": "right",
-            "iframeSource": "/ufs-foc-tool",
-            "resizeHandle": true
-        },
-        {
-            "id": "chatbot.iframe",
-            "title": "Chatbot",
-            "location": "right",
-            "iframeSource": "/chat-window/",
-            "resizeHandle": true
-        },
-        {
             "id": "aaswTimeslider.iframe",
             "title": "Timeslider",
             "location": "bottom-bar",
             "iframeSource": "/asw-timeslider?iwc=broadcast",
-            "resizeHandle": true
-        },
-        {
-            "id": "knowledgeBase.iframe",
-            "title": "Knowledge Base",
-            "location": "bottom-bar",
-            "iframeSource": "/entity-search-gui",
             "resizeHandle": true
         }
     ]
