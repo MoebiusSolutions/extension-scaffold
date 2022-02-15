@@ -37,13 +37,6 @@
             "resizeHandle": true
         },
         {
-            "id": "hmc.iframe",
-            "title": "Quick Heatmap",
-            "location": "right",
-            "iframeSource": "/heatmap-calculator",
-            "resizeHandle": true
-        },
-        {
             "id": "aaswTimeslider.iframe",
             "title": "Timeslider",
             "location": "bottom-bar",
