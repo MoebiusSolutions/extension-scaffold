@@ -21,7 +21,7 @@ APP_VERSION=` grep '"version"' ${VERSION_FILE}  |tr -d '\"version:, '`
 # Drop dashes
 APP_VERSION_RPM="${APP_VERSION//-/}"
 APP_INSTALL_DIR="${INSTALL_FOLDER}${APP_NAME}-${APP_VERSION}"
-JBOSS_USER=jboss
+SCAFFOLD_USER=root
 SOURCE_FOLDER="${SCRIPT_DIR}/../es-home/build"
 
 # Verify prerequisites
@@ -82,7 +82,7 @@ cp -a "${SCRIPT_DIR}/files/." "%{buildroot}${APP_INSTALL_DIR}/httpd/conf/"
 # These are expected to also exist as root-relative under the %{buildroot}
 # directory of the buildrpm machine.
 %files
-%attr(0640, ${JBOSS_USER}, ${JBOSS_USER}) ${APP_INSTALL_DIR}
+%attr(0644, ${SCAFFOLD_USER}, ${SCAFFOLD_USER}) ${APP_INSTALL_DIR}
 
 # pre: Scripts to execute before install files to the target system
 %pre
@@ -90,28 +90,19 @@ mkdir -p "${APP_INSTALL_DIR}"
 
 # pre: Scripts to execute after installing files to the target system
 %post
-ln -sf "${APP_INSTALL_DIR}/es-home" "/opt/scaffold/es-home"
-if ! grep es-home /etc/httpd/conf/httpd.conf; then   
- echo "configurig httpd.conf"
- mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
- cp -rfp "${APP_INSTALL_DIR}/httpd/conf/." "/etc/httpd/conf"
-else
- echo "httpd.conf previously configured"
-fi
-systemctl restart httpd 
+cp -r "${APP_INSTALL_DIR}/es-home" "/var/www/html/ui"
+#copy conf.files
+cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf.d"
+systemctl reload httpd 
 # preun: Scripts to execute before uninstalling files from the target system
 %preun
 
 # postun: Scripts to execute after uninstalling files from the target system
 %postun
-if [ -f "/etc/httpd/conf/httpd.conf.orig" ]; then
-  rm /etc/httpd/conf/httpd.conf
-  mv /etc/httpd/conf/httpd.conf.orig /etc/httpd/conf/httpd.conf 
-else
-  echo "not removing es-home from http.conf. Please edit file to remove es-home references"
-fi
+rm /etc/httpd/conf/scaffold.conf
 rm -rf ${APP_INSTALL_DIR}
-systemctl restart httpd
+rm -rf /var/www/html/ui
+systemctl reload httpd
 __EOF__
 
 # Run rpmbuild
