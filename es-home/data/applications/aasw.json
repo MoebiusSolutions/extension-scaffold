@@ -11,22 +11,24 @@
                 "asw.incoming_reports",
                 "asw.products"
             ]
+        },
+        {
+            "tab": "Developer",
+            "sections": [
+                "debug.console",
+                "debug.metrics"
+            ]
         }
     ],
     "left": [],
     "center": [],
     "bottom-bar": [],
     "extensions": [
+        "/ui/dist/extensions/console-extension.js",
+        "/ui/common/dist/debug-metrics.js",
         "/aasw-es-extension/dist/ribbon-asw.js"
     ],
     "iframes": [
-        {
-            "id": "sessionExplorer.iframe",
-            "title": "Session Finder",
-            "location": "left",
-            "iframeSource": "/session-explorer?iwc=broadcast",
-            "resizeHandle": true
-        },
         {
             "id": "map.iframe",
             "title": "Map",
@@ -39,13 +41,6 @@
             "title": "Quick Heatmap",
             "location": "right",
             "iframeSource": "/heatmap-calculator",
-            "resizeHandle": true
-        },
-        {
-            "id": "aswForecastWizard.iframe",
-            "title": "New Session",
-            "location": "right",
-            "iframeSource": "/asw-forecast",
             "resizeHandle": true
         },
         {
