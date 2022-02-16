@@ -33,14 +33,14 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map-kevin/index.html?extensions=phoenix,opt&iwc=broadcast",
+            "iframeSource": "/usw-dss-map-kevin/index.html?extensions=phoenix,opt",
             "resizeHandle": true
         },
         {
             "id": "aaswTimeslider.iframe",
             "title": "Timeslider",
             "location": "bottom-bar",
-            "iframeSource": "/asw-timeslider?iwc=broadcast",
+            "iframeSource": "/asw-timeslider",
             "resizeHandle": true
         }
     ]
