@@ -1,0 +1,32 @@
+{
+    "name": "tpt",
+    "title": "Tactical Planning Tool",   
+    "header": [
+        "es.common.classification.banner.header"
+    ],
+    "extensions": [
+    ],
+    "iframes": [
+        {
+            "id": "tpt.timeline",
+            "title": "TPT Timeline",
+            "location": "center",
+            "iframeSource": "/tpt#?hide-navbar=true",
+            "resizeHandle": true
+        },
+        {
+            "id": "tpt.geotree",
+            "title": "Geo Tree",
+            "location": "left",
+            "iframeSource": "/geotree/",
+            "resizeHandle": true
+        },
+        {
+            "id": "tpt.mopc",
+            "title": "MOPC",
+            "location": "bottom",
+            "iframeSource": "/geoviz/",
+            "resizeHandle": true
+        }
+    ]
+}
