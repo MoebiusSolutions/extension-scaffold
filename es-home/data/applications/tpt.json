@@ -8,9 +8,16 @@
     ],
     "iframes": [
         {
+            "id": "tpt.mopc",
+            "title": "MOPC",
+            "location": "center",
+            "iframeSource": "/geoviz/",
+            "resizeHandle": true
+        },
+        {
             "id": "tpt.timeline",
             "title": "TPT Timeline",
-            "location": "center",
+            "location": "bottom",
             "iframeSource": "/tpt#?hide-navbar=true",
             "resizeHandle": true
         },
@@ -19,13 +26,6 @@
             "title": "Geo Tree",
             "location": "left",
             "iframeSource": "/geotree/",
-            "resizeHandle": true
-        },
-        {
-            "id": "tpt.mopc",
-            "title": "MOPC",
-            "location": "bottom",
-            "iframeSource": "/geoviz/",
             "resizeHandle": true
         }
     ]
