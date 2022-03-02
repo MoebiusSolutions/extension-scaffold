@@ -1,8 +1,10 @@
+const urlPath = process.env.URLPATH || ''
+
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    public: { url: '/', static: true },
-    src: { url: '/dist' },
+    public: { url: `${urlPath}/`, static: true },
+    src: { url: `${urlPath}/dist` },
   },
   plugins: [
     '@snowpack/plugin-react-refresh',
@@ -31,6 +33,7 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    /* ... */
+    baseUrl: urlPath,
+    metaUrlPath: `${urlPath}/_snowpack`,
   },
 };
