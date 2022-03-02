@@ -99,7 +99,7 @@ systemctl reload httpd
 
 # postun: Scripts to execute after uninstalling files from the target system
 %postun
-rm /etc/httpd/conf/scaffold.conf
+rm /etc/httpd/conf.d/scaffold.conf
 rm -rf ${APP_INSTALL_DIR}
 rm -rf /var/www/html/ui
 systemctl reload httpd
