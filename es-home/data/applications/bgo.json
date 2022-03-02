@@ -26,6 +26,13 @@
     ],
     "iframes": [
         {
+            "id": "bgo.pairings",
+            "title": "Pairings and Range Rings",
+            "location": "left",
+            "iframeSource": "/bgo-panels/",
+            "resizeHandle": true
+        },
+        {
             "id": "aeolus.map",
             "title": "Map",
             "location": "center",
