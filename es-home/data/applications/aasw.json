@@ -33,7 +33,7 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map-kevin/index.html?extensions=phoenix,opt",
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt",
             "resizeHandle": true
         },
         {
