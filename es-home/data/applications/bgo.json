@@ -2,13 +2,12 @@
     "name": "bgo",
     "title": "Blue/Green Optimizer",
     "ribbon": [
-        { "tab": "View", "sections": [
-            "display.theme"
-        ]},
-        { "tab": "Chart Settings" },
         { "tab": "Optimization", "sections": [
             "atf.home",
             "atf.database"
+        ]},
+        { "tab": "View", "sections": [
+            "display.theme"
         ]},
         { "tab": "Developer", "sections": [
             "debug.console",
@@ -17,7 +16,6 @@
         { "tab": "Help", "sections": [
             "help.about.es-home"
         ]}
-
     ],
     
     "header": [
