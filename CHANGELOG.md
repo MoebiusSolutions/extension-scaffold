@@ -1,5 +1,20 @@
 ## Change Log
 
+# [2.6.0] - 20220-03-03
+
+### Added
+
+* Scripts and instructions for building `rpm`
+* TPT's ribbon description
+* Scripts and Dockerfile to build a docker container for `es-home`
+
+### Changed
+
+* Fixed z-index of `es-ribbon-dropdown` to make sure it is over other panels
+* Made snowpack example URL "relocatable".
+* BGO's ribbon description
+* AASW's ribbon description
+
 # [2.5.0] - 2022-02-03
 
 ### Added
