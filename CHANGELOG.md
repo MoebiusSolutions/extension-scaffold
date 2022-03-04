@@ -1,6 +1,10 @@
 ## Change Log
 
-# [2.6.0] - 20220-03-03
+# [2.6.1] - 2022-03-03
+
+* Build `es-runtime` with upgraded dependencies.
+
+# [2.6.0] - 2022-03-03
 
 ### Added
 
