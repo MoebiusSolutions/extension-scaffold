@@ -1,4 +1,5 @@
 import { AddPanelOptions, extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import { applyGridState, getGridState } from '@gots/es-runtime/build/utils'
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
 import { EsAddExtension } from './components/add-extension';
@@ -157,6 +158,7 @@ export async function applyConfiguration(config: any, app: string) {
     const p1 = loadIframePanels(enabledIframes(config.iframes));
     const p2 = extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
     await Promise.all([p1, p2])
+    window.history.replaceState(getGridState(), "")
   } else {
     console.error(`Application configuration missing extensions: ${app}`);
     alert(`Application configuration missing extensions: ${app}`);
@@ -188,6 +190,11 @@ async function loadAppConfig() {
     window.location.reload()
   })
 }
+
+window.addEventListener('popstate', (event) => {
+  // Back or Forward button clicked in browser
+  applyGridState(event.state)
+});
 
 Tonic.add(EsKbarRoute)
 Tonic.add(EsKbar)
