@@ -10,6 +10,8 @@ import { Footer } from './Footer';
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 import { Bottom } from './Bottom';
 import { doClaimRibbon } from './ribbon-panels';
+import { addLeftWithCounter } from './LeftWithCounter';
+import { initialize } from '@gots/noowf-inter-widget-communication';
 
 /**
  * Reduces React broiler plate code for adding an extension panel.
@@ -117,10 +119,12 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doBottom(scaffold)
   // await doAboveLeft(scaffold)
   await doLeft(scaffold)
+  await addLeftWithCounter(scaffold)
 }
 
 export let activatedAtUrl = ''
 export async function activate(scaffold: ExtensionScaffoldApi, url: string) {
   activatedAtUrl = url
+  initialize()
   return await doActivate(scaffold)
 }
