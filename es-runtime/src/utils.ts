@@ -255,6 +255,7 @@ export function appendIwcContext(url: string): string {
     return urlObject.toJSON()
 }
 
-export function pushHistoryState(gridstate: GridState) {
-    window.history.pushState(gridstate, "")
+export function pushHistoryState(gridState: any) {
+    gridState.type = 'navy.es.grid.state'
+    window.history.pushState(gridState, "")
 }

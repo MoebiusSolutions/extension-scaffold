@@ -1,4 +1,4 @@
-import { AddPanelOptions, extensionScaffold, Location } from '@gots/es-runtime/build/es-api'
+import { AddPanelOptions, extensionScaffold, Location, GridState } from '@gots/es-runtime/build/es-api'
 import { applyGridState, getGridState } from '@gots/es-runtime/build/utils'
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
 import Tonic from '@optoolco/tonic'
@@ -158,7 +158,10 @@ export async function applyConfiguration(config: any, app: string) {
     const p1 = loadIframePanels(enabledIframes(config.iframes));
     const p2 = extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
     await Promise.all([p1, p2])
-    window.history.replaceState(getGridState(), "")
+
+    const gridState = getGridState() as any
+    gridState.type = 'navy.es.grid.state'
+    window.history.replaceState(gridState, "")
   } else {
     console.error(`Application configuration missing extensions: ${app}`);
     alert(`Application configuration missing extensions: ${app}`);
@@ -191,9 +194,12 @@ async function loadAppConfig() {
   })
 }
 
+// Back or Forward button clicked in browser
 window.addEventListener('popstate', (event) => {
-  // Back or Forward button clicked in browser
-  applyGridState(event.state)
+  // check type to ensure state is a GridState object
+  if (event.state.type == 'navy.es.grid.state') {
+    applyGridState(event.state)
+  }
 });
 
 Tonic.add(EsKbarRoute)
