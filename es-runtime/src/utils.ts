@@ -1,4 +1,4 @@
-import type { ExtensionIds, PanelState, GridState, Showing } from "./es-api"
+import type { ExtensionIds, PanelState, GridState, Showing, HistoryType } from "./es-api"
 import { extensionScaffold } from "./controllers/ExtensionController"
 import { LOCATIONS } from "./es-api"
 
@@ -255,7 +255,7 @@ export function appendIwcContext(url: string): string {
     return urlObject.toJSON()
 }
 
-export function pushHistoryState(gridState: any) {
-    gridState.type = 'navy.es.grid.state'
-    window.history.pushState(gridState, "")
+export function pushHistoryState(gridState: GridState) {
+    const state: GridState & HistoryType = { ...gridState, type: 'navy.es.grid.state' }
+    window.history.pushState(state, "")
 }

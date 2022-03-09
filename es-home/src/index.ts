@@ -159,9 +159,8 @@ export async function applyConfiguration(config: any, app: string) {
     const p2 = extensionScaffold.loadExtensions(enabledExtensions(config.extensions));
     await Promise.all([p1, p2])
 
-    const gridState = getGridState() as any
-    gridState.type = 'navy.es.grid.state'
-    window.history.replaceState(gridState, "")
+    const gridState = getGridState() as GridState
+    window.history.replaceState({ ...gridState, type: 'navy.es.grid.state' }, "")
   } else {
     console.error(`Application configuration missing extensions: ${app}`);
     alert(`Application configuration missing extensions: ${app}`);

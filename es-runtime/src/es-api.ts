@@ -85,6 +85,10 @@ export interface GridState {
     bottom: PanelState
 }
 
+export interface HistoryType {
+    type: string
+}
+
 export interface OrigSize {
     size: string
     location: Location | ''
