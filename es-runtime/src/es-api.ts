@@ -57,6 +57,7 @@ export interface PanelState {
     size: string
     activeId: string | null
     isShown: boolean
+    isExpanded: boolean
 }
 export interface ExtensionIds {
     ids: string[]
@@ -84,6 +85,10 @@ export interface GridState {
     bottom: PanelState
 }
 
+export interface HistoryType {
+    type: string
+}
+
 export interface OrigSize {
     size: string
     location: Location | ''
@@ -94,15 +99,16 @@ export interface Panels {
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
     /** Removing restores the top panel in the remaining stack */
     removePanel: (id: string) => boolean
-    hidePanel: (id: string) => boolean
-    showPanel: (id: string) => boolean
+    /** pushToHistory determines if the gridstate should be pushed onto history stack */
+    hidePanel: (id: string, pushToHistory: boolean) => boolean
+    showPanel: (id: string, pushToHistory: boolean) => boolean
     isPanelHidden: (id: string) => boolean
     /** show if `id` is hidden, otherwise hide `id` */
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
-    expandPanel: (id: string) => void
+    expandPanel: (id: string, pushToHistory: boolean) => void
     /** Restore from maximized or expanded */
-    restorePanel: (id: string) => void
+    restorePanel: (id: string, pushToHistory: boolean) => void
     closeLocation: (location: Location) => void
 
     popOutPanel: (id: string) => boolean

@@ -8,7 +8,8 @@ import { BarController } from './BarController'
 import {
     hidePanelsWithLocation, showPanelsWithLocation,
     locationFromDiv, isActive, setActive, toStorage,
-    fromStorage, getGridState, withPanel, copyStyles, appendIwcContext, validateLocation
+    fromStorage, getGridState, withPanel, copyStyles, 
+    appendIwcContext, validateLocation, pushHistoryState
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { TabController } from './TabController';
@@ -134,7 +135,7 @@ export class PanelsImpl implements Panels {
         return Promise.resolve(extPanel)
     }
 
-    showPanel(id: string) {
+    showPanel(id: string, pushToHistory: boolean = true) {
         if (this.isPanelPoppedOut(id)) {
             this.focusPopOut(id)
             return true
@@ -144,6 +145,7 @@ export class PanelsImpl implements Panels {
             this.restorePanel(el.id)
         })
         return withPanel(id, (parent, div) => {
+            const wasHidden = !isActive(div)
             const location = locationFromDiv(parent)
             hidePanelsWithLocation(location)
             switch (location) {
@@ -163,11 +165,12 @@ export class PanelsImpl implements Panels {
                     setActive(div)
                     break
             }
+            pushToHistory && wasHidden && pushHistoryState(getGridState())
         })
     }
 
 
-    hidePanel(id: string) {
+    hidePanel(id: string, pushToHistory: boolean = true) {
         if (this.isPanelPoppedOut(id)) {
             this.popInPanel(id)
         }
@@ -190,6 +193,7 @@ export class PanelsImpl implements Panels {
                     div.style.display = 'none'
                     break
             }
+            pushToHistory && pushHistoryState(getGridState())
         })
     }
     closeLocation(location: Location) {
@@ -246,7 +250,7 @@ export class PanelsImpl implements Panels {
         })
     }
 
-    restorePanel(id: string) {
+    restorePanel(id: string, pushToHistory: boolean = true) {
         withPanel(id, (parent, div) => {
             parent.classList.remove('specific')
             parent.classList.remove('grid-maximized')
@@ -255,13 +259,15 @@ export class PanelsImpl implements Panels {
             this.updateBars('right')
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
+        pushToHistory && pushHistoryState(getGridState())
     }
 
-    expandPanel(id: string) {
+    expandPanel(id: string, pushToHistory: boolean = true) {
         withPanel(id, (parent, div) => {
             parent.classList.add('grid-expanded')
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
+        pushToHistory && pushHistoryState(getGridState())
     }
 
     removePanel(id: string): boolean {
