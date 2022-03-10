@@ -41,7 +41,8 @@
             "title": "Timeslider",
             "location": "bottom-bar",
             "iframeSource": "/asw-timeslider",
-            "resizeHandle": true
+            "resizeHandle": true,
+            "initialWidthOrHeight": "13em"
         }
     ]
 }
