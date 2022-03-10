@@ -8,10 +8,10 @@ async function loadExtensions() {
 
   // We don't want 'top' to have a size. If it does it messes up the ribbon collapse function.
   const gridstate: GridState = {
-    left: { activeId: "ext.example.rollup", size: '300px', isShown: true },
-    right: { activeId: "ext.example.webpack", size: '300px', isShown: true },
-    top: { activeId: null, size: '', isShown: false },
-    bottom: { activeId: null, size: '170px', isShown: false }
+    left: { activeId: "ext.example.rollup", size: '300px', isShown: true, isExpanded: false },
+    right: { activeId: "ext.example.webpack", size: '300px', isShown: true, isExpanded: false },
+    top: { activeId: null, size: '', isShown: false, isExpanded: false },
+    bottom: { activeId: null, size: '170px', isShown: false, isExpanded: false }
   }
 
   const urls = ['http://localhost:9091/dist/ext-react-snowpack.js',
