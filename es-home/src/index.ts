@@ -196,7 +196,7 @@ async function loadAppConfig() {
 // Back or Forward button clicked in browser
 window.addEventListener('popstate', (event) => {
   // check type to ensure state is a GridState object
-  if (event.state.type == 'navy.es.grid.state') {
+  if (event.state?.type == 'navy.es.grid.state') {
     applyGridState(event.state)
   }
 });
