@@ -2,18 +2,47 @@
     "name": "aasw",
     "title": "Adaptive ASW",
     "ribbon": [
-        "aeolus.view",
-        "aeolus.chart.settings",
-        "aasw.ribbon.tab",
-        "dss.help"
+        {
+            "tab": "AASW",
+            "sections": [
+                "asw.cases",
+                "asw.sessions",
+                "asw.intel",
+                "asw.incoming_reports",
+                "asw.products"
+            ]
+        },
+        {
+            "tab": "Developer",
+            "sections": [
+                "debug.console",
+                "debug.metrics"
+            ]
+        }
     ],
-    "left": [ 
-        "aasw.case.explorer" 
+    "left": [],
+    "center": [],
+    "bottom-bar": [],
+    "extensions": [
+        "/ui/dist/extensions/console-extension.js",
+        "/ui/common/dist/debug-metrics.js",
+        "/aasw-es-extension/dist/ribbon-asw.js"
     ],
-    "center": [
-        "aeolus.map"
-    ],
-    "bottom-bar": [
-        "aasw.case.manager"
+    "iframes": [
+        {
+            "id": "map.iframe",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt",
+            "resizeHandle": true
+        },
+        {
+            "id": "aaswTimeslider.iframe",
+            "title": "Timeslider",
+            "location": "bottom-bar",
+            "iframeSource": "/asw-timeslider",
+            "resizeHandle": true,
+            "initialWidthOrHeight": "13em"
+        }
     ]
 }

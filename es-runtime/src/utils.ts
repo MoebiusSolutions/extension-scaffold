@@ -1,4 +1,4 @@
-import type { ExtensionIds, PanelState, GridState, Showing } from "./es-api"
+import type { ExtensionIds, PanelState, GridState, Showing, HistoryType } from "./es-api"
 import { extensionScaffold } from "./controllers/ExtensionController"
 import { LOCATIONS } from "./es-api"
 
@@ -117,9 +117,10 @@ export function getLocationdState(loc: string): PanelState {
         const size = div.style.getPropertyValue('--size')
         const activeId = (id === undefined ? null : id)
         const isShown = !div.classList.contains('hidden')
-        return { size, activeId, isShown }
+        const isExpanded = div.classList.contains('grid-expanded')
+        return { size, activeId, isShown, isExpanded }
     }
-    return { size: '0px', activeId: null, isShown: false }
+    return { size: '0px', activeId: null, isShown: false, isExpanded: false}
 }
 
 function showChanged(p: PanelState, q: PanelState): Showing {
@@ -176,7 +177,18 @@ function applySize(loc: string, size: string) {
 
 export function setLocationState(loc: string, state: PanelState) {
     if (state.activeId) {
-        extensionScaffold.chrome.panels.showPanel(state.activeId)
+        if (state.isShown) {
+            // set pushToHistory to false since this was not triggered by a 
+            // panel interaction from the user
+            extensionScaffold.chrome.panels.showPanel(state.activeId, false)
+        } else {
+            extensionScaffold.chrome.panels.hidePanel(state.activeId, false)
+        }
+        if (state.isExpanded) {
+            extensionScaffold.chrome.panels.expandPanel(state.activeId, false)
+        } else {
+            extensionScaffold.chrome.panels.restorePanel(state.activeId, false)
+        }
     }
     applySize(loc, state.size)
 }
@@ -190,8 +202,8 @@ export function applyGridState(gridstate: GridState) {
 
 export function getGridState(): GridState {
     const gridstate: GridState = {
-        left: { size: '0px', activeId: null, isShown: false }, right: { size: '0px', activeId: null, isShown: false },
-        top: { size: '0px', activeId: null, isShown: false }, bottom: { size: '0px', activeId: null, isShown: false }
+        left: { size: '0px', activeId: null, isShown: false, isExpanded: false }, right: { size: '0px', activeId: null, isShown: false, isExpanded: false },
+        top: { size: '0px', activeId: null, isShown: false, isExpanded: false }, bottom: { size: '0px', activeId: null, isShown: false, isExpanded: false }
     }
     const curGridstate = fromStorage('gridstate') as GridState
     gridstate.left = getLocationdState('left')
@@ -241,4 +253,9 @@ export function appendIwcContext(url: string): string {
     }
 
     return urlObject.toJSON()
+}
+
+export function pushHistoryState(gridState: GridState) {
+    const state: GridState & HistoryType = { ...gridState, type: 'navy.es.grid.state' }
+    window.history.pushState(state, "")
 }

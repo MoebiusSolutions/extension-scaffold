@@ -2,17 +2,12 @@
     "name": "bgo",
     "title": "Blue/Green Optimizer",
     "ribbon": [
+        { "tab": "Optimization", "sections": [
+            "atf.home",
+            "atf.database"
+        ]},
         { "tab": "View", "sections": [
             "display.theme"
-        ]},
-        { "tab": "Chart Settings" },
-        { "tab": "Optimization", "sections": [
-            "mp.area.plans",
-            "mp.general.area",
-            "mp.assets",
-            "mp.asw.search.planning",
-            "mp.review",
-            "mp.messages"
         ]},
         { "tab": "Developer", "sections": [
             "debug.console",
@@ -21,15 +16,22 @@
         { "tab": "Help", "sections": [
             "help.about.es-home"
         ]}
-
     ],
     
     "header": [
         "es.common.classification.banner.header"
     ],
     "extensions": [
+        "/bgo/atf-extension/dist/index.js"
     ],
     "iframes": [
+        {
+            "id": "bgo.pairings",
+            "title": "Pairings and Range Rings",
+            "location": "left",
+            "iframeSource": "/bgo-panels/",
+            "resizeHandle": true
+        },
         {
             "id": "aeolus.map",
             "title": "Map",
@@ -37,22 +39,13 @@
             "iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
             "resizeHandle": true
         },
-
-
-        {
-            "id": "atf.assets",
-            "title": "ATF Assets",
-            "location": "left",
-            "iframeSource": "/bgo/Assets?dod=true",
-            "resizeHandle": true
-        },
-
         {
             "id": "atf.weapon",
             "title": "Blue Green Optimizer",
             "location": "bottom",
-            "iframeSource": "/bgo/WeaponSystem?dod=false",
-            "resizeHandle": "true"
+            "iframeSource": "/bgo/WeaponSystem?dod=false&hide-navbar=true",
+            "resizeHandle": "true",
+            "initialWidthOrHeight": "25em"
         }
     ]
 }

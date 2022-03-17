@@ -18,7 +18,7 @@ es-ribbon-dropdown svg {
   visibility: hidden;
   display: block;
   position: absolute;
-  z-index: 2;
+  z-index: 1000;
   width: max-content;
 
   background: var(--es-theme-surface);

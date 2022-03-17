@@ -11,7 +11,8 @@
     "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
-    "@gots/noowf-widget-launch": "^2.2.0-SNAPSHOT-1",
+    "@gots/noowf-inter-widget-communication": "^2.5.0",
+    "@gots/noowf-widget-launch": "^2.4.0",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.25.0",
     "react": "^17.0.0",
@@ -19,7 +20,7 @@
     "react-sparklines": "^1.7.0"
   },
   "devDependencies": {
-    "@gots/es-runtime": "^2.5.0",
+    "@gots/es-runtime": "^2.6.1",
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-react-refresh": "^2.4.0",
     "@snowpack/plugin-typescript": "^1.2.0",
