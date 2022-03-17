@@ -35,14 +35,6 @@
             "location": "center",
             "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt",
             "resizeHandle": true
-        },
-        {
-            "id": "aaswTimeslider.iframe",
-            "title": "Timeslider",
-            "location": "bottom-bar",
-            "iframeSource": "/asw-timeslider",
-            "resizeHandle": true,
-            "initialWidthOrHeight": "13em"
         }
     ]
 }
