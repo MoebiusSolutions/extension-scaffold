@@ -47,10 +47,14 @@ async function applyHash() {
   const app = location.hash.replace('#', '').replace('..', '')
   console.log('app', app)
 
-  const rsp = await fetch(`apps/${app}.json`)
-  const config = await rsp.json()
-
-  await applyConfiguration(config, app);
+  try {
+    const rsp = await fetch(`apps/${app}.json`)
+    const config = await rsp.json()
+  
+    await applyConfiguration(config, app);
+  } catch (err) {
+    alert(`Unable to load application configuration`)
+  }
 }
 
 function getBlockedUrls(): Set<string> {
