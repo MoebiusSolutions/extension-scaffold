@@ -100,15 +100,15 @@ export interface Panels {
     /** Removing restores the top panel in the remaining stack */
     removePanel: (id: string) => boolean
     /** pushToHistory determines if the gridstate should be pushed onto history stack */
-    hidePanel: (id: string, pushToHistory: boolean) => boolean
-    showPanel: (id: string, pushToHistory: boolean) => boolean
+    hidePanel: (id: string, pushToHistory?: boolean) => boolean
+    showPanel: (id: string, pushToHistory?: boolean) => boolean
     isPanelHidden: (id: string) => boolean
     /** show if `id` is hidden, otherwise hide `id` */
     togglePanel: (id: string) => boolean
     maximizePanel: (id: string) => void
-    expandPanel: (id: string, pushToHistory: boolean) => void
+    expandPanel: (id: string, pushToHistory?: boolean) => void
     /** Restore from maximized or expanded */
-    restorePanel: (id: string, pushToHistory: boolean) => void
+    restorePanel: (id: string, pushToHistory?: boolean) => void
     closeLocation: (location: Location) => void
 
     popOutPanel: (id: string) => boolean
