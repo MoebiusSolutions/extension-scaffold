@@ -4,7 +4,6 @@ import { MyPanel } from './MyPanel';
 
 import type { AddPanelOptions, ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { Header } from './Header';
-import { AboveLeft } from './AboveLeft'
 import { Left } from './Left'
 import { Footer } from './Footer';
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
@@ -117,7 +116,6 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doHeader(scaffold)
   await doFooter(scaffold)
   await doBottom(scaffold)
-  // await doAboveLeft(scaffold)
   await doLeft(scaffold)
   await addLeftWithCounter(scaffold)
 }
