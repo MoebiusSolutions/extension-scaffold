@@ -13,6 +13,7 @@ import {
 } from '../utils'
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { TabController } from './TabController';
+import { defaultedOptions } from '../models/DefaultOptions';
 
 const DISPLAY_FLEX = 'flex'
 
@@ -34,32 +35,10 @@ function getDivSize(div: HTMLElement | null): OrigSize {
     return origSize
 }
 
-function defaultResizeHandle(options: AddPanelOptions) {
-    return defaultSomeOptions(options.location, options.resizeHandle)
-}
-function defaultPopOutButton(options: AddPanelOptions) {
-    return defaultSomeOptions(options.location, options.popOutButton)
-}
-function defaultShowHide(options: AddPanelOptions) {
-    return defaultSomeOptions(options.location, options.hideButton)
-}
-function defaultExpandButton(options: AddPanelOptions) {
-    return defaultSomeOptions(options.location, options.expandButton)
-}
-// Some panels have a resize handle, pop out by default
-function defaultSomeOptions(location: Location, setting?: boolean) {
-    if (setting === undefined) {
-        const defaultTrue = [ 'left', 'right', 'top', 'bottom']
-        return defaultTrue.findIndex(s => s === location) >= 0
-    }
-    return setting
-}
-
 interface BeforeAddPanelEvent {
     options: AddPanelOptions
     response: AddPanelOptions | null | undefined
 }
-
 
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
@@ -428,34 +407,28 @@ export class PanelsImpl implements Panels {
         outerPanel: HTMLDivElement
         created: boolean
     } {
-        const resizeHandle = defaultResizeHandle(options)
-        const popOutButton = defaultPopOutButton(options)
-        const hideButton = defaultShowHide(options)
-        const expandButton = defaultExpandButton(options)
+        options = defaultedOptions(options)
 
         let r = gridContainer.querySelector(`.${options.location}`)
         if (r) {
-            if (resizeHandle && r.querySelectorAll('.drag').length === 0) {
+            if (options.resizeHandle && r.querySelectorAll('.drag').length === 0) {
                 r.appendChild(this.makeResizeHandle(options))
             }
             return {
                 outerPanel: r as HTMLDivElement,
                 created: false
             }
-            
         }
 
         r = document.createElement('div')
-        if (resizeHandle) {
+        if (options.resizeHandle) {
             r.appendChild(this.makeResizeHandle(options))
         }
-        if (popOutButton || hideButton) {
-            r.appendChild(this.makePanelHeaderBar({
-                ...options,
-                popOutButton,
-                hideButton,
-                expandButton,
-            }))
+        if (options.location !== 'bottom' && options.location !== 'bottom-bar') {
+            // tabs bring their own es-panel-header
+            if (options.popOutButton || options.hideButton) {
+                r.appendChild(this.makePanelHeaderBar(options))
+            }
         }
         gridContainer.appendChild(r)
 

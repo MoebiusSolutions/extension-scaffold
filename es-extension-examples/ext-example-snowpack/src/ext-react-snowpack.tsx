@@ -49,18 +49,13 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
   claimStyleFromHeadElement(panelDiv, '#ext.example.snowpack')
 }
 
-async function doAboveLeft(scaffold: ExtensionScaffoldApi) {
-  return await doPanel(scaffold, {
-    id: 'ext.snowpack.above.left',
-    location: 'above-left',
-  }, <AboveLeft es={scaffold} />)
-}
-
 async function doBottom(scaffold: ExtensionScaffoldApi) {
   return await doPanel(scaffold, {
     id: 'ext.snowpack.bottom',
     location: 'bottom-bar',
-    title: 'Time Slider'
+    title: 'Time Slider',
+    popOutButton: true,
+    removeButton: true, // NOTE: if you enable this you should have a way to add the panel
   }, <Bottom es={scaffold} />)
 }
 

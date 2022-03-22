@@ -341,6 +341,17 @@ code {
   display: none;
 }
 
+.grid-panel.left .hide,
+.grid-panel.left .expand,
+.grid-panel.left .restore {
+  transform: rotate(90deg);
+}
+.grid-panel.right .hide,
+.grid-panel.right .expand,
+.grid-panel.right .restore {
+  transform: rotate(-90deg);
+}
+
 /* Tab Bar section */
 
 .es-tab-bar {

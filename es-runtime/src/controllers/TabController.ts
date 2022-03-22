@@ -1,5 +1,6 @@
 import { AddPanelOptions, extensionScaffold, Location } from '../es-api'
 import { isActive } from '../utils'
+import type { PanelHeaderBar } from '../web-components/PanelHeaderBar'
 
 const expandClass = 'grid-expanded'
 
@@ -37,42 +38,27 @@ export class TabController {
         p.panelOptions = options
         return panelHeaderBar
     }
-    
-    syncExpandButton(grid: Element, expandBtn: HTMLButtonElement) {
-        const expandDownSvg = `
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px">
-          <path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
-        </svg>`
-        const expandUpSvg = `
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px" >
-          <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
-        </svg>`
 
-        const isExpanded = grid.classList.contains(expandClass)
-        if (isExpanded) {
-            expandBtn.innerHTML = expandDownSvg
-            expandBtn.title = 'Restore Panel'
-    
-        } else {
-            expandBtn.innerHTML = expandUpSvg
-            expandBtn.title = 'Expand Panel'
-        }
-        expandBtn.className = 'es-tab-bar-button'
-
-        if (grid.classList.contains('hidden')) {
-            expandBtn.style.display = 'none'
-        } else {
-            expandBtn.style.display = ''
-        }
-        expandBtn.style.order = '1000'
+    updatePanelHeader(panelOptions: AddPanelOptions[]) {
+        const panelHeader: PanelHeaderBar | null = document.querySelector(`.grid-panel.${this.tabLocation} es-panel-header-bar`)
+        if (!panelHeader) { return }
+        document.querySelectorAll(`.grid-panel.${this.tabLocation} .active`).forEach(active => {
+            const options = panelOptions.find(opt => opt.id === active.id)
+            if (!options) { return }
+            panelHeader.panelOptions = options
+        })
     }
-
+    
     updatePanel(panelOptions: AddPanelOptions[]) {
         let tabBar = this.tabBar
         if (!tabBar) {
             tabBar = this.addTabDiv()
         }
 
+        this.render(tabBar, panelOptions)
+        this.updatePanelHeader(panelOptions)
+    }
+    render(tabBar: HTMLDivElement, panelOptions: AddPanelOptions[]) {
         while (tabBar.lastElementChild) {
             tabBar.lastElementChild.remove()
         }

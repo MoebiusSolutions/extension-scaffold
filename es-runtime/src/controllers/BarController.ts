@@ -1,5 +1,6 @@
 import { AddPanelOptions, extensionScaffold, Location } from '../es-api'
 import { isActive } from '../utils'
+import type { PanelHeaderBar } from '../web-components/PanelHeaderBar'
 
 export class BarController {
     private readonly controlLocation: Location
@@ -29,7 +30,21 @@ export class BarController {
             this.addPanel(panelOptions)
             return
         }
+        this.render(divBar, panelOptions) // Must be first to set `active`
+        this.updatePanelHeader(panelOptions)
+    }
 
+    private updatePanelHeader(panelOptions: AddPanelOptions[]) {
+        const panelHeader: PanelHeaderBar | null = document.querySelector(`.grid-panel.${this.controlLocation} es-panel-header-bar`)
+        if (!panelHeader) { return }
+        document.querySelectorAll(`.grid-panel.${this.controlLocation} .active`).forEach(active => {
+            const options = panelOptions.find(opt => opt.id === active.id)
+            if (!options) { return }
+            panelHeader.panelOptions = options
+        })
+    }
+
+    private render(divBar: HTMLDivElement, panelOptions: AddPanelOptions[]) {
         while (divBar.lastElementChild) {
             divBar.lastElementChild.remove()
         }

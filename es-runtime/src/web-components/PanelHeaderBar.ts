@@ -1,5 +1,6 @@
 import { extensionScaffold } from "../controllers/ExtensionController";
-import type { AddPanelOptions } from "../es-api";
+import type { AddPanelOptions, Panels } from "../es-api";
+import { defaultedOptions } from "../models/DefaultOptions";
 
 export class PanelHeaderBar extends HTMLElement {
     private _panelOptions? : AddPanelOptions
@@ -7,12 +8,20 @@ export class PanelHeaderBar extends HTMLElement {
     constructor() {
         super()
     }
-    set panelOptions(p: AddPanelOptions) {
-        this._panelOptions = p
+    set panelOptions(options: AddPanelOptions) {
+        this._panelOptions = defaultedOptions(options)
+        this.render()
     }
 
     // "light" DOM changes cannot occur in constructor
     connectedCallback() {
+        this.render()
+    }
+    private render() {
+        if (!this.isConnected) {
+            return
+        }
+
         const openInNew = `
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -31,43 +40,46 @@ export class PanelHeaderBar extends HTMLElement {
         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px" >
           <path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
         </svg>`
+        const alignBottom = `
+        <svg height="24px" viewBox="0 0 24 24" width="24px">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M16 13h-3V3h-2v10H8l4 4 4-4zM4 19v2h16v-2H4z"/>
+        </svg>
+        `
 
+        this.innerHTML = ''
         if (this._panelOptions?.popOutButton) {
-            this.addButton(btn => {
-                btn.innerHTML = openInNew
-                btn.title = 'Pop Out'
-                btn.onclick = e => this.popOutLocation(e)
-            })
+            this.addButton(openInNew, 'Pop Out', '', e => this.applyClick(e, (panels, panelId) =>
+                panels.popOutPanel(panelId)
+            ))
         }
         if (this._panelOptions?.expandButton) {
-            this.addButton(btn => {
-                btn.innerHTML = expandDownSvg
-                btn.title = 'Restore'
-                btn.className = 'restore'
-                btn.onclick = e => this.restoreLocation(e)
-            })
-            this.addButton(btn => {
-                btn.innerHTML = expandUpSvg
-                btn.title = 'Expand'
-                btn.className = 'expand'
-                btn.onclick = e => this.expandLocation(e)
-            })
+            this.addButton(expandDownSvg, 'Restore', 'restore', e => this.applyClick(e, 
+                (panels, panelId) => panels.restorePanel(panelId)
+            ))
+            this.addButton(expandUpSvg, 'Expand', 'expand', e => this.applyClick(e,
+                (panels, panelId) => panels.expandPanel(panelId)
+            ))
         }
         if (this._panelOptions?.hideButton) {
-            this.addButton(btn => {
-                btn.innerHTML = closeIcon
-                btn.title = 'Hide'
-                btn.onclick = e => this.hideLocation(e)
-            })
+            this.addButton(alignBottom, 'Hide', 'hide', e => this.applyClick(e,
+                (panels, panelId) => panels.hidePanel(panelId)))
+        }
+        if (this._panelOptions?.removeButton) {
+            this.addButton(closeIcon, 'Remove', 'remove', e => this.applyClick(e,
+                (panels, id) => panels.removePanel(id)))
         }
     }
 
-    private addButton(init: (btn: HTMLButtonElement) => void) {
+    private addButton(icon: string, title: string, className: string, onclick: (evt: MouseEvent) => void) {
         const btn = document.createElement('button')
-        init(btn)
+        btn.innerHTML = icon
+        btn.title = title
+        btn.className = className
+        btn.onclick = onclick
         this.appendChild(btn)
-    }
 
+    }
     private findActiveIdFromEvent(e: MouseEvent) {
         const div = e.target as HTMLDivElement
         const active = div.closest('.grid-panel')?.querySelectorAll('.shadow-div.active')
@@ -85,24 +97,9 @@ export class PanelHeaderBar extends HTMLElement {
         }
         return [active.item(0).id]
     }
-    private popOutLocation(e: MouseEvent) {
+    private applyClick(e: MouseEvent, fn: (panels: Panels, panelId: string) => void) {
         this.findActiveIdFromEvent(e).forEach(panelId => {
-            extensionScaffold.chrome.panels.popOutPanel(panelId)
-        })
-    }
-    private hideLocation(e: MouseEvent) {
-        this.findActiveIdFromEvent(e).forEach(panelId => {
-            extensionScaffold.chrome.panels.hidePanel(panelId)
-        })
-    }
-    private expandLocation(e: MouseEvent) {
-        this.findActiveIdFromEvent(e).forEach(panelId => {
-            extensionScaffold.chrome.panels.expandPanel(panelId)
-        })
-    }
-    private restoreLocation(e: MouseEvent) {
-        this.findActiveIdFromEvent(e).forEach(panelId => {
-            extensionScaffold.chrome.panels.restorePanel(panelId)
+            fn(extensionScaffold.chrome.panels, panelId)
         })
     }
 }

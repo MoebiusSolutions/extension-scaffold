@@ -76,7 +76,7 @@
     {
       "id": "gccs-m.webmap",
       "location": "center",
-      "iframeSource": "/webmap/index.html?hide-ribbon=false"
+      "iframeSource": "/webmap/index.html?hide-ribbon=true"
     },
     {
       "id": "gccs-m.track-services-interface",

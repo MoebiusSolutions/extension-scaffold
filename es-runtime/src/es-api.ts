@@ -41,6 +41,8 @@ export interface AddPanelOptions {
     popOutButton?: boolean
     expandButton?: boolean
     hideButton?: boolean
+    removeButton?: boolean
+
     /** Defaults to "30em" */
     initialWidthOrHeight?: string
 

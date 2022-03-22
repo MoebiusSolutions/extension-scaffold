@@ -15,7 +15,6 @@ export async function addLeftWithCounter(es: ExtensionScaffoldApi) {
         title: 'Snowpack Left',
         icon: span,
         location: 'left',
-        popOutButton: false,
     })
 
     ReactDOM.render(
