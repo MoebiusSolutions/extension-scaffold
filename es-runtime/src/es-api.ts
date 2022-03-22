@@ -39,12 +39,19 @@ export interface AddPanelOptions {
     title?: string
     resizeHandle?: boolean
     popOutButton?: boolean
-    hideButton?: boolean
     expandButton?: boolean
-    initialWidthOrHeight?: string // defaults to "30em"
-    iframeSource?: string // injects an iframe if set
-    hidden?: boolean // connects the iframe, but does not show it in the UI - useful for background iframes
-    relocating?: boolean // ignore initial JSON location
+    hideButton?: boolean
+    /** Defaults to "30em" */
+    initialWidthOrHeight?: string
+
+    /** URL of iframe to place in panel, if set */
+    iframeSource?: string
+
+    /** Connects the iframe, but does not show it in the UI - useful for background iframes */
+    hidden?: boolean
+
+    /** Ignore initial JSON location */
+    relocating?: boolean
 }
 
 export interface LoadWebpackScriptOptions {
@@ -97,17 +104,45 @@ export interface OrigSize {
 export interface Panels {
     /** Panels "stack" in a location */
     addPanel: (options: AddPanelOptions) => Promise<HTMLDivElement>
-    /** Removing restores the top panel in the remaining stack */
+    /**
+     * Removing restores the top panel in the remaining stack
+     * @param {string} id Panel ID
+     */
     removePanel: (id: string) => boolean
-    /** pushToHistory determines if the gridstate should be pushed onto history stack */
+    /** 
+     * @param {string} id Panel ID
+     * @param {boolean} pushToHistory 
+     *  Determines if the `gridstate` should be pushed onto history stack. 
+     * 
+     *  Defaults to `true`.
+     */
     hidePanel: (id: string, pushToHistory?: boolean) => boolean
+    /**
+     * @param {string} id Panel ID
+     * @param {boolean} pushHistoryState Defaults to `true`
+     */
     showPanel: (id: string, pushToHistory?: boolean) => boolean
     isPanelHidden: (id: string) => boolean
-    /** show if `id` is hidden, otherwise hide `id` */
+    /**
+     * Show if `id` is hidden, otherwise hide `id` 
+     * @param {string} id Panel ID
+     */
     togglePanel: (id: string) => boolean
+    /**
+     * Maximizes panel over center
+     * @param {string} id Panel ID
+     */
     maximizePanel: (id: string) => void
+    /**
+     * @param {string} id ID of panel
+     * @param {boolean} pushHistoryState Defaults to `true`
+     */
     expandPanel: (id: string, pushToHistory?: boolean) => void
-    /** Restore from maximized or expanded */
+    /** 
+     * Restore from maximized or expanded 
+     * @param {string} id ID of panel
+     * @param {boolean} pushHistoryState Defaults to `true`
+     */
     restorePanel: (id: string, pushToHistory?: boolean) => void
     closeLocation: (location: Location) => void
 
