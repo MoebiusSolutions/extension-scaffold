@@ -156,6 +156,9 @@ $ npm --no-git-tag-version version x.y.z-SNAPSHOT            # Example input: 1.
 # Do not use the --preid example below or the nightly build script will not pickup the updates.
 # npm --no-git-tag-version version prepatch --preid=SNAPSHOT # Example output: 1.2.1-SNAPSHOT.0
 
+$ NPM_CONFIG_USERCONFIG=~/npmrc-di2e ./extension-scaffold/es-runtime/scripts/link-all.sh
+
+
 $ git -a .
 $ git commit -m 'Prepare for next development cycle, set version to 1.2.1-SNAPSHOT.0' # Use your new version
 
