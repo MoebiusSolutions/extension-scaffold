@@ -1,5 +1,9 @@
 ## Change Log
 
+# [2.7.1] - 2022-03-22
+
+* Fix `deploy` build issue.
+
 # [2.7.0] - 2022-03-22
 
 ### Added
