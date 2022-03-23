@@ -152,9 +152,9 @@ services:
 
   # The nodejs service is just for development
   nodejs:
-    image: node:12
+    image: node:16
     user: "node"
-    working_dir: /home/node
+    working_dir: /home/extension-scaffold
     volumes:
       - "/etc/ssl/certs:/etc/ssl/certs"
       - "../:/home/extension-scaffold"
