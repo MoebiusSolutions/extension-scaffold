@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@gots/es-runtime",
+      "comment": "Add support for removeButton",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@gots/es-runtime"
+}
