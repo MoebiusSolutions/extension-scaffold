@@ -296,7 +296,7 @@
      * The default branch name. This tells "rush change" which remote branch to compare against.
      * The default value is "master"
      */
-    "defaultBranch": "develop",
+    "defaultBranch": "release",
 
     /**
      * The default remote. This tells "rush change" which remote to compare against if the remote URL is
@@ -391,7 +391,8 @@
   "projects": [
     {
       "packageName": "@gots/es-runtime",
-      "projectFolder": "es-runtime"
+      "projectFolder": "es-runtime",
+      "shouldPublish": true
     },
     {
       "packageName": "@gots/es-home",
