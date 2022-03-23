@@ -348,6 +348,11 @@ Next cd to es-tests and type : npm install
 Finally to run test type : npm test
 ```
 
+# Building with Rush
+
+[Building with Rush](documentation/Building-with-Rush.md)
+- Rush is a monorepo tool like Learna or Nx.
+
 # Releasing a New Version
 
 [See `es-runtime` README.md](es-runtime/README.md)
