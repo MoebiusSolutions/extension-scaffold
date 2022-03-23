@@ -8,7 +8,7 @@ pipeline {
     }
   }
   environment {
-    NPM_CONFIG_USERCONFIG = credentials('build-moesol-npm-repository_gccsje')
+    NPM_CONFIG_USERCONFIG = credentials('di2e-npm-dfntc-private')
   }
   stages {
     stage('Build es-home') {
