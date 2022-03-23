@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Build es-home') {
       steps {
-        sh 'NOSUDO=1 ./es-home/deploy/build-prod-container.sh'
+        sh 'NOSUDO=1 ./es-home/deploy/build-prod-container.sh --mount type=bind,source="${WORKSPACE}/moelab/etc/ssl/certs",target=/etc/ssl/certs'
       }
     }
   }
