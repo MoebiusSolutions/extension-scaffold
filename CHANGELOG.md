@@ -1,5 +1,40 @@
 ## Change Log
 
+# [2.7.0] - 2022-03-22
+
+### Added
+
+* Example to demonstrate how to update left tab label
+* Push panel gridstate onto history stack for show/hide/expand/restore panel events 
+* Example for `gccs-m.json`/Ribbon
+* Automate deployment of extension scaffold for non containers
+* Provide an alert dialog if we fail to load the app.json file.
+* New `removeButton` option, when enabled and clicked removes the panel
+* The `active` panel defines which icons appear in the panel header.
+* New set of defaults for 'left', 'right', 'top', 'bottom' verus 'bottom-bar'
+* Support to build monorepo with `rush`
+
+### Changed
+
+* proxy Dockerfile uses centos:7
+* aasw.json sets initialWidthOrHeight to 13em
+* Fix unhandled exception when handling history stack change
+* Reference to `es-runtime` made relative to speed development
+* Fix broken type signature for optional parameter, `pushToHistory`
+* Improve JSDoc in `es-api.ts`
+* Switch `remove` use close icon.
+* Update the `hide` button to be align bottom icon.
+* Rotate icons to make them align with the direction the panel will "move".
+* skipLibCheck to avoid type checking `node_modules`
+* Rename folder `compose` to `es-compose`
+* Upgrade `nodejs` to get newer version of `git` required by `rush`
+
+### Removed
+
+* `aasw.json` - Removing Timeslider, added by ribbon now
+* Remove unused `AboveLeft` example. See `left-of-tabs` in ribbon specification
+* Removed duplicate panel header icons on `bottom` panel
+
 # [2.6.1] - 2022-03-03
 
 * Build `es-runtime` with upgraded dependencies.
