@@ -13,7 +13,7 @@
     "git-describe": "node scripts/git-describe.js > public/version.json"
   },
   "dependencies": {
-    "@gots/es-runtime": "file:../es-runtime",
+    "@gots/es-runtime": "^2.7.0",
     "@gots/noowf-inter-widget-communication": "^2.5.0",
     "@optoolco/tonic": "^13.3.6",
     "events": "^3.3.0",
