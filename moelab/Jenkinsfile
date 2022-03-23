@@ -8,14 +8,12 @@ pipeline {
     }
   }
   environment {
-    NPM_TOKEN = credentials('moelab-npm-token')
+    NPM_CONFIG_USERCONFIG = credentials('build-moesol-npm-repository_gccsje')
   }
   stages {
     stage('Build es-home') {
       steps {
-        withCredentials([file(credentialsId: 'npmrc-moesol', variable: 'NPMRC')]) {
-          sh 'NOSUDO=1 ./es-home/deploy/build-prod-container.sh'
-        }
+        sh 'NOSUDO=1 ./es-home/deploy/build-prod-container.sh'
       }
     }
   }

@@ -10,12 +10,20 @@ SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # You can pass extra arguments to the docker build file.
 # For example `./build-container.sh --progress-plain --no-cache`
 #
+NPM_CONFIG_USERCONFIG=${NPM_CONFIG_USERCONFIG:=${HOME}/.npmrc}
+
+if [[ -z "$NOSUDO" ]]; then
+    SUDO="sudo"
+else
+    SUDO=''
+fi
 
 #
 # Note: the tag below must match what is in docker-compose.yml
 #
 set -x
-sudo DOCKER_BUILDKIT=1 docker build -t extension-scaffold/es-home \
+export DOCKER_BUILDKIT=1
+${SUDO} docker build -t extension-scaffold/es-home \
   "$SCRIPT_DIR/../../../extension-scaffold/es-home/" -f "$SCRIPT_DIR/Dockerfile" \
-  --secret id=npmrc,src=$HOME/.npmrc "$@"
+  --secret id=npmrc,src=${NPM_CONFIG_USERCONFIG} "$@"
 set +x
