@@ -1,0 +1,26 @@
+{
+    "name": "gccs-m1",
+    "title": "GCCS-M(1)",
+    "extensions": [
+      "/track-services-interface/tsi-extension/dist/index.js",
+      "/webmap/map-extension/dist/index.js",
+      "/ui/common/dist/theme-extension.js",
+      "/ui/common/dist/debug-metrics.js",
+      "/ui/dist/extensions/console-extension.js",
+      "/ui/dist/extensions/help-about-extension.js"
+    ],
+    "iframes": [
+      {
+        "id": "gccs-m.webmap",
+        "location": "center",
+        "iframeSource": "/webmap/index.html?hide-ribbon=false"
+      },
+      {
+        "id": "gccs-m.track-services-interface",
+        "location": "bottom-bar",
+        "hidden": true,
+        "iframeSource": "/track-services-interface/"
+      }
+    ]
+  }
+  
