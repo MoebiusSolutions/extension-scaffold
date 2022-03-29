@@ -18,7 +18,7 @@ export const ThemeSelect: React.FC<{container: HTMLElement}> = ({ container }) =
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const dropdown: any = e.target.closest('es-ribbon-dropdown')
     setTheme(e.target.value as any)
-    dropdown?.open() // or close depending on what you want
+    dropdown?.close() // or close depending on what you want
   }
   function whenTheme<T>(t: string, use: T, def?: T) {
     return theme === t ? use : def
