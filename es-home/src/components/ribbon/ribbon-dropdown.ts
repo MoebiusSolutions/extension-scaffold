@@ -99,8 +99,14 @@ es-ribbon-dropdown.open .ribbon-dropdown {
         e.stopPropagation()
       }
     })
-    rd.addEventListener('blur', () => {
+    rd.addEventListener('focusout', (e: FocusEvent) => {
+      const relatedTarget = e.relatedTarget
+
+      // Without this we cannot click on radio buttons in the dropdown
       if (pointerDown) { return }
+      // Focus heading to a child
+      if (relatedTarget) { return }
+
       hide()
     })
     this.addEventListener('es-ribbon-dropdown-request', (e: Event) => {

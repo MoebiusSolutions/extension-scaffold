@@ -90,6 +90,9 @@ export class RibbonViewSection extends LitElement {
     const b : HTMLInputElement | null = e.target as any
     alert(`${b?.innerText}`)
   }
+  inputClick(e: MouseEvent) {
+    e.stopPropagation()
+  }
   /**
    * LitElements render function
    */
@@ -110,6 +113,9 @@ export class RibbonViewSection extends LitElement {
             <div><button @click=${this.showButton}>One</button></div>
             <button @click=${this.showButton}>Two</button>
             <button @click=${this.showButton}>Three</button>
+            <label>Input:
+              <input @click=${this.inputClick} type="text"/>
+            </label>
           </es-ribbon-dropdown>
         </es-ribbon-button>
         <es-ribbon-button @click=${this.showButton} label="Disabled" disabled>
