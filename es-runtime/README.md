@@ -110,9 +110,10 @@ git add -a
 git commit -m'upgrade to version x.y.z`
 ```
 
-> Note: if you leave `es-home` referencing `es-runtime@file:../es-runtime`
-> then the Dockerfile build for `es-home` will fail since the reference points
-> outside of the files copied into the docker build environment.
+> Note: if you leave `es-home` or `es-common-extensions` referencing
+> `es-runtime@file:../es-runtime` then the Dockerfile build for `es-home` 
+> will fail since the reference points outside of the files copied into
+> the docker build environment.
 
 ## 6. Tag the repository
 
