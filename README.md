@@ -188,7 +188,7 @@ A docker compose environment that starts the ES `/ui/` example.
 This is primarily for developing the `extension-scaffold`.
 `es-home` is running at `http://localhost/ui`.
 
-See [compose/README.md](compose/README.md) for more information.
+See [es-compose/README.md](es-compose/README.md) for more information.
 
 ## `es-runtime`
 

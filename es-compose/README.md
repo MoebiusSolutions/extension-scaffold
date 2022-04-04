@@ -15,7 +15,7 @@ or the container will not start, because it will get access errors during `npm i
 To have `npm` log into Nexus:
 
 ```
-    $ cd extension-scaffold/compose
+    $ cd extension-scaffold/es-compose
     $ docker-compose run es-home bash
     $ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
 ```
