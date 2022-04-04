@@ -1,0 +1,44 @@
+{
+    "name": "mipa",
+    "title": "Maritime Interdiction Predictions and Allocations",
+    "ribbon": [
+        { "tab": "Optimization", "sections": [
+            "atf.home",
+            "atf.database"
+        ]},
+        { "tab": "View", "sections": [
+            "display.theme"
+        ]},
+        { "tab": "Developer", "sections": [
+            "debug.console",
+            "debug.metrics"
+        ]},
+        { "tab": "Help", "sections": [
+            "help.about.es-home"
+        ]}
+    ],
+    
+    "header": [
+        "es.common.classification.banner.header"
+    ],
+    "extensions": [
+        "/bgo/atf-extension/dist/index.js"
+    ],
+    "iframes": [
+        {
+            "id": "aeolus.map",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
+            "resizeHandle": true
+        },
+        {
+            "id": "mipa.tables",
+            "title": "MIPA",
+            "location": "bottom",
+            "iframeSource": "/mipa/",
+            "resizeHandle": "true",
+            "initialWidthOrHeight": "30em"
+        }
+    ]
+}
