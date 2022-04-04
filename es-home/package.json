@@ -10,7 +10,8 @@
     "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
     "container": "npm run maybe-install && npm run resolve-applications && snowpack dev",
     "resolve-applications": "node ./scripts/resolve-applications.js",
-    "git-describe": "node scripts/git-describe.js > public/version.json"
+    "git-describe": "node scripts/git-describe.js > public/version.json",
+    "war": "npm run build && gulp war"
   },
   "dependencies": {
     "@gots/es-runtime": "^2.7.0",
@@ -30,6 +31,10 @@
     "@types/snowpack-env": "^2.3.2",
     "@web/test-runner": "^0.12.0",
     "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "gulp-war": "^0.1.4",
+    "gulp-zip": "^5.1.0",
+    "merge-stream": "^2.0.0",
     "prettier": "^2.0.5",
     "snowpack": "^3.8.8",
     "typescript": "^4.0.0"
