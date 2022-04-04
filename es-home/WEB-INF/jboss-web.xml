@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>/extension-scaffold</context-root>
+</jboss-web>
