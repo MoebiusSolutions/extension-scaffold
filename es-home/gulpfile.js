@@ -3,7 +3,7 @@ const war = require('gulp-war');
 const zip = require('gulp-zip');
 const merge = require('merge-stream');
 const version = require('./package.json').version;
-const name = 'extension-scaffold'
+const name = 'es-home';
 
 gulp.task('war', function () {
   return merge(gulp.src('./build/**'),
