@@ -94,6 +94,8 @@ pipeline {
       steps {
         dir("es-home") {
           withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
+            echo "Installing dependencies"
+            sh 'npm install'
             echo "Initiating npm build steps..."
             sh 'npm run war'
           }
