@@ -1,51 +1,67 @@
 {
-    "name": "bgo",
-    "title": "Blue/Green Optimizer",
-    "ribbon": [
-        { "tab": "Optimization", "sections": [
-            "atf.home",
-            "atf.database"
-        ]},
-        { "tab": "View", "sections": [
-            "display.theme"
-        ]},
-        { "tab": "Developer", "sections": [
-            "debug.console",
-            "debug.metrics"
-        ]},
-        { "tab": "Help", "sections": [
-            "help.about.es-home"
-        ]}
-    ],
-    
-    "header": [
-        "es.common.classification.banner.header"
-    ],
-    "extensions": [
-        "/bgo/atf-extension/dist/index.js"
-    ],
-    "iframes": [
-        {
-            "id": "bgo.pairings",
-            "title": "Pairings and Range Rings",
-            "location": "left",
-            "iframeSource": "/bgo-panels/",
-            "resizeHandle": true
-        },
-        {
-            "id": "aeolus.map",
-            "title": "Map",
-            "location": "center",
-            "iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
-            "resizeHandle": true
-        },
-        {
-            "id": "atf.weapon",
-            "title": "Blue Green Optimizer",
-            "location": "bottom",
-            "iframeSource": "/bgo/WeaponSystem?dod=false&hide-navbar=true",
-            "resizeHandle": "true",
-            "initialWidthOrHeight": "25em"
-        }
-    ]
+  "name": "bgo",
+  "title": "Blue/Green Optimizer",
+  "ribbon": [
+    {
+      "tab": "Optimization",
+      "sections": [
+        "atf.home",
+        "atf.database"
+      ]
+    },
+    {
+      "tab": "View",
+      "sections": [
+        "display.theme"
+      ]
+    },
+    {
+      "tab": "Developer",
+      "sections": [
+        "debug.console",
+        "debug.metrics"
+      ]
+    },
+    {
+      "tab": "Help",
+      "sections": [
+        "help.about.es-home"
+      ]
+    }
+  ],
+  "header": [
+    "es.common.classification.banner.header"
+  ],
+  "extensions": [
+    "/bgo/atf-extension/dist/index.js",
+    "/es/ui/common/dist/theme-extension.js",
+    "/es/ui/dist/extensions/console-extension.js",
+    "/es/ui/common/dist/debug-metrics.js",
+    "/es/ui/dist/extensions/help-about-extension.js",
+    "/es/ui/common/dist/classification-banner.js"
+  ],
+  "iframes": [
+    {
+      "id": "bgo.pairings",
+      "title": "Pairings and Range Rings",
+      "location": "left",
+      "iframeSource": "/bgo-panels/",
+      "resizeHandle": true
+    },
+    {
+      "id": "aeolus.map",
+      "title": "Map",
+      "location": "center",
+      "iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
+      "resizeHandle": true
+    },
+    {
+      "id": "atf.weapon",
+      "title": "Blue Green Optimizer",
+      "location": "bottom",
+      "iframeSource": "/bgo/WeaponSystem?dod=false&hide-navbar=true",
+      "resizeHandle": "true",
+      "initialWidthOrHeight": "25em"
+    }
+  ]
 }
