@@ -30,7 +30,6 @@ pipeline {
   // The variables set using environment {} block cannot be overridden using imperative env.VAR = "value" assignment.
   // The imperative env.VAR = "value" assignment can override only environment variables created using imperative assignment.
   environment{
-    WORKSPACE="es-home"
     ARTIFACT_LOCATION="target/es-home*.war"
     JBOSS_BASE_IMAGE= 'eap7.1-registry.access.redhat.com'
     PROJECT = "mtc2"
@@ -48,18 +47,20 @@ pipeline {
         }
       }
       steps {
-        script {
-          APP_NAME = sh(script: 'node -pe "require(\'./package.json\').name"', returnStdout: true).trim()
-          VERSION = sh(script: 'node -pe "require(\'./package.json\').version"', returnStdout: true).trim()
-          URI uri = new URI("${DOCKER_REGISTRY_URL}")
-
-          // set shell environment variables from the jenkins variables set above
-          env.APP_NAME = "${APP_NAME}"
-          env.VERSION = "${VERSION}"
-
-          echo "${VERSION}"
-          if (VERSION.contains('SNAPSHOT')) {
-            IS_SNAPSHOT = true
+        dir("es-home") {
+          script {
+            APP_NAME = sh(script: 'node -pe "require(\'./package.json\').name"', returnStdout: true).trim()
+            VERSION = sh(script: 'node -pe "require(\'./package.json\').version"', returnStdout: true).trim()
+            URI uri = new URI("${DOCKER_REGISTRY_URL}")
+  
+            // set shell environment variables from the jenkins variables set above
+            env.APP_NAME = "${APP_NAME}"
+            env.VERSION = "${VERSION}"
+  
+            echo "${VERSION}"
+            if (VERSION.contains('SNAPSHOT')) {
+              IS_SNAPSHOT = true
+            }
           }
         }
       }
@@ -91,18 +92,22 @@ pipeline {
         }
       }
       steps {
-        withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
-          echo "Initiating npm build steps..."
-          sh 'npm run war'
+        dir("es-home") {
+          withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
+            echo "Initiating npm build steps..."
+            sh 'npm run war'
+          }
         }
       }
 
       post {
-        success {
-          echo "Source Code Built Successfully!"
-          archiveArtifacts(artifacts: "${ARTIFACT_LOCATION}", allowEmptyArchive: false)
-          echo "Stashing the artifacts..."
-          stash(includes: "${ARTIFACT_LOCATION}", name: "artifacts", allowEmpty: false)
+        dir("es-home") {
+          success {
+            echo "Source Code Built Successfully!"
+            archiveArtifacts(artifacts: "${ARTIFACT_LOCATION}", allowEmptyArchive: false)
+            echo "Stashing the artifacts..."
+            stash(includes: "${ARTIFACT_LOCATION}", name: "artifacts", allowEmpty: false)
+          }
         }
       }
     }
@@ -126,27 +131,29 @@ pipeline {
         }
       }
       steps{
-        script {
-          NPM_DEPLOYER_FILE_ID="${NPMRC_RELEASE_DEPLOYER_FILE_ID}";
-          if(IS_SNAPSHOT){
-            NPM_DEPLOYER_FILE_ID="${NPMRC_SNAPSHOT_DEPLOYER_FILE_ID}";
-          }
-          if (params.OVERRIDE_NPM_DEPLOYER_FILE_ID != null && OVERRIDE_NPM_DEPLOYER_FILE_ID != '') {
-            NPM_DEPLOYER_FILE_ID=OVERRIDE_NPM_DEPLOYER_FILE_ID
-          }
-          echo "npm deployer file id: ${NPM_DEPLOYER_FILE_ID}"
-
-          withNPM(npmrcConfig: NPM_DEPLOYER_FILE_ID) {
-            try {
-              sh 'npm publish .'
-            } catch (err) {
-              if (IS_SNAPSHOT) {
-                echo "Trying to re-publish snapshot"
-                sh 'npm unpublish .'
+        dir("es-home") {
+          script {
+            NPM_DEPLOYER_FILE_ID="${NPMRC_RELEASE_DEPLOYER_FILE_ID}";
+            if(IS_SNAPSHOT){
+              NPM_DEPLOYER_FILE_ID="${NPMRC_SNAPSHOT_DEPLOYER_FILE_ID}";
+            }
+            if (params.OVERRIDE_NPM_DEPLOYER_FILE_ID != null && OVERRIDE_NPM_DEPLOYER_FILE_ID != '') {
+              NPM_DEPLOYER_FILE_ID=OVERRIDE_NPM_DEPLOYER_FILE_ID
+            }
+            echo "npm deployer file id: ${NPM_DEPLOYER_FILE_ID}"
+  
+            withNPM(npmrcConfig: NPM_DEPLOYER_FILE_ID) {
+              try {
                 sh 'npm publish .'
-              } else {
-                echo "Release was already published, skipping publish!"
-                echo "If you want to re-publish, manually delete ${VERSION}"
+              } catch (err) {
+                if (IS_SNAPSHOT) {
+                  echo "Trying to re-publish snapshot"
+                  sh 'npm unpublish .'
+                  sh 'npm publish .'
+                } else {
+                  echo "Release was already published, skipping publish!"
+                  echo "If you want to re-publish, manually delete ${VERSION}"
+                }
               }
             }
           }
