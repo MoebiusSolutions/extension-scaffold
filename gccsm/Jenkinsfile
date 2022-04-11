@@ -101,13 +101,11 @@ pipeline {
       }
 
       post {
-        dir("es-home") {
-          success {
-            echo "Source Code Built Successfully!"
-            archiveArtifacts(artifacts: "${ARTIFACT_LOCATION}", allowEmptyArchive: false)
-            echo "Stashing the artifacts..."
-            stash(includes: "${ARTIFACT_LOCATION}", name: "artifacts", allowEmpty: false)
-          }
+        success {
+          echo "Source Code Built Successfully!"
+          archiveArtifacts(artifacts: "${ARTIFACT_LOCATION}", allowEmptyArchive: false)
+          echo "Stashing the artifacts..."
+          stash(includes: "${ARTIFACT_LOCATION}", name: "artifacts", allowEmpty: false)
         }
       }
     }
