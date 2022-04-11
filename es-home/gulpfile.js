@@ -6,8 +6,7 @@ const version = require('./package.json').version;
 const name = 'es-home';
 
 gulp.task('war', function () {
-  return merge(gulp.src('./build/**'),
-    gulp.src('WEB-INF/**', {base: '.'}))
+  return gulp.src('./build/**')
     .pipe(war({
       welcome: 'index.html',
       displayName: 'Extension Scaffold',
