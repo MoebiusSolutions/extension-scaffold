@@ -30,7 +30,8 @@ pipeline {
   // The variables set using environment {} block cannot be overridden using imperative env.VAR = "value" assignment.
   // The imperative env.VAR = "value" assignment can override only environment variables created using imperative assignment.
   environment{
-    ARTIFACT_LOCATION="es-home*.war"
+    WORKSPACE="es-home"
+    ARTIFACT_LOCATION="target/es-home*.war"
     JBOSS_BASE_IMAGE= 'eap7.1-registry.access.redhat.com'
     PROJECT = "mtc2"
     DEV_BRANCH= 'develop'
