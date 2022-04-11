@@ -1,0 +1,156 @@
+boolean IS_SNAPSHOT = false
+VERSION = ""
+String cron_string = BRANCH_NAME == "develop" ? "@daily" : ""
+
+pipeline {
+
+  options {
+      ansiColor('xterm')
+      disableConcurrentBuilds()
+      buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '5')
+  }
+
+  agent {
+    node {
+      label 'docker'
+    }
+  }
+
+  triggers {
+    cron(cron_string)
+  }
+
+  parameters {
+      choice(name: 'PUBLISH', choices: ['If Tag', 'Never', 'Always'],
+          description: 'Control npm publish')
+      string(name: 'OVERRIDE_NPM_DEPLOYER_FILE_ID', defaultValue: '')
+  }
+
+  // The withEnv(["env=value]) { } block can override any environment variable.
+  // The variables set using environment {} block cannot be overridden using imperative env.VAR = "value" assignment.
+  // The imperative env.VAR = "value" assignment can override only environment variables created using imperative assignment.
+  environment{
+    ARTIFACT_LOCATION="es-home*.war"
+    JBOSS_BASE_IMAGE= 'eap7.1-registry.access.redhat.com'
+    PROJECT = "mtc2"
+    DEV_BRANCH= 'develop'
+  }
+
+  stages {
+    stage('Prepare Environment') {
+      agent {
+        docker {
+          reuseNode true
+          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
+          registryUrl "${DOCKER_REGISTRY_URL}"
+        }
+      }
+      steps {
+        script {
+          APP_NAME = sh(script: 'node -pe "require(\'./package.json\').name"', returnStdout: true).trim()
+          VERSION = sh(script: 'node -pe "require(\'./package.json\').version"', returnStdout: true).trim()
+          URI uri = new URI("${DOCKER_REGISTRY_URL}")
+
+          // set shell environment variables from the jenkins variables set above
+          env.APP_NAME = "${APP_NAME}"
+          env.VERSION = "${VERSION}"
+
+          echo "${VERSION}"
+          if (VERSION.contains('SNAPSHOT')) {
+            IS_SNAPSHOT = true
+          }
+        }
+      }
+    }
+
+    stage('create-tag-string') {
+      steps {
+        script {
+          env.MY_TAG = sh(returnStdout: true, script: '''
+                    # Identify the sanitized branch name
+                    # (sed replaces all special chars with "-")
+                    MY_GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD | sed -e 's|[^0-9a-zA-Z_]\\+|-|g')"
+                    MY_GIT_HASH="$(git rev-parse --short HEAD)"
+                    MY_TAG="${MY_GIT_BRANCH}"
+                    echo ${MY_TAG}
+                ''').trim()
+          println "Using tag string ${env.MY_TAG}"
+        }
+      }
+    }
+
+    stage('Build') {
+      agent {
+        docker {
+          reuseNode true
+          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
+          registryUrl "${DOCKER_REGISTRY_URL}"
+        }
+      }
+      steps {
+        withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
+          echo "Initiating npm build steps..."
+          sh 'npm run war'
+        }
+      }
+
+      post {
+        success {
+          echo "Source Code Built Successfully!"
+          archiveArtifacts(artifacts: "${ARTIFACT_LOCATION}", allowEmptyArchive: false)
+          echo "Stashing the artifacts..."
+          stash(includes: "${ARTIFACT_LOCATION}", name: "artifacts", allowEmpty: false)
+        }
+      }
+    }
+
+    stage('Push Artifacts') {
+      agent {
+        docker {
+          reuseNode true
+          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
+          registryUrl "${DOCKER_REGISTRY_URL}"
+        }
+      }
+      when {
+        anyOf {
+          expression { params.PUBLISH == 'Always' }
+          allOf {
+            buildingTag()
+            expression { params.PUBLISH != 'Never' }
+          }
+        }
+      }
+      steps{
+        script {
+          NPM_DEPLOYER_FILE_ID="${NPMRC_RELEASE_DEPLOYER_FILE_ID}";
+          if(IS_SNAPSHOT){
+            NPM_DEPLOYER_FILE_ID="${NPMRC_SNAPSHOT_DEPLOYER_FILE_ID}";
+          }
+          if (params.OVERRIDE_NPM_DEPLOYER_FILE_ID != null && OVERRIDE_NPM_DEPLOYER_FILE_ID != '') {
+            NPM_DEPLOYER_FILE_ID=OVERRIDE_NPM_DEPLOYER_FILE_ID
+          }
+          echo "npm deployer file id: ${NPM_DEPLOYER_FILE_ID}"
+
+          withNPM(npmrcConfig: NPM_DEPLOYER_FILE_ID) {
+            try {
+              sh 'npm publish .'
+            } catch (err) {
+              if (IS_SNAPSHOT) {
+                echo "Trying to re-publish snapshot"
+                sh 'npm unpublish .'
+                sh 'npm publish .'
+              } else {
+                echo "Release was already published, skipping publish!"
+                echo "If you want to re-publish, manually delete ${VERSION}"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
