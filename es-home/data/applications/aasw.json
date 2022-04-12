@@ -15,8 +15,7 @@
         {
             "tab": "Developer",
             "sections": [
-                "debug.console",
-                "debug.metrics"
+                "debug.console"
             ]
         }
     ],
@@ -24,8 +23,7 @@
     "center": [],
     "bottom-bar": [],
     "extensions": [
-        "/ui/dist/extensions/console-extension.js",
-        "/ui/common/dist/debug-metrics.js",
+        "/es/ui/dist/extensions/console-extension.js",
         "/aasw-es-extension/dist/ribbon-asw.js"
     ],
     "iframes": [
@@ -33,8 +31,7 @@
             "id": "map.iframe",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt",
-            "resizeHandle": true
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt"
         }
     ]
 }
