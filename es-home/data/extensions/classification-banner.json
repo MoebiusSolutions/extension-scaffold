@@ -1,5 +1,5 @@
 {
-    "url": "/ui/common/dist/classification-banner.js",
+    "url": "/es/common/dist/classification-banner.js",
     "provides": [
         {
             "title": "Metrics",

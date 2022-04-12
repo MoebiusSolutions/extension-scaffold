@@ -1,5 +1,5 @@
 {
-    "url": "/ui/dist/extensions/help-about-extension.js",
+    "url": "/es/ui/dist/extensions/help-about-extension.js",
     "provides": [
         {
             "title": "Help About",

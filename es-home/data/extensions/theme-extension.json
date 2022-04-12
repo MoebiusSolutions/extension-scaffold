@@ -1,5 +1,5 @@
 {
-    "url": "/ui/common/dist/theme-extension.js",
+    "url": "/es/common/dist/theme-extension.js",
     "provides": [
         {
             "title": "Theme",
