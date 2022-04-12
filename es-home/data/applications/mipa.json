@@ -29,7 +29,8 @@
             "id": "aeolus.map",
             "title": "Map",
             "location": "center",
-            "iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
+            "_not_iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
+            "iframeSource": "/webmap/index.html?hide-ribbon=true",
             "resizeHandle": true
         },
         {
