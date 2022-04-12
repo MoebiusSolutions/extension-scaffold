@@ -1,0 +1,94 @@
+{
+    "name": "minerva",
+    "title": "Adaptive ASW",
+    "ribbon": [
+        {
+            "location": "left-of-tabs",
+            "sections": [
+                "wasp-et.selectedplan"
+            ]
+        },
+        {
+            "tab": "Mission Planning",
+            "sections": [
+                "wasp-et.manager",
+                "wasp-et.assignments",
+                "wasp-et.areacreator",
+                "wasp-et.review",
+                "wasp-et.messages",
+                "wasp-et.wasptracks"
+            ]
+        },
+        {
+            "tab": "AASW",
+            "sections": [
+                "asw.cases",
+                "asw.sessions",
+                "asw.intel",
+                "asw.incoming_reports",
+                "asw.products"
+            ]
+        },
+        {
+            "tab": "Optimization",
+            "sections": [
+                "atf.home",
+                "atf.database"
+            ]
+        },
+        {
+            "tab": "View",
+            "sections": [
+                "display.theme"
+            ]
+        },
+        {
+            "tab": "Developer",
+            "sections": [
+                "debug.console",
+                "debug.metrics"
+            ]
+        },
+        {
+            "tab": "Help",
+            "sections": [
+                "help.about.es-home"
+            ]
+        }
+    ],
+    "left": [],
+    "center": [],
+    "bottom-bar": [],
+    "extensions": [
+        "/aasw-es-extension/dist/ribbon-asw.js",
+        "/bgo/atf-extension/dist/index.js",
+
+        "/track-services-interface/tsi-extension/dist/index.js",
+        "/webmap/map-extension/dist/index.js",
+
+        "/waspet-extensions/dist/WaspExtensions.js"
+    ],
+    "iframes": [
+        {
+            "id": "bgo.pairings",
+            "title": "Pairings and Range Rings",
+            "location": "left",
+            "iframeSource": "/bgo-panels/",
+            "resizeHandle": true
+        },
+        {
+            "id": "map.iframe",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt"
+        },
+        {
+            "id": "atf.weapon",
+            "title": "Blue Green Optimizer",
+            "location": "bottom",
+            "iframeSource": "/bgo/WeaponSystem?dod=false&hide-navbar=true",
+            "resizeHandle": "true",
+            "initialWidthOrHeight": "25em"
+        }
+    ]
+}
