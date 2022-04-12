@@ -13,6 +13,7 @@ es-ribbon-dropdown {
 es-ribbon-dropdown svg {
   fill: var(--es-theme-text-secondary-on-background);
   top: 0px;
+  margin-bottom: 0px;
 }
 .ribbon-dropdown {
   visibility: hidden;

@@ -32,6 +32,7 @@ es-ribbon-button svg {
   position: relative;
   top: 8px;
   margin-top: -8px;
+  margin-bottom: 8px;
 }
 es-ribbon-button label {
   display: block;
