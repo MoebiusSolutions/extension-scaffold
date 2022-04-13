@@ -8,6 +8,8 @@ services:
     - 80
     - 443
     ports:
+# Use below to bind to 0.0.0.0
+#    - "80:80"
     - "127.0.0.1:80:80"
 
   es-home:
@@ -18,11 +20,9 @@ services:
       - "/etc/ssl/certs:/etc/ssl/certs"
       - "../:/home/extension-scaffold"
       - "./home-node:/home/node"
-    # ports: 
-    #   - "127.0.0.1:8080:8080"
     environment:
       - DO_INSTALL
-      - URLPATH=/ui
+      - URLPATH=/es/ui
     command: "npm run container"
 
   es-runtime:
@@ -49,7 +49,7 @@ services:
       - "./home-node:/home/node"
     environment:
       - DO_INSTALL
-      - URLPATH=/ui/common
+      - URLPATH=/es/common
     command: "npm run container"
 
   ext-example-rollup:

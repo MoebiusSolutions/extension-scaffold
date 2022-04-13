@@ -1,6 +1,6 @@
 {
-    "name": "minerva",
-    "title": "Adaptive ASW",
+    "name": "apps",
+    "title": "ONR Applications",
     "ribbon": [
         {
             "location": "left-of-tabs",
