@@ -1,8 +1,8 @@
 import Tonic from '@optoolco/tonic'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
-import { EsDebugConsole } from './debug-console'
-import { EsConsoleLines } from './console-lines'
-import { EsDebugConsoleRibbonPanel } from './debug-console-ribbon-panel'
+import { EsDebugConsoleRibbonPanel } from './ribbon/debug-console-ribbon-panel'
+import { EsDebugConsole } from './ribbon/debug-console'
+import { EsConsoleLines } from './ribbon/console-lines'
 
 //
 // Collects console output and unhandled errors into a ring buffer

@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "lib": ["WebWorker", "ES2015"],
+        "outDir": "../public",
+    },
+    "files": ["service-worker.ts"]
+}
