@@ -18,6 +18,7 @@
 * Fix URL paths to match dev26 `/es/ui/` and `/es/common/...`
 * Ribbon icon padding for `DFNTC-15213`
 * Upgrade to `@gots/noowf-inter-widget-communication@2.6.0`
+* Updated CSS to have smaller left/right button bar
 
 ### Deleted
 
