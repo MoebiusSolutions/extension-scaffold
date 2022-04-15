@@ -1,5 +1,26 @@
 ## Change Log
 
+# [2.8.0] - 2022-04-15
+
+### Added
+
+* Example of a dropdown with a text field in it.
+* Initial MIPA config/ribbon
+* Add script for building war file
+* Add GCCSM Jenkinsfile
+* Scripts to build es-common-extensions image.
+* Unified ribbon examples `apps.json`
+
+### Updated
+
+* Updated `es-runtime` release documentation
+* Theme select close on click is more consistent with user expectations.
+* Fix URL paths to match dev26 `/es/ui/` and `/es/common/...`
+* Ribbon icon padding for `DFNTC-15213`
+* Upgrade to `@gots/noowf-inter-widget-communication@2.6.0`
+
+### Deleted
+
 # [2.7.1] - 2022-03-22
 
 * Fix `deploy` build issue.
