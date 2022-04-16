@@ -26,6 +26,8 @@ To go to the next minor release you can use:
 ```bash
 $ cd es-runtime
 $ npm version minor
+$ cd ../es-home
+$ npm version minor
 ```
 
 Or to set a specific version, say 1.0.8 use `npm version 1.0.8`
