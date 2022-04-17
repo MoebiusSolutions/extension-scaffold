@@ -11,6 +11,7 @@
     "container": "npm run maybe-install && snowpack dev"
   },
   "dependencies": {
+    "@gots/noowf-inter-widget-communication": "^2.6.0",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.25.0",
     "react": "^17.0.0",
