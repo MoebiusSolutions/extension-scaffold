@@ -23,6 +23,7 @@ APP_VERSION_RPM="${APP_VERSION//-/}"
 APP_INSTALL_DIR="${INSTALL_FOLDER}${APP_NAME}-${APP_VERSION}"
 SCAFFOLD_USER=root
 SOURCE_FOLDER="${SCRIPT_DIR}/../es-home/build"
+COMMON_SOURCE_FOLDER="${SCRIPT_DIR}/../es-common-extensions/build"
 
 # Verify prerequisites
 # --------
@@ -56,7 +57,7 @@ Release:    1
 Summary:    ${APP_NAME}
 License:    DoD
 Requires:   httpd
-
+BuildArch:       noarch
 %description
 
 # prep: Prepare teh source code to be compiled (before building the RPM)
@@ -74,9 +75,11 @@ Requires:   httpd
 %install
 mkdir -p %{buildroot}${APP_INSTALL_DIR}
 mkdir -p %{buildroot}${APP_INSTALL_DIR}/es-home/
+mkdir -p %{buildroot}${APP_INSTALL_DIR}/es-common/
 mkdir -p %{buildroot}${APP_INSTALL_DIR}/httpd
 mkdir -p %{buildroot}${APP_INSTALL_DIR}/httpd/conf
 cp -a "${SCRIPT_DIR}/../es-home/build/." "%{buildroot}${APP_INSTALL_DIR}/es-home"
+cp -a "${SCRIPT_DIR}/../es-common-extensions/build/." "%{buildroot}${APP_INSTALL_DIR}/es-common"
 cp -a "${SCRIPT_DIR}/files/." "%{buildroot}${APP_INSTALL_DIR}/httpd/conf/"
 # files: List the absolute path of files to install/uninstall to the target system.
 # These are expected to also exist as root-relative under the %{buildroot}
@@ -87,10 +90,13 @@ cp -a "${SCRIPT_DIR}/files/." "%{buildroot}${APP_INSTALL_DIR}/httpd/conf/"
 # pre: Scripts to execute before install files to the target system
 %pre
 mkdir -p "${APP_INSTALL_DIR}"
+mkdir -p "${APP_INSTALL_DIR}"
 
 # pre: Scripts to execute after installing files to the target system
 %post
-cp -r "${APP_INSTALL_DIR}/es-home" "/var/www/html/ui"
+rm -rf  "/var/www/html/es"
+cp -r "${APP_INSTALL_DIR}/es-common" "/var/www/html/es/common"
+cp -r "${APP_INSTALL_DIR}/es-home" "/var/www/html/es/ui"
 #copy conf.files
 cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf.d"
 systemctl reload httpd 
@@ -114,7 +120,7 @@ cd "${SCRIPT_DIR}"
 rpmbuild -v -bb --define "_topdir ${SCRIPT_DIR}" "SPECS/${APP_NAME}-${APP_VERSION_RPM}.spec"
 
 echo ""
-echo "See: ${SCRIPT_DIR}/RPMS/x86_64/${APP_NAME}-${APP_VERSION_RPM}-1.x86_64.rpm"
+echo "See: ${SCRIPT_DIR}/RPMS/x86_64/${APP_NAME}-${APP_VERSION_RPM}-1.noarch.rpm"
 echo ""
 echo "[[ SUCCESS ]]"
 echo ""

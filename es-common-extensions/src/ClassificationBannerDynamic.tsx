@@ -4,31 +4,50 @@ import './ClassificationBannerDynamic.css'
 // build classification banner based on user clearance
 export const ClassificationBannerDynamic: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     // get user information
-    let banner =  React.createElement("div", {
+    let banner = buildBanner();
+    let banner2 = React.createElement("div", {
         className: "classification-banner-unclass"
-      }, "UNCLASSIFIED-def");
+    }, "UNCLASSIFIED-def");
+
+    // //let userInfoResult = requestUserInfo(requestUrl);
+    // Promise.resolve(requestUserInfo(requestUrl)).then((userInfoResult: UserInfoResult) => {
+    //     // build div string based on results
+
+    //     if (userInfoResult && userInfoResult.clearance) {
+    //         let clearencelevel = userInfoResult.clearance;
+    //         // add in cavaet
+    //         banner =  React.createElement("div", {
+    //             className: `classification-banner-`+userInfoResult.clearance.toLowerCase()
+    //           }, );
+    //           banner = buildBanner();
+    //     }
+    //     return banner;
+    // })
+    // // should never get here, however method needs a return
+    return banner2;
+
+}
+async function buildBanner() {
     const requestUrl = `/es-security-helper/getTokenInfo`;
-    async function requestUserInfo(url: string): Promise<UserInfoResult> {
-        const response = await GET(url);
-        let userinfo = await jsonOrError(response, 'Failed to get user data') as UserInfoResult
-        return userinfo;
-    }
-    //let userInfoResult = requestUserInfo(requestUrl);
-    Promise.resolve(requestUserInfo(requestUrl)).then((userInfoResult: UserInfoResult) => {
+    const userInfoResult = Promise.resolve(await requestUserInfo(requestUrl)).then((userInfoResult: UserInfoResult) => {
         // build div string based on results
-           
+        let banner = React.createElement("div", {
+            className: "classification-banner-unclass"
+        }, "UNCLASSIFIED-def");
         if (userInfoResult && userInfoResult.clearance) {
             let clearencelevel = userInfoResult.clearance;
             // add in cavaet
-            banner =  React.createElement("div", {
-                className: `classification-banner-`+userInfoResult.clearance.toLowerCase()
-              }, );
+            banner = React.createElement("div", {
+                className: `classification-banner-` + userInfoResult.clearance.toLowerCase()
+            });
         }
-        return banner;
-    })
-    // should never get here, however method needs a return
-    return  banner
-
+    });
+    return userInfoResult;
+}
+async function requestUserInfo(url: string): Promise<UserInfoResult> {
+    const response = await GET(url);
+    let userinfo = await jsonOrError(response, 'Failed to get user data') as UserInfoResult
+    return userinfo;
 }
 export interface UserInfoResult {
     realm: string
