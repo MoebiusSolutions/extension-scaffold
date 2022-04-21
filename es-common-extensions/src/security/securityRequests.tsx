@@ -1,6 +1,7 @@
 
-const mode = import.meta.env.NODE_ENV;
-const securityUrl = import.meta.env[`ES_SECURITY_URL_${mode}`];
+const mode = import.meta.env.NODE_ENV
+const securityUrl = import.meta.env[`ES_SECURITY_URL_${mode}`]
+import { extractJsonFromResponse } from './requestResponseUtils.js'
 
 export const fetchTokenInfo = async () => {
   const url = `${securityUrl}/api/userinfo/getPrincipal`;
@@ -11,12 +12,5 @@ export const fetchTokenInfo = async () => {
           "Content-Type": "application/json"
       }
   })
-  .then(response => response.json())
-  .then(json => {
-    // TODO: augmenting the json with fake data to facilitate UFS integration while the backend meta-data gets worked out.
-    return {
-      ...json,
-      opauth: import.meta.env[`ES_SECURITY_FAKE_OPAUTH_${mode}`]
-    }
-  });
+  .then(extractJsonFromResponse)
 }

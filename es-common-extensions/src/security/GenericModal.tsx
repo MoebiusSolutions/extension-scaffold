@@ -1,19 +1,23 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
-import type { ExtensionScaffoldApi } from "@gots/es-runtime/build/es-api"
 
-const GenericModalPanel: React.FC<{
+export const GenericModalPanel: React.FC<{
     onAccept: () => void,
     onCancel: () => void,
+    onAcceptText?: string,
+    onCancelText?: string,
+    showCancelButton?: boolean,
     content: any,
     title: string,
     showFooter: boolean,
 }> = ({
     onAccept,
     onCancel,
+    onAcceptText,
+    onCancelText,
     content,
     title,
     showFooter,
+    showCancelButton,
 }) => {
     const css = `
     .modal {
@@ -57,11 +61,11 @@ const GenericModalPanel: React.FC<{
 
     const modalFooter = (
         <div>
+            {showCancelButton && <div>
+                <button className = 'modal-cancel' onClick={onCancel}>{onCancelText || 'Cancel'}</button>
+            </div>}
             <div>
-                <button className = 'modal-cancel' onClick={onCancel}>Cancel</button>
-            </div>
-            <div>
-                <button className = 'modal-accept' onClick={onAccept}>Accept</button>
+                <button className = 'modal-accept' onClick={onAccept}>{onAcceptText || 'Accept'}</button>
             </div>
         </div>
     );
@@ -84,48 +88,4 @@ const GenericModalPanel: React.FC<{
             </div>
         </div>
     </>
-}
-
-export const GenericModal: React.FC<{ 
-    scaffold: ExtensionScaffoldApi,
-    buttonText: string,
-    modalId: string,
-    content: any,
-    title: string,
-    showFooter: boolean,
-  }> = ({ scaffold, buttonText, modalId, content, title, showFooter }) => {
-    const [open, setOpen] = React.useState(false)
-
-    React.useEffect(() => {
-        if (open) {
-            scaffold.chrome.panels.addPanel({
-                id: modalId,
-                location: 'portal-wide',
-            }).then(portalDiv => {
-                ReactDOM.render(
-                    <GenericModalPanel onCancel={onCancel} onAccept={onAccept}  
-                        content={content} title={title} showFooter={showFooter} />, portalDiv)
-            })
-        } else {
-            scaffold.chrome.panels.removePanel(modalId)
-        }
-    }, [open])
-
-    function openModal() {
-        setOpen(true)
-    }
-
-    function closeModal() {
-        setOpen(false)
-    }
-
-    function onCancel() {
-        closeModal()
-    }
-
-    function onAccept() {
-        closeModal()
-    }
-
-    return <label onClick={openModal}>{buttonText}</label>
 }
