@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import type { AddPanelOptions, ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 import { ClassificationBannerDynamic } from './ClassificationBannerDynamic';
+import { buildBanner } from "./ClassificationBannerDynamic";
+import type { UserInfo } from "./ClassificationBannerDynamic"
 
 /**
  * Reduces React broiler plate code for adding an extension panel.
@@ -26,17 +28,19 @@ import { ClassificationBannerDynamic } from './ClassificationBannerDynamic';
 }
 
 async function doHeader(scaffold: ExtensionScaffoldApi) {
+  let userData = await buildBanner();
   const panelDiv = await doPanel(scaffold, {
     id: 'es.common.classification.dynamic.banner.header',
     location: 'header'
-  }, <ClassificationBannerDynamic es={scaffold} />)
+  }, <ClassificationBannerDynamic es={scaffold} userInfo={userData} />)
   claimStyleFromHeadElement(panelDiv, '#es.common.classification.dynamic.banner')
 }
 async function doFooter(scaffold: ExtensionScaffoldApi) {
+  let userData = await buildBanner();
   const panelDiv = await doPanel(scaffold, {
     id: 'es.common.classification.dynamic.banner.footer',
     location: 'footer'
-  }, <ClassificationBannerDynamic es={scaffold} />)
+  }, <ClassificationBannerDynamic es={scaffold} userInfo={userData} />)
   claimStyleFromHeadElement(panelDiv, '#es.common.classification.dynamic.banner')
 }
 

@@ -1,55 +1,37 @@
 import React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import './ClassificationBannerDynamic.css'
-// build classification banner based on user clearance
-export const ClassificationBannerDynamic: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
-    // get user information
-    let banner = buildBanner();
-    let banner2 = React.createElement("div", {
+
+
+export const ClassificationBannerDynamic: React.FC<{ es: ExtensionScaffoldApi, userInfo: UserInfo }> = ({ es, userInfo }) => {
+    let banner = React.createElement("div", {
         className: "classification-banner-unclass"
     }, "UNCLASSIFIED-def");
-
-    // //let userInfoResult = requestUserInfo(requestUrl);
-    // Promise.resolve(requestUserInfo(requestUrl)).then((userInfoResult: UserInfoResult) => {
-    //     // build div string based on results
-
-    //     if (userInfoResult && userInfoResult.clearance) {
-    //         let clearencelevel = userInfoResult.clearance;
-    //         // add in cavaet
-    //         banner =  React.createElement("div", {
-    //             className: `classification-banner-`+userInfoResult.clearance.toLowerCase()
-    //           }, );
-    //           banner = buildBanner();
-    //     }
-    //     return banner;
-    // })
-    // // should never get here, however method needs a return
-    return banner2;
-
-}
-async function buildBanner() {
-    const requestUrl = `/es-security-helper/getTokenInfo`;
-    const userInfoResult = Promise.resolve(await requestUserInfo(requestUrl)).then((userInfoResult: UserInfoResult) => {
-        // build div string based on results
-        let banner = React.createElement("div", {
-            className: "classification-banner-unclass"
-        }, "UNCLASSIFIED-def");
-        if (userInfoResult && userInfoResult.clearance) {
-            let clearencelevel = userInfoResult.clearance;
-            // add in cavaet
-            banner = React.createElement("div", {
-                className: `classification-banner-` + userInfoResult.clearance.toLowerCase()
-            });
+    if (userInfo && userInfo.clearance) {
+        let clearanceString = userInfo.clearance;
+        // add in cavaet
+        if(userInfo.controls){
+            clearanceString += "//"+ userInfo.controls.join('/');
         }
-    });
-    return userInfoResult;
+        banner = React.createElement("div", {
+            className: `classification-banner-` + userInfo.clearance.toLowerCase()
+        },clearanceString);
+    }
+    return banner;
 }
-async function requestUserInfo(url: string): Promise<UserInfoResult> {
+
+export async function buildBanner() {
+    const requestUrl = `/es-security-helper/api/userinfo/getTokenInfo`;
+    const userInfo = await requestUserInfo(requestUrl);
+    return userInfo;
+  
+}
+async function requestUserInfo(url: string): Promise<UserInfo> {
     const response = await GET(url);
-    let userinfo = await jsonOrError(response, 'Failed to get user data') as UserInfoResult
+    let userinfo = await jsonOrError(response, 'Failed to get user data') as UserInfo
     return userinfo;
 }
-export interface UserInfoResult {
+export interface UserInfo {
     realm: string
     sessionUid: string
     uid: string
