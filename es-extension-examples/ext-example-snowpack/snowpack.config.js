@@ -41,6 +41,6 @@ module.exports = {
      ES_SECURITY_URL_development: 'https://security.dev26.minerva.navy.mil/es-security-helper',
  
      // production
-     WASPET_EXTENSIONS_URL_production: '/es-security-helper'
+     ES_SECURITY_URL_production: '/es-security-helper'
   }
 };
