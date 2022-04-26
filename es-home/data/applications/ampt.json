@@ -1,0 +1,57 @@
+{
+    "name": "ampt",
+    "title": "AMPT",
+    "ribbon": [
+      {
+        "tab": "AMPT Planning",
+        "sections": [
+          "AMPT.mapBasedPlanning",
+          "AMPT.filters",
+          "AMPT.tools"
+        ]
+      }
+    ],
+    "left": [],
+    "center": [],
+    "bottom-bar": [],
+    "extensions": [
+      "https://localhost/opt-ribbon/dist/opt-ribbon.js"
+    ],
+    "iframes": [
+      {
+        "id": "map.iframe",
+        "title": "Map",
+        "location": "center",
+        "iframeSource": "https://localhost/webmap/",
+        "resizeHandle": true
+      },
+      {
+        "id": "opt.manager",
+        "title": "OPT Manager",
+        "location": "left",
+        "iframeSource": "https://localhost/opt-manager/",
+        "resizeHandle": true
+      },
+      {
+        "id": "opt.timeline",
+        "title": "Opt Timeline",
+        "location": "bottom",
+        "iframeSource": "https://localhost/timelinegold/",
+        "resizeHandle": true
+      },
+      {
+        "id": "opt.hub",
+        "title": "Opt Hub",
+        "location": "left",
+        "hidden": "true",
+        "iframeSource": "https://localhost/opt-hub/"
+      },
+      {
+        "id": "common.mapinterface",
+        "title": "Common Map Interface",
+        "location": "left",
+        "hidden": "true",
+        "iframeSource": "https://localhost/common-map-interface/commonMapInterface.html"
+      }
+    ]
+  }
