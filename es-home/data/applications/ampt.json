@@ -7,7 +7,8 @@
         "sections": [
           "AMPT.mapBasedPlanning",
           "AMPT.filters",
-          "AMPT.tools"
+          "AMPT.tools",
+          "AMPT.mapDisplaySettings"
         ]
       }
     ],
