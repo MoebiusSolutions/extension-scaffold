@@ -8,6 +8,9 @@ cd ${SCRIPT_DIR}/../es-home
 echo "Building release .."
 npm ci
 npm run build
+cd ${SCRIPT_DIR}/../es-common
+npm ci
+npm run build
 cd ${SCRIPT_DIR}/../rpmbuild
 echo "Building RPM .."
 ./build.sh   

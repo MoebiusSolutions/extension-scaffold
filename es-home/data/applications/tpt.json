@@ -5,6 +5,9 @@
         "es.common.classification.banner.header"
     ],
     "extensions": [
+        "/ui/dist/extensions/console-extension.js",
+        "/ui/common/dist/debug-metrics.js",
+        "/es/common/dist/classification-banner.js"
     ],
     "iframes": [
         {
