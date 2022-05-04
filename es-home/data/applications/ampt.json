@@ -16,28 +16,28 @@
     "center": [],
     "bottom-bar": [],
     "extensions": [
-      "https://localhost/opt-ribbon/dist/opt-ribbon.js"
+      "/opt-ribbon/dist/opt-ribbon.js"
     ],
     "iframes": [
       {
         "id": "map.iframe",
         "title": "Map",
         "location": "center",
-        "iframeSource": "https://localhost/webmap/",
+        "iframeSource": "/webmap/",
         "resizeHandle": true
       },
       {
         "id": "opt.manager",
         "title": "OPT Manager",
         "location": "left",
-        "iframeSource": "https://localhost/opt-manager/",
+        "iframeSource": "/opt-manager/",
         "resizeHandle": true
       },
       {
         "id": "opt.timeline",
         "title": "Opt Timeline",
         "location": "bottom",
-        "iframeSource": "https://localhost/timelinegold/",
+        "iframeSource": "/timelinegold/",
         "resizeHandle": true
       },
       {
@@ -45,21 +45,21 @@
         "title": "Opt Hub",
         "location": "left",
         "hidden": "true",
-        "iframeSource": "https://localhost/opt-hub/"
+        "iframeSource": "/opt-hub/"
       },
       {
         "id": "opt.router",
         "title": "Opt Router",
         "location": "left",
         "hidden": "true",
-        "iframeSource": "https://localhost/opt-gui/router/index.html"
+        "iframeSource": "/opt-gui/router/index.html"
       },
       {
         "id": "common.mapinterface",
         "title": "Common Map Interface",
         "location": "left",
         "hidden": "true",
-        "iframeSource": "https://localhost/common-map-interface/commonMapInterface.html"
+        "iframeSource": "/common-map-interface/commonMapInterface.html"
       }
     ]
   }
