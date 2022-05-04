@@ -48,6 +48,13 @@
         "iframeSource": "https://localhost/opt-hub/"
       },
       {
+        "id": "opt.router",
+        "title": "Opt Router",
+        "location": "left",
+        "hidden": "true",
+        "iframeSource": "https://localhost/opt-gui/router/index.html"
+      },
+      {
         "id": "common.mapinterface",
         "title": "Common Map Interface",
         "location": "left",
