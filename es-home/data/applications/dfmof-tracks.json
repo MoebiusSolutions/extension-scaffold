@@ -1,0 +1,95 @@
+{
+  "name": "dfmotf",
+  "title": "DF-MOTF",
+  "header": [
+    "es.common.classification.dynamic.banner.header"
+],
+ 
+  "ribbon": [
+    {
+      "location": "left-of-tabs",
+      "sections": [
+        "tsi.left.of.tabs"
+      ]
+    },
+    {
+      "location": "right-of-tabs",
+      "sections": [
+        "tsi.user.count",
+        "webmap.shared.search"
+      ]
+    },
+    {
+      "tab": "Display",
+      "sections": [
+        "webmap.settings",
+        "webmap.filters",
+        "webmap.halo",
+        "webmap.non.track.labels"
+      ]
+    },
+    {
+      "tab": "Draw",
+      "sections": [
+        "webmap.shapes",
+        "webmap.text",
+        "webmap.shape.controls"
+      ]
+    },
+    {
+      "tab": "Track",
+      "sections": [
+        "tracks.manage",
+        "tracks.display",
+        "tracks.database",
+        "tracks.communications",
+        "tracks.misc"
+      ]
+    },
+    {
+      "tab": "Layers",
+      "sections": [
+        "webmap.overlays"
+      ]
+    },
+    {
+      "tab": "Decision Aids",
+      "sections": [
+        "webmap.measure",
+        "tsi.tdas",
+        "tsi.tactical.context",
+        "tsi.orders"
+      ]
+    },
+    {
+      "tab": "Collaborate",
+      "sections": [
+        "webmap.bookmarks"
+      ]
+    }
+  ],
+  "extensions": [
+    "/track-services-interface/tsi-extension/dist/index.js",
+    "/webmap/map-extension/dist/index.js",
+    "/ui/common/dist/theme-extension.js",
+    "/ui/common/dist/debug-metrics.js",
+    "/ui/dist/extensions/console-extension.js",
+    "/ui/dist/extensions/help-about-extension.js",
+    "/es/common/dist/classification-banner-dynamic.js"
+  ],
+  "iframes": [
+    {
+      "id": "map.iframe",
+      "title": "Map",
+      "location": "center",
+      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix",
+      "resizeHandle": true  
+    },
+    {
+      "id": "gccs-m.track-services-interface",
+      "location": "bottom-bar",
+      "hidden": true,
+      "iframeSource": "/track-services-interface/"
+    }
+  ]
+}
