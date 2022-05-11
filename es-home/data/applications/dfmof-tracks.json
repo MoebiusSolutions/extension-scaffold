@@ -1,5 +1,5 @@
 {
-  "name": "dfmotf",
+  "name": "dfmotf-tracks",
   "title": "DF-MOTF",
   "header": [
     "es.common.classification.dynamic.banner.header"
@@ -70,7 +70,6 @@
   ],
   "extensions": [
     "/track-services-interface/tsi-extension/dist/index.js",
-    "/webmap/map-extension/dist/index.js",
     "/ui/common/dist/theme-extension.js",
     "/ui/common/dist/debug-metrics.js",
     "/ui/dist/extensions/console-extension.js",
