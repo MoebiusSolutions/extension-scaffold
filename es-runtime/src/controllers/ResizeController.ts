@@ -67,6 +67,7 @@ export function getApplyFunction(location: Location) {
         case 'left': return applyLeft
         case 'right': return applyRight
         case 'top': return applyTop
+        case 'top-bar': return applyTop
         case 'bottom': return applyBottom
         case 'bottom-bar': return applyBottom
     }
@@ -78,7 +79,7 @@ function savePanelDivSize(div: HTMLElement | null) {
     const size = div.style.getPropertyValue('--size')
     if (!size) { return }
     
-    const resizable = [ 'left', 'right', 'top', 'bottom', 'bottom-bar' ]
+    const resizable = [ 'left', 'right', 'top', 'top-bar', 'bottom', 'bottom-bar' ]
     resizable.filter(l => div.classList.contains(l)).forEach(l => {
         toStorage(`${l}-panel-size`, size)
     })
