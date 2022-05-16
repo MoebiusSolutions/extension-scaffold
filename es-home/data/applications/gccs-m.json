@@ -83,6 +83,12 @@
       "location": "bottom-bar",
       "hidden": true,
       "iframeSource": "/track-services-interface/"
+    },
+    {
+      "id": "gccs-m.es-for-ctm",
+      "location": "bottom-bar",
+      "hidden": true,
+      "iframeSource": "/otm-console/controllers/ES"
     }
   ]
 }
