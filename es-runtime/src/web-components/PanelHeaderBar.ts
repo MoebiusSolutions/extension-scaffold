@@ -69,6 +69,7 @@ export class PanelHeaderBar extends HTMLElement {
             this.addButton(closeIcon, 'Remove', 'remove', e => this.applyClick(e,
                 (panels, id) => panels.removePanel(id)))
         }
+        extensionScaffold.events.emit('panel-header-bar-rendered', this);
     }
 
     private addButton(icon: string, title: string, className: string, onclick: (evt: MouseEvent) => void) {
