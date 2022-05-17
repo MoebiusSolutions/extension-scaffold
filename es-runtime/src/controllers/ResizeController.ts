@@ -27,6 +27,11 @@ function applyLeft(rd: ResizeData, e: PointerEvent) {
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
     rd.panelDiv.style.setProperty('--size', `${newWidth}px`)
     updateHidden(newWidth, dx, rd.panelDiv, rd.extensionDiv)
+    if (newWidth === w / 2 - 100) {
+        rd.panelDiv.classList.add('grid-expanded')
+    } else {
+        rd.panelDiv.classList.remove('grid-expanded')
+    }
 }
 
 function applyRight(rd: ResizeData, e: PointerEvent) {
@@ -36,6 +41,11 @@ function applyRight(rd: ResizeData, e: PointerEvent) {
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
     rd.panelDiv.style.setProperty('--size', `${newWidth}px`)
     updateHidden(newWidth, dx, rd.panelDiv, rd.extensionDiv)
+    if (newWidth === w / 2 - 100) {
+        rd.panelDiv.classList.add('grid-expanded')
+    } else {
+        rd.panelDiv.classList.remove('grid-expanded')
+    }
 }
 
 function applyTop(rd: ResizeData, e: PointerEvent) {
