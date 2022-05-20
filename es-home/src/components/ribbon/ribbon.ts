@@ -5,6 +5,7 @@ import { EsRibbonRow } from './ribbon-row';
 import { EsRibbonColumn } from './ribbon-column';
 import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
+import { EsRibbonSideDropdown } from './ribbon-side-dropdown';
 import { EsRibbonButtonSmall } from './ribbon-button-small';
 import { EsRibbonButtonSplit } from './ribbon-button-split';
 import { EsRibbonDropdownItem } from './ribbon-dropdown-item';
@@ -150,6 +151,7 @@ ${EsRibbonButton.hoistedStylesheet()}
 ${EsRibbonButtonSmall.hoistedStylesheet()}
 ${EsRibbonButtonSplit.hoistedStylesheet()}
 ${EsRibbonDropdown.hoistedStylesheet()}
+${EsRibbonSideDropdown.hoistedStylesheet()}
 ${EsRibbonDropdownItem.hoistedStylesheet()}
 
   `}
@@ -337,4 +339,5 @@ Tonic.add(EsRibbonButton)
 Tonic.add(EsRibbonButtonSmall)
 Tonic.add(EsRibbonButtonSplit)
 Tonic.add(EsRibbonDropdown)
+Tonic.add(EsRibbonSideDropdown)
 Tonic.add(EsRibbonDropdownItem)

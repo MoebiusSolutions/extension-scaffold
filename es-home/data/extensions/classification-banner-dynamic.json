@@ -1,0 +1,9 @@
+{
+    "url": "/es/common/dist/classification-banner-dynamic.js",
+    "provides": [
+        {
+            "title": "Classification Banner Dynamic",
+            "id": "es.common.classification.banner.dynamic.header"
+        }
+    ]
+}
