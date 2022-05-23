@@ -96,7 +96,7 @@ code {
   background: rgb(25 112 179);
 }
 
-.drag-for-top {
+.drag-for-top, .drag-for-top-bar {
   display: block;
   position: absolute;
   bottom: 0px;
@@ -241,6 +241,7 @@ code {
 
 .grid-panel.top-bar {
   grid-area: top-bar;
+  height: var(--size, initial);
   background: rgba(255, 255, 255, 0.03);
 }
 .grid-panel.top-bar .shadow-div {
@@ -314,11 +315,13 @@ code {
   display: none;
 }
 
-.grid-panel.top.hidden {
+.grid-panel.top.hidden,
+.grid-panel.top-bar.hidden {
   max-height: 4px;
 }
 
-.grid-panel.top.hidden > .shadow-div {
+.grid-panel.top.hidden > .shadow-div,
+.grid-panel.top-bar.hidden > .shadow-div {
   display: none;
 }
 
