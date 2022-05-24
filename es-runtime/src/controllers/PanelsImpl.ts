@@ -302,6 +302,7 @@ export class PanelsImpl implements Panels {
             // If the parent window closes, close the children
             window.addEventListener('beforeunload', handleBeforeUnload)
             extensionScaffold.events.emit('grid-changed', getGridState())
+            extensionScaffold.events.emit('panel-popped-out', extWindow);
         })
     }
 
