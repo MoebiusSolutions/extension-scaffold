@@ -8,14 +8,11 @@ export const ClassificationBannerDynamic: React.FC<{ es: ExtensionScaffoldApi, u
         className: "classification-banner-unclass"
     }, "UNCLASSIFIED-def");
     if (userInfo && userInfo.clearance) {
-        let clearanceString = userInfo.clearance;
-        // add in cavaet
-        if(userInfo.controls){
-            clearanceString += "//"+ userInfo.controls.join('/');
-        }
+        let clearanceString = userInfo.sessionClassification;
+     
         banner = React.createElement("div", {
             className: `classification-banner-` + userInfo.clearance.toLowerCase()
-        },clearanceString);
+        }, clearanceString);
     }
     return banner;
 }
@@ -24,7 +21,7 @@ export async function buildBanner() {
     const requestUrl = `/es-security-helper/api/userinfo/getTokenInfo`;
     const userInfo = await requestUserInfo(requestUrl);
     return userInfo;
-  
+
 }
 async function requestUserInfo(url: string): Promise<UserInfo> {
     const response = await GET(url);
@@ -43,6 +40,7 @@ export interface UserInfo {
     iCamSource: string
     email: string
     citizenship: string
+    sessionClassification: string
     clearance: string
     sessionExpiration: bigint
     seContext: string
