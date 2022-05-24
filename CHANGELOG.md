@@ -1,5 +1,39 @@
 ## Change Log
 
+# [2.10.0] - 2022-05-23
+
+### Added
+
+* Hidden opt-router iframe as dependency for other widgets functionality
+* New dropdown menu in ribbon bar to toggle BGO panel on and off
+* `top-bar` resizable
+* Allow query parameter vs URL hash to get around KeyCloak auth not passing hash info
+* New event: `panel-popped-out` event with new external window as the passed event data
+
+### Changed
+
+* Fixes CTM theme support
+
+### Removed
+
+* Hard coded URLs in ampt.json
+* Hard coded bottom BGO panel
+
+# [2.9.0] - 2022-05-03
+
+### Added
+
+* Instructions for deploy docker image
+* USWDSS-6227 basic first draft integration with security api
+* USWDSS-6227 alert modal when login fails
+* Initial AMPT configuration file
+* Display tab items to the AMPT Planning tab
+* Classification banner based on user clearance
+
+### Changed
+
+* Fix production mode security helper variable (examples)
+
 # [2.8.0] - 2022-04-15
 
 ### Added
@@ -19,8 +53,6 @@
 * Ribbon icon padding for `DFNTC-15213`
 * Upgrade to `@gots/noowf-inter-widget-communication@2.6.0`
 * Updated CSS to have smaller left/right button bar
-
-### Deleted
 
 # [2.7.1] - 2022-03-22
 
