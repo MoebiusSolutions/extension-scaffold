@@ -21,7 +21,7 @@ function getDivSize(div: HTMLElement | null): OrigSize {
     const origSize: OrigSize = { size: '', location: '' }
     if (div === null) { return origSize }
 
-    const resizable: Location[] = [ 'left', 'right', 'top', 'bottom','bottom-bar' ]
+    const resizable: Location[] = [ 'left', 'right', 'top', 'top-bar', 'bottom','bottom-bar' ]
     resizable.filter(l => div.classList.contains(l)).forEach(l => {
         const size = div.style.getPropertyValue('--size')
         if (size === '100px') {
@@ -131,6 +131,7 @@ export class PanelsImpl implements Panels {
                 case 'left':
                 case 'right':
                 case 'top':
+                case 'top-bar':
                 case 'bottom':
                 case 'bottom-bar':
                     parent.style.display = DISPLAY_FLEX
@@ -160,9 +161,9 @@ export class PanelsImpl implements Panels {
                 case 'left':
                 case 'right':
                 case 'top':
+                case 'top-bar':
                 case 'bottom':
                 case 'bottom-bar':
-                case 'top':
                     this.closeLocation(location)
                     hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
@@ -210,7 +211,7 @@ export class PanelsImpl implements Panels {
                 this.hidePanel(id)
             } else {
                 const orig = getDivSize(parent)
-                if (['left', 'right', 'top', 'bottom', 'bottom-bar'].findIndex(l => orig.location === l) >= 0) {
+                if (['left', 'right', 'top', 'top-bar', 'bottom', 'bottom-bar'].findIndex(l => orig.location === l) >= 0) {
                     parent.style.setProperty('--size', orig.size)
                 }
                 this.showPanel(id)
@@ -396,6 +397,7 @@ export class PanelsImpl implements Panels {
                 div.style.setProperty('--size', initialWidthOrHeight ?? '20em')
                 break;
             case 'top':
+            case 'top-bar':
             case 'bottom':
             case 'bottom-bar':
                 div.style.setProperty('--size', initialWidthOrHeight ?? '10em')
