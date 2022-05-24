@@ -8,7 +8,7 @@ set -e
 # Name and location of this script file
 SCRIPT_FILE=$(basename "$0")
 SCRIPT_DIR=$(dirname `readlink -f "$0"`)
-VERSION_FILE="${SCRIPT_DIR}/../es-runtime/package.json"
+VERSION_FILE="${SCRIPT_DIR}/../es-home/package.json"
 if [[ ! -f "${VERSION_FILE}" ]]; then
   echo "" 1>&2
   echo "Missing Version file: '${VERSION_FILE}'." 1>&2
@@ -56,7 +56,7 @@ Release:    1
 Summary:    ${APP_NAME}
 License:    DoD
 Requires:   httpd
-BuildArch:  noarch
+BuildArch:   noarch
 
 %description
 
@@ -74,18 +74,16 @@ BuildArch:  noarch
 # of the target system. This is executed on the rpmbuild machine.
 %install
 mkdir -p %{buildroot}${APP_INSTALL_DIR}
+mkdir -p %{buildroot}${APP_INSTALL_DIR}/es-home/
 mkdir -p %{buildroot}${APP_INSTALL_DIR}/httpd
-mkdir -p %{buildroot}${APP_INSTALL_DIR}/es
-
-cp -a "${SCRIPT_DIR}/../es-home/build/." "%{buildroot}${APP_INSTALL_DIR}/es/ui"
-cp -a "${SCRIPT_DIR}/../es-common-extensions/build/." "%{buildroot}${APP_INSTALL_DIR}/es/common"
-cp -a "${SCRIPT_DIR}/files/." "%{buildroot}${APP_INSTALL_DIR}/httpd/"
+mkdir -p %{buildroot}${APP_INSTALL_DIR}/httpd/conf
+cp -a "${SCRIPT_DIR}/../es-home/build/." "%{buildroot}${APP_INSTALL_DIR}/es-home"
+cp -a "${SCRIPT_DIR}/files/." "%{buildroot}${APP_INSTALL_DIR}/httpd/conf/"
 # files: List the absolute path of files to install/uninstall to the target system.
 # These are expected to also exist as root-relative under the %{buildroot}
 # directory of the buildrpm machine.
 %files
-%attr(0755, ${SCAFFOLD_USER}, ${SCAFFOLD_USER}) ${APP_INSTALL_DIR}
-%attr(0755, ${SCAFFOLD_USER}, ${SCAFFOLD_USER}) ${APP_INSTALL_DIR}/httpd
+%attr(0644, ${SCAFFOLD_USER}, ${SCAFFOLD_USER}) ${APP_INSTALL_DIR}
 
 # pre: Scripts to execute before install files to the target system
 %pre
@@ -93,11 +91,9 @@ mkdir -p "${APP_INSTALL_DIR}"
 
 # pre: Scripts to execute after installing files to the target system
 %post
-rm -rf  "/var/www/html/es"
-mkdir -p %{buildroot}${APP_INSTALL_DIR}/httpd
-cp -r "${APP_INSTALL_DIR}/es" "/var/www/html/es"
+cp -r "${APP_INSTALL_DIR}/es-home" "/var/www/html/ui"
 #copy conf.files
-cp -rfp "${APP_INSTALL_DIR}/httpd/scaffold.conf" "/etc/httpd/conf.d"
+cp -rfp "${APP_INSTALL_DIR}/httpd/conf/scaffold.conf" "/etc/httpd/conf.d"
 systemctl reload httpd 
 # preun: Scripts to execute before uninstalling files from the target system
 %preun
@@ -106,7 +102,7 @@ systemctl reload httpd
 %postun
 rm /etc/httpd/conf.d/scaffold.conf
 rm -rf ${APP_INSTALL_DIR}
-rm -rf /var/www/html/es
+rm -rf /var/www/html/ui
 systemctl reload httpd
 __EOF__
 
@@ -119,7 +115,7 @@ cd "${SCRIPT_DIR}"
 rpmbuild -v -bb --define "_topdir ${SCRIPT_DIR}" "SPECS/${APP_NAME}-${APP_VERSION_RPM}.spec"
 
 echo ""
-echo "See: ${SCRIPT_DIR}/RPMS/noarch/${APP_NAME}-${APP_VERSION_RPM}-1.noarch.rpm"
+echo "See: ${SCRIPT_DIR}/RPMS/x86_64/${APP_NAME}-${APP_VERSION_RPM}-1.x86_64.rpm"
 echo ""
 echo "[[ SUCCESS ]]"
 echo ""

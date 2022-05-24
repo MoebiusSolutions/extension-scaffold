@@ -155,7 +155,11 @@ git tag v1.2.3
 $ git checkout develop
 $ git merge release     # So that develop has the tag too
 
+$ cd es-runtime
 $ npm --no-git-tag-version version x.y.z-SNAPSHOT            # Example input: 1.2.0-SNAPSHOT
+$ cd ../es-home
+$ npm --no-git-tag-version version x.y.z-SNAPSHOT            # Example input: 1.2.0-SNAPSHOT
+
 # Do not use the --preid example below or the nightly build script will not pickup the updates.
 # npm --no-git-tag-version version prepatch --preid=SNAPSHOT # Example output: 1.2.1-SNAPSHOT.0
 

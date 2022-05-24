@@ -10,6 +10,7 @@ import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 import { Bottom } from './Bottom';
 import { doClaimRibbon } from './ribbon-panels';
 import { addLeftWithCounter } from './LeftWithCounter';
+import { addLeftSecurityExample } from './LeftSecurityExample';
 import { initialize } from '@gots/noowf-inter-widget-communication';
 
 /**
@@ -113,6 +114,7 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doBottom(scaffold)
   await doLeft(scaffold)
   await addLeftWithCounter(scaffold)
+  await addLeftSecurityExample(scaffold)
 }
 
 export let activatedAtUrl = ''

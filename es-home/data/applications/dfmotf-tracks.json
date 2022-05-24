@@ -1,6 +1,9 @@
 {
-  "name": "gccs-m",
-  "title": "GCCS-M",
+  "name": "dfmotf-tracks",
+  "title": "DF-MOTF",
+  "header": [
+    "es.common.classification.dynamic.banner.header"
+  ],
   "ribbon": [
     {
       "location": "left-of-tabs",
@@ -12,7 +15,8 @@
       "location": "right-of-tabs",
       "sections": [
         "tsi.user.count",
-        "webmap.shared.search"
+        "webmap.shared.search",
+        "security.info"
       ]
     },
     {
@@ -62,33 +66,49 @@
       "sections": [
         "webmap.bookmarks"
       ]
+    },
+    {
+      "tab": "View",
+      "sections": [
+        "display.theme"
+      ]
+    },
+    {
+      "tab": "Developer",
+      "sections": [
+        "debug.console",
+        "debug.metrics"
+      ]
+    },
+    {
+      "tab": "Help",
+      "sections": [
+        "help.about.es-home"
+      ]
     }
   ],
   "extensions": [
     "/track-services-interface/tsi-extension/dist/index.js",
-    "/webmap/map-extension/dist/index.js",
-    "/ui/common/dist/theme-extension.js",
-    "/ui/common/dist/debug-metrics.js",
-    "/ui/dist/extensions/console-extension.js",
-    "/ui/dist/extensions/help-about-extension.js"
+    "/es/common/dist/theme-extension.js",
+    "/es/common/dist/debug-metrics.js",
+    "/es/ui/dist/extensions/console-extension.js",
+    "/es/ui/dist/extensions/help-about-extension.js",
+    "/es/common/dist/classification-banner-dynamic.js",
+    "/es/common/dist/security/security-extension.js"
   ],
   "iframes": [
     {
-      "id": "gccs-m.webmap",
+      "id": "map.iframe",
+      "title": "Map",
       "location": "center",
-      "iframeSource": "/webmap/index.html?hide-ribbon=true"
+      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix",
+      "resizeHandle": true
     },
     {
       "id": "gccs-m.track-services-interface",
       "location": "bottom-bar",
       "hidden": true,
       "iframeSource": "/track-services-interface/"
-    },
-    {
-      "id": "gccs-m.es-for-ctm",
-      "location": "bottom-bar",
-      "hidden": true,
-      "iframeSource": "/otm-console/controllers/ES"
     }
   ]
 }

@@ -37,4 +37,11 @@ module.exports = {
     baseUrl: urlPath,
     metaUrlPath: `${urlPath}/_snowpack`
   },
+  env: {
+    // development
+     ES_SECURITY_URL_development: 'https://security.dev26.minerva.navy.mil/es-security-helper',
+ 
+     // production
+     ES_SECURITY_URL_production: '/es-security-helper',
+  }
 };

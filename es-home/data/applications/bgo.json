@@ -54,14 +54,6 @@
       "location": "center",
       "iframeSource": "/usw-dss-map/index.html?extensions=cesium,phoenix",
       "resizeHandle": true
-    },
-    {
-      "id": "atf.weapon",
-      "title": "Blue Green Optimizer",
-      "location": "bottom",
-      "iframeSource": "/bgo/WeaponSystem?dod=false&hide-navbar=true",
-      "resizeHandle": "true",
-      "initialWidthOrHeight": "25em"
     }
   ]
 }

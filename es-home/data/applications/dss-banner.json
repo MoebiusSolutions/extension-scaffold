@@ -1,0 +1,44 @@
+{
+    "name": "dss-banner",
+    "title": "Decision Support System - Banner",
+    "context": {
+
+    },
+    "ribbon": [
+        {
+            "tab": "Developer",
+            "sections": [
+                "debug.console",
+                "debug.metrics"
+            ]
+        }
+    ],
+    "header": [
+        "es.common.classification.dynamic.banner.header"
+    ],
+    "left": [],
+    "center": [],
+    "bottom-bar": [],
+    "extensions": [
+        "/ui/dist/extensions/console-extension.js",
+        "/ui/common/dist/debug-metrics.js",
+        "/es/common/dist/classification-banner-dynamic.js"
+    ],
+    "iframes": [
+        {
+            "id": "map.iframe",
+            "title": "Map",
+            "location": "center",
+            "iframeSource": "/usw-dss-map/index.html?extensions=phoenix",
+            "resizeHandle": true
+        },
+        {
+            "id": "ctmTrackSummary.iframe",
+            "title": "CTM Track Summary",
+            "location": "bottom-bar",
+            "iframeSource": "/otm-console/controllers/Track:Summary?console=1&zone=CIP",
+            "resizeHandle": true,
+            "initialWidthOrHeight": "30em"
+        }
+    ]
+}
