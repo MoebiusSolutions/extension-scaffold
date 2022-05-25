@@ -61,7 +61,9 @@ export class PanelsImpl implements Panels {
         if (!gridContainer) {
             throw new Error('Missing call to boot')
         }
-        validateLocation(options.location)
+        if (!options.hidden) {
+            validateLocation(options.location)
+        }
 
         if (options.iframeSource && options.hidden) {
             const iframe = document.createElement('iframe')
@@ -101,12 +103,13 @@ export class PanelsImpl implements Panels {
             iframe.style.width = '100%'
             iframe.style.height = '100%'
             iframe.style.border = 'none'
-            // without position: absolute - we get an unneded scrollbar
+            // without position: absolute - we get an unwanted scrollbar
             iframe.style.position = 'absolute'
             extPanel.appendChild(iframe) // iframe gets contentWindow during this call
 
             extensionScaffold.events.emit('add-iframe', iframe)
-        } if (options.location !== 'portal') {
+        } 
+        if (options.location !== 'portal') {
             extPanel.style.width = '100%'
             extPanel.style.height = '100%'
         }
