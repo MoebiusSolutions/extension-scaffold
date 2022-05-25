@@ -31,7 +31,7 @@ importers:
       react-dom: ^17.0.0
       react-sparklines: ^1.7.0
       snowpack: ^3.8.8
-      typescript: ^4.0.0
+      typescript: ^4.7.2
     dependencies:
       '@gots/noowf-inter-widget-communication': 2.6.0
       prism-themes: 1.9.0
@@ -43,7 +43,7 @@ importers:
       '@gots/es-runtime': 2.10.0
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0_react-dom@17.0.2+react@17.0.2
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.6.2
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
       '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
       '@testing-library/react': 11.2.7_react-dom@17.0.2+react@17.0.2
       '@types/chai': 4.3.0
@@ -58,7 +58,7 @@ importers:
       chai: 4.3.6
       prettier: 2.6.0
       snowpack: 3.8.8
-      typescript: 4.6.2
+      typescript: 4.7.2
 
   ../../es-extension-examples/ext-example-lit-element:
     specifiers:
@@ -385,7 +385,7 @@ importers:
       merge-stream: ^2.0.0
       prettier: ^2.0.5
       snowpack: ^3.8.8
-      typescript: ^4.0.0
+      typescript: ^4.7.2
     dependencies:
       '@gots/es-runtime': 2.10.0
       '@gots/noowf-inter-widget-communication': 2.6.0
@@ -395,7 +395,7 @@ importers:
     devDependencies:
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.6.2
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
       '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
       '@testing-library/react': 11.2.7
       '@types/chai': 4.3.0
@@ -409,7 +409,7 @@ importers:
       merge-stream: 2.0.0
       prettier: 2.6.0
       snowpack: 3.8.8
-      typescript: 4.6.2
+      typescript: 4.7.2
 
   ../../es-runtime:
     specifiers:
@@ -428,13 +428,13 @@ importers:
       events: ^3.3.0
       prettier: ^2.5.1
       snowpack: ^3.8.8
-      typescript: ^4.6.2
+      typescript: ^4.7.2
     dependencies:
       events: 3.3.0
     devDependencies:
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.6.2
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
       '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
       '@testing-library/react': 11.2.7
       '@types/chai': 4.3.0
@@ -446,7 +446,7 @@ importers:
       copyfiles: 2.4.1
       prettier: 2.6.0
       snowpack: 3.8.8
-      typescript: 4.6.2
+      typescript: 4.7.2
 
 packages:
 
@@ -2855,6 +2855,7 @@ packages:
     resolution: {integrity: sha1-vmRnjBMhokmZGja31/XCb1B/Sck=, tarball: '@gots/es-runtime/-/@gots/es-runtime-2.10.0.tgz'}
     dependencies:
       events: 3.3.0
+    dev: false
 
   /@gots/noowf-inter-widget-communication/2.6.0:
     resolution: {integrity: sha1-KEuPkxxM5r6QQP4e9rGMNnUM0h4=, tarball: '@gots/noowf-inter-widget-communication/-/@gots/noowf-inter-widget-communication-2.6.0.tgz'}
@@ -3583,6 +3584,16 @@ packages:
       execa: 5.1.1
       npm-run-path: 4.0.1
       typescript: 4.6.2
+    dev: true
+
+  /@snowpack/plugin-typescript/1.2.1_typescript@4.7.2:
+    resolution: {integrity: sha512-wU+JNaMVkqGsqTaUY7TnEMhGt/3URTgA9dpMCtZX6wn/ceA7Gwlmue/sOLynf0OTNLygHPvjiQECQYkEi3LTtg==}
+    peerDependencies:
+      typescript: '*'
+    dependencies:
+      execa: 5.1.1
+      npm-run-path: 4.0.1
+      typescript: 4.7.2
     dev: true
 
   /@snowpack/web-test-runner-plugin/0.2.2_3970c26933a43b5b8e0b259fd6439510:
@@ -8048,6 +8059,7 @@ packages:
   /events/3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
+    dev: false
 
   /eventsource/1.1.0:
     resolution: {integrity: sha512-VSJjT5oCNrFvCS6igjzPAt5hBzQ2qPBFIbJ03zLI9SE0mxwZpMw6BfJrbFHm1a141AavMEB8JHmBhWAd66PfCg==}
@@ -16062,6 +16074,12 @@ packages:
 
   /typescript/4.6.2:
     resolution: {integrity: sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.7.2:
+    resolution: {integrity: sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
