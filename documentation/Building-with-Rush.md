@@ -28,6 +28,8 @@ cd /home/extension-scaffold
 rush update
 ```
 
+> Note: existing `node_modules` folders may cause `rush update` to fail.
+
 ## Build
 
 ```

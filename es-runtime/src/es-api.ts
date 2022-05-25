@@ -2,7 +2,7 @@ import './es-runtime.css'
 import './theme.css'
 
 import { extensionScaffold } from './controllers/ExtensionController'
-import type EventEmitter from 'events'
+import type { EventEmitter } from 'events'
 
 export const LOCATIONS = [
     'header',
