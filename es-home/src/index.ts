@@ -47,14 +47,10 @@ async function applyHash() {
   const app = location.hash.replace('#', '').replace('..', '')
   console.log('app', app)
 
-  try {
-    const rsp = await fetch(`apps/${app}.json`)
-    const config = await rsp.json()
+  const rsp = await fetch(`apps/${app}.json`)
+  const config = await rsp.json()
 
-    await applyConfiguration(config, app);
-  } catch (err) {
-    alert(`Unable to load application configuration`)
-  }
+  await applyConfiguration(config, app);
 }
 
 function getBlockedUrls(): Set<string> {
@@ -173,64 +169,63 @@ export async function applyConfiguration(config: any, app: string) {
 
 async function loadAppConfig() {
   if (!location.hash) {
-    if (!location.hash) {
-      // if authenticating to keycloak (vs passing a KC token), keycloak will not 
-      // forward anything after "#".
-      // For dfmotf; desire is to skip the scaffold lspash screen when using 
-      // the site proxy and instead default to dfmotf-tracks.json
-      let appPage = new URLSearchParams(window.location.search).get('app');
-      if (appPage != null) {
-        location.hash = appPage;
-      } else {
-        const hp = document.getElementById('es-home-page')
-        if (hp) {
-          hp.style.display = 'block'
-        } else {
-          console.error('Could not find #es-home-page')
-        }
-        return
-      }
-    }
-
-    const itemName = 'es-kbar-load-application'
-    const configString = localStorage.getItem(itemName)
-    if (!configString) {
-      applyHash()
+    // if authenticating to keycloak (vs passing a KC token), keycloak will not 
+    // forward anything after "#".
+    // For dfmotf; desire is to skip the scaffold lspash screen when using 
+    // the site proxy and instead default to dfmotf-tracks.json
+    let appPage = new URLSearchParams(window.location.search).get('app');
+    if (appPage != null) {
+      location.hash = appPage;
     } else {
-      // TODO restrict this operation to developers
-      const config = JSON.parse(configString)
-      localStorage.removeItem(itemName)
-      applyConfiguration(config, '#uploaded')
+      const hp = document.getElementById('es-home-page')
+      if (hp) {
+        hp.style.display = 'block'
+      } else {
+        console.error('Could not find #es-home-page')
+      }
+      return
     }
-    window.addEventListener('hashchange', () => {
-      window.location.reload()
-    })
   }
 
-  // Back or Forward button clicked in browser
-  window.addEventListener('popstate', (event) => {
-    // check type to ensure state is a GridState object
-    if (event.state?.type == 'navy.es.grid.state') {
-      applyGridState(event.state)
-    }
-  });
-
-  Tonic.add(EsKbarRoute)
-  Tonic.add(EsKbar)
-  Tonic.add(EsKbarResults)
-  Tonic.add(EsAddExtension)
-  Tonic.add(EsBlockedExtensions)
-  Tonic.add(EsTogglePanel)
-  Tonic.add(EsShowPanelList)
-  Tonic.add(EsRemovePanel)
-  Tonic.add(EsShowContext)
-  Tonic.add(EsPrompt)
-  Tonic.add(EsPopupTextarea)
-  Tonic.add(EsLoadApplication)
-  Tonic.add(EsHomePage)
-
-  try {
-    loadAppConfig()
-  } catch (e) {
-    console.error(e)
+  const itemName = 'es-kbar-load-application'
+  const configString = localStorage.getItem(itemName)
+  if (!configString) {
+    applyHash()
+  } else {
+    // TODO restrict this operation to developers
+    const config = JSON.parse(configString)
+    localStorage.removeItem(itemName)
+    applyConfiguration(config, '#uploaded')
   }
+  window.addEventListener('hashchange', () => {
+    window.location.reload()
+  })
+}
+
+// Back or Forward button clicked in browser
+window.addEventListener('popstate', (event) => {
+  // check type to ensure state is a GridState object
+  if (event.state?.type == 'navy.es.grid.state') {
+    applyGridState(event.state)
+  }
+});
+
+Tonic.add(EsKbarRoute)
+Tonic.add(EsKbar)
+Tonic.add(EsKbarResults)
+Tonic.add(EsAddExtension)
+Tonic.add(EsBlockedExtensions)
+Tonic.add(EsTogglePanel)
+Tonic.add(EsShowPanelList)
+Tonic.add(EsRemovePanel)
+Tonic.add(EsShowContext)
+Tonic.add(EsPrompt)
+Tonic.add(EsPopupTextarea)
+Tonic.add(EsLoadApplication)
+Tonic.add(EsHomePage)
+
+try {
+  loadAppConfig()
+} catch (e) {
+  alert(`Unable to load application configuration`)
+}
