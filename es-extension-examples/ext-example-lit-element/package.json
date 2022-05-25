@@ -7,7 +7,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "prettier --check \"src/**/*.ts\"",
     "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
-    "container": "npm run maybe-install && npm install && npm start"
+    "container": "npm run maybe-install && npm start"
   },
   "dependencies": {
     "lit-element": "^2.4.0",
