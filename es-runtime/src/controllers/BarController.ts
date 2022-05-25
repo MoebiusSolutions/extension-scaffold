@@ -61,6 +61,7 @@ export class BarController {
         .es-bar-button {
             background: transparent;
             border: none;
+            user-select: none;
             color: var(--es-theme-text-secondary-on-background);
             cursor: pointer;
             padding-left: 6px;
