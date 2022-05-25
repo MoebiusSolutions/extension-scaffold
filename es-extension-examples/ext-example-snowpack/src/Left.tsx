@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
-import { addCenterPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
+import { addCenterPanel, addModelessPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
 import { Amplify } from './Amplify'
 import { SampleModal } from './SampleModal'
 
@@ -30,6 +30,10 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
 
     function hideExampleContent() {
         const e = es.chrome.ribbonBar.hideRibbonTab('Example Content')
+    }
+
+    function handleModelessDialog() {
+        addModelessPanel(es)
     }
 
     return <div style={{
@@ -65,6 +69,10 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <Amplify es={es} />
 
         <SampleModal es={es} />
+
+        <div>
+            <button onClick={handleModelessDialog}>Modeless Dialog</button>
+        </div>
         
     </div>
 }

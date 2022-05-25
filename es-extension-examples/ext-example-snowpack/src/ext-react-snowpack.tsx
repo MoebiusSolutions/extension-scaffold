@@ -104,6 +104,22 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   }).then(onPanelAdded).catch(console.error)
 }
 
+export function addModelessPanel(scaffold: ExtensionScaffoldApi) {
+  function onPanelAdded(div: HTMLDivElement) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <MyPanel es={scaffold} />
+      </React.StrictMode>,
+      div
+    );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
+  }
+  scaffold.chrome.panels.addPanel({
+    id: 'ext.example.snowpack',
+    location: 'modeless'
+  }).then(onPanelAdded).catch(console.error)
+}
+
 async function doActivate(scaffold: ExtensionScaffoldApi) {
   doClaimRibbon(scaffold)
   // await doRibbon(scaffold)

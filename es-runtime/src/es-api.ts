@@ -20,6 +20,8 @@ export const LOCATIONS = [
     'footer',
     'portal',
     'portal-wide',
+    'modal',
+    'modeless',
 ] as const
 
 export type Location = typeof LOCATIONS[number]
