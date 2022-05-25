@@ -101,6 +101,8 @@ export class PanelsImpl implements Panels {
             iframe.style.width = '100%'
             iframe.style.height = '100%'
             iframe.style.border = 'none'
+            // without position: absolute - we get an unneded scrollbar
+            iframe.style.position = 'absolute'
             extPanel.appendChild(iframe) // iframe gets contentWindow during this call
 
             extensionScaffold.events.emit('add-iframe', iframe)
