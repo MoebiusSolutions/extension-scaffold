@@ -29,6 +29,9 @@ rush update
 ```
 
 > Note: existing `node_modules` folders may cause `rush update` to fail.
+```
+$ find . -type d -name node_modules | grep -v home-node | xargs rm -rf
+```
 
 ## Build
 
