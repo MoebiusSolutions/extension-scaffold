@@ -12,6 +12,8 @@ import { doClaimRibbon } from './ribbon-panels';
 import { addLeftWithCounter } from './LeftWithCounter';
 import { addLeftSecurityExample } from './LeftSecurityExample';
 import { initialize } from '@gots/noowf-inter-widget-communication';
+import { MyModeless } from './MyModeless';
+import { MyModal } from './MyModal';
 
 /**
  * Reduces React broiler plate code for adding an extension panel.
@@ -108,15 +110,31 @@ export function addModelessPanel(scaffold: ExtensionScaffoldApi) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
       <React.StrictMode>
-        <MyPanel es={scaffold} />
+        <MyModeless es={scaffold} />
       </React.StrictMode>,
       div
     );
     claimStyleFromHeadElement(div, '#ext.example.snowpack')
   }
   scaffold.chrome.panels.addPanel({
-    id: 'ext.example.snowpack',
+    id: 'ext.example.snowpack.modeless',
     location: 'modeless'
+  }).then(onPanelAdded).catch(console.error)
+}
+
+export function addModalPanel(scaffold: ExtensionScaffoldApi) {
+  function onPanelAdded(div: HTMLDivElement) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <MyModal es={scaffold} />
+      </React.StrictMode>,
+      div
+    );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
+  }
+  scaffold.chrome.panels.addPanel({
+    id: 'ext.example.snowpack.modal',
+    location: 'modal'
   }).then(onPanelAdded).catch(console.error)
 }
 
