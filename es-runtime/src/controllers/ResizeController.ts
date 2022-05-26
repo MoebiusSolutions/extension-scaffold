@@ -100,6 +100,9 @@ export function beginResize(
     e: PointerEvent,
     applyFunction: (rd: ResizeData, e: PointerEvent) => void) 
 {
+    if (e.button !== 0) {
+        return
+    }
     const panelDiv = dragDiv.parentElement
     if (!panelDiv) {
         return

@@ -36,6 +36,8 @@ code {
   grid-column: left / right;
   grid-row: top / bottom;
   z-index: 2; /* above drag handle */
+  top: initial;
+  left: initial;
 }
 
 .grid-panel.grid-expanded {
@@ -113,6 +115,10 @@ code {
   right: 0px;
   height: 4px;
   cursor: ns-resize
+}
+.grid-panel.modal:not(.grid-maximized)    .drag.drag-for-modal    ~ .shadow-div,
+.grid-panel.modeless:not(.grid-maximized) .drag.drag-for-modeless ~ .shadow-div {
+  resize: both;
 }
 
 .hidden .panel-header-bar {
@@ -353,6 +359,28 @@ code {
 .grid-panel.right .expand,
 .grid-panel.right .restore {
   transform: rotate(-90deg);
+}
+
+.grid-panel.modal:not(.grid-maximized),
+.grid-panel.modeless:not(.grid-maximized) {
+  position: fixed;
+  top: var(--top, 100px);
+  left: var(--left, 100px);
+  z-index: 2;
+  padding: 4px;
+}
+.grid-panel.modal:not(.grid-maximized)    > .shadow-div ,
+.grid-panel.modeless:not(.grid-maximized) > .shadow-div {
+  min-width: 100px;
+  min-height: 50px;
+}
+.grid-panel.modal.hidden,
+.grid-panel.modeless.hidden {
+  visibility: hidden;
+}
+.grid-panel.modeless.hidden > .shadow-div,
+.grid-panel.modal.hidden > .shadow-div {
+  display: none;
 }
 
 /* Tab Bar section */

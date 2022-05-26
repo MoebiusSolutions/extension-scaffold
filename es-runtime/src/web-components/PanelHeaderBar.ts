@@ -16,6 +16,43 @@ export class PanelHeaderBar extends HTMLElement {
     // "light" DOM changes cannot occur in constructor
     connectedCallback() {
         this.render()
+
+        const panelDiv = this.parentElement
+        if (!panelDiv) {
+            return
+        }
+
+        this.onpointerdown = (e: PointerEvent) => {
+            if (!panelDiv.classList.contains('modal') &&
+                !panelDiv.classList.contains('modeless')
+            ) {
+                return
+            }
+            if (e.button !== 0 || e.target != this) {
+                return
+            }
+            const rect = panelDiv.getBoundingClientRect()
+            const startX = e.clientX
+            const startY = e.clientY
+            const maxRight = Math.max(0, window.innerWidth - rect.width)
+            const maxBottom = Math.max(0, window.innerHeight - rect.height)
+
+            this.onpointermove = (e: PointerEvent) => {
+                const newX = rect.x + (e.clientX - startX)
+                const newY = rect.y + (e.clientY - startY)
+
+                const left = newX < 0 ? 0 : newX > maxRight ? maxRight : newX
+                const top = newY < 0 ? 0 : newY > maxBottom ? maxBottom : newY
+
+                panelDiv.style.setProperty('--left', `${left}px`)
+                panelDiv.style.setProperty('--top', `${top}px`)
+            }
+            this.setPointerCapture(e.pointerId)
+        }
+        this.onpointerup = (e: PointerEvent) => {
+            this.onpointermove = null
+            this.releasePointerCapture(e.pointerId)
+        }
     }
     private render() {
         if (!this.isConnected) {

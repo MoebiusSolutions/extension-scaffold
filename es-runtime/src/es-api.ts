@@ -123,7 +123,7 @@ export interface Panels {
     hidePanel: (id: string, pushToHistory?: boolean) => boolean
     /**
      * @param {string} id Panel ID
-     * @param {boolean} pushHistoryState Defaults to `true`
+     * @param {boolean} pushToHistory Defaults to `true`
      */
     showPanel: (id: string, pushToHistory?: boolean) => boolean
     isPanelHidden: (id: string) => boolean
@@ -131,7 +131,7 @@ export interface Panels {
      * Show if `id` is hidden, otherwise hide `id` 
      * @param {string} id Panel ID
      */
-    togglePanel: (id: string) => boolean
+    togglePanel: (id: string, pushToHistory?: boolean) => boolean
     /**
      * Maximizes panel over center
      * @param {string} id Panel ID
@@ -139,19 +139,19 @@ export interface Panels {
     maximizePanel: (id: string) => void
     /**
      * @param {string} id ID of panel
-     * @param {boolean} pushHistoryState Defaults to `true`
+     * @param {boolean} pushHistory Defaults to `true`
      */
     expandPanel: (id: string, pushToHistory?: boolean) => void
     /** 
      * Restore from maximized or expanded 
      * @param {string} id ID of panel
-     * @param {boolean} pushHistoryState Defaults to `true`
+     * @param {boolean} pushToHistory Defaults to `true`
      */
     restorePanel: (id: string, pushToHistory?: boolean) => void
     closeLocation: (location: Location) => void
 
-    popOutPanel: (id: string) => boolean
-    popInPanel: (id: string) => boolean
+    popOutPanel: (id: string, pushToHistory?: boolean) => boolean
+    popInPanel: (id: string, pushToHistory?: boolean) => boolean
     isPanelPoppedOut: (id: string) => boolean
     trackExtensions: (ids: ExtensionIds) => void
 

@@ -139,6 +139,8 @@ export class PanelsImpl implements Panels {
                 case 'top-bar':
                 case 'bottom':
                 case 'bottom-bar':
+                case 'modal':
+                case 'modeless':
                     parent.style.display = DISPLAY_FLEX
                     parent.classList.remove('hidden')
                     setActive(div)
@@ -157,7 +159,7 @@ export class PanelsImpl implements Panels {
 
     hidePanel(id: string, pushToHistory: boolean = true) {
         if (this.isPanelPoppedOut(id)) {
-            this.popInPanel(id)
+            this.popInPanel(id, false)
         }
 
         return withPanel(id, (parent, div) => {
@@ -169,6 +171,8 @@ export class PanelsImpl implements Panels {
                 case 'top-bar':
                 case 'bottom':
                 case 'bottom-bar':
+                case 'modal':
+                case 'modeless':
                     this.closeLocation(location)
                     hidePanelsWithLocation(`above-${location}`)
                     this.updateBars(location)
@@ -201,25 +205,25 @@ export class PanelsImpl implements Panels {
         return result
     }
 
-    togglePanel(id: string) {
+    togglePanel(id: string, pushToHistory: boolean = true) {
         if (this.isPanelPoppedOut(id)) {
-            this.popInPanel(id)
+            this.popInPanel(id, pushToHistory)
             return true
         }
 
         if (document.querySelectorAll('.grid-maximized').length > 0) {
-            return this.showPanel(id)
+            return this.showPanel(id, pushToHistory)
         }
 
         return withPanel(id, (parent, div) => {
             if (!parent.classList.contains('hidden') && isActive(div)) {
-                this.hidePanel(id)
+                this.hidePanel(id, pushToHistory)
             } else {
                 const orig = getDivSize(parent)
                 if (['left', 'right', 'top', 'top-bar', 'bottom', 'bottom-bar'].findIndex(l => orig.location === l) >= 0) {
                     parent.style.setProperty('--size', orig.size)
                 }
-                this.showPanel(id)
+                this.showPanel(id, pushToHistory)
             }
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
@@ -231,6 +235,7 @@ export class PanelsImpl implements Panels {
             parent.classList.add('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
+            div.style.width = 'initial';
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
@@ -256,7 +261,10 @@ export class PanelsImpl implements Panels {
     }
 
     removePanel(id: string): boolean {
-        this.restorePanel(id)
+        if (this.isPanelPoppedOut(id)) {
+            this.popInPanel(id, false)
+        }
+        this.restorePanel(id, false)
 
         return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
@@ -311,14 +319,14 @@ export class PanelsImpl implements Panels {
         })
     }
 
-    popInPanel(id: string) {
+    popInPanel(id: string, pushToHistory: boolean = true) {
         const externalWindow = this.externalWindows.get(id)
         if (!externalWindow) {
             console.log('No window found')
             return false
         }
         externalWindow.close()
-        extensionScaffold.chrome.panels.showPanel(id)
+        extensionScaffold.chrome.panels.showPanel(id, pushToHistory)
         return true
     }
 
@@ -434,7 +442,10 @@ export class PanelsImpl implements Panels {
         }
         if (options.location !== 'bottom' && options.location !== 'bottom-bar') {
             // tabs bring their own es-panel-header
-            if (options.popOutButton || options.hideButton) {
+            if (options.popOutButton || options.hideButton || 
+                options.location === 'modal' ||
+                options.location === 'modeless'
+            ) {
                 r.appendChild(this.makePanelHeaderBar(options))
             }
         }
