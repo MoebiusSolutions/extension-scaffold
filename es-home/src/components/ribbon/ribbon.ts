@@ -55,6 +55,22 @@ export class EsRibbon extends Tonic {
 
   stylesheet() { return /*css*/`
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+ 
 .ribbon-head {
   display: flex;
   padding-left: 4px;
@@ -107,6 +123,7 @@ export class EsRibbon extends Tonic {
 .ribbon-body {
   display: none;
   grid-template-areas: 'ribbon';
+  overflow: auto;
 }
 .ribbon-body.open {
   display: grid;
@@ -278,7 +295,7 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
       if (r.hidden) {
         cls = `${cls} hidden`
       }
-      return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
+      return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0" title="${r.tab}">${r.tab}</div>`
     })
     const leftOfTabs = this.sectionsFor('left-of-tabs').map((r: RibbonArea) => {
       const sections = r.sections?.map(s => this.html`<div class="loading" id="${s}">...</div>`)
