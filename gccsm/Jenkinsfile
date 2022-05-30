@@ -41,7 +41,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          image 'mtc2-infra-docker/mtc2-node:14.16.0-alpine-fixuid0.4'
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -86,7 +86,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          image 'mtc2-infra-docker/mtc2-node:14.16.0-alpine-fixuid0.4'
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -116,7 +116,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          image 'mtc2-infra-docker/mtc2-node:14.16.0-alpine-fixuid0.4'
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
