@@ -14,28 +14,28 @@
     "war": "npm run build && gulp war"
   },
   "dependencies": {
-    "@gots/es-runtime": "2.11.0",
+    "@gots/es-runtime": "workspace:*",
     "@gots/noowf-inter-widget-communication": "^2.6.0",
     "@optoolco/tonic": "^13.3.6",
     "events": "^3.3.0",
     "git-describe": "^4.1.0"
   },
   "devDependencies": {
-    "@snowpack/plugin-dotenv": "^2.0.5",
-    "@snowpack/plugin-react-refresh": "^2.4.0",
+    "@snowpack/plugin-dotenv": "~2.2.0",
+    "@snowpack/plugin-react-refresh": "~2.5.0",
     "@snowpack/plugin-typescript": "^1.2.1",
     "@snowpack/web-test-runner-plugin": "^0.2.0",
-    "@testing-library/react": "^11.0.0",
-    "@types/chai": "^4.2.13",
-    "@types/mocha": "^8.2.0",
-    "@types/snowpack-env": "^2.3.2",
-    "@web/test-runner": "^0.12.0",
-    "chai": "^4.2.0",
+    "@testing-library/react": "^11.2.7",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^8.2.3",
+    "@types/snowpack-env": "~2.3.4",
+    "@web/test-runner": "~0.13.28",
+    "chai": "~4.3.6",
     "gulp": "^4.0.2",
     "gulp-war": "^0.1.4",
     "gulp-zip": "^5.1.0",
     "merge-stream": "^2.0.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.5.1",
     "snowpack": "^3.8.8",
     "typescript": "^4.7.2"
   }
