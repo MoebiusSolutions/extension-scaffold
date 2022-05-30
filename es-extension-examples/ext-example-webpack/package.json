@@ -152,7 +152,7 @@
     ]
   },
   "devDependencies": {
-    "@gots/es-runtime": "workspace:*",
+    "@gots/es-runtime": "^2.11.0",
     "serve": "^11.3.2"
   }
 }
