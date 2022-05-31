@@ -364,10 +364,14 @@ code {
 .grid-panel.modal:not(.grid-maximized),
 .grid-panel.modeless:not(.grid-maximized) {
   position: fixed;
-  top: var(--top, 100px);
-  left: var(--left, 100px);
-  z-index: 2;
+  top: var(--top, 50%);
+  left: var(--left, 50%);
   padding: 4px;
+  transform: translate(-50%, -50%);
+}
+.grid-panel.modal.moved:not(.grid-maximized),
+.grid-panel.modeless.moved:not(.grid-maximized) {
+  transform: translate(0px, 0px);
 }
 .grid-panel.modal:not(.grid-maximized)    > .shadow-div ,
 .grid-panel.modeless:not(.grid-maximized) > .shadow-div {

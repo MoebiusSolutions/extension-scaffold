@@ -33,10 +33,27 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     }
 
     function handleModelessDialog() {
-        addModelessPanel(es)
+        addModelessPanel(es, 'ext.example.snowpack.modeless')
     }
     function handleModalDialog() {
-        addModalPanel(es)
+        addModalPanel(es, 'ext.example.snowpack.modal')
+    }
+    function handleModelessDialog2() {
+        addModelessPanel(es, 'ext.example.snowpack.modeless.2')
+    }
+    function handleIframeModeless() {
+        es.chrome.panels.addPanel({
+            id: 'snowpack.iframe.modeless',
+            location: 'modeless',
+            iframeSource: '/foo/bar',
+            hideButton: true,
+            initialWidthOrHeight: {
+                width: '30em',
+                height: '40em'
+            }
+        }).catch(() => {
+            es.chrome.panels.showPanel('snowpack.iframe.modeless')
+        })
     }
 
     return <div style={{
@@ -78,6 +95,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         </div>
         <div>
             <button onClick={handleModelessDialog}>Modeless Dialog</button>
+        </div>
+        <div>
+            <button onClick={handleModelessDialog2}>Second Modeless</button>
+        </div>
+        <div>
+            <button onClick={handleIframeModeless}>IFrame Modeless</button>
         </div>
     </div>
 }

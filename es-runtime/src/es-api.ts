@@ -34,6 +34,11 @@ export type SubLocation =
 
 export type Event = 'grid-changed' | 'ext-shown-changed'
 
+export type InitialWidthOrHeight = string | {
+    width?: string
+    height?: string
+}
+
 export interface AddPanelOptions {
     location: Location
     id: string
@@ -46,7 +51,7 @@ export interface AddPanelOptions {
     removeButton?: boolean
 
     /** Defaults to "30em" */
-    initialWidthOrHeight?: string
+    initialWidthOrHeight?: InitialWidthOrHeight
 
     /** URL of iframe to place in panel, if set */
     iframeSource?: string

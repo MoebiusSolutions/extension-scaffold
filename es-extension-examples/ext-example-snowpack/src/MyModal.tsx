@@ -7,20 +7,19 @@ import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 
 export const MyModal: React.FC<{
     es: ExtensionScaffoldApi
-}> = ({ es }) => {
-    const myId = 'ext.example.snowpack.modal'
-
+    esId: string
+}> = ({ es, esId }) => {
     function handleClick() {
         console.log('snowpack clicked')
     }
     function handleMaximize() {
-        es.chrome.panels.maximizePanel(myId)
+        es.chrome.panels.maximizePanel(esId)
     }
     function handleRestore() {
-        es.chrome.panels.restorePanel(myId)
+        es.chrome.panels.restorePanel(esId)
     }
     function handleClose() {
-        es.chrome.panels.removePanel(myId)
+        es.chrome.panels.removePanel(esId)
     }
     function onPanelAdded(div: HTMLDivElement) {
         ReactDOM.render(

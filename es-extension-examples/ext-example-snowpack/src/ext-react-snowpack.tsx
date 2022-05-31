@@ -106,34 +106,37 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   }).then(onPanelAdded).catch(console.error)
 }
 
-export function addModelessPanel(scaffold: ExtensionScaffoldApi) {
+export function addModelessPanel(scaffold: ExtensionScaffoldApi, esId: string) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
       <React.StrictMode>
-        <MyModeless es={scaffold} />
+        <MyModeless es={scaffold} esId={esId} />
       </React.StrictMode>,
       div
     );
     claimStyleFromHeadElement(div, '#ext.example.snowpack')
   }
   scaffold.chrome.panels.addPanel({
-    id: 'ext.example.snowpack.modeless',
-    location: 'modeless'
-  }).then(onPanelAdded).catch(console.error)
+    id: esId,
+    location: 'modeless',
+    resizeHandle: false,
+  }).then(onPanelAdded).catch(() => {
+    scaffold.chrome.panels.showPanel(esId)
+  })
 }
 
-export function addModalPanel(scaffold: ExtensionScaffoldApi) {
+export function addModalPanel(scaffold: ExtensionScaffoldApi, esId: string) {
   function onPanelAdded(div: HTMLDivElement) {
     ReactDOM.render(
       <React.StrictMode>
-        <MyModal es={scaffold} />
+        <MyModal es={scaffold} esId={esId}/>
       </React.StrictMode>,
       div
     );
     claimStyleFromHeadElement(div, '#ext.example.snowpack')
   }
   scaffold.chrome.panels.addPanel({
-    id: 'ext.example.snowpack.modal',
+    id: esId,
     location: 'modal'
   }).then(onPanelAdded).catch(console.error)
 }
