@@ -142,7 +142,14 @@ All other panels will be hidden (using style `display: none`).
 If `removePanel` is called on the currently shown panel, the next panel in the "stack"
 will be shown automatically. 
 
-## Floating panels over the center
+## Floating Panels Over the Center
+
+Two new locations where added to the API: `modal` and `modeless`.
+When `addPanel` is called with one of these locations
+a "dialog" window is centered on the screen to host the panel.
+The header of the dialog can be used to raise or move the dialog.
+The bottom resize icon (`resizeEnabled: true`) can be dragged to resize the dialog.
+* See [ext-react-snowpack.tsx](es-extension-examples/ext-example-snowpack/src/ext-react-snowpack.tsx#L109).
 
 The example in `es-extension-examples/ext-example-snowpack/src/Ribbon.tsx` shows how to create a floating ribbon bar. 
 When adding to the `portal` location, the child element can use 
