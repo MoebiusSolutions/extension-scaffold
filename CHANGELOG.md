@@ -1,5 +1,23 @@
 ## Change Log
 
+# [2.11.0] - 2022-05-30
+
+### Added
+
+* Add missing types for events
+* Document how to clean node_modules
+* Upgrade typescript to 4.7.2
+
+### Changed
+
+* Fix build error due to bad conflict merge.
+* Fix extra center panel scrollbar.
+* tab/bar buttons no longer user selectable
+
+### Removed
+
+* Extra `npm install` call
+
 # [2.10.0] - 2022-05-23
 
 ### Added

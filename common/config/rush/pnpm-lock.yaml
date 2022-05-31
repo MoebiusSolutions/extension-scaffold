@@ -7,28 +7,28 @@ importers:
 
   ../../es-common-extensions:
     specifiers:
-      '@gots/es-runtime': ^2.10.0
+      '@gots/es-runtime': workspace:*
       '@gots/noowf-inter-widget-communication': ^2.6.0
-      '@snowpack/plugin-dotenv': ^2.0.5
-      '@snowpack/plugin-react-refresh': ^2.4.0
-      '@snowpack/plugin-typescript': ^1.2.0
+      '@snowpack/plugin-dotenv': ~2.2.0
+      '@snowpack/plugin-react-refresh': ~2.5.0
+      '@snowpack/plugin-typescript': ^1.2.1
       '@snowpack/web-test-runner-plugin': ^0.2.0
-      '@testing-library/react': ^11.0.0
-      '@types/chai': ^4.2.13
-      '@types/mocha': ^8.2.0
+      '@testing-library/react': ^11.2.7
+      '@types/chai': ^4.3.0
+      '@types/mocha': ^8.2.3
       '@types/prismjs': ^1.16.6
-      '@types/react': ^17.0.0
-      '@types/react-dom': ^17.0.0
+      '@types/react': ~17.0.3
+      '@types/react-dom': ~17.0.3
       '@types/react-sparklines': ^1.7.2
       '@types/react-syntax-highlighter': ^13.5.2
-      '@types/snowpack-env': ^2.3.2
-      '@web/test-runner': ^0.12.0
-      chai: ^4.2.0
-      prettier: ^2.0.5
+      '@types/snowpack-env': ~2.3.4
+      '@web/test-runner': ~0.13.28
+      chai: ~4.3.6
+      prettier: ^2.5.1
       prism-themes: ^1.9.0
       prismjs: ^1.25.0
-      react: ^17.0.0
-      react-dom: ^17.0.0
+      react: ^17.0.2
+      react-dom: ^17.0.2
       react-sparklines: ^1.7.0
       snowpack: ^3.8.8
       typescript: ^4.7.2
@@ -40,21 +40,21 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-sparklines: 1.7.0_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@gots/es-runtime': 2.10.0
+      '@gots/es-runtime': link:../es-runtime
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0_react-dom@17.0.2+react@17.0.2
       '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
-      '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
+      '@snowpack/web-test-runner-plugin': 0.2.2_ae54f40a395ab20bcc096c6900c0d36f
       '@testing-library/react': 11.2.7_react-dom@17.0.2+react@17.0.2
       '@types/chai': 4.3.0
       '@types/mocha': 8.2.3
       '@types/prismjs': 1.26.0
       '@types/react': 17.0.41
-      '@types/react-dom': 17.0.14
+      '@types/react-dom': 17.0.17
       '@types/react-sparklines': 1.7.2
       '@types/react-syntax-highlighter': 13.5.2
       '@types/snowpack-env': 2.3.4
-      '@web/test-runner': 0.12.20
+      '@web/test-runner': 0.13.28
       chai: 4.3.6
       prettier: 2.6.0
       snowpack: 3.8.8
@@ -65,16 +65,16 @@ importers:
       '@babel/plugin-proposal-class-properties': ^7.13.0
       '@babel/plugin-proposal-decorators': ^7.13.15
       '@babel/preset-typescript': ^7.13.0
-      '@gots/es-runtime': ^2.10.0
+      '@gots/es-runtime': workspace:*
       '@snowpack/plugin-babel': ^2.1.7
-      '@snowpack/plugin-dotenv': ^2.1.0
+      '@snowpack/plugin-dotenv': ~2.2.0
       '@snowpack/plugin-typescript': ^1.2.1
-      '@types/snowpack-env': ^2.3.3
+      '@types/snowpack-env': ~2.3.4
       lit-element: ^2.4.0
       lit-html: ^1.4.0
-      prettier: ^2.2.1
-      snowpack: ^3.3.7
-      typescript: ^4.2.4
+      prettier: ^2.5.1
+      snowpack: ^3.8.8
+      typescript: ^4.7.2
     dependencies:
       lit-element: 2.5.1
       lit-html: 1.4.1
@@ -82,74 +82,74 @@ importers:
       '@babel/plugin-proposal-class-properties': 7.16.7
       '@babel/plugin-proposal-decorators': 7.17.8
       '@babel/preset-typescript': 7.16.7
-      '@gots/es-runtime': 2.10.0
+      '@gots/es-runtime': link:../../es-runtime
       '@snowpack/plugin-babel': 2.1.7
       '@snowpack/plugin-dotenv': 2.2.0
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.6.2
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
       '@types/snowpack-env': 2.3.4
       prettier: 2.6.0
       snowpack: 3.8.8
-      typescript: 4.6.2
+      typescript: 4.7.2
 
   ../../es-extension-examples/ext-example-rollup:
     specifiers:
-      '@gots/es-runtime': ^2.10.0
+      '@gots/es-runtime': workspace:*
       '@rollup/plugin-commonjs': ^18.0.0
       '@rollup/plugin-node-resolve': ^11.2.1
       '@rollup/plugin-replace': ^2.4.2
-      '@types/react': ^17.0.3
-      '@types/react-dom': ^17.0.3
+      '@types/react': ~17.0.3
+      '@types/react-dom': ~17.0.3
       react: ^17.0.2
       react-dom: ^17.0.2
       rollup: ^2.45.2
       rollup-plugin-serve: ^1.1.0
       rollup-plugin-typescript2: ^0.30.0
       tslib: ^2.2.0
-      typescript: ^4.2.4
+      typescript: ^4.7.2
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
-      '@gots/es-runtime': 2.10.0
+      '@gots/es-runtime': link:../../es-runtime
       '@rollup/plugin-commonjs': 18.1.0_rollup@2.70.1
       '@rollup/plugin-node-resolve': 11.2.1_rollup@2.70.1
       '@rollup/plugin-replace': 2.4.2_rollup@2.70.1
       '@types/react': 17.0.41
-      '@types/react-dom': 17.0.14
+      '@types/react-dom': 17.0.17
       rollup: 2.70.1
       rollup-plugin-serve: 1.1.0
-      rollup-plugin-typescript2: 0.30.0_rollup@2.70.1+typescript@4.6.2
+      rollup-plugin-typescript2: 0.30.0_rollup@2.70.1+typescript@4.7.2
       tslib: 2.3.1
-      typescript: 4.6.2
+      typescript: 4.7.2
 
   ../../es-extension-examples/ext-example-snowpack:
     specifiers:
-      '@gots/es-runtime': ^2.10.0
+      '@gots/es-runtime': workspace:*
       '@gots/noowf-inter-widget-communication': ^2.6.0
       '@gots/noowf-widget-launch': ^2.4.0
-      '@snowpack/plugin-dotenv': ^2.0.5
-      '@snowpack/plugin-react-refresh': ^2.4.0
-      '@snowpack/plugin-typescript': ^1.2.0
+      '@snowpack/plugin-dotenv': ~2.2.0
+      '@snowpack/plugin-react-refresh': ~2.5.0
+      '@snowpack/plugin-typescript': ^1.2.1
       '@snowpack/web-test-runner-plugin': ^0.2.0
-      '@testing-library/react': ^11.0.0
-      '@types/chai': ^4.2.13
-      '@types/mocha': ^8.2.0
+      '@testing-library/react': ^11.2.7
+      '@types/chai': ^4.3.0
+      '@types/mocha': ^8.2.3
       '@types/prismjs': ^1.16.6
-      '@types/react': ^17.0.0
-      '@types/react-dom': ^17.0.0
+      '@types/react': ~17.0.3
+      '@types/react-dom': ~17.0.3
       '@types/react-sparklines': ^1.7.2
       '@types/react-syntax-highlighter': ^13.5.2
-      '@types/snowpack-env': ^2.3.2
-      '@web/test-runner': ^0.12.0
-      chai: ^4.2.0
-      prettier: ^2.0.5
+      '@types/snowpack-env': ~2.3.4
+      '@web/test-runner': ~0.13.28
+      chai: ~4.3.6
+      prettier: ^2.5.1
       prism-themes: ^1.9.0
       prismjs: ^1.25.0
-      react: ^17.0.0
-      react-dom: ^17.0.0
+      react: ^17.0.2
+      react-dom: ^17.0.2
       react-sparklines: ^1.7.0
       snowpack: ^3.8.8
-      typescript: ^4.0.0
+      typescript: ^4.7.2
     dependencies:
       '@gots/noowf-inter-widget-communication': 2.6.0
       '@gots/noowf-widget-launch': 2.4.0
@@ -159,32 +159,32 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-sparklines: 1.7.0_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@gots/es-runtime': 2.10.0
+      '@gots/es-runtime': link:../../es-runtime
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0_react-dom@17.0.2+react@17.0.2
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.6.2
-      '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
+      '@snowpack/web-test-runner-plugin': 0.2.2_ae54f40a395ab20bcc096c6900c0d36f
       '@testing-library/react': 11.2.7_react-dom@17.0.2+react@17.0.2
       '@types/chai': 4.3.0
       '@types/mocha': 8.2.3
       '@types/prismjs': 1.26.0
       '@types/react': 17.0.41
-      '@types/react-dom': 17.0.14
+      '@types/react-dom': 17.0.17
       '@types/react-sparklines': 1.7.2
       '@types/react-syntax-highlighter': 13.5.2
       '@types/snowpack-env': 2.3.4
-      '@web/test-runner': 0.12.20
+      '@web/test-runner': 0.13.28
       chai: 4.3.6
       prettier: 2.6.0
       snowpack: 3.8.8
-      typescript: 4.6.2
+      typescript: 4.7.2
 
   ../../es-extension-examples/ext-example-svelte:
     specifiers:
-      '@gots/es-runtime': ^2.10.0
-      '@rollup/plugin-commonjs': ^17.0.0
-      '@rollup/plugin-node-resolve': ^11.0.0
-      rollup: ^2.3.4
+      '@gots/es-runtime': workspace:*
+      '@rollup/plugin-commonjs': ^18.0.0
+      '@rollup/plugin-node-resolve': ^11.2.1
+      rollup: ^2.45.2
       rollup-plugin-css-only: ^3.1.0
       rollup-plugin-livereload: ^2.0.0
       rollup-plugin-svelte: ^7.0.0
@@ -194,8 +194,8 @@ importers:
     dependencies:
       sirv-cli: 1.0.14
     devDependencies:
-      '@gots/es-runtime': 2.10.0
-      '@rollup/plugin-commonjs': 17.1.0_rollup@2.70.1
+      '@gots/es-runtime': link:../../es-runtime
+      '@rollup/plugin-commonjs': 18.1.0_rollup@2.70.1
       '@rollup/plugin-node-resolve': 11.2.1_rollup@2.70.1
       rollup: 2.70.1
       rollup-plugin-css-only: 3.1.0_rollup@2.70.1
@@ -207,11 +207,11 @@ importers:
   ../../es-extension-examples/ext-example-webpack:
     specifiers:
       '@babel/core': 7.12.3
-      '@gots/es-runtime': ^2.10.0
+      '@gots/es-runtime': workspace:*
       '@pmmmwh/react-refresh-webpack-plugin': 0.4.3
       '@svgr/webpack': 5.5.0
       '@testing-library/jest-dom': ^5.12.0
-      '@testing-library/react': ^11.2.6
+      '@testing-library/react': ^11.2.7
       '@testing-library/user-event': ^12.8.3
       '@typescript-eslint/eslint-plugin': ^4.5.0
       '@typescript-eslint/parser': ^4.5.0
@@ -338,7 +338,7 @@ importers:
       webpack-manifest-plugin: 2.2.0_webpack@4.44.2
       workbox-webpack-plugin: 5.1.4_webpack@4.44.2
     devDependencies:
-      '@gots/es-runtime': 2.10.0
+      '@gots/es-runtime': link:../../es-runtime
       serve: 11.3.2
 
   ../../es-extension-examples/iframe-example:
@@ -346,62 +346,68 @@ importers:
       '@gots/noowf-inter-widget-communication': ^2.6.0
       '@snowpack/plugin-typescript': ^1.2.1
       '@types/canvas-confetti': ^1.0.0
-      '@types/snowpack-env': ^2.3.3
+      '@types/snowpack-env': ~2.3.4
       canvas-confetti: ^1.2.0
-      prettier: ^2.2.1
-      snowpack: ^3.3.7
-      typescript: ^4.2.4
+      prettier: ^2.5.1
+      snowpack: ^3.8.8
+      typescript: ^4.7.2
     dependencies:
       '@gots/noowf-inter-widget-communication': 2.6.0
       canvas-confetti: 1.5.1
     devDependencies:
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.6.2
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
       '@types/canvas-confetti': 1.4.2
       '@types/snowpack-env': 2.3.4
       prettier: 2.6.0
       snowpack: 3.8.8
-      typescript: 4.6.2
+      typescript: 4.7.2
 
   ../../es-home:
     specifiers:
-      '@gots/es-runtime': ^2.10.0
+      '@gots/es-runtime': workspace:*
       '@gots/noowf-inter-widget-communication': ^2.6.0
       '@optoolco/tonic': ^13.3.6
-      '@snowpack/plugin-dotenv': ^2.0.5
-      '@snowpack/plugin-react-refresh': ^2.4.0
+      '@snowpack/plugin-dotenv': ~2.2.0
+      '@snowpack/plugin-react-refresh': ~2.5.0
       '@snowpack/plugin-typescript': ^1.2.1
       '@snowpack/web-test-runner-plugin': ^0.2.0
-      '@testing-library/react': ^11.0.0
-      '@types/chai': ^4.2.13
-      '@types/mocha': ^8.2.0
-      '@types/snowpack-env': ^2.3.2
-      '@web/test-runner': ^0.12.0
-      chai: ^4.2.0
+      '@testing-library/react': ^11.2.7
+      '@types/chai': ^4.3.0
+      '@types/mocha': ^8.2.3
+      '@types/react': ~17.0.3
+      '@types/react-dom': ~17.0.3
+      '@types/snowpack-env': ~2.3.4
+      '@web/test-runner': ~0.13.28
+      chai: ~4.3.6
+      es-runtime: ~2.0.0
       events: ^3.3.0
       git-describe: ^4.1.0
       gulp: ^4.0.2
       gulp-war: ^0.1.4
       gulp-zip: ^5.1.0
       merge-stream: ^2.0.0
-      prettier: ^2.0.5
+      prettier: ^2.5.1
       snowpack: ^3.8.8
       typescript: ^4.7.2
     dependencies:
-      '@gots/es-runtime': 2.10.0
+      '@gots/es-runtime': link:../es-runtime
       '@gots/noowf-inter-widget-communication': 2.6.0
       '@optoolco/tonic': 13.3.6
+      '@types/react': 17.0.41
+      '@types/react-dom': 17.0.17
+      es-runtime: 2.0.0
       events: 3.3.0
       git-describe: 4.1.0
     devDependencies:
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0
       '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
-      '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
+      '@snowpack/web-test-runner-plugin': 0.2.2_ae54f40a395ab20bcc096c6900c0d36f
       '@testing-library/react': 11.2.7
       '@types/chai': 4.3.0
       '@types/mocha': 8.2.3
       '@types/snowpack-env': 2.3.4
-      '@web/test-runner': 0.12.20
+      '@web/test-runner': 0.13.28
       chai: 4.3.6
       gulp: 4.0.2
       gulp-war: 0.1.4
@@ -413,17 +419,17 @@ importers:
 
   ../../es-runtime:
     specifiers:
-      '@snowpack/plugin-dotenv': ^2.2.0
-      '@snowpack/plugin-react-refresh': ^2.5.0
-      '@snowpack/plugin-typescript': ^1.2.0
+      '@snowpack/plugin-dotenv': ~2.2.0
+      '@snowpack/plugin-react-refresh': ~2.5.0
+      '@snowpack/plugin-typescript': ^1.2.1
       '@snowpack/web-test-runner-plugin': ^0.2.0
       '@testing-library/react': ^11.2.7
       '@types/chai': ^4.3.0
       '@types/events': ~3.0.0
       '@types/mocha': ^8.2.3
-      '@types/snowpack-env': ^2.3.4
-      '@web/test-runner': ^0.12.20
-      chai: ^4.3.6
+      '@types/snowpack-env': ~2.3.4
+      '@web/test-runner': ~0.13.28
+      chai: ~4.3.6
       copyfiles: ^2.4.1
       events: ^3.3.0
       prettier: ^2.5.1
@@ -435,13 +441,13 @@ importers:
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0
       '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.2
-      '@snowpack/web-test-runner-plugin': 0.2.2_3970c26933a43b5b8e0b259fd6439510
+      '@snowpack/web-test-runner-plugin': 0.2.2_ae54f40a395ab20bcc096c6900c0d36f
       '@testing-library/react': 11.2.7
       '@types/chai': 4.3.0
       '@types/events': 3.0.0
       '@types/mocha': 8.2.3
       '@types/snowpack-env': 2.3.4
-      '@web/test-runner': 0.12.20
+      '@web/test-runner': 0.13.28
       chai: 4.3.6
       copyfiles: 2.4.1
       prettier: 2.6.0
@@ -2511,6 +2517,14 @@ packages:
       '@babel/helper-plugin-utils': 7.16.7
     dev: false
 
+  /@babel/polyfill/7.12.1:
+    resolution: {integrity: sha512-X0pi0V6gxLi6lFZpGmeNa4zxtwEmCs42isWLNjZZDE0Y8yVfgu0T2OAHlzBbdYlqbW/YXVvoBHpATEM+goCj8g==}
+    deprecated: 🚨 This package has been deprecated in favor of separate inclusion of a polyfill and regenerator-runtime (when needed). See the @babel/polyfill docs (https://babeljs.io/docs/en/babel-polyfill) for more information.
+    dependencies:
+      core-js: 2.6.12
+      regenerator-runtime: 0.13.9
+    dev: false
+
   /@babel/preset-env/7.16.11_@babel+core@7.12.3:
     resolution: {integrity: sha512-qcmWG8R7ZW6WBRPZK//y+E3Cli151B20W1Rv7ln27vuPaXU/8TKms6jFdiJtF7UDTxcrb7mZd88tAeK9LjdT8g==}
     engines: {node: '>=6.9.0'}
@@ -2776,6 +2790,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
+
+  /@babel/runtime/7.18.3:
+    resolution: {integrity: sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: false
 
   /@babel/template/7.16.7:
     resolution: {integrity: sha512-I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w==}
@@ -3345,22 +3366,6 @@ packages:
       rollup: 2.37.1
     dev: true
 
-  /@rollup/plugin-commonjs/17.1.0_rollup@2.70.1:
-    resolution: {integrity: sha512-PoMdXCw0ZyvjpCMT5aV4nkL0QywxP29sODQsSGeDpr/oI49Qq9tRtAsb/LbYbDzFlOydVEqHmmZWFtXJEAX9ew==}
-    engines: {node: '>= 8.0.0'}
-    peerDependencies:
-      rollup: ^2.30.0
-    dependencies:
-      '@rollup/pluginutils': 3.1.0_rollup@2.70.1
-      commondir: 1.0.1
-      estree-walker: 2.0.2
-      glob: 7.2.0
-      is-reference: 1.2.1
-      magic-string: 0.25.9
-      resolve: 1.18.1
-      rollup: 2.70.1
-    dev: true
-
   /@rollup/plugin-commonjs/18.1.0_rollup@2.70.1:
     resolution: {integrity: sha512-h3e6T9rUxVMAQswpDIobfUHn/doMzM9sgkMrsMWCFLmB84PSoC8mV8tOloAJjSRwdqhXBqstlX2BwBpHJvbhxg==}
     engines: {node: '>= 8.0.0'}
@@ -3576,16 +3581,6 @@ packages:
       - supports-color
     dev: true
 
-  /@snowpack/plugin-typescript/1.2.1_typescript@4.6.2:
-    resolution: {integrity: sha512-wU+JNaMVkqGsqTaUY7TnEMhGt/3URTgA9dpMCtZX6wn/ceA7Gwlmue/sOLynf0OTNLygHPvjiQECQYkEi3LTtg==}
-    peerDependencies:
-      typescript: '*'
-    dependencies:
-      execa: 5.1.1
-      npm-run-path: 4.0.1
-      typescript: 4.6.2
-    dev: true
-
   /@snowpack/plugin-typescript/1.2.1_typescript@4.7.2:
     resolution: {integrity: sha512-wU+JNaMVkqGsqTaUY7TnEMhGt/3URTgA9dpMCtZX6wn/ceA7Gwlmue/sOLynf0OTNLygHPvjiQECQYkEi3LTtg==}
     peerDependencies:
@@ -3596,13 +3591,13 @@ packages:
       typescript: 4.7.2
     dev: true
 
-  /@snowpack/web-test-runner-plugin/0.2.2_3970c26933a43b5b8e0b259fd6439510:
+  /@snowpack/web-test-runner-plugin/0.2.2_ae54f40a395ab20bcc096c6900c0d36f:
     resolution: {integrity: sha512-I7KC8BAcgRWZAg53w7Uq3UDY9hcn1ZGvmA+MjPqvgQXvKbwXfH0+T1nyPQmKUgYR1If99Vk4GnFscDZtaGbZCg==}
     peerDependencies:
       '@web/test-runner': '>=0.10.0 <1.0.0'
       snowpack: ^3.0.0
     dependencies:
-      '@web/test-runner': 0.12.20
+      '@web/test-runner': 0.13.28
       snowpack: 3.8.8
     dev: true
 
@@ -4053,7 +4048,6 @@ packages:
 
   /@types/prop-types/15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
-    dev: true
 
   /@types/q/1.5.5:
     resolution: {integrity: sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==}
@@ -4067,11 +4061,10 @@ packages:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
     dev: true
 
-  /@types/react-dom/17.0.14:
-    resolution: {integrity: sha512-H03xwEP1oXmSfl3iobtmQ/2dHF5aBHr8aUMwyGZya6OW45G+xtdzmq6HkncefiBt5JU8DVyaWl/nWZbjZCnzAQ==}
+  /@types/react-dom/17.0.17:
+    resolution: {integrity: sha512-VjnqEmqGnasQKV0CWLevqMTXBYG9GbwuE6x3VetERLh0cq2LTptFE73MrQi2S7GkKXCf2GgwItB/melLnxfnsg==}
     dependencies:
       '@types/react': 17.0.41
-    dev: true
 
   /@types/react-sparklines/1.7.2:
     resolution: {integrity: sha512-N1GwO7Ri5C5fE8+CxhiDntuSw1qYdGytBuedKrCxWpaojXm4WnfygbdBdc5sXGX7feMxDXBy9MNhxoUTwrMl4A==}
@@ -4091,7 +4084,6 @@ packages:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.11
-    dev: true
 
   /@types/resolve/0.0.8:
     resolution: {integrity: sha512-auApPaJf3NPfe18hSoJkp8EbZzer2ISk7o8mCC3M9he/a04+gbMF97NkpD2S8riMGvm4BMRI59/SZQSaLTKpsQ==}
@@ -4113,7 +4105,6 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
-    dev: true
 
   /@types/semver/7.3.9:
     resolution: {integrity: sha512-L/TMpyURfBkf+o/526Zb6kd/tchUP3iBDEPjqjb+U2MAJhVRxxrmr2fwpe08E7QsV7YLcpq0tUaQ9O9x97ZIxQ==}
@@ -4358,7 +4349,7 @@ packages:
     resolution: {integrity: sha512-XVKH79pk4d3EHRhofete8eAnqto1e8mCRAqPV00KLNFzCWSe8sWmLnqKCqkPNARC6nksMaGrATnA5sPDRllMpQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
-      semver: 7.3.5
+      semver: 7.3.7
     dev: true
 
   /@web/dev-server-core/0.3.17:
@@ -4438,14 +4429,14 @@ packages:
       parse5: 6.0.1
     dev: true
 
-  /@web/test-runner-chrome/0.9.4:
-    resolution: {integrity: sha512-Ymfp0HqQvELFITdwhdicuzndLY5loePpbDj6teXKKNTILph0ExWl3R3NMPG7pD40pB84GGd9i8wkz9yvyN30Zg==}
+  /@web/test-runner-chrome/0.10.7:
+    resolution: {integrity: sha512-DKJVHhHh3e/b6/erfKOy0a4kGfZ47qMoQRgROxi9T4F9lavEY3E5/MQ7hapHFM2lBF4vDrm+EWjtBdOL8o42tw==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@web/test-runner-core': 0.10.25
+      '@web/test-runner-core': 0.10.26
       '@web/test-runner-coverage-v8': 0.4.8
-      chrome-launcher: 0.13.4
-      puppeteer-core: 5.5.0
+      chrome-launcher: 0.15.0
+      puppeteer-core: 13.7.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -4453,11 +4444,11 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@web/test-runner-commands/0.4.5:
-    resolution: {integrity: sha512-jbhsS+nZmnbZPj/XL/g4se1c9TRtIgwrlYpaIIcWkHhCu5mKbdipgZ/nlFIhFS9UaVY52NiulmVj6dhAx7w4SA==}
+  /@web/test-runner-commands/0.6.1:
+    resolution: {integrity: sha512-P4aQqp0duumeGdGxQ8TwLnplkrXzpLqb47eSEEqBRS//C1H7s6VskaqEng+k0dbk+cSpEa4RuZGY/G5k8aTjTw==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@web/test-runner-core': 0.10.25
+      '@web/test-runner-core': 0.10.26
       mkdirp: 1.0.4
     transitivePeerDependencies:
       - bufferutil
@@ -4465,8 +4456,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@web/test-runner-core/0.10.25:
-    resolution: {integrity: sha512-gH8VXyZbwf+sqPiH4cnXYf86SqwBLtou+0LFFCLaDQRbMlrfi5byAISt39fNX2ejd46bF1cZn6DK+mzb/Xjccw==}
+  /@web/test-runner-core/0.10.26:
+    resolution: {integrity: sha512-HqfweznsH1LVdebAaqn7aMaIUwKeVdBW59f03MsURd/CNV25l0i7kIxkFF+6OTGhjiGJW5pTTzMPHND4oS6YgA==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@babel/code-frame': 7.16.7
@@ -4505,7 +4496,7 @@ packages:
     resolution: {integrity: sha512-Ib0AscR8Xf9E/V7rf3XOVQTe4vKIbwSTupxV1xGgzj3x4RKUuMUg9FLz9EigZ5iN0mOzZKDllyRS523hbdhDtA==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@web/test-runner-core': 0.10.25
+      '@web/test-runner-core': 0.10.26
       istanbul-lib-coverage: 3.2.0
       picomatch: 2.3.1
       v8-to-istanbul: 8.1.1
@@ -4520,32 +4511,32 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       '@types/mocha': 8.2.3
-      '@web/test-runner-core': 0.10.25
+      '@web/test-runner-core': 0.10.26
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
     dev: true
 
-  /@web/test-runner/0.12.20:
-    resolution: {integrity: sha512-ibuZDuvXy30PWn05//ca06f2NCr0WM42m0QyNdQZ/GIR03W4FpNQ/6ogSq4O4mTBg1KW88IOfHvEXWL449bR6g==}
+  /@web/test-runner/0.13.28:
+    resolution: {integrity: sha512-YhPg7usBu1hBl3XDyX0NmSPTQbfCqeCR9fhwB3nOJ00HScae9ibDQZiFaEUXGwFWAGZhBXWG0f+dAh3LWVfH/Q==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
       '@web/browser-logs': 0.2.5
       '@web/config-loader': 0.1.3
       '@web/dev-server': 0.1.30
-      '@web/test-runner-chrome': 0.9.4
-      '@web/test-runner-commands': 0.4.5
-      '@web/test-runner-core': 0.10.25
+      '@web/test-runner-chrome': 0.10.7
+      '@web/test-runner-commands': 0.6.1
+      '@web/test-runner-core': 0.10.26
       '@web/test-runner-mocha': 0.7.5
       camelcase: 6.3.0
-      chalk: 4.1.2
       command-line-args: 5.2.1
       command-line-usage: 6.1.1
       convert-source-map: 1.8.0
       diff: 5.0.0
       globby: 11.1.0
+      nanocolors: 0.2.13
       portfinder: 1.0.28
       source-map: 0.7.3
     transitivePeerDependencies:
@@ -4762,11 +4753,6 @@ packages:
       loader-utils: 2.0.2
       regex-parser: 2.2.11
     dev: false
-
-  /agent-base/5.1.1:
-    resolution: {integrity: sha512-TMeqbNl2fMW0nMjTEPOwe3J/PRFP4vqeoNuQMG0HlMrtm5QxKqdvAkZ1pRBQ/ulIyDD5Yq0nJ7YbdD8ey0TO3g==}
-    engines: {node: '>= 6.0.0'}
-    dev: true
 
   /agent-base/6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -6107,7 +6093,7 @@ packages:
     engines: {node: '>=6'}
 
   /check-error/1.0.2:
-    resolution: {integrity: sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=}
+    resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}
     dev: true
 
   /check-types/11.1.2:
@@ -6176,15 +6162,15 @@ packages:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
 
-  /chrome-launcher/0.13.4:
-    resolution: {integrity: sha512-nnzXiDbGKjDSK6t2I+35OAPBy5Pw/39bgkb/ZAFwMhwJbdYBp6aH+vW28ZgtjdU890Q7D+3wN/tB8N66q5Gi2A==}
+  /chrome-launcher/0.15.0:
+    resolution: {integrity: sha512-ZQqX5kb9H0+jy1OqLnWampfocrtSZaGl7Ny3F9GRha85o4odbL8x55paUzh51UC7cEmZ5obp3H2Mm70uC2PpRA==}
+    engines: {node: '>=12.13.0'}
+    hasBin: true
     dependencies:
       '@types/node': 17.0.22
-      escape-string-regexp: 1.0.5
+      escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.3.0
-      mkdirp: 0.5.5
-      rimraf: 3.0.2
     dev: true
 
   /chrome-trace-event/1.0.3:
@@ -6313,7 +6299,7 @@ packages:
     dev: true
 
   /clone/2.1.2:
-    resolution: {integrity: sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=}
+    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
     dev: true
 
@@ -6342,7 +6328,7 @@ packages:
     dev: true
 
   /co/4.6.0:
-    resolution: {integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=}
+    resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
     engines: {iojs: '>= 1.0.0', node: '>= 0.12.0'}
 
   /coa/2.0.2:
@@ -6391,7 +6377,7 @@ packages:
       color-name: 1.1.4
 
   /color-name/1.1.3:
-    resolution: {integrity: sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=}
+    resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
@@ -6699,6 +6685,14 @@ packages:
       sha.js: 2.4.11
     dev: false
 
+  /cross-fetch/3.1.5:
+    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
+    dependencies:
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
+    dev: true
+
   /cross-spawn/5.1.0:
     resolution: {integrity: sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk=}
     dependencies:
@@ -6980,7 +6974,6 @@ packages:
 
   /csstype/3.0.11:
     resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==}
-    dev: true
 
   /currently-unhandled/0.4.1:
     resolution: {integrity: sha1-mI3zP+qxke95mmE2nddsF635V+o=}
@@ -7100,7 +7093,7 @@ packages:
     dev: true
 
   /deep-equal/1.0.1:
-    resolution: {integrity: sha1-9dJgKStmDghO/0zbyfCK0yR0SLU=}
+    resolution: {integrity: sha512-bHtC0iYvWhyaTzvV3CZgPeZQqCOBGyGsVV7v4eevpdkLHfiSrXUdBG+qAuSz4RI70sszvjQ1QSZ98An1yNwpSw==}
 
   /deep-extend/0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
@@ -7197,11 +7190,11 @@ packages:
     engines: {node: '>=0.4.0'}
 
   /delegates/1.0.0:
-    resolution: {integrity: sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=}
+    resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
     dev: true
 
   /depd/1.1.2:
-    resolution: {integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=}
+    resolution: {integrity: sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==}
     engines: {node: '>= 0.6'}
 
   /depd/2.0.0:
@@ -7262,8 +7255,8 @@ packages:
       debug: 2.6.9
     dev: true
 
-  /devtools-protocol/0.0.818844:
-    resolution: {integrity: sha512-AD1hi7iVJ8OD0aMLQU5VK0XH9LDlA1+BcPIgrAxPfaibx2DbWucuyOhc4oyQCbnvDDO68nN6/LcKfqTP343Jjg==}
+  /devtools-protocol/0.0.981744:
+    resolution: {integrity: sha512-0cuGS8+jhR67Fy7qG3i3Pc7Aw494sb9yG9QgpG97SFVWwolgYjlhJg7n+UaHxOQT30d1TYu/EYe9k01ivLErIg==}
     dev: true
 
   /dezalgo/1.0.3:
@@ -7448,7 +7441,7 @@ packages:
     dev: true
 
   /ee-first/1.1.1:
-    resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
+    resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
   /ejs/2.7.4:
     resolution: {integrity: sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==}
@@ -7499,7 +7492,7 @@ packages:
     dev: false
 
   /encodeurl/1.0.2:
-    resolution: {integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=}
+    resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
     engines: {node: '>= 0.8'}
 
   /encoding/0.1.13:
@@ -7602,6 +7595,16 @@ packages:
     resolution: {integrity: sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==}
     dev: true
 
+  /es-runtime/2.0.0:
+    resolution: {integrity: sha512-tKEeL5I6xGwM0Rq84y6mfxKCZ4jXzFF5Ci9sB7DJkiy5rzKJMplvWLp20nTvH6+emRkwQnwQZNZXvb7ulVLxdQ==}
+    engines: {node: '>= 4'}
+    hasBin: true
+    dependencies:
+      '@babel/polyfill': 7.12.1
+      '@babel/runtime': 7.18.3
+      semver: 7.3.7
+    dev: false
+
   /es-to-primitive/1.2.1:
     resolution: {integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==}
     engines: {node: '>= 0.4'}
@@ -7653,10 +7656,10 @@ packages:
     engines: {node: '>=6'}
 
   /escape-html/1.0.3:
-    resolution: {integrity: sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=}
+    resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
 
   /escape-string-regexp/1.0.5:
-    resolution: {integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=}
+    resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
 
   /escape-string-regexp/2.0.0:
@@ -7667,7 +7670,6 @@ packages:
   /escape-string-regexp/4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
-    dev: false
 
   /escodegen/2.0.0:
     resolution: {integrity: sha512-mmHKys/C8BFUGI+MAWNcSYoORYLMdPzjrknd2Vc+bUsjN5bXcr8EhrNB+UTqfL1y3I9c4fw2ihgtMPQLBRiQxw==}
@@ -8337,7 +8339,7 @@ packages:
     dev: false
 
   /fd-slicer/1.1.0:
-    resolution: {integrity: sha1-JcfInLH5B3+IkbvmHY85Dq4lbx4=}
+    resolution: {integrity: sha512-cE1qsB/VwyQozZ+q1dGxR8LBYNZeofhEdUNGSMbQD3Gw2lAzX9Zb3uIU6Ebc/Fmyjo9AWWfnn0AUCHqtevs/8g==}
     dependencies:
       pend: 1.2.0
     dev: true
@@ -8595,7 +8597,7 @@ packages:
       map-cache: 0.2.2
 
   /fresh/0.5.2:
-    resolution: {integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=}
+    resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
   /from/0.1.7:
@@ -8730,7 +8732,7 @@ packages:
     engines: {node: 6.* || 8.* || >= 10.*}
 
   /get-func-name/2.0.0:
-    resolution: {integrity: sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=}
+    resolution: {integrity: sha512-Hm0ixYtaSZ/V7C8FJrtZIuBBI+iSgL+1Aq82zSu8VQNB4S3Gk8e7Qs3VwBDJAhmRZcFqkl3tQu36g/Foh5I5ig==}
     dev: true
 
   /get-intrinsic/1.1.1:
@@ -9110,7 +9112,7 @@ packages:
     dev: false
 
   /has-flag/3.0.0:
-    resolution: {integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=}
+    resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
 
   /has-flag/4.0.0:
@@ -9314,7 +9316,7 @@ packages:
     dev: false
 
   /http-errors/1.6.3:
-    resolution: {integrity: sha1-i1VoC7S+KDoLW/TqLjhYC+HZMg0=}
+    resolution: {integrity: sha512-lks+lVC8dgGyh97jxvxeYTWQFvh4uw4yC12gVl63Cg30sjPX4wuGcdkICVXDAESr6OJGjqGA8Iz5mkeN6zlD7A==}
     engines: {node: '>= 0.6'}
     dependencies:
       depd: 1.1.2
@@ -9406,16 +9408,6 @@ packages:
     resolution: {integrity: sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=}
     dev: false
 
-  /https-proxy-agent/4.0.0:
-    resolution: {integrity: sha512-zoDhWrkR3of1l9QAL8/scJZyLu8j/gBkcwcaQOZh7Gyh/+uJQzGVETdgT30akuwkpL8HTRfssqI3BZuV18teDg==}
-    engines: {node: '>= 6.0.0'}
-    dependencies:
-      agent-base: 5.1.1
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /https-proxy-agent/5.0.0:
     resolution: {integrity: sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==}
     engines: {node: '>= 6'}
@@ -9424,6 +9416,16 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+
+  /https-proxy-agent/5.0.1:
+    resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
+    engines: {node: '>= 6'}
+    dependencies:
+      agent-base: 6.0.2
+      debug: 4.3.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /human-signals/1.1.1:
     resolution: {integrity: sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==}
@@ -9578,7 +9580,7 @@ packages:
     resolution: {integrity: sha512-IClj+Xz94+d7irH5qRyfJonOdfTzuDaifE6ZPWfx0N0+/ATZCbuTPq2prFl526urkQd90WyUKIh1DfBQ2hMz9A==}
 
   /inflation/2.0.0:
-    resolution: {integrity: sha1-i0F+R8KPklpFEz2RTKH9OJEH8w8=}
+    resolution: {integrity: sha512-m3xv4hJYR2oXw4o4Y5l6P5P16WYmazYof+el6Al3f+YlggGj6qT9kImBAnzDelRALnP5d3h4jGBPKzYCizjZZw==}
     engines: {node: '>= 0.8.0'}
     dev: true
 
@@ -9592,7 +9594,7 @@ packages:
     resolution: {integrity: sha1-sX0I0ya0Qj5Wjv9xn5GwscvfafE=}
 
   /inherits/2.0.3:
-    resolution: {integrity: sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=}
+    resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
 
   /inherits/2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -9633,7 +9635,7 @@ packages:
     dev: false
 
   /ip/1.1.5:
-    resolution: {integrity: sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo=}
+    resolution: {integrity: sha512-rBtCAQAJm8A110nbwn6YdveUnuZH3WrC36IwkRXxDnq53JvXA2NVQvB7IHyKomxK1MJ4VDNw3UtFDdXQ+AvLYA==}
 
   /ipaddr.js/1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -9790,7 +9792,7 @@ packages:
       is-plain-object: 2.0.4
 
   /is-extglob/2.1.1:
-    resolution: {integrity: sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=}
+    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
 
   /is-finite/1.1.0:
@@ -11192,7 +11194,7 @@ packages:
     dev: true
 
   /lodash.camelcase/4.3.0:
-    resolution: {integrity: sha1-soqmKIorn8ZRA1x3EfZathkDMaY=}
+    resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
     dev: true
 
   /lodash.debounce/4.0.8:
@@ -11454,7 +11456,7 @@ packages:
     dev: false
 
   /media-typer/0.3.0:
-    resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=}
+    resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
 
   /memory-fs/0.4.1:
@@ -13703,22 +13705,22 @@ packages:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
 
-  /puppeteer-core/5.5.0:
-    resolution: {integrity: sha512-tlA+1n+ziW/Db03hVV+bAecDKse8ihFRXYiEypBe9IlLRvOCzYFG6qrCMBYK34HO/Q/Ecjc+tvkHRAfLVH+NgQ==}
+  /puppeteer-core/13.7.0:
+    resolution: {integrity: sha512-rXja4vcnAzFAP1OVLq/5dWNfwBGuzcOARJ6qGV7oAZhnLmVRU8G5MsdeQEAOy332ZhkIOnn9jp15R89LKHyp2Q==}
     engines: {node: '>=10.18.1'}
     dependencies:
+      cross-fetch: 3.1.5
       debug: 4.3.4
-      devtools-protocol: 0.0.818844
+      devtools-protocol: 0.0.981744
       extract-zip: 2.0.1
-      https-proxy-agent: 4.0.0
-      node-fetch: 2.6.7
+      https-proxy-agent: 5.0.1
       pkg-dir: 4.2.0
       progress: 2.0.3
       proxy-from-env: 1.1.0
       rimraf: 3.0.2
       tar-fs: 2.1.1
       unbzip2-stream: 1.4.3
-      ws: 7.5.7
+      ws: 8.5.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -14538,7 +14540,7 @@ packages:
       terser: 5.12.1
     dev: true
 
-  /rollup-plugin-typescript2/0.30.0_rollup@2.70.1+typescript@4.6.2:
+  /rollup-plugin-typescript2/0.30.0_rollup@2.70.1+typescript@4.7.2:
     resolution: {integrity: sha512-NUFszIQyhgDdhRS9ya/VEmsnpTe+GERDMmFo0Y+kf8ds51Xy57nPNGglJY+W6x1vcouA7Au7nsTgsLFj2I0PxQ==}
     peerDependencies:
       rollup: '>=1.26.3'
@@ -14550,7 +14552,7 @@ packages:
       resolve: 1.20.0
       rollup: 2.70.1
       tslib: 2.1.0
-      typescript: 4.6.2
+      typescript: 4.7.2
     dev: true
 
   /rollup-pluginutils/2.8.2:
@@ -14752,6 +14754,13 @@ packages:
 
   /semver/7.3.5:
     resolution: {integrity: sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+
+  /semver/7.3.7:
+    resolution: {integrity: sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -16072,12 +16081,6 @@ packages:
   /typedarray/0.0.6:
     resolution: {integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=}
 
-  /typescript/4.6.2:
-    resolution: {integrity: sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-
   /typescript/4.7.2:
     resolution: {integrity: sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==}
     engines: {node: '>=4.2.0'}
@@ -17025,6 +17028,19 @@ packages:
     dependencies:
       bufferutil: 4.0.6
       utf-8-validate: 5.0.9
+    dev: true
+
+  /ws/8.5.0:
+    resolution: {integrity: sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     dev: true
 
   /xml-name-validator/3.0.0:
