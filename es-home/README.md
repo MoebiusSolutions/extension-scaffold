@@ -208,7 +208,7 @@ Finally, these files are combined to produce `public/aaws.json`:
 
 ## Login to Private NPM Registry
 
-* See [Login to Private NPM Registry](../Login-to-Private-NPM-Registry.md)
+* See [Login to Private NPM Registry](../documentation/Login-to-Private-NPM-Registry.md)
 
 ## Available Scripts
 
