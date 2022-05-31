@@ -22,9 +22,10 @@ registry=https://registry.npmjs.org/
 always-auth=false
 
 #
-# DI2E Nexus
-@gots:registry=https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/
-//nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/:_authToken=${NPM_AUTH_TOKEN}
+# CSA Artifactory
+@gots:registry=https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-group/
+@mtc2:registry=https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-group/
+//services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-group/:_authToken=${NPM_AUTH_TOKEN}
 
 #
 # Path to ca-certificates inside docker container

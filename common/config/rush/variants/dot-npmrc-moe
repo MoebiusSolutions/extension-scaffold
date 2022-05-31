@@ -18,13 +18,14 @@
 #
 #   //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
 #
-registry=https://registry.npmjs.org/
+registry=https://nexus.moesol.com/repository/npmjs.org/
+//nexus.moesol.com/repository/npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
 always-auth=false
 
 #
-# DI2E Nexus
-@gots:registry=https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/
-//nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/:_authToken=${NPM_AUTH_TOKEN}
+# Moebius Nexus
+@gots:registry=https://nexus.moesol.com/repository/gccsje-npm-hosted/
+//nexus.moesol.com/repository/gccsje-npm-hosted/:_authToken=${NPM_AUTH_TOKEN}
 
 #
 # Path to ca-certificates inside docker container
