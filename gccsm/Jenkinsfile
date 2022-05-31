@@ -92,11 +92,16 @@ pipeline {
         }
       }
       steps {
+        withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
+          echo "Installing dependencies"
+          sh 'cp .npmrc common/config/rush/.npmrc'
+          sh 'node common/scripts/install-run-rush.js install'
+          echo "Initiating npm build steps..."
+          sh 'node common/scripts/install-run-rush.js rebuild --verbose'
+        }
         dir("es-home") {
           withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
-            echo "Installing dependencies"
-            sh 'npm install'
-            echo "Initiating npm build steps..."
+            echo "Building war..."
             sh 'npm run war'
           }
         }

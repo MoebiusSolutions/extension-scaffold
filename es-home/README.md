@@ -9,7 +9,10 @@ with its components.
 
 # Data Driven Panels
 
-> Note: Work In-Progress these formats may be updated as development continues
+> Note: new integrations with ES are using ribbon button driven panels.
+> The advantage of using ribbon button driven panels is that
+> the resources for the panel are not created until the panel
+> is added with `addPanel`.
 
 In order to prevent the need for creating multiple "hosting" pages,
 this web application makes a `fetch` request back to the server
@@ -26,7 +29,7 @@ all of the configuration information we need to initialize the panels.
 
 We expect one file per "application". 
 An "application" configuration is defined in JSON.
-It must define a "name" property, which defines the "application" name.
+It must define a `"name"` property, which defines the "application" name.
 Then it defines other properties to define the panel layout.
 
 Below is an example for `aasw.json`
@@ -73,6 +76,9 @@ Currently the `context` object defines the IWC parameters:
     "busUrl": "https://security.dev26.minerva.navy.mil/bgapp2/bcst-bus/index.html"
   },
 ```
+
+> Note: `es-home` hosts a shared `bcst-bus` and automatically passes the query parameters
+> `iwc` and `busUrl` to any `iframeSource` panels.
 
 ### Property: `"ribbon"`
 
@@ -127,6 +133,9 @@ Example:
     ],
 ```
 
+> Tip: it is common to begin the URL without the protocol, hostname, and port.
+> This works well when everything is behind a common reverse proxy.
+
 ### Folder: `data/extensions/*.json`
 
 We expect one file per *extension*.
@@ -134,7 +143,7 @@ Extensions are defined in JSON format.
 
 > Note: a single extension can create and provide multiple panels
 
-The extension configuration defines the "url" of the extension.
+The extension configuration defines the `"url"` of the extension.
 It also defines an array panel IDs in the `"provides"` property.
 The extensions configuration does not need to list every panel ID that is provides,
 but it should list the panel IDs that will be needed by *applications*.
@@ -206,6 +215,9 @@ Finally, these files are combined to produce `public/aaws.json`:
 }
 ```
 
+> Note: Minerva has opted to host the full set of JSON files for applications under `dfntc-ansible`.
+> So, Minerva does not use the files under `es-home/data`.
+
 ## Login to Private NPM Registry
 
 * See [Login to Private NPM Registry](../documentation/Login-to-Private-NPM-Registry.md)
@@ -233,4 +245,3 @@ Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch 
 ### `npm run war`
 
 Bundles the `build/` folder into a WAR file.
-

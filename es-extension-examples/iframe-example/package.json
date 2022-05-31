@@ -1,5 +1,6 @@
 {
   "name": "@gots/iframe-example",
+  "version": "2.12.0-SNAPSHOT",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
