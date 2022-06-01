@@ -34,6 +34,7 @@ pipeline {
     JBOSS_BASE_IMAGE= 'eap7.1-registry.access.redhat.com'
     PROJECT = "mtc2"
     DEV_BRANCH= 'develop'
+    BUILD_IMAGE='score/node16:16.15.0'
   }
 
   stages {
@@ -41,7 +42,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image 'mtc2-infra-docker/mtc2-node:14.16.0-alpine-fixuid0.4'
+          image "${BUILD_IMAGE}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -86,7 +87,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image 'mtc2-infra-docker/mtc2-node:14.16.0-alpine-fixuid0.4'
+          image "${BUILD_IMAGE}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -121,7 +122,7 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image 'mtc2-infra-docker/mtc2-node:14.16.0-alpine-fixuid0.4'
+          image "${BUILD_IMAGE}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
