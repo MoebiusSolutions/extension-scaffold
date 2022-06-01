@@ -34,7 +34,7 @@ pipeline {
     JBOSS_BASE_IMAGE= 'eap7.1-registry.access.redhat.com'
     PROJECT = "mtc2"
     DEV_BRANCH= 'develop'
-    BUILD_IMAGE='score/node16:16.15.0'
+    BUILD_IMAGE='score/nodejs16:16.15.0'
   }
 
   stages {
