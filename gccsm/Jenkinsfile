@@ -35,6 +35,7 @@ pipeline {
     PROJECT = "mtc2"
     DEV_BRANCH= 'develop'
     BUILD_IMAGE='score/nodejs16:16.15.0'
+    HOME_VOLUME="-v ${WORKSPACE}/es-compose/home-node:/home/node"
   }
 
   stages {
@@ -43,6 +44,7 @@ pipeline {
         docker {
           reuseNode true
           image "${BUILD_IMAGE}"
+          args "${HOME_VOLUME}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -88,6 +90,7 @@ pipeline {
         docker {
           reuseNode true
           image "${BUILD_IMAGE}"
+          args "${HOME_VOLUME}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -123,6 +126,7 @@ pipeline {
         docker {
           reuseNode true
           image "${BUILD_IMAGE}"
+          args "${HOME_VOLUME}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
