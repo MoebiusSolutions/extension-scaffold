@@ -1,5 +1,22 @@
 ## Change Log
 
+# [2.12.0] - 2022-06-02
+
+### Added
+
+* Adds support for location: 'modal' | 'modeless'
+* Document 'modal' and 'modeless'
+
+### Changed
+
+* Skip `validateLocation` if panel `hidden`
+* Switched to using `rush` for Jenkins build.
+  * `develop` branch now requires `rush` to build.
+    This allows us to link to `@gots/es-runtime`
+* `nodejs 16.15.0` or `nodejs 14.19.0` is required by latest version of `rush`
+* Moved Login to NPM docs to `documentation` folder.
+### Removed
+
 # [2.11.0] - 2022-05-30
 
 ### Added
