@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@gots/es-runtime",
+      "comment": "Updates for 2.12.0",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@gots/es-runtime"
+}

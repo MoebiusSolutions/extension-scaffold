@@ -26,6 +26,14 @@ export function defaultedOptions(options: AddPanelOptions) {
                 hideButton: true,
             }
         },
+        {
+            match: ['modal', 'modeless'],
+            options: {
+                resizeHandle: true,
+                popOutButton: true,
+                removeButton: true,
+            }
+        }
     ]
     const def = defaults.find(d => d.match.findIndex(m => m === options.location) >= 0)
     return {

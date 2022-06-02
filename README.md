@@ -142,7 +142,14 @@ All other panels will be hidden (using style `display: none`).
 If `removePanel` is called on the currently shown panel, the next panel in the "stack"
 will be shown automatically. 
 
-## Floating panels over the center
+## Floating Panels Over the Center
+
+Two new locations where added to the API: `modal` and `modeless`.
+When `addPanel` is called with one of these locations
+a "dialog" window is centered on the screen to host the panel.
+The header of the dialog can be used to raise or move the dialog.
+The bottom resize icon (`resizeEnabled: true`) can be dragged to resize the dialog.
+* See [ext-react-snowpack.tsx](es-extension-examples/ext-example-snowpack/src/ext-react-snowpack.tsx#L109).
 
 The example in `es-extension-examples/ext-example-snowpack/src/Ribbon.tsx` shows how to create a floating ribbon bar. 
 When adding to the `portal` location, the child element can use 
@@ -161,7 +168,10 @@ and place them along any of its borders.
 > Note: Since these `portal` panels will cover part of the `center` panel
 > you should provide the user a way to close them.
 
-# Resolving relative resources
+> Note: Use the `es-ribbon` API if you want a fully functioning ribbon bar.
+> * See [Extensible Ribbon](Extensible-Ribbon.md)
+
+# Resolving Relative Resources
 
 If you chose to not use an `iframe` for your extension panel, 
 then you must be aware that resources you load with relative URLs 
@@ -188,7 +198,7 @@ A docker compose environment that starts the ES `/ui/` example.
 This is primarily for developing the `extension-scaffold`.
 `es-home` is running at `http://localhost/ui`.
 
-See [es-compose/README.md](es-compose/README.md) for more information.
+* See [es-compose/README.md](es-compose/README.md) for more information.
 
 ## `es-runtime`
 
@@ -208,16 +218,35 @@ The examples show how to use different frameworks/bundlers to create an extensio
 
 # Developing without Publishing `es-runtime`
 
-You can use these steps to build `es-runtime` and see those changes
-after refreshing `eshome`.
+## Option One - Install Rush
 
 ```bash
-cd `es-home`
-npm i file:../es-runtime`
-cd ../es-runtime
-npm i
-npm run build
+$ npm i -g @microsoft/rush
+$ rush update
 ```
+
+At this point the docker containers have the dependencies to run the develop servers.
+If you want to verify everything builds from end to end use:
+
+```
+$ rush build
+```
+
+## Option Two - `node common/scripts/install-run-rush.js`
+
+This option is designed to support CI/CD builds.
+
+```bash
+$ node common/scripts/install-run-rush.js update
+$ node common/scripts/install-run-rush.js build
+```
+
+Finally once `rush update` completes successfully,
+you can locally build just `es-runtime` if you like using:
+
+`cd es-runtime; npm run build`
+
+> Node: `rush build` works too as it makes sure everything builds.
 
 Refresh in the browser to see changes in `es-runtime`
 
@@ -350,9 +379,9 @@ Finally to run test type : npm test
 
 # Building with Rush
 
-[Building with Rush](documentation/Building-with-Rush.md)
-- Rush is a monorepo tool like Learna or Nx.
+Rush is a monorepo tool like Learna or Nx.
+* See [Building with Rush](documentation/Building-with-Rush.md)
 
 # Releasing a New Version
 
-[See `es-runtime` README.md](es-runtime/README.md)
+* See [`es-runtime/README.md`](es-runtime/README.md)

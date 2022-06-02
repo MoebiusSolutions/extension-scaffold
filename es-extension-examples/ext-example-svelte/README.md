@@ -15,7 +15,7 @@ Install the dependencies...
 
 ```bash
 cd ext-example-svelte
-npm install
+rush update
 ```
 
 ...then start [Rollup](https://rollupjs.org):

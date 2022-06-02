@@ -10,6 +10,14 @@ will "compile" against the `es-runtime` library.
 $ npm install -g @microsoft/rush
 ```
 
+## Choose Your NPM Private Registry
+
+Default is for `rush update` to install against DI2E.
+
+Copy `common/config/rush/variants/dot-npmrc-{csa,di2e,moelab}`
+to `common/config/rush/.npmrc`
+in order to switch private NPM registries.
+
 ## Export NPM_AUTH_TOKEN
 
 Since `rush` uses `common/config/rush/.npmrc`, and that file is commited

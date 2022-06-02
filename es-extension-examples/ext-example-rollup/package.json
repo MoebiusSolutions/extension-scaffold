@@ -1,5 +1,6 @@
 {
     "name": "@gots/extension-example-rollup",
+    "version": "2.12.0-SNAPSHOT",
     "dependencies": {
         "react": "^17.0.2",
         "react-dom": "^17.0.2"
@@ -11,7 +12,7 @@
         "container": "npm run maybe-install && DO_SERVE=true rollup --config --watch"
     },
     "devDependencies": {
-        "@gots/es-runtime": "^2.11.0",
+        "@gots/es-runtime": "workspace:*",
         "@rollup/plugin-commonjs": "^18.0.0",
         "@rollup/plugin-node-resolve": "^11.2.1",
         "@rollup/plugin-replace": "^2.4.2",

@@ -1,5 +1,6 @@
 {
   "name": "@gots/ext-example-snowpack",
+  "version": "2.12.0-SNAPSHOT",
   "private": true,
   "scripts": {
     "start": "snowpack dev",
@@ -20,7 +21,7 @@
     "react-sparklines": "^1.7.0"
   },
   "devDependencies": {
-    "@gots/es-runtime": "^2.11.0",
+    "@gots/es-runtime": "workspace:*",
     "@snowpack/plugin-dotenv": "~2.2.0",
     "@snowpack/plugin-react-refresh": "~2.5.0",
     "@snowpack/plugin-typescript": "^1.2.1",

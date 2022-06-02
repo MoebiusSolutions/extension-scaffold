@@ -1,7 +1,7 @@
 import { LocationStack } from '../models/LocationStack'
 import {
     ExtensionIds, Location, AddPanelOptions,
-    Panels, OrigSize, LOCATIONS
+    Panels, OrigSize, LOCATIONS, InitialWidthOrHeight
 } from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
@@ -34,6 +34,8 @@ function getDivSize(div: HTMLElement | null): OrigSize {
     })
     return origSize
 }
+
+const isDialog = (location: Location) => location === 'modal' || location === 'modeless'
 
 interface BeforeAddPanelEvent {
     options: AddPanelOptions
@@ -86,7 +88,9 @@ export class PanelsImpl implements Panels {
         if (event.response) {
             options = event.response
         }
-        hidePanelsWithLocation(options.location)
+        if (!isDialog(options.location)) {
+            hidePanelsWithLocation(options.location)
+        }
 
         const { outerPanel, shadowDiv, extPanel } = this.addShadowDomPanel(gridContainer, options)
         outerPanel.style.display = DISPLAY_FLEX
@@ -113,8 +117,9 @@ export class PanelsImpl implements Panels {
             extPanel.style.width = '100%'
             extPanel.style.height = '100%'
         }
-
+        
         this.locationStack.pushLocation(options.location, options)
+        this.updateModalPane()
         this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
@@ -131,7 +136,9 @@ export class PanelsImpl implements Panels {
         return withPanel(id, (parent, div) => {
             const wasHidden = !isActive(div)
             const location = locationFromDiv(parent)
-            hidePanelsWithLocation(location)
+            if (!isDialog(location)) {
+                hidePanelsWithLocation(location)
+            }
             switch (location) {
                 case 'left':
                 case 'right':
@@ -139,10 +146,13 @@ export class PanelsImpl implements Panels {
                 case 'top-bar':
                 case 'bottom':
                 case 'bottom-bar':
+                case 'modal':
+                case 'modeless':
                     parent.style.display = DISPLAY_FLEX
                     parent.classList.remove('hidden')
                     setActive(div)
                     showPanelsWithLocation(`above-${location}`)
+                    this.updateModalPane()
                     this.updateBars(location)
                     break
 
@@ -157,7 +167,7 @@ export class PanelsImpl implements Panels {
 
     hidePanel(id: string, pushToHistory: boolean = true) {
         if (this.isPanelPoppedOut(id)) {
-            this.popInPanel(id)
+            this.popInPanel(id, false)
         }
 
         return withPanel(id, (parent, div) => {
@@ -171,8 +181,14 @@ export class PanelsImpl implements Panels {
                 case 'bottom-bar':
                     this.closeLocation(location)
                     hidePanelsWithLocation(`above-${location}`)
+                    this.updateModalPane()
                     this.updateBars(location)
                     break
+                case 'modal':
+                case 'modeless':
+                    parent.classList.add('hidden')
+                    parent.classList.remove('grid-expanded')
+                    break;
 
                 case 'center':
                     div.style.display = 'none'
@@ -201,25 +217,25 @@ export class PanelsImpl implements Panels {
         return result
     }
 
-    togglePanel(id: string) {
+    togglePanel(id: string, pushToHistory: boolean = true) {
         if (this.isPanelPoppedOut(id)) {
-            this.popInPanel(id)
+            this.popInPanel(id, pushToHistory)
             return true
         }
 
         if (document.querySelectorAll('.grid-maximized').length > 0) {
-            return this.showPanel(id)
+            return this.showPanel(id, pushToHistory)
         }
 
         return withPanel(id, (parent, div) => {
             if (!parent.classList.contains('hidden') && isActive(div)) {
-                this.hidePanel(id)
+                this.hidePanel(id, pushToHistory)
             } else {
                 const orig = getDivSize(parent)
                 if (['left', 'right', 'top', 'top-bar', 'bottom', 'bottom-bar'].findIndex(l => orig.location === l) >= 0) {
                     parent.style.setProperty('--size', orig.size)
                 }
-                this.showPanel(id)
+                this.showPanel(id, pushToHistory)
             }
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
@@ -231,6 +247,7 @@ export class PanelsImpl implements Panels {
             parent.classList.add('grid-maximized')
             this.updateBars('left')
             this.updateBars('right')
+            div.style.width = 'initial';
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
@@ -256,7 +273,10 @@ export class PanelsImpl implements Panels {
     }
 
     removePanel(id: string): boolean {
-        this.restorePanel(id)
+        if (this.isPanelPoppedOut(id)) {
+            this.popInPanel(id, false)
+        }
+        this.restorePanel(id, false)
 
         return withPanel(id, (parent, div) => {
             const location = locationFromDiv(parent)
@@ -271,17 +291,23 @@ export class PanelsImpl implements Panels {
             }
 
             div.remove()
+            if (location === 'modal' || location === 'modeless') {
+                parent.remove()
+            }
             const nextId = this.locationStack.popLocation(location, id)
 
             const nextDiv = document.getElementById(nextId)
-            if (!nextDiv) {
+            if (!nextDiv || isDialog(location)) {
                 // stack is empty
+                this.updateModalPane()
                 this.updateBars(location)
                 this.removeResizeHandle(location)
                 return
             }
             extensionScaffold.chrome.panels.showPanel(nextId)
+            this.updateModalPane()
             this.updateBars(location)
+
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
@@ -311,14 +337,14 @@ export class PanelsImpl implements Panels {
         })
     }
 
-    popInPanel(id: string) {
+    popInPanel(id: string, pushToHistory: boolean = true) {
         const externalWindow = this.externalWindows.get(id)
         if (!externalWindow) {
             console.log('No window found')
             return false
         }
         externalWindow.close()
-        extensionScaffold.chrome.panels.showPanel(id)
+        extensionScaffold.chrome.panels.showPanel(id, pushToHistory)
         return true
     }
 
@@ -377,6 +403,20 @@ export class PanelsImpl implements Panels {
         }
     }
 
+    private updateModalPane() {
+        const md: HTMLDivElement | null = document.querySelector('#es-modal-pane')
+        if (!md) {
+            console.warn('Missing #es-modal-pane')
+            return
+        }
+        if (document.querySelectorAll('.grid-panel.modal:not(.hidden)').length !== 0) {
+            md.style.display = 'block'
+        } else {
+            md.style.display = 'none'
+            md.style.zIndex = '2' // above drag
+        }
+    }
+
     private updateBars(location: Location) {
         switch (location) {
             case 'left':
@@ -394,19 +434,36 @@ export class PanelsImpl implements Panels {
         }
     }
 
-    private styleWidthOrHeight(div: HTMLDivElement, location: string, initialWidthOrHeight?: string) {
+    private styleWidthOrHeight(
+        div: HTMLDivElement, shadowDiv: HTMLDivElement,
+        location: string, initialWidthOrHeight?: InitialWidthOrHeight
+    ) {
+        const size = (i: InitialWidthOrHeight | undefined, dimension: 'width' | 'height') => {
+            if (!i) {
+                return i
+            }
+            if (typeof i === 'string') {
+                return i
+            }
+            return i[dimension]
+        }
         switch (location) {
             case 'left':
             case 'right':
             case 'left-bar':
             case 'right-bar':
-                div.style.setProperty('--size', initialWidthOrHeight ?? '20em')
+                div.style.setProperty('--size', size(initialWidthOrHeight, 'width') ?? '30em')
                 break;
             case 'top':
             case 'top-bar':
             case 'bottom':
             case 'bottom-bar':
-                div.style.setProperty('--size', initialWidthOrHeight ?? '10em')
+                div.style.setProperty('--size', size(initialWidthOrHeight, 'height') ?? '10em')
+                break;
+            case 'modal':
+            case 'modeless':
+                shadowDiv.style.width = size(initialWidthOrHeight, 'width') ?? ''
+                shadowDiv.style.height = size(initialWidthOrHeight, 'height') ?? ''
                 break;
         }
     }
@@ -417,24 +474,30 @@ export class PanelsImpl implements Panels {
     } {
         options = defaultedOptions(options)
 
-        let r = gridContainer.querySelector(`.${options.location}`)
-        if (r) {
-            if (options.resizeHandle && r.querySelectorAll('.drag').length === 0) {
-                r.appendChild(this.makeResizeHandle(options))
-            }
-            return {
-                outerPanel: r as HTMLDivElement,
-                created: false
+        // Always create new outer panel for modal and modeless
+        if (options.location !== 'modal' && options.location !== 'modeless') {
+            const r = gridContainer.querySelector(`.${options.location}`)
+            if (r) {
+                if (options.resizeHandle && r.querySelectorAll('.drag').length === 0) {
+                    r.appendChild(this.makeResizeHandle(options))
+                }
+                return {
+                    outerPanel: r as HTMLDivElement,
+                    created: false
+                }
             }
         }
 
-        r = document.createElement('div')
+        const r = document.createElement('div')
         if (options.resizeHandle) {
             r.appendChild(this.makeResizeHandle(options))
         }
         if (options.location !== 'bottom' && options.location !== 'bottom-bar') {
             // tabs bring their own es-panel-header
-            if (options.popOutButton || options.hideButton) {
+            if (options.popOutButton || options.hideButton || 
+                options.location === 'modal' ||
+                options.location === 'modeless'
+            ) {
                 r.appendChild(this.makePanelHeaderBar(options))
             }
         }
@@ -479,7 +542,7 @@ export class PanelsImpl implements Panels {
         shadowDiv.className = options.location.startsWith('portal') ? 'shadow-portal' : 'shadow-div'
 
         if (created) {
-            this.styleWidthOrHeight(outerPanel, options.location, options.initialWidthOrHeight)
+            this.styleWidthOrHeight(outerPanel, shadowDiv, options.location, options.initialWidthOrHeight)
         }
 
         return {
