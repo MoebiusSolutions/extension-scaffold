@@ -18,6 +18,9 @@
 #
 #   //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
 #
+
+#
+# OSA Artifactory
 @gots:registry=https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/
 @mtc2:registry=https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/
 //services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/:_authToken=${NPM_AUTH_TOKEN}
