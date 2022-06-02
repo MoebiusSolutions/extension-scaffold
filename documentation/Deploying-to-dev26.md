@@ -53,6 +53,8 @@ $ git push di2e -u upgrade-es-to-{version}
 
 ## Deploy
 
+### Using Ansible
+
 ```
 $ ssh basebox.dev26.niera
 $ cd wk/dfntc
@@ -63,4 +65,13 @@ $ git switch upgrade-es-to-{version}
 Finally deploy using `ansible`. 
 See [2022-03-23_Deploying-Extension-Scaffold-Deployment-to-dev26-via-Ansible.md](https://gitlab.moesol.com/dfntc/minerva-moesol-wiki/-/blob/master/2022-03-23_Deploying-Extension-Scaffold-Deployment-to-dev26-via-Ansible.md)
 
+### Using `vi`
+
 Or, just edit `cjmtk3.dev26.niera:/opt/extension-scaffold/docker-compose.yml` and set the versions to `{version}`.
+Then,
+
+```
+$ sudo cd /opt/extension-scaffold
+$ docker-compose down
+$ docker-compose up -d
+```
