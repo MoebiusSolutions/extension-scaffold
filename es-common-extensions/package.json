@@ -1,6 +1,6 @@
 {
   "name": "@gots/es-common-extensions",
-  "version": "2.12.0-SNAPSHOT",
+  "version": "2.12.0",
   "private": true,
   "scripts": {
     "start": "snowpack dev",
