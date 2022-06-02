@@ -35,3 +35,10 @@ $ ./es-common-extensions/deploy/tag-images.sh {version}
 $ ./es-home/deploy/push-images.sh {version}
 $ ./es-common-extensions/deploy/push-images.sh {version}
 ```
+
+## Update Image Tags in `dfntc-ansible`
+
+In file `dfntc-ansible/roles/dfntc/extension-scaffold/defaults/main.yml`
+
+* `extension_scaffold__home_version: {version}`
+* `es_common__version: {version}`
