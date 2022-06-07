@@ -5,7 +5,7 @@ BRANCH=$( grep version ../es-runtime/package.json |tr -d version:,\"\ )
 echo "current branch: ${BRANCH}"
 cd ${SCRIPT_DIR}/..
 git pull
-git clean -f -x -xd
+git clean -f -x -d
 rush update
 rush build
 cd ${SCRIPT_DIR}/../rpmbuild
