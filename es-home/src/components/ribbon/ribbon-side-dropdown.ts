@@ -4,7 +4,9 @@ export class EsRibbonSideDropdown extends Tonic {
   static hoistedStylesheet() { return /*css*/`
 
 es-ribbon-side-dropdown {
+  position: absolute;
   width: max-content;
+  left: 100%;
 }
 es-ribbon-side-dropdown svg {
   fill: var(--es-theme-text-secondary-on-background);
@@ -14,19 +16,23 @@ es-ribbon-side-dropdown svg {
   visibility: hidden;
   width: max-content;
   left: 0px;
+  top: 0px;
 
   background: var(--es-theme-surface);
   fill: var(--es-theme-text-secondary-on-background);
   color: var(--es-theme-text-secondary-on-background);
   box-shadow: 2px 2px 1px -1px rgba(0, 0, 0, 0.2), 2px 1px 1px 0px rgba(0, 0, 0, 0.14), 2px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
-es-ribbon-dropdown es-ribbon-row:hover {
-  background: var(--es-theme-text-secondary-on-background);
+.ribbon-side-dropdown-svg,
+.ribbon-side-dropdown .ribbon-dropdown-item {
+  background: #202020;
 }
-es-ribbon-side-dropdown  es-ribbon-dropdown-item {
-  background: var(--es-theme-surface);
-  fill: var(--es-theme-text-secondary-on-background);
-  color: var(--es-theme-text-secondary-on-background);
+.ribbon-side-dropdown .ribbon-dropdown-item:hover {
+  background: rgba(38, 38, 38, 0.65);
+}
+es-ribbon-dropdown es-ribbon-row:hover,
+es-ribbon-row:hover .ribbon-side-dropdown-svg {
+  background: var(--es-theme-text-secondary-on-background);
 }
 es-ribbon-dropdown es-ribbon-row:hover es-ribbon-side-dropdown  es-ribbon-dropdown-item {
   visibility: visible;
@@ -128,9 +134,11 @@ es-ribbon-dropdown es-ribbon-row:hover es-ribbon-side-dropdown  es-ribbon-dropdo
   }
   render() {
     return this.html/*html*/`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
-        <path d="M0 0h24v24H0z" fill="none"/><path d="M10 12l7,5 -7,5 z"/>
-      </svg>
+      <div tabindex="0" class="ribbon-side-dropdown-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+          <path d="M0 0h24v24H0z" fill="none"/><path d="M10 12l7,5 -7,5 z"/>
+        </svg>
+      </div>
       <div tabindex="0" class="ribbon-side-dropdown">
         <div class="elevation">
           ${this.children}
