@@ -385,3 +385,7 @@ Rush is a monorepo tool like Learna or Nx.
 # Releasing a New Version
 
 * See [`es-runtime/README.md`](es-runtime/README.md)
+
+# Deploying Release
+
+* See [Deploying to `dev26`](documentation/Deploying-to-dev26.md)
