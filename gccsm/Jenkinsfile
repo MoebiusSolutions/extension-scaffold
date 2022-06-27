@@ -34,6 +34,8 @@ pipeline {
     JBOSS_BASE_IMAGE= 'eap7.1-registry.access.redhat.com'
     PROJECT = "mtc2"
     DEV_BRANCH= 'develop'
+    BUILD_IMAGE='score/nodejs16:16.15.0'
+    HOME_VOLUME="-v ${WORKSPACE}/es-compose/home-node:/home/node"
   }
 
   stages {
@@ -41,7 +43,8 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          image "${BUILD_IMAGE}"
+          args "${HOME_VOLUME}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
@@ -86,17 +89,23 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          image "${BUILD_IMAGE}"
+          args "${HOME_VOLUME}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }
       }
       steps {
+        withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
+          echo "Installing dependencies"
+          sh 'cp .npmrc common/config/rush/.npmrc'
+          sh 'node common/scripts/install-run-rush.js install'
+          echo "Initiating npm build steps..."
+          sh 'node common/scripts/install-run-rush.js rebuild --verbose'
+        }
         dir("es-home") {
           withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
-            echo "Installing dependencies"
-            sh 'npm install'
-            echo "Initiating npm build steps..."
+            echo "Building war..."
             sh 'npm run war'
           }
         }
@@ -116,7 +125,8 @@ pipeline {
       agent {
         docker {
           reuseNode true
-          image '${DOCKER_REGISTRY}/mtc2-node:10.15.0-alpine-fixuid0.4'
+          image "${BUILD_IMAGE}"
+          args "${HOME_VOLUME}"
           registryCredentialsId "${DOCKER_REGISTRY_CREDENTIALS_ID}"
           registryUrl "${DOCKER_REGISTRY_URL}"
         }

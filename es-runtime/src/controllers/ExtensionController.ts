@@ -7,7 +7,7 @@ import {
 } from '../utils'
 
 import { PanelsImpl } from './PanelsImpl'
-import EventEmitter from 'events'
+import { EventEmitter } from 'events'
 import '../web-components/PanelHeaderBar'
 
 class NullRibbonBar implements RibbonBar {

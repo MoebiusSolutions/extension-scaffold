@@ -1,5 +1,94 @@
 ## Change Log
 
+# [2.12.0] - 2022-06-02
+
+### Added
+
+* Adds support for location: 'modal' | 'modeless'
+* Document 'modal' and 'modeless'
+
+### Changed
+
+* Skip `validateLocation` if panel `hidden`
+* Switched to using `rush` for Jenkins build.
+  * `develop` branch now requires `rush` to build.
+    This allows us to link to `@gots/es-runtime`
+* `nodejs 16.15.0` or `nodejs 14.19.0` is required by latest version of `rush`
+* Moved Login to NPM docs to `documentation` folder.
+### Removed
+
+# [2.11.0] - 2022-05-30
+
+### Added
+
+* Add missing types for events
+* Document how to clean node_modules
+* Upgrade typescript to 4.7.2
+
+### Changed
+
+* Fix build error due to bad conflict merge.
+* Fix extra center panel scrollbar.
+* tab/bar buttons no longer user selectable
+
+### Removed
+
+* Extra `npm install` call
+
+# [2.10.0] - 2022-05-23
+
+### Added
+
+* Hidden opt-router iframe as dependency for other widgets functionality
+* New dropdown menu in ribbon bar to toggle BGO panel on and off
+* `top-bar` resizable
+* Allow query parameter vs URL hash to get around KeyCloak auth not passing hash info
+* New event: `panel-popped-out` event with new external window as the passed event data
+
+### Changed
+
+* Fixes CTM theme support
+
+### Removed
+
+* Hard coded URLs in ampt.json
+* Hard coded bottom BGO panel
+
+# [2.9.0] - 2022-05-03
+
+### Added
+
+* Instructions for deploy docker image
+* USWDSS-6227 basic first draft integration with security api
+* USWDSS-6227 alert modal when login fails
+* Initial AMPT configuration file
+* Display tab items to the AMPT Planning tab
+* Classification banner based on user clearance
+
+### Changed
+
+* Fix production mode security helper variable (examples)
+
+# [2.8.0] - 2022-04-15
+
+### Added
+
+* Example of a dropdown with a text field in it.
+* Initial MIPA config/ribbon
+* Add script for building war file
+* Add GCCSM Jenkinsfile
+* Scripts to build es-common-extensions image.
+* Unified ribbon examples `apps.json`
+
+### Updated
+
+* Updated `es-runtime` release documentation
+* Theme select close on click is more consistent with user expectations.
+* Fix URL paths to match dev26 `/es/ui/` and `/es/common/...`
+* Ribbon icon padding for `DFNTC-15213`
+* Upgrade to `@gots/noowf-inter-widget-communication@2.6.0`
+* Updated CSS to have smaller left/right button bar
+
 # [2.7.1] - 2022-03-22
 
 * Fix `deploy` build issue.

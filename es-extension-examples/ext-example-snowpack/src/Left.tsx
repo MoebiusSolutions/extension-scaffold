@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
-import { addCenterPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
+import { addCenterPanel, addModalPanel, addModelessPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
 import { Amplify } from './Amplify'
 import { SampleModal } from './SampleModal'
 
@@ -30,6 +30,30 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
 
     function hideExampleContent() {
         const e = es.chrome.ribbonBar.hideRibbonTab('Example Content')
+    }
+
+    function handleModelessDialog() {
+        addModelessPanel(es, 'ext.example.snowpack.modeless')
+    }
+    function handleModalDialog() {
+        addModalPanel(es, 'ext.example.snowpack.modal')
+    }
+    function handleModelessDialog2() {
+        addModelessPanel(es, 'ext.example.snowpack.modeless.2')
+    }
+    function handleIframeModeless() {
+        es.chrome.panels.addPanel({
+            id: 'snowpack.iframe.modeless',
+            location: 'modeless',
+            iframeSource: '/foo/bar',
+            hideButton: true,
+            initialWidthOrHeight: {
+                width: '30em',
+                height: '40em'
+            }
+        }).catch(() => {
+            es.chrome.panels.showPanel('snowpack.iframe.modeless')
+        })
     }
 
     return <div style={{
@@ -65,6 +89,18 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         <Amplify es={es} />
 
         <SampleModal es={es} />
-        
+
+        <div>
+            <button onClick={handleModalDialog}>Modal Dialog</button>
+        </div>
+        <div>
+            <button onClick={handleModelessDialog}>Modeless Dialog</button>
+        </div>
+        <div>
+            <button onClick={handleModelessDialog2}>Second Modeless</button>
+        </div>
+        <div>
+            <button onClick={handleIframeModeless}>IFrame Modeless</button>
+        </div>
     </div>
 }

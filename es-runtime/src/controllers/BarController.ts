@@ -61,18 +61,22 @@ export class BarController {
         .es-bar-button {
             background: transparent;
             border: none;
+            user-select: none;
             color: var(--es-theme-text-secondary-on-background);
             cursor: pointer;
-            padding: 14px;
-            width: 58px;
+            padding-left: 6px;
+            padding-right: 6px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            min-width: 32px;
         }
         .es-bar-button:hover {
             background: rgba(0, 0, 0, 0.2);
         }
         .es-bar-button.active {
             color: var(--es-theme-text-primary-on-background);
-            border-left: 2px solid var(--es-theme-text-primary-on-background);
-            padding-left: 12px;
+            border-right: 2px solid var(--es-theme-text-primary-on-background);
+            padding-right: 4px;
         }
 
         .es-bar-button .use-fill {

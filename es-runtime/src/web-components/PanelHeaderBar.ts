@@ -4,6 +4,16 @@ import { defaultedOptions } from "../models/DefaultOptions";
 
 export class PanelHeaderBar extends HTMLElement {
     private _panelOptions? : AddPanelOptions
+    private _resizeObserver = new ResizeObserver(() => {
+        const panelDiv = this.parentElement
+        if (!panelDiv) {
+            return
+        }
+        this._resizeObserver.unobserve(this)
+
+        const rect = panelDiv.getBoundingClientRect()
+        this.untranslate(panelDiv, rect)
+    })
 
     constructor() {
         super()
@@ -16,6 +26,80 @@ export class PanelHeaderBar extends HTMLElement {
     // "light" DOM changes cannot occur in constructor
     connectedCallback() {
         this.render()
+    }
+    private registerForDialogEvents() {
+        const panelDiv = this.parentElement
+        if (!panelDiv) {
+            console.error('Unexpected missing parent')
+            return
+        }
+
+        this._resizeObserver.observe(this)
+
+        this.onpointerdown = (e: PointerEvent) => {
+            if (e.button !== 0 || e.target != this) {
+                return
+            }
+            this.raisePanel()
+
+            const rect = panelDiv.getBoundingClientRect()
+            this.untranslate(panelDiv, rect)
+
+            const startX = e.clientX
+            const startY = e.clientY
+            const maxRight = Math.max(0, window.innerWidth - rect.width)
+            const maxBottom = Math.max(0, window.innerHeight - rect.height)
+
+            this.onpointermove = (e: PointerEvent) => {
+                const newX = rect.x + (e.clientX - startX)
+                const newY = rect.y + (e.clientY - startY)
+
+                const left = newX < 0 ? 0 : newX > maxRight ? maxRight : newX
+                const top = newY < 0 ? 0 : newY > maxBottom ? maxBottom : newY
+
+                panelDiv.style.setProperty('--left', `${left}px`)
+                panelDiv.style.setProperty('--top', `${top}px`)
+            }
+            this.setPointerCapture(e.pointerId)
+        }
+        this.onpointerup = (e: PointerEvent) => {
+            this.onpointermove = null
+            this.releasePointerCapture(e.pointerId)
+        }
+    }
+    raisePanel() {
+        const panelDiv = this.parentElement
+        if (!panelDiv) {
+            return
+        }
+        const location = this._panelOptions?.location
+        if (location !== 'modal' && location !== 'modeless') {
+            return
+        }
+
+        let maxZ = 1
+        document.querySelectorAll('#es-modal-pane, .grid-panel.modal, .grid-panel.modeless').forEach(el => {
+            const div: HTMLDivElement = el as any
+            maxZ = Math.max(maxZ, div.style.zIndex ? Number(div.style.zIndex): 0)
+        })
+        if (location === 'modal') {
+            const md: HTMLDivElement | null = document.querySelector('#es-modal-pane')
+            if (md) {
+                md.style.zIndex = `${maxZ + 1}`
+                panelDiv.style.zIndex = `${maxZ + 2}`
+            }
+        } else {
+            panelDiv.style.zIndex = `${maxZ + 1}`
+        }
+    }
+    private untranslate(panelDiv: HTMLElement, rect: DOMRect) {
+        if (panelDiv.classList.contains('moved')) {
+            return
+        }
+        panelDiv.classList.add('moved')
+        panelDiv.style.transform === 'translate(0px, 0px)'
+        panelDiv.style.setProperty('--left', `${rect.x}px`)
+        panelDiv.style.setProperty('--top', `${rect.y}px`)
     }
     private render() {
         if (!this.isConnected) {
@@ -68,6 +152,11 @@ export class PanelHeaderBar extends HTMLElement {
         if (this._panelOptions?.removeButton) {
             this.addButton(closeIcon, 'Remove', 'remove', e => this.applyClick(e,
                 (panels, id) => panels.removePanel(id)))
+        }
+        this.raisePanel()
+
+        if (this._panelOptions?.location === 'modal' || this._panelOptions?.location === 'modeless') {
+            this.registerForDialogEvents()
         }
     }
 

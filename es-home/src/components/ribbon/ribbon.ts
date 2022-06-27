@@ -5,6 +5,7 @@ import { EsRibbonRow } from './ribbon-row';
 import { EsRibbonColumn } from './ribbon-column';
 import { EsRibbonButton } from './ribbon-button';
 import { EsRibbonDropdown } from './ribbon-dropdown';
+import { EsRibbonSideDropdown } from './ribbon-side-dropdown';
 import { EsRibbonButtonSmall } from './ribbon-button-small';
 import { EsRibbonButtonSplit } from './ribbon-button-split';
 import { EsRibbonDropdownItem } from './ribbon-dropdown-item';
@@ -54,6 +55,22 @@ export class EsRibbon extends Tonic {
 
   stylesheet() { return /*css*/`
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+ 
 .ribbon-head {
   display: flex;
   padding-left: 4px;
@@ -106,6 +123,7 @@ export class EsRibbon extends Tonic {
 .ribbon-body {
   display: none;
   grid-template-areas: 'ribbon';
+  overflow: auto;
 }
 .ribbon-body.open {
   display: grid;
@@ -150,6 +168,7 @@ ${EsRibbonButton.hoistedStylesheet()}
 ${EsRibbonButtonSmall.hoistedStylesheet()}
 ${EsRibbonButtonSplit.hoistedStylesheet()}
 ${EsRibbonDropdown.hoistedStylesheet()}
+${EsRibbonSideDropdown.hoistedStylesheet()}
 ${EsRibbonDropdownItem.hoistedStylesheet()}
 
   `}
@@ -276,7 +295,7 @@ ${EsRibbonDropdownItem.hoistedStylesheet()}
       if (r.hidden) {
         cls = `${cls} hidden`
       }
-      return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0">${r.tab}</div>`
+      return this.html`<div class="${cls}" data-idx="${String(idx)}" tabindex="0" title="${r.tab}">${r.tab}</div>`
     })
     const leftOfTabs = this.sectionsFor('left-of-tabs').map((r: RibbonArea) => {
       const sections = r.sections?.map(s => this.html`<div class="loading" id="${s}">...</div>`)
@@ -337,4 +356,5 @@ Tonic.add(EsRibbonButton)
 Tonic.add(EsRibbonButtonSmall)
 Tonic.add(EsRibbonButtonSplit)
 Tonic.add(EsRibbonDropdown)
+Tonic.add(EsRibbonSideDropdown)
 Tonic.add(EsRibbonDropdownItem)

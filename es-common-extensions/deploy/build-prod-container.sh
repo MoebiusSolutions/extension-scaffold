@@ -25,6 +25,6 @@ set -x
 export DOCKER_BUILDKIT=1
 ${SUDO} docker build -t extension-scaffold/es-common-extensions \
   "$SCRIPT_DIR/.." -f "$SCRIPT_DIR/Dockerfile" \
-  --label "minerva.git.describe=`git describe --tag`" \
+  --label "minerva.git.describe=`git describe --long --tag`" \
   --secret id=npmrc,src=${NPM_CONFIG_USERCONFIG} "$@"
 set +x

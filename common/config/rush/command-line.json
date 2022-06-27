@@ -11,6 +11,13 @@
    * "rush my-global-command --help".
    */
   "commands": [
+    {
+      "commandKind": "bulk",
+      "name": "build",
+      "allowWarningsInSuccessfulBuild": true,
+      "summary": "The normal build command",
+      "enableParallelism": true
+    }
     // {
     //   /**
     //    * (Required) Determines the type of custom command.

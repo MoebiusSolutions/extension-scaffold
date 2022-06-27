@@ -2,7 +2,7 @@
     "url": "/es/common/dist/classification-banner.js",
     "provides": [
         {
-            "title": "Metrics",
+            "title": "Classification Banner",
             "id": "es.common.classification.banner.header"
         }
     ]

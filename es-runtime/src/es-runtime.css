@@ -36,6 +36,8 @@ code {
   grid-column: left / right;
   grid-row: top / bottom;
   z-index: 2; /* above drag handle */
+  top: initial;
+  left: initial;
 }
 
 .grid-panel.grid-expanded {
@@ -92,11 +94,12 @@ code {
   width: 4px;
   cursor: ew-resize;
 }
+
 .drag-for-left:hover, .drag-for-right:hover, .drag-for-top:hover, .drag-for-bottom:hover, .drag-for-bottom-bar:hover {
   background: rgb(25 112 179);
 }
 
-.drag-for-top {
+.drag-for-top, .drag-for-top-bar {
   display: block;
   position: absolute;
   bottom: 0px;
@@ -113,6 +116,18 @@ code {
   right: 0px;
   height: 4px;
   cursor: ns-resize
+}
+.grid-panel.modal:not(.grid-maximized)    .drag.drag-for-modal    ~ .shadow-div,
+.grid-panel.modeless:not(.grid-maximized) .drag.drag-for-modeless ~ .shadow-div {
+  resize: both;
+}
+.grid-expanded .drag.drag-for-top-bar,
+.grid-expanded .drag.drag-for-top,
+.grid-expanded .drag.drag-for-left,
+.grid-expanded .drag.drag-for-right,
+.grid-expanded .drag.drag-for-bottom,
+.grid-expanded .drag.drag-for-bottom-bar {
+  display: none;
 }
 
 .hidden .panel-header-bar {
@@ -241,6 +256,7 @@ code {
 
 .grid-panel.top-bar {
   grid-area: top-bar;
+  height: var(--size, initial);
   background: rgba(255, 255, 255, 0.03);
 }
 .grid-panel.top-bar .shadow-div {
@@ -314,11 +330,13 @@ code {
   display: none;
 }
 
-.grid-panel.top.hidden {
+.grid-panel.top.hidden,
+.grid-panel.top-bar.hidden {
   max-height: 4px;
 }
 
-.grid-panel.top.hidden > .shadow-div {
+.grid-panel.top.hidden > .shadow-div,
+.grid-panel.top-bar.hidden > .shadow-div {
   display: none;
 }
 
@@ -352,6 +370,32 @@ code {
   transform: rotate(-90deg);
 }
 
+.grid-panel.modal:not(.grid-maximized),
+.grid-panel.modeless:not(.grid-maximized) {
+  position: fixed;
+  top: var(--top, 50%);
+  left: var(--left, 50%);
+  padding: 4px;
+  transform: translate(-50%, -50%);
+}
+.grid-panel.modal.moved:not(.grid-maximized),
+.grid-panel.modeless.moved:not(.grid-maximized) {
+  transform: translate(0px, 0px);
+}
+.grid-panel.modal:not(.grid-maximized)    > .shadow-div ,
+.grid-panel.modeless:not(.grid-maximized) > .shadow-div {
+  min-width: 100px;
+  min-height: 50px;
+}
+.grid-panel.modal.hidden,
+.grid-panel.modeless.hidden {
+  visibility: hidden;
+}
+.grid-panel.modeless.hidden > .shadow-div,
+.grid-panel.modal.hidden > .shadow-div {
+  display: none;
+}
+
 /* Tab Bar section */
 
 .es-tab-bar {
@@ -363,11 +407,12 @@ code {
 .es-tab-bar-button {
   background: transparent;
   border: none;
-  color: var(--es-theme-text-secondary-on-background);
+  user-select: none;
   cursor: pointer;
   margin-left: 0px;
   margin-right: 0px;
   padding: 6px;
+  color: var(--es-theme-text-secondary-on-background);
   fill: var(--es-theme-text-secondary-on-background);
 }
 .es-tab-bar-button:hover {

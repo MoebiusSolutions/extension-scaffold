@@ -3,6 +3,7 @@
     "title": "GCCS-M(1)",
     "extensions": [
       "/track-services-interface/tsi-extension/dist/index.js",
+      "/alert-service-interface/es-extension/dist/index.js",
       "/webmap/map-extension/dist/index.js",
       "/ui/common/dist/theme-extension.js",
       "/ui/common/dist/debug-metrics.js",
@@ -20,6 +21,17 @@
         "location": "bottom-bar",
         "hidden": true,
         "iframeSource": "/track-services-interface/"
+      },
+      {
+        "id": "gccs-m.alert-service-interface",
+        "hidden": true,
+        "iframeSource": "/alert-service-interface/"
+      },
+      {
+        "id": "gccs-m.es-for-ctm",
+        "location": "bottom-bar",
+        "hidden": true,
+        "iframeSource": "/otm-console/controllers/ES"
       }
     ]
   }

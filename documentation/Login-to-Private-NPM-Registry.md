@@ -16,3 +16,23 @@ See below.
 ## Moebius Nexus
 
 `npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots`
+
+## Export `NPM_AUTH_TOKEN`
+
+```bash
+$ grep _authToken ~/.npmrc
+$ export NPM_AUTH_TOKEN={value you copied from grep}
+```
+
+> Note: `grep` should return something like this:
+```
+//nexus.moesol.com/repository/gccsje-npm-hosted/:_authToken=blah-blah-some-token-here
+```
+
+Thus, your export would look like this:
+
+```
+$ export NPM_AUTH_TOKEN=blah-blah-some-token-here
+```
+
+> Note: Becareful to **not** leak this token value to the `git` repository.

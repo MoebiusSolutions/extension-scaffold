@@ -18,6 +18,6 @@
   display: none;
   position: absolute;
   inset: 0px;
-  z-index: 1;
-  background: rgba(0,0,0,0.15);
+  z-index: 2; /* above drag-handles */
+  background: rgba(0,0,0,0.30);
 }

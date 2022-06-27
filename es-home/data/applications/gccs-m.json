@@ -12,6 +12,7 @@
       "location": "right-of-tabs",
       "sections": [
         "tsi.user.count",
+        "alerts.bell-interface",
         "webmap.shared.search"
       ]
     },
@@ -20,7 +21,6 @@
       "sections": [
         "webmap.settings",
         "webmap.filters",
-        "webmap.halo",
         "webmap.non.track.labels"
       ]
     },
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "tab": "Track",
+      "tab": "Tracks",
       "sections": [
         "tracks.manage",
         "tracks.display",
@@ -66,6 +66,7 @@
   ],
   "extensions": [
     "/track-services-interface/tsi-extension/dist/index.js",
+    "/alert-service-interface/es-extension/dist/index.js",
     "/webmap/map-extension/dist/index.js",
     "/ui/common/dist/theme-extension.js",
     "/ui/common/dist/debug-metrics.js",
@@ -83,6 +84,12 @@
       "location": "bottom-bar",
       "hidden": true,
       "iframeSource": "/track-services-interface/"
+    },
+    {
+      "id": "gccs-m.es-for-ctm",
+      "location": "bottom-bar",
+      "hidden": true,
+      "iframeSource": "/otm-console/controllers/ES"
     }
   ]
 }

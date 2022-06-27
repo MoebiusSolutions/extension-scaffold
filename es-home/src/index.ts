@@ -47,14 +47,10 @@ async function applyHash() {
   const app = location.hash.replace('#', '').replace('..', '')
   console.log('app', app)
 
-  try {
-    const rsp = await fetch(`apps/${app}.json`)
-    const config = await rsp.json()
-  
-    await applyConfiguration(config, app);
-  } catch (err) {
-    alert(`Unable to load application configuration`)
-  }
+  const rsp = await fetch(`apps/${app}.json`)
+  const config = await rsp.json()
+
+  await applyConfiguration(config, app);
 }
 
 function getBlockedUrls(): Set<string> {
@@ -173,13 +169,22 @@ export async function applyConfiguration(config: any, app: string) {
 
 async function loadAppConfig() {
   if (!location.hash) {
-    const hp = document.getElementById('es-home-page')
-    if (hp) {
-      hp.style.display = 'block'
+    // if authenticating to keycloak (vs passing a KC token), keycloak will not 
+    // forward anything after "#".
+    // For dfmotf; desire is to skip the scaffold lspash screen when using 
+    // the site proxy and instead default to dfmotf-tracks.json
+    let appPage = new URLSearchParams(window.location.search).get('app');
+    if (appPage != null) {
+      location.hash = appPage;
     } else {
-      console.error('Could not find #es-home-page')
+      const hp = document.getElementById('es-home-page')
+      if (hp) {
+        hp.style.display = 'block'
+      } else {
+        console.error('Could not find #es-home-page')
+      }
+      return
     }
-    return
   }
 
   const itemName = 'es-kbar-load-application'
@@ -222,5 +227,5 @@ Tonic.add(EsHomePage)
 try {
   loadAppConfig()
 } catch (e) {
-  console.error(e)
+  alert(`Unable to load application configuration`)
 }

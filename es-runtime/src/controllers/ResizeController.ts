@@ -27,6 +27,11 @@ function applyLeft(rd: ResizeData, e: PointerEvent) {
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
     rd.panelDiv.style.setProperty('--size', `${newWidth}px`)
     updateHidden(newWidth, dx, rd.panelDiv, rd.extensionDiv)
+    if (newWidth === w / 2 - 100) {
+        rd.panelDiv.classList.add('grid-expanded')
+    } else {
+        rd.panelDiv.classList.remove('grid-expanded')
+    }
 }
 
 function applyRight(rd: ResizeData, e: PointerEvent) {
@@ -36,6 +41,11 @@ function applyRight(rd: ResizeData, e: PointerEvent) {
     const newWidth = Math.min(Math.max(100, width), w / 2 - 100)
     rd.panelDiv.style.setProperty('--size', `${newWidth}px`)
     updateHidden(newWidth, dx, rd.panelDiv, rd.extensionDiv)
+    if (newWidth === w / 2 - 100) {
+        rd.panelDiv.classList.add('grid-expanded')
+    } else {
+        rd.panelDiv.classList.remove('grid-expanded')
+    }
 }
 
 function applyTop(rd: ResizeData, e: PointerEvent) {
@@ -67,6 +77,7 @@ export function getApplyFunction(location: Location) {
         case 'left': return applyLeft
         case 'right': return applyRight
         case 'top': return applyTop
+        case 'top-bar': return applyTop
         case 'bottom': return applyBottom
         case 'bottom-bar': return applyBottom
     }
@@ -78,7 +89,7 @@ function savePanelDivSize(div: HTMLElement | null) {
     const size = div.style.getPropertyValue('--size')
     if (!size) { return }
     
-    const resizable = [ 'left', 'right', 'top', 'bottom', 'bottom-bar' ]
+    const resizable = [ 'left', 'right', 'top', 'top-bar', 'bottom', 'bottom-bar' ]
     resizable.filter(l => div.classList.contains(l)).forEach(l => {
         toStorage(`${l}-panel-size`, size)
     })
@@ -89,6 +100,9 @@ export function beginResize(
     e: PointerEvent,
     applyFunction: (rd: ResizeData, e: PointerEvent) => void) 
 {
+    if (e.button !== 0) {
+        return
+    }
     const panelDiv = dragDiv.parentElement
     if (!panelDiv) {
         return

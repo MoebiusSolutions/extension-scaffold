@@ -10,7 +10,10 @@ import { claimStyleFromHeadElement } from './lib/claimStyleFromHeadElement';
 import { Bottom } from './Bottom';
 import { doClaimRibbon } from './ribbon-panels';
 import { addLeftWithCounter } from './LeftWithCounter';
+import { addLeftSecurityExample } from './LeftSecurityExample';
 import { initialize } from '@gots/noowf-inter-widget-communication';
+import { MyModeless } from './MyModeless';
+import { MyModal } from './MyModal';
 
 /**
  * Reduces React broiler plate code for adding an extension panel.
@@ -103,6 +106,41 @@ export function addCenterPanel(scaffold: ExtensionScaffoldApi) {
   }).then(onPanelAdded).catch(console.error)
 }
 
+export function addModelessPanel(scaffold: ExtensionScaffoldApi, esId: string) {
+  function onPanelAdded(div: HTMLDivElement) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <MyModeless es={scaffold} esId={esId} />
+      </React.StrictMode>,
+      div
+    );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
+  }
+  scaffold.chrome.panels.addPanel({
+    id: esId,
+    location: 'modeless',
+    resizeHandle: false,
+  }).then(onPanelAdded).catch(() => {
+    scaffold.chrome.panels.showPanel(esId)
+  })
+}
+
+export function addModalPanel(scaffold: ExtensionScaffoldApi, esId: string) {
+  function onPanelAdded(div: HTMLDivElement) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <MyModal es={scaffold} esId={esId}/>
+      </React.StrictMode>,
+      div
+    );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
+  }
+  scaffold.chrome.panels.addPanel({
+    id: esId,
+    location: 'modal'
+  }).then(onPanelAdded).catch(console.error)
+}
+
 async function doActivate(scaffold: ExtensionScaffoldApi) {
   doClaimRibbon(scaffold)
   // await doRibbon(scaffold)
@@ -113,6 +151,7 @@ async function doActivate(scaffold: ExtensionScaffoldApi) {
   await doBottom(scaffold)
   await doLeft(scaffold)
   await addLeftWithCounter(scaffold)
+  await addLeftSecurityExample(scaffold)
 }
 
 export let activatedAtUrl = ''

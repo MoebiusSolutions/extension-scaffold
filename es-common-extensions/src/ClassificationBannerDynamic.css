@@ -1,0 +1,52 @@
+#es.common.classification.dynamic.banner {
+    background-color: lightblue;
+}
+
+.classification-banner-unclass {
+    background: darkgreen;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
+.classification-banner-green {
+    background: darkgreen;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
+.classification-banner-secret {
+    background: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
+.classification-banner-ts {
+    background: yellow;
+    color: black;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
+.classification-banner-yellow {
+    background: yellow;
+    color: black;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
+.classification-banner-red {
+    background: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 12px;
+}
