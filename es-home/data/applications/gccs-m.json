@@ -25,14 +25,6 @@
       ]
     },
     {
-      "tab": "Draw",
-      "sections": [
-        "webmap.shapes",
-        "webmap.text",
-        "webmap.shape.controls"
-      ]
-    },
-    {
       "tab": "Tracks",
       "sections": [
         "tracks.manage",
