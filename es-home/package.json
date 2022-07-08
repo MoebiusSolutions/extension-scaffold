@@ -1,9 +1,9 @@
 {
   "name": "@gots/es-home",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "scripts": {
     "start": "snowpack dev --polyfill-node",
-    "build": "npm run resolve-applications && snowpack build --polyfill-node && npm run git-describe",
+    "build": "npm run resolve-applications  && npm run git-describe && snowpack build --polyfill-node",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",

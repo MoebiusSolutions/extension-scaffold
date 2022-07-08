@@ -94,6 +94,7 @@ code {
   width: 4px;
   cursor: ew-resize;
 }
+
 .drag-for-left:hover, .drag-for-right:hover, .drag-for-top:hover, .drag-for-bottom:hover, .drag-for-bottom-bar:hover {
   background: rgb(25 112 179);
 }
@@ -119,6 +120,14 @@ code {
 .grid-panel.modal:not(.grid-maximized)    .drag.drag-for-modal    ~ .shadow-div,
 .grid-panel.modeless:not(.grid-maximized) .drag.drag-for-modeless ~ .shadow-div {
   resize: both;
+}
+.grid-expanded .drag.drag-for-top-bar,
+.grid-expanded .drag.drag-for-top,
+.grid-expanded .drag.drag-for-left,
+.grid-expanded .drag.drag-for-right,
+.grid-expanded .drag.drag-for-bottom,
+.grid-expanded .drag.drag-for-bottom-bar {
+  display: none;
 }
 
 .hidden .panel-header-bar {

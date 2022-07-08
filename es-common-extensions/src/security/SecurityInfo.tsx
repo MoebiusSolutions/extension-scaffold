@@ -183,27 +183,14 @@ export const SecurityInfo: React.FC<{container: HTMLElement, scaffold: Extension
     setInfoModalOpen(true);
   }
 
-  const getUserMenu = () => {
-    const { userId } = principal;
-    const infoContent = getPrincipalContent();
-
-    return <es-ribbon-dropdown>
-      <es-ribbon-dropdown-item>
-      <label onClick={() => openInfoModal(infoContent)}>{userId}</label>
-      </es-ribbon-dropdown-item>
-      <es-ribbon-dropdown-item onClick={logout}>
-        <label>Logout</label>
-      </es-ribbon-dropdown-item>
-    </es-ribbon-dropdown>
-  }
+  const { userId } = principal;
+  const infoContent = getPrincipalContent();
 
   return <es-ribbon-section>
-    <div style={{ display: 'flex', alignItems: 'flex-end'}}>
-        <es-ribbon-button>
+    <label>{userId || "User Not Logged In"}</label>
+    <es-ribbon-button onClick={() => openInfoModal(infoContent)}>
           {getUserAvatar()}
-          {principal.userId && getUserMenu()}
-        </es-ribbon-button>
-    </div>
+    </es-ribbon-button>
   </es-ribbon-section>
   
 }

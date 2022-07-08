@@ -43,6 +43,7 @@
         "tracks.display",
         "tracks.database",
         "tracks.communications",
+        "intel.knowledgebase",
         "tracks.misc"
       ]
     },
@@ -89,6 +90,7 @@
   ],
   "extensions": [
     "/track-services-interface/tsi-extension/dist/index.js",
+    "/kb-es-extension/dist/index.js",
     "/es/common/dist/theme-extension.js",
     "/es/common/dist/debug-metrics.js",
     "/es/ui/dist/extensions/console-extension.js",

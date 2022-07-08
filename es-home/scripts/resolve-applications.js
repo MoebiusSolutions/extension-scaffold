@@ -13,6 +13,10 @@ const applications = []
 function readExtensions() {
     const directory = 'data/extensions'
     fs.readdirSync(directory).forEach(file => {
+	if (!/.json$/.test(file)) {
+	    console.info('skipping', file)
+	    return
+	}
         const full = path.resolve(directory, file)
         console.log(`Info: reading ${full}`)
         const bytes = fs.readFileSync(full)
@@ -30,6 +34,10 @@ function readExtensions() {
 function readApplications() {
     const directory = 'data/applications'
     fs.readdirSync(directory).forEach(file => {
+	if (!/.json$/.test(file)) {
+	    console.info('skipping', file)
+	    return
+	}
         const full = path.resolve(directory, file)
         console.log(`Info: reading ${full}`)
         const bytes = fs.readFileSync(full)
