@@ -1,5 +1,23 @@
 ## Change Log
 
+# [2.13.0] - 2022-07-07
+
+### Added
+
+* Document deploying to dev26.
+* updates to include kb and build using rush
+* In example configuration add support for gccs-m alerts
+* `<ribbon-side-dropdown>` - fixed arrow alignment, 
+  and changed the transparency to make it more readable
+* Skip non-.json files (like json.swp, etc.) when resolving applications
+* Added missing 's' to Track tab (now reads Tracks)
+
+### Changed
+
+* USWDSS-6677 remove user menu, show name/icon only
+* Fix version.json missing from public.
+* Hide drag bar when grid-expanded
+
 # [2.12.0] - 2022-06-02
 
 ### Added
