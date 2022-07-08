@@ -7,8 +7,15 @@
         "sections": [
           "AMPT.mapBasedPlanning",
           "AMPT.filters",
-          "AMPT.tools",
-          "AMPT.mapDisplaySettings"
+          "AMPT.tools"
+        ]
+      },
+      {
+        "tab": "AMPT View",
+        "sections": [
+          "AMPT.displaySettings",
+          "AMPT.displayFilters",
+          "AMPT.displayTools"
         ]
       }
     ],
@@ -20,10 +27,10 @@
     ],
     "iframes": [
       {
-        "id": "map.iframe",
-        "title": "Map",
+        "id": "aeolus",
+        "title": "Aeolus",
         "location": "center",
-        "iframeSource": "/webmap/",
+        "iframeSource": "/usw-dss-map?extensions=phoenix&iwc=broadcast", 
         "resizeHandle": true
       },
       {
