@@ -1,5 +1,11 @@
 ## Change Log
 
+# [2.14.2] - 2022-07-10
+
+### Changed
+
+* Fixed black line through expanded panel by removing box-shadow from portal
+
 # [2.14.1] - 2022-07-10
 
 ### Changed
