@@ -102,6 +102,7 @@ pipeline {
           sh 'node common/scripts/install-run-rush.js install'
           echo "Initiating npm build steps..."
           sh 'node common/scripts/install-run-rush.js rebuild --verbose'
+          sh 'cp gccsm/index.json es-home/public/apps/index.json'
         }
         dir("es-home") {
           withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
