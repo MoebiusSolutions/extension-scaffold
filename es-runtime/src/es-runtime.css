@@ -35,13 +35,13 @@ code {
 .grid-panel.specific.grid-maximized {
   grid-column: left / right;
   grid-row: top / bottom;
-  z-index: 3; /* above drag handle */
+  z-index: 2; /* above drag handle */
   top: initial;
   left: initial;
 }
 
 .grid-panel.grid-expanded {
-  z-index: 3; /* above drag handle */
+  z-index: 2; /* above drag handle */
 }
 .grid-panel.left.grid-expanded {
   grid-column: left / right-bar;
@@ -175,16 +175,18 @@ code {
 .grid-panel.portal {
   grid-column: 3 / 4;
   grid-row: 4 / 6;
-  z-index: 4; /* portal */
+  z-index: 3; /* portal */
   pointer-events: none;
   background: transparent;
+  box-shadow: none;
 }
 .grid-panel.portal-wide {
   grid-column: 1 / 6;
   grid-row: 4 / 6;
-  z-index: 4; /* portal */
+  z-index: 3; /* portal */
   pointer-events: none;
   background: transparent;
+  box-shadow: none;
 }
 
 .grid-panel.header {
