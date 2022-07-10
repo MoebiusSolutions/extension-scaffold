@@ -1,5 +1,11 @@
 ## Change Log
 
+# [2.14.1] - 2022-07-10
+
+### Changed
+
+* Fixed black line through expanded panel
+
 # [2.14.0] - 2022-07-09
 
 ### Added
