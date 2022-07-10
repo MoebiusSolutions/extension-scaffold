@@ -1,5 +1,16 @@
 ## Change Log
 
+# [2.14.0] - 2022-07-09
+
+### Added
+
+* Capture network activity using a service worker.
+* Hide drag bar when `grid-expanded`.
+
+### Removed
+
+* GCCS-M Draw tab to match webmap updates.
+
 # [2.13.0] - 2022-07-07
 
 ### Added
