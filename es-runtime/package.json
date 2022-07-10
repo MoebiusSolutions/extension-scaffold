@@ -1,6 +1,6 @@
 {
   "name": "@gots/es-runtime",
-  "version": "2.14.2",
+  "version": "2.15.0-SNAPSHOT",
   "module": "./build/es-api.js",
   "repository": {
     "type": "git",
