@@ -3,6 +3,7 @@ build/
 target/
 es-runtime/gots-es-runtime-*.tgz
 es-home/public/apps/
+es-home/public/debug-network-service-worker.js
 es-runtime/target/npmlist.json
 es-home/public/version.json
 .npm/

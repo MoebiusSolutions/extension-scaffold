@@ -17,6 +17,12 @@ module.exports = {
         ...(process.versions.pnp ? { tsc: 'yarn pnpify tsc' } : {}),
       },
     ],
+    [
+      '@snowpack/plugin-run-script',
+      {
+        cmd: 'tsc --project sw',
+      }
+    ],
   ],
   routes: [
     /* Enable an SPA Fallback in development: */

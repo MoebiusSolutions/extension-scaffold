@@ -88,6 +88,7 @@
             "tab": "Help",
             "sections": [
                 "debug.console",
+                "debug.network",
                 "debug.metrics",
                 "help.about.es-home"
             ]
@@ -123,7 +124,7 @@
         {
             "id": "example.webmap",
             "location": "center",
-            "iframeSource": "/webmap/"
+            "not_iframeSource": "/webmap/"
         },
         {
             "id": "es.example.iframe",

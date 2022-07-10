@@ -65,6 +65,7 @@ declare module '@optoolco/tonic' {
     get props(): any
     reRender(v?: any)
     click(e: MouseEvent)
+    change(e: InputEvent)
     blur(e: FocusEvent)
     static add(t: any)
   }
