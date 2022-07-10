@@ -17,13 +17,14 @@ export class EsDebugNetwork extends Tonic {
       left: 0px;
       right: 0px;
       overflow: auto;
+      display: flex;
+      flex-direction: column;
     }
     .console {
       background: var(--es-theme-surface);
       padding: 8px;
       overflow: auto;
-      resize: vertical;
-      max-height: -webkit-fill-available;
+      flex: 1;
     }
     .console pre {
       margin: 4px;
@@ -80,7 +81,7 @@ export class EsDebugNetwork extends Tonic {
         <fieldset class="field-flexbox">
           <div>
             <input type="checkbox" id="netdbg_enabled" ${networkEnabledChecked}>
-            <label for="netdbg_enabled">Debug network activity (requires refresh)</label>
+            <label for="netdbg_enabled">Debug network activity (requires browser refresh)</label>
           </div>
           <div>
             <label for="netdbg_activated">Debugging activated:</label>
