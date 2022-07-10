@@ -369,6 +369,7 @@ importers:
       '@optoolco/tonic': ^13.3.6
       '@snowpack/plugin-dotenv': ~2.2.0
       '@snowpack/plugin-react-refresh': ~2.5.0
+      '@snowpack/plugin-run-script': ^2.3.0
       '@snowpack/plugin-typescript': ^1.2.1
       '@snowpack/web-test-runner-plugin': ^0.2.0
       '@testing-library/react': ^11.2.7
@@ -390,6 +391,7 @@ importers:
       '@gots/es-runtime': link:../es-runtime
       '@gots/noowf-inter-widget-communication': 2.6.0
       '@optoolco/tonic': 13.3.6
+      '@snowpack/plugin-run-script': 2.3.0
       events: 3.3.0
       git-describe: 4.1.1
     devDependencies:
@@ -3624,6 +3626,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@snowpack/plugin-run-script/2.3.0:
+    resolution: {integrity: sha512-rIbD67uzTPkzemMFbw5seUm/hZFrToTSqN/SGGq5XaU45ftX2sCRzp0lqSH+lZYhC5QTSm5RxXW1HcuPOlbPXQ==}
+    dependencies:
+      execa: 5.1.1
+      npm-run-path: 4.0.1
+    dev: false
 
   /@snowpack/plugin-typescript/1.2.1_typescript@4.7.2:
     resolution: {integrity: sha512-wU+JNaMVkqGsqTaUY7TnEMhGt/3URTgA9dpMCtZX6wn/ceA7Gwlmue/sOLynf0OTNLygHPvjiQECQYkEi3LTtg==}
@@ -8375,7 +8384,6 @@ packages:
       onetime: 5.1.2
       signal-exit: 3.0.7
       strip-final-newline: 2.0.0
-    dev: true
 
   /exit/0.1.2:
     resolution: {integrity: sha512-Zk/eNKV2zbjpKzrsQ+n1G6poVbErQxJ0LBOJXaKZ1EViLzH+hrLu9cdXI4zw9dBQJslwBEpbQ2P1oS7nDxs6jQ==}
@@ -9084,7 +9092,6 @@ packages:
   /get-stream/6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
-    dev: true
 
   /get-symbol-description/1.0.0:
     resolution: {integrity: sha512-2EmdH1YvIQiZpltCNgkuiUnyukzxM/R6NDJX31Ke3BG1Nq5b0S2PhX59UKi9vZpPDQVdqn+1IcaAwnzTT5vCjw==}
@@ -9739,7 +9746,6 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-    dev: true
 
   /humanize-ms/1.2.1:
     resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}

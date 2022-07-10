@@ -1,86 +1,38 @@
 import Tonic from "@optoolco/tonic"
-import { EsDebugNetwork, NET_LOGS } from "./debug-network"
+import type { EsDebugNetwork } from "./debug-network"
 import { extensionScaffold } from '@gots/es-runtime/build/es-api'
-import { publishJson } from '@gots/noowf-inter-widget-communication';
 
 const DEBUG_NETWORK_DISPLAY = 'debug.network.display'
 
 export class EsDebugNetworkRibbonPanel extends Tonic {
-  private debugConsole: EsDebugNetwork | null = null
-  private wasOpen = false
 
   async doOpen() {
     const div = await extensionScaffold.chrome.panels.addPanel({
       id: DEBUG_NETWORK_DISPLAY,
-      location: 'portal-wide',
+      location: 'modeless',
+      initialWidthOrHeight: {
+        width: '80em',
+        height: '40em'
+      }
     })
-    const debugConsole = document.createElement('es-debug-network')
-    debugConsole.addEventListener('network-close', () => {
-      this.doClose()
-    })
-    div.appendChild(debugConsole as Node)
-    
-    this.debugConsole = debugConsole as any
+    const debugNetwork = document.createElement('es-debug-network')
+    div.appendChild(debugNetwork as Node)
   }
   doClose() {
     extensionScaffold.chrome.panels.removePanel(DEBUG_NETWORK_DISPLAY)
-    this.debugConsole = null
-  }
-  private doPublish(target: Element) {
-    const section = target.closest('es-ribbon-section')
-    const message: HTMLInputElement = section?.querySelector('[name="message"]') as any
-    publishJson('es.ping.topic', {
-      message: message?.value
-    })
   }
 
-  pointerdown(e: PointerEvent) {
-    this.wasOpen = this.debugConsole !== null
-  }
   click(e: MouseEvent) {
     if (e.target instanceof Element) {
       const target = e.target
       if (e.target.closest('es-ribbon-button[label="Activity"]')) {
-        if (!this.wasOpen) {
-          this.doOpen()
-        }
+        this.doOpen()
       } else if (e.target.closest('[data-name="Clear"]')) {
-        NET_LOGS.records = []
-        this.logPush('log', ['Console cleared.'])
-      } else if (e.target.closest('[data-name="Publish"]')) {
-        this.doPublish(target)
+        // TODO
       }
     }
-  }
-  logPush(level: string, args: any[]) {
   }
   connected() {
-    try {
-      const levels = ['debug', 'info', 'log', 'warn', 'error']
-      const self = this
-      levels.forEach(level => {
-        const origFn: any = console[level as keyof Console]
-        function newFn(...args: any) { 
-          origFn.apply(console, args)
-          self.logPush(level, args.map(toString))
-        }
-        console[level as keyof Console] = newFn as any
-      })
-      function toString(a: any) {
-        if (a instanceof Error) {
-          return a.stack ?? a
-        }
-        return a
-      }
-      window.addEventListener('error', (evt: ErrorEvent) => {
-        this.logPush('error', [toString(evt.error)])
-      })
-      window.addEventListener('unhandledrejection', (evt: PromiseRejectionEvent) => {
-        this.logPush('error', ['Unhandled promise rejection', toString(evt.reason)])
-      })
-    } catch (e) {
-      console.error('Failed to hook console functions')
-    }
   }
   styles() {
     return {

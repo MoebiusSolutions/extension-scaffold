@@ -4,5 +4,5 @@
         "lib": ["WebWorker", "ES2015"],
         "outDir": "../public",
     },
-    "files": ["service-worker.ts"]
+    "files": ["debug-network-service-worker.ts"]
 }

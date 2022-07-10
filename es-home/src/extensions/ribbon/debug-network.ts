@@ -1,49 +1,14 @@
 import Tonic from '@optoolco/tonic'
-
-interface NetworkActivity {
-  url: string
-  status: number
-}
-interface NetworkRecords {
-  records: NetworkActivity[]
-}
-export const NET_LOGS: NetworkRecords = {
-  records: [{
-    url: 'http://example.com/good',
-    status: 200
-  },
-  {
-    url: 'http://example.com/foo/bar',
-    status: 404
-  }]
-}
-export const MAX_LOGS = 100
+import { isNetworkDebugEnabled, storeNetworkDebugEnabled, wasActivated } from '../network-extension'
 
 export class EsDebugNetwork extends Tonic {
-  private consoleLines: Tonic | null = null
+  private networkLines: Tonic | null = null
 
   stylesheet() {
     return /*css*/`
-    .header {
-      background: var(--es-theme-surface);
-      position: absolute;
-      right: 8px;
-    }
-    .close {
-      background: rgba(255,255,255,0.03);
-      fill: var(--es-theme-text-secondary-on-background);
+    .field-flexbox {
       display: flex;
-      justify-content: end;
-      padding: 4px;
-      cursor: pointer;
-    }
-    .close:hover {
-      fill: var(--es-theme-text-primary-on-background);
-      background: rgba(0, 0, 0, 0.3);
-    }
-    .close svg {
-      width: 16px;
-      height: 16px;
+      justify-content: space-between;
     }
     .container {
       position: absolute;
@@ -89,35 +54,39 @@ export class EsDebugNetwork extends Tonic {
     }
     `
   }
-  click(e: MouseEvent) {
-    if (e.target instanceof Element) {
-      if (e.target.closest('.close')) {
-        const e = new CustomEvent('network-close')
-        this.dispatchEvent(e)
-      }
-    }
-  }
   connected() {
     const c: HTMLDivElement | null = this.querySelector('.console')
-    c?.addEventListener('blur', (evt: FocusEvent) => {
-      const e = new CustomEvent('network-close')
-      this.dispatchEvent(e)
-    })
     c?.focus()
 
-    this.consoleLines = this.querySelector('es-network-lines')
+    this.networkLines = this.querySelector('es-network-lines')
+
+    if (!('serviceWorker' in navigator)) {
+      return
+    }
+  }
+  change(evt: InputEvent) {
+    const tgt = evt.target instanceof HTMLInputElement ? evt.target : null
+    if (tgt?.id === 'netdbg_enabled') {
+      storeNetworkDebugEnabled(tgt?.checked)
+    }
   }
   renderLinesOnly() {
-    this.consoleLines?.reRender()
+    this.networkLines?.reRender()
   }
   render() {
+    const networkEnabledChecked = isNetworkDebugEnabled() ? 'checked' : ''
     return this.html/*html*/`
       <div class="container">
-        <div class="header">
-          <div class="close">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <fieldset class="field-flexbox">
+          <div>
+            <input type="checkbox" id="netdbg_enabled" ${networkEnabledChecked}>
+            <label for="netdbg_enabled">Debug network activity (requires refresh)</label>
           </div>
-        </div>
+          <div>
+            <label for="netdbg_activated">Debugging activated:</label>
+            <span class="activated" id="netdbg_activated">${wasActivated()? 'true' : 'false'}</span>
+          </div>
+        </fieldset>
         <div class="console" tabindex="0">
           <es-network-lines></es-network-lines>
         </div>

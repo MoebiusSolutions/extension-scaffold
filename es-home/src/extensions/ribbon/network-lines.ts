@@ -1,7 +1,13 @@
 import Tonic from '@optoolco/tonic'
-import { NET_LOGS } from './debug-network'
+import { REQS } from '../network-extension'
 
 export class EsNetworkLines extends Tonic {
+  connected() {
+    const reqChannel = new BroadcastChannel('extension-scaffold.network-debug')
+    reqChannel.onmessage = () => {
+      this.reRender()
+    }
+  }
   render() {
     const icons = {
       warn: this.html`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>`,
@@ -11,23 +17,8 @@ export class EsNetworkLines extends Tonic {
       log: this.html`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"></svg>`,
 
     }
-    const lines = NET_LOGS.records.map(r => {
-      // const i: keyof typeof icons = r.level as any
-      let status = 'log'
-      if (r.status >= 200) {
-        status = 'info'
-      }
-      if (r.status >= 300) {
-        status = 'debug'
-      }
-      if (r.status >= 400) {
-        status = 'warn'
-      }
-      if (r.status >= 500) {
-        status = 'error'
-      }
-      const i: keyof typeof icons = status as any
-      return this.html`<pre class="${status}">${icons[i]}${String(r.status)} ${r.url}</pre>`
+    const lines = REQS.map(r => {
+      return this.html`<pre class="green">${r.statusText} ${r.url}</pre>`
     })
 
     return this.html`${lines}`
