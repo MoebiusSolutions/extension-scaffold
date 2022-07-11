@@ -11,7 +11,7 @@
     "container": "npm run maybe-install && npm run resolve-applications && snowpack dev",
     "resolve-applications": "node ./scripts/resolve-applications.js",
     "git-describe": "node scripts/git-describe.js > public/version.json",
-    "gccsm-war": "npm run build && cp ../gccsm/index.json ./public/apps/index.json && gulp war",
+    "gccsm-war": "npm run build && cp ../gccsm/index.json ./build/apps/index.json && gulp war",
     "war": "npm run build && gulp war"
   },
   "dependencies": {

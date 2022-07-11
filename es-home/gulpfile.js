@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const war = require('gulp-war');
 const zip = require('gulp-zip');
-const merge = require('merge-stream');
 const version = require('./package.json').version;
 const name = 'es-home';
 
