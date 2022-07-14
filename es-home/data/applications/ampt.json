@@ -3,19 +3,11 @@
     "title": "AMPT",
     "ribbon": [
       {
-        "tab": "AMPT Planning",
+        "tab": "AMPT",
         "sections": [
           "AMPT.mapBasedPlanning",
           "AMPT.filters",
           "AMPT.tools"
-        ]
-      },
-      {
-        "tab": "AMPT View",
-        "sections": [
-          "AMPT.displaySettings",
-          "AMPT.displayFilters",
-          "AMPT.displayTools"
         ]
       }
     ],
@@ -27,10 +19,10 @@
     ],
     "iframes": [
       {
-        "id": "aeolus",
-        "title": "Aeolus",
+        "id": "webmap",
+        "title": "Webmap",
         "location": "center",
-        "iframeSource": "/usw-dss-map?extensions=phoenix&iwc=broadcast", 
+        "iframeSource": "/webmap/", 
         "resizeHandle": true
       },
       {
