@@ -3,7 +3,7 @@
   "version": "2.15.0-SNAPSHOT",
   "scripts": {
     "start": "snowpack dev --polyfill-node",
-    "build": "npm run resolve-applications  && npm run git-describe && snowpack build --polyfill-node",
+    "build": "npm run resolve-applications  && snowpack build --polyfill-node",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -15,7 +15,7 @@
     "war": "npm run build && gulp war"
   },
   "dependencies": {
-    "@gots/es-runtime": "workspace:*",
+    "@gots/es-runtime": "^2.14.2",
     "@gots/noowf-inter-widget-communication": "^2.6.0",
     "@optoolco/tonic": "^13.3.6",
     "@snowpack/plugin-run-script": "^2.3.0",
