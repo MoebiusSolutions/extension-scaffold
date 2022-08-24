@@ -6,6 +6,7 @@ es-home/public/apps/
 es-home/public/debug-network-service-worker.js
 es-runtime/target/npmlist.json
 es-home/public/version.json
+es-home/package-lock.json
 .npm/
 .cache/
 .config/
