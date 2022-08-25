@@ -2900,19 +2900,19 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
   /@gots/es-runtime/2.14.2:
-    resolution: {integrity: sha1-CT05sHzjC4HNOvRBzsFgydrU9uU=, tarball: https://artifacts.trmc.osd.mil:443/artifactory/api/npm/minerva-npm/@gots/es-runtime/es-runtime-2.14.2.tgz}
+    resolution: {integrity: sha1-CT05sHzjC4HNOvRBzsFgydrU9uU=, tarball: '@gots/es-runtime/es-runtime-2.14.2.tgz'}
     dependencies:
       events: 3.3.0
     dev: false
 
   /@gots/noowf-inter-widget-communication/2.6.0:
-    resolution: {integrity: sha1-KEuPkxxM5r6QQP4e9rGMNnUM0h4=, tarball: https://artifacts.trmc.osd.mil:443/artifactory/api/npm/minerva-npm/@gots/noowf-inter-widget-communication/noowf-inter-widget-communication-2.6.0.tgz}
+    resolution: {integrity: sha1-KEuPkxxM5r6QQP4e9rGMNnUM0h4=, tarball: '@gots/noowf-inter-widget-communication/noowf-inter-widget-communication-2.6.0.tgz'}
     dependencies:
       core-js: 3.25.0
     dev: false
 
   /@gots/noowf-widget-launch/2.5.0:
-    resolution: {integrity: sha1-TX1+3NBt53W59n6mcLEFXSt6BW0=, tarball: https://artifacts.trmc.osd.mil:443/artifactory/api/npm/minerva-npm/@gots/noowf-widget-launch/noowf-widget-launch-2.5.0.tgz}
+    resolution: {integrity: sha1-TX1+3NBt53W59n6mcLEFXSt6BW0=, tarball: '@gots/noowf-widget-launch/noowf-widget-launch-2.5.0.tgz'}
     dependencies:
       '@gots/es-runtime': 2.14.2
       core-js: 3.25.0
