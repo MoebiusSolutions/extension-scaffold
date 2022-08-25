@@ -41,6 +41,10 @@ rush update
 $ find . -type d -name node_modules | grep -v home-node | xargs rm -rf
 ```
 
+> Note: existing `common/config/rush/pnpm-lock.yaml` may cause `rush update` to fail.
+> Typically this happens if there are links to a private NPM repository that you no longer have access.
+> As a test, you can remove the file to force it to be regenerated.
+
 ## Build
 
 ```

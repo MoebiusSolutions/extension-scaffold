@@ -379,6 +379,9 @@ Finally to run test type : npm test
 
 # Building with Rush
 
+> NOTE: `npm install` is **not** supported because we use
+> dependency version  `workspace:*` to link dependencies within this repository.
+
 Rush is a monorepo tool like Learna or Nx.
 * See [Building with Rush](documentation/Building-with-Rush.md)
 
