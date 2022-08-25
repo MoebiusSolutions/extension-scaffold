@@ -293,12 +293,12 @@ importers:
       dotenv: 8.2.0
       dotenv-expand: 5.1.0
       eslint: 7.32.0
-      eslint-config-react-app: 6.0.0_xrxdu2hdbwhevkjud5rf6dqnru
+      eslint-config-react-app: 6.0.0_jtkcc2edysb7cgtj4kdzrwevru
       eslint-plugin-flowtype: 5.10.0_eslint@7.32.0
       eslint-plugin-import: 2.26.0_ffi3uiz42rv3jyhs6cr7p7qqry
       eslint-plugin-jest: 24.7.0_2o2mfvfmkh2covki2xlznlxf2u
       eslint-plugin-jsx-a11y: 6.6.1_eslint@7.32.0
-      eslint-plugin-react: 7.30.1_eslint@7.32.0
+      eslint-plugin-react: 7.31.0_eslint@7.32.0
       eslint-plugin-react-hooks: 4.6.0_eslint@7.32.0
       eslint-plugin-testing-library: 3.10.2_eslint@7.32.0
       eslint-webpack-plugin: 2.7.0_a7xmpkungfd35is2c4kqy55h3i
@@ -5362,7 +5362,7 @@ packages:
     hasBin: true
     dependencies:
       browserslist: 4.21.3
-      caniuse-lite: 1.0.30001382
+      caniuse-lite: 1.0.30001383
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       picocolors: 0.2.1
@@ -5928,8 +5928,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001382
-      electron-to-chromium: 1.4.228
+      caniuse-lite: 1.0.30001383
+      electron-to-chromium: 1.4.230
       escalade: 3.1.1
       node-releases: 1.1.77
     dev: false
@@ -5939,8 +5939,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001382
-      electron-to-chromium: 1.4.228
+      caniuse-lite: 1.0.30001383
+      electron-to-chromium: 1.4.230
       node-releases: 2.0.6
       update-browserslist-db: 1.0.5_browserslist@4.21.3
     dev: false
@@ -6176,13 +6176,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.21.3
-      caniuse-lite: 1.0.30001382
+      caniuse-lite: 1.0.30001383
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: false
 
-  /caniuse-lite/1.0.30001382:
-    resolution: {integrity: sha512-2rtJwDmSZ716Pxm1wCtbPvHtbDWAreTPxXbkc5RkKglow3Ig/4GNGazDI9/BVnXbG/wnv6r3B5FEbkfg9OcTGg==}
+  /caniuse-lite/1.0.30001383:
+    resolution: {integrity: sha512-swMpEoTp5vDoGBZsYZX7L7nXHe6dsHxi9o6/LKf/f0LukVtnrxly5GVb/fWdCDTqi/yw6Km6tiJ0pmBacm0gbg==}
     dev: false
 
   /canvas-confetti/1.5.1:
@@ -7702,8 +7702,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /electron-to-chromium/1.4.228:
-    resolution: {integrity: sha512-XfDHCvou7CsDMlFwb0WZ1tWmW48e7Sn7VBRyPfZsZZila9esRsJl1trO+OqDNV97GggFSt0ISbWslKXfQkG//g==}
+  /electron-to-chromium/1.4.230:
+    resolution: {integrity: sha512-3pwjAK0qHSDN9+YAF4fJknsSruP7mpjdWzUSruIJD/JCH77pEh0SorEyb3xVaKkfwk2tzjOt2D8scJ0KAdfXLA==}
     dev: false
 
   /elliptic/6.5.4:
@@ -7966,7 +7966,7 @@ packages:
       vm2: 3.9.10
     dev: true
 
-  /eslint-config-react-app/6.0.0_xrxdu2hdbwhevkjud5rf6dqnru:
+  /eslint-config-react-app/6.0.0_jtkcc2edysb7cgtj4kdzrwevru:
     resolution: {integrity: sha512-bpoAAC+YRfzq0dsTk+6v9aHm/uqnDwayNAXleMypGl6CpxI9oXXscVHo4fk3eJPIn+rsbtNetB4r/ZIidFIE8A==}
     engines: {node: ^10.12.0 || >=12.0.0}
     peerDependencies:
@@ -7999,7 +7999,7 @@ packages:
       eslint-plugin-import: 2.26.0_ffi3uiz42rv3jyhs6cr7p7qqry
       eslint-plugin-jest: 24.7.0_2o2mfvfmkh2covki2xlznlxf2u
       eslint-plugin-jsx-a11y: 6.6.1_eslint@7.32.0
-      eslint-plugin-react: 7.30.1_eslint@7.32.0
+      eslint-plugin-react: 7.31.0_eslint@7.32.0
       eslint-plugin-react-hooks: 4.6.0_eslint@7.32.0
       eslint-plugin-testing-library: 3.10.2_eslint@7.32.0
     dev: false
@@ -8133,8 +8133,8 @@ packages:
       eslint: 7.32.0
     dev: false
 
-  /eslint-plugin-react/7.30.1_eslint@7.32.0:
-    resolution: {integrity: sha512-NbEvI9jtqO46yJA3wcRF9Mo0lF9T/jhdHqhCHXiXtD+Zcb98812wvokjWpU7Q4QH5edo6dmqrukxVvWWXHlsUg==}
+  /eslint-plugin-react/7.31.0_eslint@7.32.0:
+    resolution: {integrity: sha512-BWriBttYYCnfb4RO9SB91Og8uA9CPcBMl5UlCOCtuYW1UjhN3QypzEcEHky4ZIRZDKjbO2Blh9BjP8E7W/b1SA==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
@@ -13799,7 +13799,7 @@ packages:
     dependencies:
       autoprefixer: 9.8.8
       browserslist: 4.21.3
-      caniuse-lite: 1.0.30001382
+      caniuse-lite: 1.0.30001383
       css-blank-pseudo: 0.1.4
       css-has-pseudo: 0.10.0
       css-prefers-color-scheme: 3.1.1
