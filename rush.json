@@ -290,7 +290,7 @@
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
      * to retrieve the latest activity for the remote master branch.
      */
-    "url": "https://bitbucket.di2e.net/scm/dfntc/extension-scaffold.git",
+    "url": "https://www.trmc.osd.mil/bitbucket/scm/minerva/extension-scaffold.git",
 
     /**
      * The default branch name. This tells "rush change" which remote branch to compare against.
