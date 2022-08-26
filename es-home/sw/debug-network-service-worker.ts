@@ -3,50 +3,72 @@
 // Work around typing for self...
 const _self: ServiceWorkerGlobalScope = self as any
 
-// The code in `oninstall` and `onactive` force the service worker to
+// The code in `oninstall` and `onactive` will force the service worker to
 // control the clients ASAP.
 _self.oninstall = function(event) {
   event.waitUntil(_self.skipWaiting());
 };
-
 _self.onactivate = function(event) {
   event.waitUntil(_self.clients.claim());
 };
 
 _self.onfetch = function(event) {
-  const fetchId = nextId()
-  beforeFetch(fetchId, event)
-  event.respondWith(fetch(event.request).then(response => afterResponse(fetchId, event, response)))
-};
+  const startMillis = Date.now()
+  const fetchId = nextId(startMillis)
 
-function beforeFetch(fetchId: number, event: FetchEvent) {
-  _self.clients.get(event.clientId).then(client => {
-    if (!client) {
-      return
-    }
-    client.postMessage({
+  function beforeFetch() {
+    postToWindows({
       type: 'extension-scaffold.network-debug.fetch',
       fetchId,
       url: event.request.url,
+      statusText: 'Pending',
     })
-  })
-}
-function afterResponse(fetchId: number, event: FetchEvent, response: Response) {
-  _self.clients.get(event.clientId).then(client => {
-    if (!client) {
-      return
-    }
-    client.postMessage({
+  }
+  function afterResponse(response: Response) {
+    postToWindows({
       type: 'extension-scaffold.network-debug.response',
       fetchId,
       url: event.request.url,
+      status: response.status,
       statusText: response.statusText,
+      duration: duration(startMillis)
     })
+    return response
+  }
+  function afterError(error: any) {
+    postToWindows({
+      type: 'extension-scaffold.network-debug.response',
+      fetchId,
+      url: event.request.url,
+      statusText: `${error}`,
+      duration: duration(startMillis),
+      isError: true,
+    })
+  }
+
+  beforeFetch()
+  const p = fetch(event.request).then(response => afterResponse(response))
+  event.respondWith(p)
+  p.catch(error => afterError(error))
+};
+
+function postToWindows(msg: any) {
+  _self.clients.matchAll({ type: "window" }).then(clientList => {
+    for (const client of clientList) {
+      client.postMessage(msg)
+    }
   })
-  return response
 }
 
 let _id = 0
-function nextId() {
-  return ++_id
+function nextId(startMillis: number) {
+  return `${startMillis}_${++_id}`
+}
+
+/**
+ * @param startMillis 
+ * @returns duration in seconds
+ */
+function duration(startMillis: number) {
+  return (Date.now() - startMillis) / 1000.0
 }

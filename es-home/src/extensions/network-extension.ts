@@ -8,20 +8,34 @@ const NETDBG_ENABLED = 'extension-scaffold.network-debug.enabled'
 let _wasActivated = false
 
 interface DebugReq {
+  fetchId: string,
   url: string
-  statusText: string
+  status?: number,
+  statusText?: string
+  isError?: boolean,
+  duration?: number,
 }
 export const REQS: DebugReq[] = []
+const MAX_REQS = 1000
 const reqChannel = new BroadcastChannel('extension-scaffold.network-debug')
 
 function debugReqPush(req: DebugReq) {
   REQS.push(req)
-  while (REQS.length > 1000) {
+  while (REQS.length > MAX_REQS) {
     REQS.shift()
   }
-  reqChannel.postMessage({
-    type: 'new-debug-req',
-  })
+
+  reqChannel.postMessage({type: 'new-debug-req'})
+}
+function debugReqUpdate(req: DebugReq) {
+  const index = REQS.findIndex(r => r.fetchId === req.fetchId)
+  if (index < 0) {
+    debugReqPush(req)
+    return
+  }
+  REQS[index] = req // replace
+
+  reqChannel.postMessage({type: 'new-debug-req'})
 }
 
 export function wasActivated() {
@@ -77,13 +91,12 @@ const registerServiceWorker = async (url: string) => {
     navigator.serviceWorker.addEventListener('message', msg => {
       switch  (msg.data.type) {
       case 'extension-scaffold.network-debug.fetch':
+        _wasActivated = true
+        debugReqPush(msg.data)
         break;
       case 'extension-scaffold.network-debug.response':
         _wasActivated = true
-        debugReqPush({
-          url: msg.data.url,
-          statusText: msg.data.statusText
-        })
+        debugReqUpdate(msg.data)
         break;
       }
     })

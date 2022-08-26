@@ -43,7 +43,7 @@ importers:
       '@gots/es-runtime': link:../es-runtime
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0_sfoxds7t5ydpegc3knd667wn6m
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.4
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.2
       '@snowpack/web-test-runner-plugin': 0.2.2_lh6gjniy56kufhhoawgtdx545e
       '@testing-library/react': 11.2.7_sfoxds7t5ydpegc3knd667wn6m
       '@types/chai': 4.3.3
@@ -58,7 +58,7 @@ importers:
       chai: 4.3.6
       prettier: 2.7.1
       snowpack: 3.8.8
-      typescript: 4.7.4
+      typescript: 4.8.2
 
   ../../es-extension-examples/ext-example-lit-element:
     specifiers:
@@ -85,11 +85,11 @@ importers:
       '@gots/es-runtime': link:../../es-runtime
       '@snowpack/plugin-babel': 2.1.7
       '@snowpack/plugin-dotenv': 2.2.0
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.4
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.2
       '@types/snowpack-env': 2.3.4
       prettier: 2.7.1
       snowpack: 3.8.8
-      typescript: 4.7.4
+      typescript: 4.8.2
 
   ../../es-extension-examples/ext-example-rollup:
     specifiers:
@@ -118,9 +118,9 @@ importers:
       '@types/react-dom': 17.0.17
       rollup: 2.78.1
       rollup-plugin-serve: 1.1.0
-      rollup-plugin-typescript2: 0.30.0_accrhai6qopda76wnqb3pkewpq
+      rollup-plugin-typescript2: 0.30.0_rusrl3yqfuqle4tcyjzane2tmq
       tslib: 2.4.0
-      typescript: 4.7.4
+      typescript: 4.8.2
 
   ../../es-extension-examples/ext-example-snowpack:
     specifiers:
@@ -162,7 +162,7 @@ importers:
       '@gots/es-runtime': link:../../es-runtime
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0_sfoxds7t5ydpegc3knd667wn6m
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.4
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.2
       '@snowpack/web-test-runner-plugin': 0.2.2_lh6gjniy56kufhhoawgtdx545e
       '@testing-library/react': 11.2.7_sfoxds7t5ydpegc3knd667wn6m
       '@types/chai': 4.3.3
@@ -177,7 +177,7 @@ importers:
       chai: 4.3.6
       prettier: 2.7.1
       snowpack: 3.8.8
-      typescript: 4.7.4
+      typescript: 4.8.2
 
   ../../es-extension-examples/ext-example-svelte:
     specifiers:
@@ -355,12 +355,12 @@ importers:
       '@gots/noowf-inter-widget-communication': 2.6.0
       canvas-confetti: 1.5.1
     devDependencies:
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.4
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.2
       '@types/canvas-confetti': 1.4.3
       '@types/snowpack-env': 2.3.4
       prettier: 2.7.1
       snowpack: 3.8.8
-      typescript: 4.7.4
+      typescript: 4.8.2
 
   ../../es-home:
     specifiers:
@@ -397,7 +397,7 @@ importers:
     devDependencies:
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.4
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.2
       '@snowpack/web-test-runner-plugin': 0.2.2_lh6gjniy56kufhhoawgtdx545e
       '@testing-library/react': 11.2.7
       '@types/chai': 4.3.3
@@ -411,7 +411,7 @@ importers:
       merge-stream: 2.0.0
       prettier: 2.7.1
       snowpack: 3.8.8
-      typescript: 4.7.4
+      typescript: 4.8.2
 
   ../../es-runtime:
     specifiers:
@@ -436,7 +436,7 @@ importers:
     devDependencies:
       '@snowpack/plugin-dotenv': 2.2.0
       '@snowpack/plugin-react-refresh': 2.5.0
-      '@snowpack/plugin-typescript': 1.2.1_typescript@4.7.4
+      '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.2
       '@snowpack/web-test-runner-plugin': 0.2.2_lh6gjniy56kufhhoawgtdx545e
       '@testing-library/react': 11.2.7
       '@types/chai': 4.3.3
@@ -448,7 +448,7 @@ importers:
       copyfiles: 2.4.1
       prettier: 2.7.1
       snowpack: 3.8.8
-      typescript: 4.7.4
+      typescript: 4.8.2
 
 packages:
 
@@ -2900,19 +2900,19 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
   /@gots/es-runtime/2.14.2:
-    resolution: {integrity: sha1-CT05sHzjC4HNOvRBzsFgydrU9uU=, tarball: '@gots/es-runtime/es-runtime-2.14.2.tgz'}
+    resolution: {integrity: sha512-lWUIN+zgeVvEFsuufN9kSV5/pIPtcyQ1/y+PtxcW7U0ynSMDQj7YKoG9RNeErVg/O/WvRVRSIzGzaKDv7Ypi6Q==}
     dependencies:
       events: 3.3.0
     dev: false
 
   /@gots/noowf-inter-widget-communication/2.6.0:
-    resolution: {integrity: sha1-KEuPkxxM5r6QQP4e9rGMNnUM0h4=, tarball: '@gots/noowf-inter-widget-communication/noowf-inter-widget-communication-2.6.0.tgz'}
+    resolution: {integrity: sha512-SjZcpNhywfIj91+nRx/gKudchTp5WZiYZHWkHm0ZiLtrEEn3dUJkkcJjIFwVQglVUwDCsWjRl8ylD0e37jhXdA==}
     dependencies:
       core-js: 3.25.0
     dev: false
 
   /@gots/noowf-widget-launch/2.5.0:
-    resolution: {integrity: sha1-TX1+3NBt53W59n6mcLEFXSt6BW0=, tarball: '@gots/noowf-widget-launch/noowf-widget-launch-2.5.0.tgz'}
+    resolution: {integrity: sha512-bo0zFv8ndl1pOtLVcTwF8JLgg4H1n4cYanlKo/To9n666U/ngDjYoKoBW3EGh8YKNFo8yrOUe9R48N/rQJYDwA==}
     dependencies:
       '@gots/es-runtime': 2.14.2
       core-js: 3.25.0
@@ -3688,14 +3688,14 @@ packages:
       npm-run-path: 4.0.1
     dev: false
 
-  /@snowpack/plugin-typescript/1.2.1_typescript@4.7.4:
+  /@snowpack/plugin-typescript/1.2.1_typescript@4.8.2:
     resolution: {integrity: sha512-wU+JNaMVkqGsqTaUY7TnEMhGt/3URTgA9dpMCtZX6wn/ceA7Gwlmue/sOLynf0OTNLygHPvjiQECQYkEi3LTtg==}
     peerDependencies:
       typescript: '*'
     dependencies:
       execa: 5.1.1
       npm-run-path: 4.0.1
-      typescript: 4.7.4
+      typescript: 4.8.2
     dev: true
 
   /@snowpack/web-test-runner-plugin/0.2.2_lh6gjniy56kufhhoawgtdx545e:
@@ -3851,7 +3851,7 @@ packages:
       '@adobe/css-tools': 4.0.1
       '@babel/runtime': 7.18.9
       '@types/testing-library__jest-dom': 5.14.5
-      aria-query: 5.0.0
+      aria-query: 5.0.2
       chalk: 3.0.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.5.14
@@ -5107,8 +5107,8 @@ packages:
       '@babel/runtime': 7.18.9
       '@babel/runtime-corejs3': 7.18.9
 
-  /aria-query/5.0.0:
-    resolution: {integrity: sha512-V+SM7AbUwJ+EBnB8+DXs0hPZHO0W6pqBcc0dW90OwtVG02PswOu/teuARoLQjdDOH+t9pJgGnW5/Qmouf3gPJg==}
+  /aria-query/5.0.2:
+    resolution: {integrity: sha512-eigU3vhqSO+Z8BKDnVLN/ompjhf3pYzecKXz8+whRy+9gZu8n1TCGfwzQUUPnqdHl9ax1Hr9031orZ+UOEYr7Q==}
     engines: {node: '>=6.0'}
     dev: false
 
@@ -5751,6 +5751,7 @@ packages:
 
   /bluebird/3.7.2:
     resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
+    dev: false
 
   /bn.js/4.12.0:
     resolution: {integrity: sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==}
@@ -6051,7 +6052,7 @@ packages:
       minipass-pipeline: 1.2.4
       mkdirp: 1.0.4
       p-map: 4.0.0
-      promise-inflight: 1.0.1_bluebird@3.7.2
+      promise-inflight: 1.0.1
       rimraf: 3.0.2
       ssri: 8.0.1
       tar: 6.1.11
@@ -11127,7 +11128,7 @@ packages:
       parse5: 6.0.1
       saxes: 5.0.1
       symbol-tree: 3.2.4
-      tough-cookie: 4.1.1
+      tough-cookie: 4.1.2
       w3c-hr-time: 1.0.2
       w3c-xmlserializer: 2.0.0
       webidl-conversions: 6.1.0
@@ -14072,7 +14073,6 @@ packages:
     peerDependenciesMeta:
       bluebird:
         optional: true
-    dev: true
 
   /promise-inflight/1.0.1_bluebird@3.7.2:
     resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
@@ -14083,6 +14083,7 @@ packages:
         optional: true
     dependencies:
       bluebird: 3.7.2
+    dev: false
 
   /promise-retry/2.0.1:
     resolution: {integrity: sha512-y+WKFlBR8BGXnsNlIHFGPZmyDf3DFMoLhaflAnyZgV6rG6xu+JwesTo2Q9R6XwYmtmwAFCkAk3e35jEdoeh/3g==}
@@ -15037,7 +15038,7 @@ packages:
       terser: 5.15.0
     dev: true
 
-  /rollup-plugin-typescript2/0.30.0_accrhai6qopda76wnqb3pkewpq:
+  /rollup-plugin-typescript2/0.30.0_rusrl3yqfuqle4tcyjzane2tmq:
     resolution: {integrity: sha512-NUFszIQyhgDdhRS9ya/VEmsnpTe+GERDMmFo0Y+kf8ds51Xy57nPNGglJY+W6x1vcouA7Au7nsTgsLFj2I0PxQ==}
     peerDependencies:
       rollup: '>=1.26.3'
@@ -15049,7 +15050,7 @@ packages:
       resolve: 1.20.0
       rollup: 2.78.1
       tslib: 2.1.0
-      typescript: 4.7.4
+      typescript: 4.8.2
     dev: true
 
   /rollup-pluginutils/2.8.2:
@@ -16441,8 +16442,8 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /tough-cookie/4.1.1:
-    resolution: {integrity: sha512-Ns3k8QxkEzIfLZbRwLOrMPDqRa1BEAl4BzNNAOYY4BhBmEkf+HvP467F4NrD9loK3NcYflWOpUH3LJg0ehq/rQ==}
+  /tough-cookie/4.1.2:
+    resolution: {integrity: sha512-G9fqXWoYFZgTc2z8Q5zaHy/vJMjm+WV0AkAeHxVCQiEB1b+dGvWzFW6QV07cY5jQ5gRkeid2qIkzkxUnmoQZUQ==}
     engines: {node: '>=6'}
     dependencies:
       psl: 1.9.0
@@ -16603,8 +16604,8 @@ packages:
   /typedarray/0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
-  /typescript/4.7.4:
-    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+  /typescript/4.8.2:
+    resolution: {integrity: sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
