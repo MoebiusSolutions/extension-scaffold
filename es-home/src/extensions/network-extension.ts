@@ -3,6 +3,7 @@ import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { EsDebugNetworkRibbonPanel } from './ribbon/debug-network-ribbon-panel'
 import { EsDebugNetwork } from './ribbon/debug-network'
 import { EsNetworkLines } from './ribbon/network-lines'
+import { emitDevTools, onDevTools } from '@gots/es-iframe-to-dev-ext'
 
 const NETDBG_ENABLED = 'extension-scaffold.network-debug.enabled'
 let _wasActivated = false
@@ -19,6 +20,10 @@ export const REQS: DebugReq[] = []
 const MAX_REQS = 1000
 const reqChannel = new BroadcastChannel('extension-scaffold.network-debug')
 
+/**
+ * Collects network activity into a ring buffer
+ * @param req 
+ */
 function debugReqPush(req: DebugReq) {
   REQS.push(req)
   while (REQS.length > MAX_REQS) {
@@ -27,6 +32,11 @@ function debugReqPush(req: DebugReq) {
 
   reqChannel.postMessage({type: 'new-debug-req'})
 }
+/**
+ * Updates existing network activity in the ring buffer
+ * @param req 
+ * @returns 
+ */
 function debugReqUpdate(req: DebugReq) {
   const index = REQS.findIndex(r => r.fetchId === req.fetchId)
   if (index < 0) {
@@ -49,9 +59,6 @@ export function isNetworkDebugEnabled() {
   return localStorage.getItem(NETDBG_ENABLED) === 'true'
 }
 
-//
-// Collects network activity into a ring buffer
-//
 export async function activate(scaffold: ExtensionScaffoldApi, url: string) {
   Tonic.add(EsDebugNetworkRibbonPanel)
   Tonic.add(EsDebugNetwork)
@@ -69,6 +76,18 @@ export async function activate(scaffold: ExtensionScaffoldApi, url: string) {
   } else {
     unregisterServiceWorker(url)
   }
+
+  onDevTools('extension-scaffold.network.log.config.query', () => {
+    emitDevTools('extension-scaffold.network.log.config.response', {
+      enabled: isNetworkDebugEnabled()
+    })
+  })
+  onDevTools('extension-scaffold.network.log.fetch', (_, payload) => {
+    debugReqPush(payload)
+  })
+  onDevTools('extension-scaffold.network.log.response', (_, payload) => {
+    debugReqUpdate(payload)
+  })
 }
 
 const registerServiceWorker = async (url: string) => {

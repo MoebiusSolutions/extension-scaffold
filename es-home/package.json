@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@gots/es-runtime": "workspace:*",
+    "@gots/es-iframe-to-dev-ext": "workspace:*",
     "@gots/noowf-inter-widget-communication": "^2.6.0",
     "@optoolco/tonic": "^13.3.6",
     "@snowpack/plugin-run-script": "^2.3.0",
