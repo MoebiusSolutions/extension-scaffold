@@ -3,15 +3,8 @@
  * When you're ready to start on your site, clear the file. Happy hacking!
  **/
 
-import confetti from 'canvas-confetti';
+import { initConsoleLog, initNetworkLog } from '@gots/es-iframe-to-dev-ext';
 import { initialize, subscribeJson } from '@gots/noowf-inter-widget-communication';
-
-function handleLoad() {
-  confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
-    resize: true,
-    useWorker: true,
-  })({ particleCount: 200, spread: 200 });
-}
 
 function setupIwc() {
   const url = new URL(window.location.toString())
@@ -31,6 +24,27 @@ function setupIwc() {
   })
 }
 
+function bindButtons() {
+  document.getElementById('hello')?.addEventListener('click', () => {
+    console.log('logging hello at info')
+  })
+  document.getElementById('world')?.addEventListener('click', () => {
+    console.warn('logging world at warn')
+  })
+  document.getElementById('fetch')?.addEventListener('click', () => {
+    fetch('http://hastings-foundation.org')
+  })
+  document.getElementById('throw')?.addEventListener('click', () => {
+    throw new Error('throw test')
+  })
+}
+
 setupIwc()
+
+initConsoleLog()
+
+initNetworkLog(window.location.href)
+
+bindButtons()
 
 console.log('IFrame example loaded')
