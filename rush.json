@@ -425,6 +425,10 @@
     {
       "packageName": "@gots/iframe-example",
       "projectFolder": "es-extension-examples/iframe-example"
+    },
+    {
+      "packageName": "@gots/es-iframe-to-dev-ext",
+      "projectFolder": "es-iframe-to-dev-ext"
     }
     // {
     //   /**
