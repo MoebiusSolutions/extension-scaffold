@@ -19,16 +19,12 @@ export class EsConsentDialog extends Tonic {
         case 'acceptButton':
           this.acceptHandler();
           break;
-        case 'cancelButton':
-          this.cancelHandler();
-          break;
         case 'agreementLink':
           this.handleUserAgreementClick();
           break;
         case 'returnToConsentButton':
           this.handleReturnToConsentClick();
           break;
-
       }
     } catch (err) {
       console.error(err);
@@ -123,14 +119,6 @@ export class EsConsentDialog extends Tonic {
     this.showHomePage();
   }
 
-  cancelHandler() {
-    localStorage.setItem("acceptedConsent", 'false');
-  }
-
-  notAcceptHandler() {
-    localStorage.setItem("acceptedConsent", 'false');
-  }
-
   render() {
     return this.html`  
       <style>
@@ -200,7 +188,6 @@ export class EsConsentDialog extends Tonic {
               are private and confidential. See <a id='agreementLink' class='link'>User Agreement</a> for details.</p>
           </div>
           <div class='button-container'>
-            <button id='cancelButton' class='button' alt="Cancel">Cancel</button>
             <button id='acceptButton' class='button' alt="I Agree">I Agree</button>
           </div>
         </div>
