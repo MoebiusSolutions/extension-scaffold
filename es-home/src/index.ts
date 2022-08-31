@@ -81,6 +81,7 @@ function enabledExtensions(urls?: string[]): string[] {
   const blockedSet = getBlockedUrls()
   return urls.filter(url => !blockedSet.has(url))
 }
+
 function makeIdToPlacement(config: any): Map<string, Placement> {
   const searchKeys: Location[] = [
     'header',
@@ -106,6 +107,7 @@ function makeIdToPlacement(config: any): Map<string, Placement> {
   })
   return result
 }
+
 function updateLocation(options: AddPanelOptions, id2placement: Map<string, Placement>): AddPanelOptions | undefined {
   const placement: Placement | undefined = id2placement.get(options.id)
   if (!placement) {
@@ -119,6 +121,7 @@ function updateLocation(options: AddPanelOptions, id2placement: Map<string, Plac
     location: placement.location
   }
 }
+
 function order(options: AddPanelOptions, is2placement: Map<string, Placement>): string {
   const placement: Placement | undefined = is2placement.get(options.id)
   if (!placement) {
@@ -168,35 +171,67 @@ export async function applyConfiguration(config: any, app: string) {
   }
 }
 
+function showConsentDialog() {
+  const consentDialog = document.getElementById('es-consent-dialog');
+  if (consentDialog) {
+    consentDialog.style.display = 'block';
+  } else {
+    console.error('Could not find #es-consent-dialog');
+  }
+  return;
+}
+
+function hideConsentDialog() {
+  const consentDialog = document.getElementById('es-consent-dialog');
+  if (consentDialog) {
+    consentDialog.style.display = 'none';
+  } else {
+    console.error('Could not find #es-consent-dialog');
+  }
+  return;
+}
+
+function showHomePage() {
+  const homePage = document.getElementById('es-home-page');
+  if (homePage) {
+    homePage.style.display = 'block';
+  } else {
+    console.error('Could not find #es-home-page');
+  }
+  return;
+}
+
+function hasAcceptedConsent() {
+  const acceptedConsent = sessionStorage.getItem("acceptedConsent");
+  let hasAcceptedConsent = false;
+  if (acceptedConsent && acceptedConsent === 'true') {
+    hasAcceptedConsent = true;
+  }
+  return hasAcceptedConsent;
+}
+
 async function loadAppConfig() {
+  // if authenticating to keycloak (vs passing a KC token), keycloak will not 
+  // forward anything after "#".
+  // For dfmotf; desire is to skip the scaffold lspash screen when using 
+  // the site proxy and instead default to dfmotf-tracks.json
   if (!location.hash) {
-    // if authenticating to keycloak (vs passing a KC token), keycloak will not 
-    // forward anything after "#".
-    // For dfmotf; desire is to skip the scaffold lspash screen when using 
-    // the site proxy and instead default to dfmotf-tracks.json
-    
-    const acceptedConsent = sessionStorage.getItem("acceptedConsent");
-    if (acceptedConsent && acceptedConsent === 'true') {
+    if (hasAcceptedConsent()) {
       let appPage = new URLSearchParams(window.location.search).get('app');
       if (appPage != null) {
         location.hash = appPage;
-      } else {           
-        const consentDialog = document.getElementById('es-home-page')
-        if (consentDialog) {
-          consentDialog.style.display = 'block'
-        } else {
-          console.error('Could not find #es-home-page')
-        }
-        return
+      } else {
+        showHomePage();
       }
     } else {
-      const consentDialog = document.getElementById('es-consent-dialog')
-      if (consentDialog) {
-        consentDialog.style.display = 'block'
-      } else {
-        console.error('Could not find #es-consent-dialog')
-      }
-      return
+      showConsentDialog();
+    }
+  } else {
+    if (hasAcceptedConsent()) {
+      hideConsentDialog();
+    } else {
+      showConsentDialog();
+      return false;
     }
   }
 
