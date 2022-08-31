@@ -1,4 +1,5 @@
-import Tonic from '@optoolco/tonic'
+import Tonic from '@optoolco/tonic';
+import './consent-dialog.css';
 
 export class EsConsentDialog extends Tonic {
 
@@ -121,50 +122,6 @@ export class EsConsentDialog extends Tonic {
 
   render() {
     return this.html`  
-      <style>
-        .content-container {
-          position: fixed;
-          z-index: 2400;
-          opacity: 0.70;
-          right: 30px;
-          top: 0px !important;
-          background-color: #434242;
-          color: white;
-          border-radius: 5px;
-          overflow: auto;
-          width: 90%;
-          padding: 10px;
-          font-size: 1rem;
-          font-weight: 400;
-          margin-top: 10px;
-        }
-        .consent-container {
-          margin: 0px 5px;
-          display: block;
-        }
-        .agreement-container {
-          margin: 0px 5px;
-          height: 550px;
-          display: none;
-        }
-        .title {
-          text-align: center
-        }
-        .link {
-          text-decoration: underline;
-          cursor: pointer;
-        }
-        .button {
-          text-align: center;
-          border-radius: 4px;
-          padding: 5px 10px;
-          margin: 10px;
-          cursor: pointer;
-        }
-        .button-container {
-          text-align: center;
-        }
-      </style> 
       <div class='content-container'>
         <div id='consent' class='consent-container'>
           <div>
