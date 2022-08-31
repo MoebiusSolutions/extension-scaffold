@@ -16,6 +16,7 @@ import { EsShowContext } from './components/show-context';
 import { EsShowPanelList } from './components/show-panel-list';
 import { EsTogglePanel } from './components/toggle-panel';
 import { EsRibbon } from './components/ribbon/ribbon';
+import { EsConsentDialog } from './components/consent-dialog';
 
 import './index.css'
 
@@ -173,15 +174,27 @@ async function loadAppConfig() {
     // forward anything after "#".
     // For dfmotf; desire is to skip the scaffold lspash screen when using 
     // the site proxy and instead default to dfmotf-tracks.json
-    let appPage = new URLSearchParams(window.location.search).get('app');
-    if (appPage != null) {
-      location.hash = appPage;
+    
+    const acceptedConsent = sessionStorage.getItem("acceptedConsent");
+    if (acceptedConsent && acceptedConsent === 'true') {
+      let appPage = new URLSearchParams(window.location.search).get('app');
+      if (appPage != null) {
+        location.hash = appPage;
+      } else {           
+        const consentDialog = document.getElementById('es-home-page')
+        if (consentDialog) {
+          consentDialog.style.display = 'block'
+        } else {
+          console.error('Could not find #es-home-page')
+        }
+        return
+      }
     } else {
-      const hp = document.getElementById('es-home-page')
-      if (hp) {
-        hp.style.display = 'block'
+      const consentDialog = document.getElementById('es-consent-dialog')
+      if (consentDialog) {
+        consentDialog.style.display = 'block'
       } else {
-        console.error('Could not find #es-home-page')
+        console.error('Could not find #es-consent-dialog')
       }
       return
     }
@@ -223,6 +236,7 @@ Tonic.add(EsPrompt)
 Tonic.add(EsPopupTextarea)
 Tonic.add(EsLoadApplication)
 Tonic.add(EsHomePage)
+Tonic.add(EsConsentDialog)
 
 try {
   loadAppConfig()
