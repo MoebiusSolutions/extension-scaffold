@@ -122,7 +122,7 @@ export class EsConsentDialog extends Tonic {
       this.hideConsentDialog();
       if (!location.hash) {
         let appPage = new URLSearchParams(window.location.search).get('app');
-        if (appPage != null) {
+        if (appPage !== null) {
           location.hash = appPage;
         }
       }
