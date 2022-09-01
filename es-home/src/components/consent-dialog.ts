@@ -80,24 +80,6 @@ export class EsConsentDialog extends Tonic {
     }
   }
 
-  hideHomePage() {
-    const homePage = document.getElementById('es-home-page');
-    if (homePage) {
-      homePage.style.display = 'none';
-    } else {
-      console.error('Could not find #es-home-page');
-    }
-  }
-
-  showConsentDialog() {
-    const consentDialog = document.getElementById('es-consent-dialog')
-    if (consentDialog) {
-      consentDialog.style.display = 'block'
-    } else {
-      console.error('Could not find #es-consent-dialog')
-    }
-  }
-
   showHomePage() {
     const homePage = document.getElementById('es-home-page');
     if (homePage) {
@@ -124,6 +106,8 @@ export class EsConsentDialog extends Tonic {
         let appPage = new URLSearchParams(window.location.search).get('app');
         if (appPage !== null) {
           location.hash = appPage;
+        } else {
+          this.showHomePage();
         }
       }
     }
