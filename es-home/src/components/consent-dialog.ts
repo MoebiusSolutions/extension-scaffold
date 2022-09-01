@@ -117,24 +117,14 @@ export class EsConsentDialog extends Tonic {
   }
 
   showApp() {
-    if (!location.hash) {
-      if (this.hasAcceptedConsent()) {
-        this.hideConsentDialog();
+    const acceptedConsent = sessionStorage.getItem("acceptedConsent");
+    if (acceptedConsent && acceptedConsent === 'true') {
+      this.hideConsentDialog();
+      if (!location.hash) {
         let appPage = new URLSearchParams(window.location.search).get('app');
         if (appPage != null) {
           location.hash = appPage;
-        } else {
-          this.showHomePage();
         }
-      } else {
-        this.showConsentDialog();
-      }
-    } else {
-      if (this.hasAcceptedConsent()) {
-        this.hideConsentDialog();
-      } else {
-        this.showConsentDialog();
-        return false;
       }
     }
   }

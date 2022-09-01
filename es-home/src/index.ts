@@ -142,7 +142,7 @@ export async function applyConfiguration(config: any, app: string) {
     extensionScaffold.setContext(resolved)
 
     initialize({ provider: resolved.iwc, busUrl: resolved.busUrl })
-    subscribeJson('es.ping.topic', (sender:any, message:any, topic:any) => {
+    subscribeJson('es.ping.topic', (sender, message, topic) => {
       console.log(sender, message, topic)
     })
 
@@ -171,86 +171,23 @@ export async function applyConfiguration(config: any, app: string) {
   }
 }
 
-function showConsentDialog() {
-  const consentDialog = document.getElementById('es-consent-dialog');
-  if (consentDialog) {
-    consentDialog.style.display = 'block';
-  } else {
-    console.error('Could not find #es-consent-dialog');
-  }
-  return;
-}
-
-function hideConsentDialog() {
-  const consentDialog = document.getElementById('es-consent-dialog');
-  if (consentDialog) {
-    consentDialog.style.display = 'none';
-  } else {
-    console.error('Could not find #es-consent-dialog');
-  }
-  return;
-}
-
-function showHomePage() {
-  const homePage = document.getElementById('es-home-page');
-  if (homePage) {
-    homePage.style.display = 'block';
-  } else {
-    console.error('Could not find #es-home-page');
-  }
-  return;
-}
-
-function hasAcceptedConsent() {
-  const acceptedConsent = sessionStorage.getItem("acceptedConsent");
-  let hasAcceptedConsent = false;
-  if (acceptedConsent && acceptedConsent === 'true') {
-    hasAcceptedConsent = true;
-  }
-  return hasAcceptedConsent;
-}
-
-function maybeShowConsentDialog() {
-  // if authenticating to keycloak (vs passing a KC token), keycloak will not 
-  // forward anything after "#".
-  // For dfmotf; desire is to skip the scaffold lspash screen when using 
-  // the site proxy and instead default to dfmotf-tracks.json
-  if (!location.hash) {
-    if (hasAcceptedConsent()) {
-      let appPage = new URLSearchParams(window.location.search).get('app');
-      if (appPage != null) {
-        location.hash = appPage;
-      } else {
-        showHomePage();
-      }
-    } else {
-      showConsentDialog();
-    }
-  } else {
-    if (hasAcceptedConsent()) {
-      hideConsentDialog();
-    } else {
-      showConsentDialog();
-      return false;
-    }
-  }
-  loadAppConfig();
-}
-
 async function loadAppConfig() {
-  const itemName = 'es-kbar-load-application'
-  const configString = localStorage.getItem(itemName)
-  if (!configString) {
-    applyHash()
-  } else {
-    // TODO restrict this operation to developers
-    const config = JSON.parse(configString)
-    localStorage.removeItem(itemName)
-    applyConfiguration(config, '#uploaded')
+  const acceptedConsent = sessionStorage.getItem("acceptedConsent");
+  if (acceptedConsent && acceptedConsent === 'true') {
+    const itemName = 'es-kbar-load-application'
+    const configString = localStorage.getItem(itemName)
+    if (!configString) {
+      applyHash()
+    } else {
+      // TODO restrict this operation to developers
+      const config = JSON.parse(configString)
+      localStorage.removeItem(itemName)
+      applyConfiguration(config, '#uploaded')
+    }
+    window.addEventListener('hashchange', () => {
+      window.location.reload()
+    })
   }
-  window.addEventListener('hashchange', () => {
-    window.location.reload()
-  })
 }
 
 // Back or Forward button clicked in browser
@@ -277,7 +214,7 @@ Tonic.add(EsHomePage)
 Tonic.add(EsConsentDialog)
 
 try {
-  maybeShowConsentDialog()
+  loadAppConfig()
 } catch (e) {
   alert(`Unable to load application configuration`)
 }
