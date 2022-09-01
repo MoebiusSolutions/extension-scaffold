@@ -1,5 +1,5 @@
 import Tonic from '@optoolco/tonic';
-import './consent-dialog.css';
+import * as consentDialogStyles from "./consent-dialog.module.css"
 
 export class EsConsentDialog extends Tonic {
 
@@ -145,12 +145,59 @@ export class EsConsentDialog extends Tonic {
     location.reload();
   }
 
+  styles() {
+    return {
+      contentContainer: {
+        position: 'fixed',
+        zIndex: '2400',
+        opacity: '0.70',
+        right: '30px',
+        top: '0px !important',
+        backgroundColor: '#434242',
+        color: 'white',
+        borderRadius: '5px',
+        overflow: 'auto',
+        width: '90%',
+        padding: '10px',
+        fontSize: '1rem',
+        fontWeight: '400',
+        marginTop: '10px',
+      },
+      consentContainer: {
+        margin: '0px 5px',
+        display: 'block',
+      },
+      agreementContainer: {
+        margin: '0px 5px',
+        height: '550px',
+        display: 'none',
+      },
+      title: {
+        textAlign: 'center',
+      },
+      link: {
+        textDecoration: 'underline',
+        cursor: 'pointer',
+      },
+      button: {
+        textAlign: 'center',
+        borderRadius: '4px',
+        padding: '5px 10px',
+        margin: '10px',
+        cursor: 'pointer',
+      },
+      buttonContainer: {
+        textAlign: 'center',
+      }
+    }
+  }
+
   render() {
     return this.html`  
-      <div class='content-container'>
-        <div id='consent' class='consent-container'>
+      <div styles='contentContainer'>
+        <div id='consent' styles='consentContainer'>
           <div>
-            <div class='title'>
+            <div styles='title'>
               <h3>US GOVERNMENT NOTICE AND CONSENT BANNER</h3>
               <hr />
             </div>
@@ -167,14 +214,14 @@ export class EsConsentDialog extends Tonic {
             <p>- Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching
               or monitoring of the content of privileged communications, or work product, related to personal representation or
               services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product
-              are private and confidential. See <a id='agreementLink' class='link'>User Agreement</a> for details.</p>
+              are private and confidential. See <a id='agreementLink' styles='link'>User Agreement</a> for details.</p>
           </div>
-          <div class='button-container'>
-            <button id='acceptButton' class='button' alt="I Agree">I Agree</button>
+          <div styles='buttonContainer'>
+            <button id='acceptButton' styles='button' alt="I Agree">I Agree</button>
           </div>
         </div>
-        <div id='agreement' class='agreement-container'>
-          <div class='title'>
+        <div id='agreement' styles='agreementContainer'>
+          <div styles='title'>
             <h3>NOTICE AND CONSENT PROVISION FOR ALL DOD INFORMATION SYSTEM USER AGREEMENTS</h3>
             <hr />
           </div>
@@ -240,8 +287,8 @@ export class EsConsentDialog extends Tonic {
                 conditions in full detail or provides a summary of such conditions, and regardless of whether the banner
                 expressly references this User Agreement.</p>
             </div>
-            <div class='button-container'>
-              <button id='returnToConsentButton' class='button' alt="Return to Consent">Return to Consent</button>
+            <div styles='buttonContainer'>
+              <button id='returnToConsentButton' styles='button' alt="Return to Consent">Return to Consent</button>
             </div>
           </div>
         </div>
