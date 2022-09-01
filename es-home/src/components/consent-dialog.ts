@@ -1,9 +1,8 @@
 import Tonic from '@optoolco/tonic';
-import * as consentDialogStyles from "./consent-dialog.module.css"
 
 export class EsConsentDialog extends Tonic {
 
-  connected = async () => {
+  connected() {
     this.showApp();
   }
 

@@ -142,7 +142,7 @@ export async function applyConfiguration(config: any, app: string) {
     extensionScaffold.setContext(resolved)
 
     initialize({ provider: resolved.iwc, busUrl: resolved.busUrl })
-    subscribeJson('es.ping.topic', (sender, message, topic) => {
+    subscribeJson('es.ping.topic', (sender:any, message:any, topic:any) => {
       console.log(sender, message, topic)
     })
 
@@ -210,7 +210,7 @@ function hasAcceptedConsent() {
   return hasAcceptedConsent;
 }
 
-async function loadAppConfig() {
+function maybeShowConsentDialog() {
   // if authenticating to keycloak (vs passing a KC token), keycloak will not 
   // forward anything after "#".
   // For dfmotf; desire is to skip the scaffold lspash screen when using 
@@ -234,7 +234,10 @@ async function loadAppConfig() {
       return false;
     }
   }
+  loadAppConfig();
+}
 
+async function loadAppConfig() {
   const itemName = 'es-kbar-load-application'
   const configString = localStorage.getItem(itemName)
   if (!configString) {
@@ -274,7 +277,7 @@ Tonic.add(EsHomePage)
 Tonic.add(EsConsentDialog)
 
 try {
-  loadAppConfig()
+  maybeShowConsentDialog()
 } catch (e) {
   alert(`Unable to load application configuration`)
 }
