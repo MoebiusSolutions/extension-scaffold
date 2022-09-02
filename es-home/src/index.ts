@@ -81,7 +81,6 @@ function enabledExtensions(urls?: string[]): string[] {
   const blockedSet = getBlockedUrls()
   return urls.filter(url => !blockedSet.has(url))
 }
-
 function makeIdToPlacement(config: any): Map<string, Placement> {
   const searchKeys: Location[] = [
     'header',
@@ -107,7 +106,6 @@ function makeIdToPlacement(config: any): Map<string, Placement> {
   })
   return result
 }
-
 function updateLocation(options: AddPanelOptions, id2placement: Map<string, Placement>): AddPanelOptions | undefined {
   const placement: Placement | undefined = id2placement.get(options.id)
   if (!placement) {
@@ -121,7 +119,6 @@ function updateLocation(options: AddPanelOptions, id2placement: Map<string, Plac
     location: placement.location
   }
 }
-
 function order(options: AddPanelOptions, is2placement: Map<string, Placement>): string {
   const placement: Placement | undefined = is2placement.get(options.id)
   if (!placement) {
@@ -172,22 +169,38 @@ export async function applyConfiguration(config: any, app: string) {
 }
 
 async function loadAppConfig() {
-  const acceptedConsent = sessionStorage.getItem("acceptedConsent");
-  if (acceptedConsent && acceptedConsent === 'true') {
-    const itemName = 'es-kbar-load-application'
-    const configString = localStorage.getItem(itemName)
-    if (!configString) {
-      applyHash()
+  if (!location.hash) {
+    // if authenticating to keycloak (vs passing a KC token), keycloak will not 
+    // forward anything after "#".
+    // For dfmotf; desire is to skip the scaffold lspash screen when using 
+    // the site proxy and instead default to dfmotf-tracks.json
+    let appPage = new URLSearchParams(window.location.search).get('app');
+    if (appPage != null) {
+      location.hash = appPage;
     } else {
-      // TODO restrict this operation to developers
-      const config = JSON.parse(configString)
-      localStorage.removeItem(itemName)
-      applyConfiguration(config, '#uploaded')
+      const hp = document.getElementById('es-home-page')
+      if (hp) {
+        hp.style.display = 'block'
+      } else {
+        console.error('Could not find #es-home-page')
+      }
+      return
     }
-    window.addEventListener('hashchange', () => {
-      window.location.reload()
-    })
   }
+
+  const itemName = 'es-kbar-load-application'
+  const configString = localStorage.getItem(itemName)
+  if (!configString) {
+    applyHash()
+  } else {
+    // TODO restrict this operation to developers
+    const config = JSON.parse(configString)
+    localStorage.removeItem(itemName)
+    applyConfiguration(config, '#uploaded')
+  }
+  window.addEventListener('hashchange', () => {
+    window.location.reload()
+  })
 }
 
 // Back or Forward button clicked in browser
