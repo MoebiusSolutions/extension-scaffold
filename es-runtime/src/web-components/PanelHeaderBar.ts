@@ -1,4 +1,5 @@
 import { extensionScaffold } from "../controllers/ExtensionController";
+import { updateRaisedPanel } from "../controllers/PanelsImpl";
 import type { AddPanelOptions, Panels } from "../es-api";
 import { defaultedOptions } from "../models/DefaultOptions";
 
@@ -36,12 +37,13 @@ export class PanelHeaderBar extends HTMLElement {
 
         this._resizeObserver.observe(this)
 
+        panelDiv.addEventListener('pointerdown', () =>{
+            this.raisePanel()
+        })
         this.onpointerdown = (e: PointerEvent) => {
             if (e.button !== 0 || e.target != this) {
                 return
             }
-            this.raisePanel()
-
             const rect = panelDiv.getBoundingClientRect()
             this.untranslate(panelDiv, rect)
 
@@ -91,6 +93,7 @@ export class PanelHeaderBar extends HTMLElement {
         } else {
             panelDiv.style.zIndex = `${maxZ + 1}`
         }
+        updateRaisedPanel()
     }
     private untranslate(panelDiv: HTMLElement, rect: DOMRect) {
         if (panelDiv.classList.contains('moved')) {

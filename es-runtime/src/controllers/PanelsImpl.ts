@@ -37,6 +37,22 @@ function getDivSize(div: HTMLElement | null): OrigSize {
 
 const isDialog = (location: Location) => location === 'modal' || location === 'modeless'
 
+export function updateRaisedPanel() {
+    let panelDiv = document.createElement('div')
+    let maxZ = 1
+    document.querySelectorAll('.grid-panel.modal, .grid-panel.modeless').forEach(el => {
+        const div: HTMLDivElement = el as any
+        div.classList.remove('raised')
+
+        const divZ = div.style.zIndex ? Number(div.style.zIndex): 0
+        if (maxZ < divZ) {
+            maxZ = divZ
+            panelDiv = div
+        }
+    })
+    panelDiv.classList.add('raised')
+}
+
 interface BeforeAddPanelEvent {
     options: AddPanelOptions
     response: AddPanelOptions | null | undefined
@@ -121,6 +137,7 @@ export class PanelsImpl implements Panels {
         this.locationStack.pushLocation(options.location, options)
         this.updateModalPane()
         this.updateBars(options.location)
+        updateRaisedPanel()
         return Promise.resolve(extPanel)
     }
 
@@ -160,6 +177,9 @@ export class PanelsImpl implements Panels {
                     setActive(div)
                     break
             }
+            if (isDialog(location)) {
+                updateRaisedPanel()
+            }
             pushToHistory && wasHidden && pushHistoryState(getGridState())
         })
     }
@@ -188,6 +208,7 @@ export class PanelsImpl implements Panels {
                 case 'modeless':
                     parent.classList.add('hidden')
                     parent.classList.remove('grid-expanded')
+                    updateRaisedPanel()
                     break;
 
                 case 'center':
@@ -291,23 +312,27 @@ export class PanelsImpl implements Panels {
             }
 
             div.remove()
-            if (location === 'modal' || location === 'modeless') {
+            if (isDialog(location)) {
                 parent.remove()
             }
-            const nextId = this.locationStack.popLocation(location, id)
 
-            const nextDiv = document.getElementById(nextId)
-            if (!nextDiv || isDialog(location)) {
-                // stack is empty
-                this.updateModalPane()
-                this.updateBars(location)
-                this.removeResizeHandle(location)
-                return
-            }
-            extensionScaffold.chrome.panels.showPanel(nextId)
             this.updateModalPane()
             this.updateBars(location)
 
+            if (isDialog(location)) {
+                updateRaisedPanel()
+                return
+            }
+
+            const nextId = this.locationStack.popLocation(location, id)
+            const nextDiv = document.getElementById(nextId)
+            if (!nextDiv) {
+                // stack is empty
+                this.removeResizeHandle(location)
+                extensionScaffold.events.emit('grid-changed', getGridState())
+                return
+            }
+            extensionScaffold.chrome.panels.showPanel(nextId)
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
@@ -475,7 +500,7 @@ export class PanelsImpl implements Panels {
         options = defaultedOptions(options)
 
         // Always create new outer panel for modal and modeless
-        if (options.location !== 'modal' && options.location !== 'modeless') {
+        if (!isDialog(options.location)) {
             const r = gridContainer.querySelector(`.${options.location}`)
             if (r) {
                 if (options.resizeHandle && r.querySelectorAll('.drag').length === 0) {
@@ -494,10 +519,7 @@ export class PanelsImpl implements Panels {
         }
         if (options.location !== 'bottom' && options.location !== 'bottom-bar') {
             // tabs bring their own es-panel-header
-            if (options.popOutButton || options.hideButton || 
-                options.location === 'modal' ||
-                options.location === 'modeless'
-            ) {
+            if (options.popOutButton || options.hideButton || isDialog(options.location)) {
                 r.appendChild(this.makePanelHeaderBar(options))
             }
         }

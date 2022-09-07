@@ -389,6 +389,14 @@ code {
   min-width: 100px;
   min-height: 50px;
 }
+.grid-panel.modal.raised,
+.grid-panel.modeless.raised {
+  border: 1px solid rgb(155 155 155 / 50%)
+}
+.grid-panel.modal:not(.raised)    > .shadow-div ,
+.grid-panel.modeless:not(.raised) > .shadow-div {
+  pointer-events: none;
+}
 .grid-panel.modal.hidden,
 .grid-panel.modeless.hidden {
   visibility: hidden;
