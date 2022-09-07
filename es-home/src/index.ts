@@ -16,6 +16,7 @@ import { EsShowContext } from './components/show-context';
 import { EsShowPanelList } from './components/show-panel-list';
 import { EsTogglePanel } from './components/toggle-panel';
 import { EsRibbon } from './components/ribbon/ribbon';
+import { EsConsentDialog } from './components/consent-dialog';
 
 import './index.css'
 
@@ -223,6 +224,7 @@ Tonic.add(EsPrompt)
 Tonic.add(EsPopupTextarea)
 Tonic.add(EsLoadApplication)
 Tonic.add(EsHomePage)
+Tonic.add(EsConsentDialog)
 
 try {
   loadAppConfig()
