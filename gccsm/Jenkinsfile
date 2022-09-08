@@ -99,7 +99,7 @@ pipeline {
         withNPM(npmrcConfig: "${NPMRC_FILE_ID}") {
           echo "Installing dependencies"
           sh 'cp .npmrc common/config/rush/.npmrc'
-          sh 'node common/scripts/install-run-rush.js install'
+          sh 'node common/scripts/install-run-rush.js install --variant csa'
           echo "Initiating npm build steps..."
           sh 'node common/scripts/install-run-rush.js rebuild --verbose'
         }

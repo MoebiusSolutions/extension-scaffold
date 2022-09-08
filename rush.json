@@ -361,6 +361,10 @@
     //    */
     //   "description": "Build this repo using the previous release of the SDK"
     // }
+    {
+      "variantName": "csa",
+      "description": "lock file pointing to CSA Artifactory"
+    }
   ],
 
   /**
