@@ -18,7 +18,12 @@ export class EsNetworkLines extends Tonic {
 
     }
     const lines = REQS.map(r => {
-      return this.html`<pre class="green">${r.statusText} ${r.url}</pre>`
+      const i = r.isError ? icons.error : icons.info
+      const f = `${r.fetchId}`
+      const s = r.statusText || `${r.status}`
+      const c = r.isError ? 'error' : 'info'
+      const d = `${r.duration ?? `...`}`
+      return this.html`<pre class="${c}">${i} ${f}: ${s} ${r.url} ${d}s</pre>`
     })
 
     return this.html`${lines}`

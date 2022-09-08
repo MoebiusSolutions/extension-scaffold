@@ -3,6 +3,7 @@ import type { ExtensionScaffoldApi } from '@gots/es-runtime/build/es-api'
 import { EsDebugConsoleRibbonPanel } from './ribbon/debug-console-ribbon-panel'
 import { EsDebugConsole } from './ribbon/debug-console'
 import { EsConsoleLines } from './ribbon/console-lines'
+import { onDevTools } from '@gots/es-iframe-to-dev-ext'
 
 //
 // Collects console output and unhandled errors into a ring buffer
@@ -18,4 +19,12 @@ export async function activate(scaffold: ExtensionScaffoldApi) {
   const s = document.createElement('es-debug-console-ribbon-panel')
   div.innerText = ''
   div.appendChild(s)
+
+  //
+  // Subscribe console log messages from other sources
+  //
+  const a: any = s
+  onDevTools('extension-scaffold.console.log', (_, payload) => {
+    a.logPush(payload.level, payload.args)
+  })
 }

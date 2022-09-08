@@ -4,6 +4,10 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
+    "lib": [
+      "DOM",
+      "ES2016",
+    ],
     "jsx": "preserve",
     "baseUrl": "./",
     /* paths - import rewriting/resolving */

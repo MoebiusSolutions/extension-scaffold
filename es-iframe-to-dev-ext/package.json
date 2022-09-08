@@ -1,0 +1,24 @@
+{
+  "name": "@gots/es-iframe-to-dev-ext",
+  "version": "1.0.0-dev0",
+  "description": "IFrame to Deveveloper Extension",
+  "main": "build/index.js",
+  "files": [
+    "build",
+    "public"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run build-sw",
+    "build-sw": "tsc --project sw",
+    "prepack": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Hastings",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@gots/noowf-inter-widget-communication": "~2.6.0"
+  },
+  "devDependencies": {
+    "typescript": "~4.8.2"
+  }
+}
