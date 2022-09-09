@@ -15,7 +15,7 @@ $ git tag v{version-matching-es-home/package.json/version}
 $ git switch develop
 $ git merge release
 $ (cd es-home; npm version preminor --preid SNAPSHOT)
-$ (cd es-home; npm version preminor --preid SNAPSHOT)
+$ (cd es-runtime; npm version preminor --preid SNAPSHOT)
 $ git add .
 $ git commit -m'Next dev cycle {version}'
 $ git push origin develop release --tags
