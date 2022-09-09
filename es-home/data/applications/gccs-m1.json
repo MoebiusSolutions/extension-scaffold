@@ -1,14 +1,10 @@
 {
     "name": "gccs-m1",
-    "title": "GCCS-M(1)",
+    "title": "GCCS-M",
     "extensions": [
       "/track-services-interface/tsi-extension/dist/index.js",
       "/alert-service-interface/es-extension/dist/index.js",
-      "/webmap/map-extension/dist/index.js",
-      "/ui/common/dist/theme-extension.js",
-      "/ui/common/dist/debug-metrics.js",
-      "/ui/dist/extensions/console-extension.js",
-      "/ui/dist/extensions/help-about-extension.js"
+      "/webmap/map-extension/dist/index.js"
     ],
     "iframes": [
       {
