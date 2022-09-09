@@ -1,5 +1,25 @@
 # Deploying to `dev26`
 
+## Tag a Release
+
+```
+$ git switch release
+$ git pull
+$ git status
+$ git merge develop
+$ (cd es-home; npm version minor)
+$ (cd-es-runtime; npm version minor)
+$ git add .
+$ git commit -m'Release {version-matching-es-home/package.json/version}'
+$ git tag {version-matching-es-home/package.json/version}
+$ git switch develop
+$ git merge release
+$ (cd es-home; npm version preminor --preid SNAPSHOT)
+$ (cd es-home; npm version preminor --preid SNAPSHOT)
+$ git add .
+$ git commit -m'Next dev cycle {version}'
+```
+
 ## Checkout Release
 
 ```
