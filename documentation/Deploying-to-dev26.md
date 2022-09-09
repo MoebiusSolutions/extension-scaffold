@@ -8,7 +8,7 @@ $ git pull
 $ git status
 $ git merge develop
 $ (cd es-home; npm version minor)
-$ (cd-es-runtime; npm version minor)
+$ (cd es-runtime; npm version minor)
 $ git add .
 $ git commit -m'Release {version-matching-es-home/package.json/version}'
 $ git tag {version-matching-es-home/package.json/version}
