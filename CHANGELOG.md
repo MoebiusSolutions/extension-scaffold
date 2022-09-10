@@ -1,5 +1,40 @@
 ## Change Log
 
+# [2.16.0] - 2022-09-09
+
+### Added
+
+* MINERVA-16474 Complete DOD Consent Banner
+* Adds a `rush` variant named `csa` to install/update using csa Artifactory (`rush update --variant csa`)
+* Improve network debug log by matching fetch with response/error and styling errors
+* Add `library es-iframe-to-dev-ext`. 
+  This small library allows an `iframe` based panel to forward
+  `console` log and `network` log information from the `iframe`
+  to the `console-extension` and `network-extension`.
+
+### Changed
+
+* Updates all projects to typescript 4.8.2
+* Updated instructions for deploying to `dev26`
+
+### Removed
+
+* Remove debug extensions from `gccs-m1.json`
+
+# [2.15.0] - 2022-09-03
+
+### Added
+
+* A `pointerdown` in modal or modeless raises the panel
+* Add notes on TRMC artifactory NPM access
+
+### Changed
+
+* Fixed `index.json` included in gccsm war file
+* Fix tsc error on `Promise.finally`
+* Hide drag bar wehn grid-expanded
+* Redo `ampt.json`
+
 # [2.14.2] - 2022-07-10
 
 ### Changed
