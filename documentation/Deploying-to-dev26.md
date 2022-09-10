@@ -2,6 +2,9 @@
 
 ## Tag a Release
 
+* Update and commit `CHANGELOG.md` to the `develop` branch.
+* Then:
+
 ```
 $ git switch release
 $ git pull
@@ -57,20 +60,22 @@ $ ./es-home/deploy/push-images.sh {version}
 $ ./es-common-extensions/deploy/push-images.sh {version}
 ```
 
-## Update Image Tags in `dfntc-ansible`
+## Update Image Tags in `minerva-infrastructure`
 
-In file `dfntc-ansible/roles/dfntc/extension-scaffold/defaults/main.yml`
+In file `minerva-infrastructure/ansible/roles/extension-scaffold/defaults/main.yml`
 
 * `extension_scaffold__home_version: {version}`
 * `es_common__version: {version}`
 
-## Push Branch to DI2E
+## Push Branch to TRMC
 
 ```
 $ git switch -c upgrade-es-to-{version}
 $ git gui &
-$ git push di2e -u upgrade-es-to-{version}
+$ git push origin -u upgrade-es-to-{version}
 ```
+
+* Submit pull-request to merge into `master`
 
 ## Deploy
 
@@ -78,7 +83,7 @@ $ git push di2e -u upgrade-es-to-{version}
 
 ```
 $ ssh basebox.dev26.niera
-$ cd wk/dfntc
+$ cd wk/trmc
 $ git pull
 $ git switch upgrade-es-to-{version}
 ```
