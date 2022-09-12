@@ -9,10 +9,11 @@ if (( $# < 1 )); then
 fi
 
 push_image() {
-  docker image push "docker-dfntc.di2e.net/moesol/extension-scaffold/$1:$2"
+  docker image push "${REPO}/moesol/extension-scaffold/$1:$2"
 }
 
 VERSION_TAG=$1
+REPO=artifacts.trmc.osd.mil/minerva-docker
 
 echo "Pushing version ${VERSION_TAG}"
 push_image es-common-extensions ${VERSION_TAG}

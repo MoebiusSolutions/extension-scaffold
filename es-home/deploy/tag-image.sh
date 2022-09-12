@@ -9,8 +9,9 @@ if (( $# < 1 )); then
 fi
 
 VERSION_TAG=$1
+REPO=artifacts.trmc.osd.mil/minerva-docker
 
 echo "Tagging version $1"
 set -x
-docker tag extension-scaffold/es-home:latest docker-dfntc.di2e.net/moesol/extension-scaffold/es-home:${VERSION_TAG}
+docker tag extension-scaffold/es-home:latest ${REPO}/moesol/extension-scaffold/es-home:${VERSION_TAG}
 set +x
