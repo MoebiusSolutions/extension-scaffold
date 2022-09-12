@@ -13,7 +13,7 @@ services:
     - "127.0.0.1:80:80"
 
   es-home:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-home"
     volumes: 
@@ -26,7 +26,7 @@ services:
     command: "npm run container"
 
   es-runtime:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-runtime"
     volumes: 
@@ -40,7 +40,7 @@ services:
     command: "npm run container"
 
   es-common-extensions:
-    image: "node:14"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-common-extensions"
     volumes: 
@@ -53,7 +53,7 @@ services:
     command: "npm run container"
 
   ext-example-rollup:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-rollup"
     volumes: 
@@ -67,7 +67,7 @@ services:
     command: "npm run container"
 
   ext-example-snowpack:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-snowpack"
     volumes: 
@@ -81,7 +81,7 @@ services:
     command: "npm run container"
 
   iframe-example:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/iframe-example"
     volumes: 
@@ -95,7 +95,7 @@ services:
     command: "npm run container"
 
   ext-example-svelte:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-svelte"
     volumes: 
@@ -109,7 +109,7 @@ services:
     command: "npm run container"
 
   ext-example-webpack:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-webpack"
     volumes: 
@@ -123,7 +123,7 @@ services:
     command: "npm run container"
 
   ext-example-lit-element:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-lit-element"
     volumes: 
@@ -137,7 +137,7 @@ services:
     command: "npm run container"
 
   enterprise-client:
-    image: "node:12"
+    image: ${NODE_TAG}
     user: "node"
     working_dir: "/home/enterprise-client"
     volumes: 
@@ -152,7 +152,7 @@ services:
 
   # The nodejs service is just for development
   nodejs:
-    image: node:16
+    image: ${NODE_TAG}
     user: "node"
     working_dir: /home/extension-scaffold
     volumes:
@@ -168,7 +168,7 @@ services:
     command: bash # Use docker-compose exec nodejs bash, then build/run
 
   webmap:
-    image: node:12
+    image: ${NODE_TAG}
     user: "node"
     working_dir: /home/node
     volumes:
