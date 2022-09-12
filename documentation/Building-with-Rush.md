@@ -12,22 +12,25 @@ $ npm install -g @microsoft/rush
 
 ## Choose Your NPM Private Registry
 
-Default is for `rush update` to install against DI2E.
+Default is for `rush update` to install NPM artifacts from TRMC.
 
-Copy `common/config/rush/variants/dot-npmrc-{csa,di2e,moelab}`
-to `common/config/rush/.npmrc`
-in order to switch private NPM registries.
+> Optionally, copy `common/config/rush/variants/dot-npmrc-{csa,trmc,moelab}`
+> to `common/config/rush/.npmrc` in order to switch private NPM registries.
+
+More recently the team has been building by setting up `$HOME/.npmrc`
+to point at TRMC. If you want to setup your `$HOME/.npmrc` file to
+point to CSA/OSA, then you can use `rush update --variant csa`, so that,
+you get a pnpm-lock.yml file that points at CSA/OSA.
 
 ## Export NPM_AUTH_TOKEN
 
-Since `rush` uses `common/config/rush/.npmrc`, and that file is commited
-to `git`, we have placed `${NPM_AUTH_TOKEN}` in the file
-as a place holder for your actual NPM authentication token.
-By default we have configured for DI2E.
+If you setup `common/config/rush/.npmrc`, that file is committed to `git`.
+Rather that your real NPM authentication information use environment variables in the file
+as a place holder for your actual NPM authentication information.
+By default we have configured for TRMC.
 Remarks show how to configure for CSA and Moebius Nexus servers.
 
-You can get an authentication token by using `npm login --registry <URL>`.
-After logging in, the token will be in your `${HOME}/.npmrc` file.
+For NPM authentication steps see [Login-to-Private-NPM-Registry](./Login-to-Private-NPM-Registry.md).
 
 ## Install Dependencies
 
