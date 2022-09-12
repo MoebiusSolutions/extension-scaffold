@@ -25,5 +25,6 @@ export async function activate(scaffold: ExtensionScaffoldApi) {
     icon: span,
     location: 'left',
     resizeHandle: true,
+    removeButton: true,
   }).then(onPanelAdded)
 }

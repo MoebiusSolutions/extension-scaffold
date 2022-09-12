@@ -16,6 +16,7 @@ export async function activate(scaffold) {
     id: 'ext.example.webpack',
     location: 'right',
     resizeHandle: true,
+    removeButton: true,
   })
   ReactDOM.render(
     <React.StrictMode>

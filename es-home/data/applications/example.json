@@ -131,7 +131,8 @@
             "title": "IFrame",
             "location": "right",
             "iframeSource": "http://localhost:9095/",
-            "resizeHandle": true
+            "resizeHandle": true,
+            "removeButton": true
         }
     ]
 }

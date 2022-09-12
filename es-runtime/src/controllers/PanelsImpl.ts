@@ -37,6 +37,20 @@ function getDivSize(div: HTMLElement | null): OrigSize {
 
 const isDialog = (location: Location) => location === 'modal' || location === 'modeless'
 
+function updateModalPane() {
+    const md: HTMLDivElement | null = document.querySelector('#es-modal-pane')
+    if (!md) {
+        console.warn('Missing #es-modal-pane')
+        return
+    }
+    if (document.querySelectorAll('.grid-panel.modal:not(.hidden)').length !== 0) {
+        md.style.display = 'block'
+    } else {
+        md.style.display = 'none'
+        md.style.zIndex = '2' // above drag
+    }
+}
+
 export function updateRaisedPanel() {
     let panelDiv = document.createElement('div')
     let maxZ = 1
@@ -135,9 +149,9 @@ export class PanelsImpl implements Panels {
         }
         
         this.locationStack.pushLocation(options.location, options)
-        this.updateModalPane()
-        this.updateBars(options.location)
+        updateModalPane()
         updateRaisedPanel()
+        this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
 
@@ -169,7 +183,7 @@ export class PanelsImpl implements Panels {
                     parent.classList.remove('hidden')
                     setActive(div)
                     showPanelsWithLocation(`above-${location}`)
-                    this.updateModalPane()
+                    updateModalPane()
                     this.updateBars(location)
                     break
 
@@ -201,13 +215,14 @@ export class PanelsImpl implements Panels {
                 case 'bottom-bar':
                     this.closeLocation(location)
                     hidePanelsWithLocation(`above-${location}`)
-                    this.updateModalPane()
+                    updateModalPane()
                     this.updateBars(location)
                     break
                 case 'modal':
                 case 'modeless':
                     parent.classList.add('hidden')
                     parent.classList.remove('grid-expanded')
+                    updateModalPane()
                     updateRaisedPanel()
                     break;
 
@@ -306,33 +321,30 @@ export class PanelsImpl implements Panels {
                 console.error('Class name list changed since there is no location stack', location)
                 return
             }
+
             if (stack.length === 1) {
                 // We are about to remove the last panel in this location
                 this.hidePanel(id)
             }
-
             div.remove()
+            const nextId = this.locationStack.popLocation(location, id)
+
             if (isDialog(location)) {
                 parent.remove()
-            }
-
-            this.updateModalPane()
-            this.updateBars(location)
-
-            if (isDialog(location)) {
+                updateModalPane()
                 updateRaisedPanel()
                 return
             }
 
-            const nextId = this.locationStack.popLocation(location, id)
             const nextDiv = document.getElementById(nextId)
-            if (!nextDiv) {
+            if (nextDiv) {
+                extensionScaffold.chrome.panels.showPanel(nextId)
+            } else {
                 // stack is empty
                 this.removeResizeHandle(location)
-                extensionScaffold.events.emit('grid-changed', getGridState())
-                return
             }
-            extensionScaffold.chrome.panels.showPanel(nextId)
+            this.updateBars(location)
+
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
@@ -425,20 +437,6 @@ export class PanelsImpl implements Panels {
 
             this.externalWindows.set(id, extWindow)
             return { extWindow, popOutContainer }
-        }
-    }
-
-    private updateModalPane() {
-        const md: HTMLDivElement | null = document.querySelector('#es-modal-pane')
-        if (!md) {
-            console.warn('Missing #es-modal-pane')
-            return
-        }
-        if (document.querySelectorAll('.grid-panel.modal:not(.hidden)').length !== 0) {
-            md.style.display = 'block'
-        } else {
-            md.style.display = 'none'
-            md.style.zIndex = '2' // above drag
         }
     }
 
