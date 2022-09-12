@@ -40,49 +40,8 @@ See below for when / how to `git tag`.
 
 Depending on which project/contract you are working you may
 have access to one or more private npm repositories.
-These are the ones that are currently known to the author:
 
-1. OSA/CSA - https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/
-2. DI2E - https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM
-3. Moebius - https://nexus.moesol.com/repository/gccsje-npm-hosted/
-
-You can verify if you are logged into a registry using the `npm whoami` command.
-
-For example, for the Moebius registry you can run:
-
-```
-npm whoami --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/
-```
-
-If you are not logged into the private npm repository you can
-login for the "scope" `@gots` using one of the command lines below.
-
-For CSA use:
-
-```
-npm login --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/ --scope @gots
-```
-
-For DI2E use:
-
-```
-npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM --scope @gots
-```
-
-For Moebius use:
-
-```
-npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
-```
-
-  > Note: If you need to switch registries back and forth a lot,
-  > then you may want to put one of the registries into a different `npmrc` file.
-  > For example: 
-  >
-  > `npm login --userconfig ~/npmrc-moesol --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots`
-  > (see below for how to use `~/npmrc-moesol`).
-  > The `--userconfig` option works for `npm whoami` as well: 
-  > `npm --userconfig ~/npm-moe whoami --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/`
+See [Login-to-Private-NPM-Registry](../documentation/Login-to-Private-NPM-Registry.md)
 
 ## 4. Publish the release
 
@@ -94,7 +53,7 @@ npm publish
 
   > If you are using a different file for your `npmrc`, then you can publish with something like:
   
-  > `npm publish --userconfig ~/npmrc-di2e`
+  > `npm publish --userconfig ~/npmrc-trmc`
 
   or
 
@@ -104,21 +63,6 @@ npm publish
 
 Now that we are using `rush`, the dependency on `@gots/es-runtime` will be listed as `workspace:*`.
 So this step is no longer needed.
-
-> Deprecated: Be sure you `npm login` to the registry you want to pull `@gots/es-runtime` from.
-If you are using a file you can use `NPM_CONFIG_USERCONFIG=~/npmrc-di2e` to get `npm install`
-to use those credentials.
-
-```
-[deprecated]$ NPM_CONFIG_USERCONFIG=~/npmrc-di2e ./extension-scaffold/es-runtime/scripts/upgrade-all.sh
-[deprecated]$ git add -a
-[deprecated]$ git commit -m'upgrade to version x.y.z`
-```
-
-> Deprecated: if you leave `es-home` or `es-common-extensions` referencing
-> `es-runtime@file:../es-runtime` then the Dockerfile build for `es-home` 
-> will fail since the reference points outside of the files copied into
-> the docker build environment.
 
 ## 6. Tag the repository
 
@@ -166,9 +110,6 @@ $ npm --no-git-tag-version version x.y.z-SNAPSHOT            # Example input: 1.
 # Do not use the --preid example below or the nightly build script will not pickup the updates.
 # npm --no-git-tag-version version prepatch --preid=SNAPSHOT # Example output: 1.2.1-SNAPSHOT.0
 
-> deprecated: $ NPM_CONFIG_USERCONFIG=~/npmrc-di2e ./extension-scaffold/es-runtime/scripts/link-all.sh
-
-
 $ git -a .
 $ git commit -m 'Prepare for next development cycle, set version to 1.2.1-SNAPSHOT.0' # Use your new version
 
@@ -188,10 +129,10 @@ For each remote:
 git push {remote} develop release --tags
 ```
 
-For example, if you have `di2e`, `csa`, and `moelab` as remotes, then you would run:
+For example, if you have `trmc`, `csa`, and `moelab` as remotes, then you would run:
 
 ```
-git push di2e develop release --tags
+git push trmc develop release --tags
 git push csa develop release --tags
 git push moelab develop release --tags
 ```

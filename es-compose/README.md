@@ -13,39 +13,12 @@ there are a couple of one time steps to setup before you can run the demonstrati
 We replaced `npm install` with `rush update`.
 See [Building with Rush](../documentation/Building-with-Rush.md)
 
-You will need to export `NPM_AUTH_TOKEN` so that `rush update` can access private NPM repositories.
+You will need to configure NPM for access to private NPM registry: [Login-to-Private-NPM-Registry](../documentation/Login-to-Private-NPM-Registry.md)
 
-Before first `docker-compose up -d` run `rush update` to get all the npm dependencies installed:
+## One-time of Dependencies
 
-```
-export NPM_AUTH_TOKEN=blah-blah-my-token-from-npmrc
-$ rush update
-```
-
-## One-time Setup of `npm login` to Get `NPM_AUTH_TOKEN`
-
-You will need to log `npm` into the Nexus repository.
-To have `rush update` log into Nexus:
-
-```
-    $ cd extension-scaffold/es-compose
-    $ docker-compose run es-home bash
-    $ npm login --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/ --scope @gots
-```
-> Use your Moebius username and password.
-
-To use DI2E's Nexus:
-```
-    $ npm login --registry https://nexus.di2e.net/nexus3/repository/Private_DFNTC_NPM/ --scope @gots
-```
-
-To use CSA's Artifactory:
-```
-    $ npm login --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-group/ --scope @gots
-```
-
-Now you can get your token from `~/.npmrc`.
-Your token for a URL is everything after `:_authToken=`.
+After you have setup NPM private registry:
+Run `rush update`.
 
 ## Accessing the Development Containers
 

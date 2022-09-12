@@ -4,7 +4,7 @@
   "module": "./build/es-api.js",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.di2e.net/scm/dfntc/extension-scaffold.git"
+    "url": "https://www.trmc.osd.mil/bitbucket/scm/minerva/extension-scaffold.git"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run cp:css && npm run cp:material",
