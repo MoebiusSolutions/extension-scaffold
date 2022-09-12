@@ -1,5 +1,13 @@
 ## Change Log
 
+# [2.17.0] - 2022-09-12
+
+### Changed
+
+* Fixed remove last panel bug
+* Upgrade containers to `node:16`
+* Updated documentation
+
 # [2.16.0] - 2022-09-09
 
 ### Added
