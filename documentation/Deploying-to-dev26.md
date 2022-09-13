@@ -49,8 +49,8 @@ $ ./es-common-extensions/deploy/build-prod-container.sh
 ## Tag Containers
 
 ```
-$ ./es-home/deploy/tag-images.sh {version}
-$ ./es-common-extensions/deploy/tag-images.sh {version}
+$ ./es-home/deploy/tag-image.sh {version}
+$ ./es-common-extensions/deploy/tag-image.sh {version}
 ```
 
 ## Push Containers
