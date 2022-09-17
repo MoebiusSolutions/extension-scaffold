@@ -1,6 +1,6 @@
 {
   "name": "@gots/es-home",
-  "version": "2.18.0-SNAPSHOT.0",
+  "version": "2.18.0",
   "scripts": {
     "start": "snowpack dev --polyfill-node",
     "build": "npm run resolve-applications  && npm run git-describe && snowpack build --polyfill-node",
