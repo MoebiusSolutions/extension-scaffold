@@ -280,5 +280,10 @@ import { initialize, publishJson } from '@gots/noowf-inter-widget-communication'
 ```
 
 * See more IWC details - https://www.trmc.osd.mil/bitbucket/projects/MINERVA/repos/inter-widget-communication/browse
+
+## Map IWC API
+
+This is a thin typescript wrapper that tries to capture the message names and the message payload types.
+
 * See typescript definitions for the map IWC messages -
   https://www.trmc.osd.mil/bitbucket/projects/MINERVA/repos/map-iwc-api/browse
