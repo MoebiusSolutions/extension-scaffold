@@ -1,5 +1,6 @@
 # Summary
 
+* [Introduction](./README.md)
 * [Getting Started](./Getting-Started.md)
 * [Data Driven Panels](./Data-Driven-Panels.md)
 * [Extensions](./Extensions.md)

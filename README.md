@@ -2,7 +2,6 @@
 
 > A lightweight alternative to OWF.
 
-* [Introduction of Extension Scaffold](./documentation/README.md)
 * [Documentation for Extension Scaffold](./documentation/SUMMARY.md)
 
 > TLDR; 
