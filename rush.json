@@ -364,6 +364,10 @@
     {
       "variantName": "csa",
       "description": "lock file pointing to CSA Artifactory"
+    },
+    {
+      "variantName": "moesol",
+      "description": "lock file pointing to Moebius Solutions Artifactory"
     }
   ],
 
