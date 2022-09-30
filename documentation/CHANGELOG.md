@@ -1,5 +1,21 @@
 ## Change Log
 
+# [2.19.0] - 2022-09-29
+
+### Added
+
+* Added `--variant moesol` with a pnpm-lock.yml file
+  linked to Moebius Nexus server
+* Re-organized the documentation and added `make-book.sh`
+  to generate a PDF file with all of the documentation
+  in a single file.
+
+# [2.18.0] - 2022-09-16
+
+### Changed
+
+* Fixed pnpm-lock.yml for `--variant csa`
+
 # [2.17.0] - 2022-09-12
 
 ### Changed

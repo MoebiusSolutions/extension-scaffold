@@ -8,14 +8,13 @@ Determine what the next version number will be.
 
 ## 2. Update Version Number
 
-From the `es-runtime` folder, use the `npm version` command. 
+From the `extension-scaffold` folder, use the `npm version` command. 
 To go to the next minor release you can use:
 
 ```bash
-$ cd es-runtime
-$ npm version minor
-$ cd ../es-home
-$ npm version minor
+$ (cd es-runtime; npm version minor)
+$ (cd es-home; npm version minor)
+$ (cd es-iframe-to-dev-ext; npm version minor)
 ```
 
 Or to set a specific version, say 1.0.8 use `npm version 1.0.8`
