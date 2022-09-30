@@ -15,8 +15,12 @@ Determine what the next version number will be.
 ```bash
 $ rush version --bump -b release
 $ git switch release; git tag v{x.y.z}
+
 $ export NPM_TRMC_TOKEN=(your trmc token)
 $ rush publish --include-all --publish
+# If you use `pass` to store your token
+$ NPM_TRMC_TOKEN=$(pass npm-token/trmc) rush publish --include-all --publish
+
 $ git switch develop
 $ git merge release
 $ rush version --bump --override-bump preminor --override-prerelease-id SNAPSHOT
