@@ -9,6 +9,13 @@
  * to a set of projects that are specified using the "versionPolicyName" field in rush.json.
  */
 [
+  {
+    "policyName": "next-minor-release",
+    "definitionName": "lockStepVersion",
+    "version": "2.19.0",
+    "nextBump": "minor",
+    "mainProject": "@gots/es-runtime"
+  }
   // {
   //   /**
   //    * (Required) Indicates the kind of version policy being defined ("lockStepVersion" or "individualVersion").

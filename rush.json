@@ -400,11 +400,12 @@
     {
       "packageName": "@gots/es-runtime",
       "projectFolder": "es-runtime",
-      "shouldPublish": true
+      "versionPolicyName": "next-minor-release"
     },
     {
       "packageName": "@gots/es-home",
-      "projectFolder": "es-home"
+      "projectFolder": "es-home",
+      "versionPolicyName": "next-minor-release"
     },
     {
       "packageName": "@gots/es-common-extensions",
@@ -436,7 +437,8 @@
     },
     {
       "packageName": "@gots/es-iframe-to-dev-ext",
-      "projectFolder": "es-iframe-to-dev-ext"
+      "projectFolder": "es-iframe-to-dev-ext",
+      "versionPolicyName": "next-minor-release"
     }
     // {
     //   /**
