@@ -1,6 +1,6 @@
 {
   "name": "@gots/es-iframe-to-dev-ext",
-  "version": "1.0.0-dev0",
+  "version": "2.19.0",
   "description": "IFrame to Deveveloper Extension",
   "main": "build/index.js",
   "files": [
