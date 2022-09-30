@@ -18,3 +18,6 @@
 #
 #   //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
 #
+@gots:registry = "https://artifacts.trmc.osd.mil/artifactory/api/npm/minerva-npm/" 
+//artifacts.trmc.osd.mil/artifactory/api/npm/minerva-npm/:_authToken=${NPM_AUTH_TOKEN}
+cafile=/etc/ssl/certs/ca-certificates.crt
