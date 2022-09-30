@@ -17,7 +17,15 @@
 # environment variable, which can be referenced from .npmrc using ${} expansion.  For example:
 #
 #   //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
-#
+
+# Default is to publish to TRMC
 @gots:registry = "https://artifacts.trmc.osd.mil/artifactory/api/npm/minerva-npm/" 
-//artifacts.trmc.osd.mil/artifactory/api/npm/minerva-npm/:_authToken=${NPM_AUTH_TOKEN}
+//artifacts.trmc.osd.mil/artifactory/api/npm/minerva-npm/:_authToken=${NPM_TRMC_TOKEN}
+
+# rush publish --include-all --publish --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/
+//services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/:_authToken=${NPM_CSA_TOKEN}
+
+# rush publish --include-all --publish --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/
+//nexus.moesol.com/repository/gccsje-npm-hosted/:_authToken=${NPM_MOE_TOKEN}
+
 cafile=/etc/ssl/certs/ca-certificates.crt

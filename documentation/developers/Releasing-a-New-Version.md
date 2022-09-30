@@ -6,18 +6,42 @@ By updating what has changed since the last release, you can decide if there are
 which require a major version number change.
 Determine what the next version number will be.
 
-## Tag Release/Publish Using Rush
+---
 
-> Experimental steps using rush
-> * rush version --bump -b release
-> * git switch release; git tag v{x.y.z}
-> * rush publish --include-all --publish
-> * git switch develop
-> * git merge release
-> * rush version --bump --override-bump preminor --override-prerelease-id SNAPSHOT
-> * gitk --all # verify
-> * git push all develop release --follow-tags
+# Rush Instructions
 
+## 2. Tag Release/Publish Using Rush (Experimental)
+
+```bash
+$ rush version --bump -b release
+$ git switch release; git tag v{x.y.z}
+$ export NPM_TRMC_TOKEN=(your trmc token)
+$ rush publish --include-all --publish
+$ git switch develop
+$ git merge release
+$ rush version --bump --override-bump preminor --override-prerelease-id SNAPSHOT
+$ gitk --all # verify
+$ git push all develop release --follow-tags
+```
+
+The default location for `rush publish` is TRMC.
+To publish to CSA use:
+```bash
+$ export NPM_CSA_TOKEN=(your csa token)
+$ rush publish --include-all --publish \
+    --registry https://services.csa.spawar.navy.mil/artifactory/api/npm/mtc2-c2f-npm-local/
+```
+
+To publish to Moebius Nexus use:
+```bash
+$ export NPM_MOE_TOKEN=(your moebius token)
+$ rush publish --include-all --publish \
+    --registry https://nexus.moesol.com/repository/gccsje-npm-hosted/
+```
+
+---
+
+# Non-Rush Instructions
 ## 2. Update Version Number
 
 From the `extension-scaffold` folder, use the `npm version` command. 
