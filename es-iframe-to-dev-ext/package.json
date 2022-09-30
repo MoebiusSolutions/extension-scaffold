@@ -16,7 +16,7 @@
   "author": "Robert Hastings",
   "license": "Apache-2.0",
   "dependencies": {
-    "@gots/noowf-inter-widget-communication": "~2.6.0"
+    "@gots/noowf-inter-widget-communication": "^2.6.0"
   },
   "devDependencies": {
     "typescript": "~4.8.2"
