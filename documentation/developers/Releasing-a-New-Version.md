@@ -6,6 +6,18 @@ By updating what has changed since the last release, you can decide if there are
 which require a major version number change.
 Determine what the next version number will be.
 
+## Tag Release/Publish Using Rush
+
+> Experimental steps using rush
+> * rush version --bump -b release
+> * git switch release; git tag v{x.y.z}
+> * rush publish --include-all --publish
+> * git switch develop
+> * git merge release
+> * rush version --bump --override-bump preminor --override-prerelease-id SNAPSHOT
+> * gitk --all # verify
+> * git push all develop release --follow-tags
+
 ## 2. Update Version Number
 
 From the `extension-scaffold` folder, use the `npm version` command. 
