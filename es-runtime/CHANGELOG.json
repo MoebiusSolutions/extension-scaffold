@@ -2,6 +2,12 @@
   "name": "@gots/es-runtime",
   "entries": [
     {
+      "version": "2.20.0",
+      "tag": "@gots/es-runtime_v2.20.0",
+      "date": "Tue, 25 Oct 2022 17:30:56 GMT",
+      "comments": {}
+    },
+    {
       "version": "2.19.0",
       "tag": "@gots/es-runtime_v2.19.0",
       "date": "Fri, 30 Sep 2022 04:23:54 GMT",
