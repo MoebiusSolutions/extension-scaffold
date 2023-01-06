@@ -1,0 +1,60 @@
+{
+  "name": "dc",
+  "title": "Dreamcatcher",
+  "ribbon": [
+    {
+      "tab": "Optimization",
+      "sections": [
+        "dc.home",
+        "dc.external",
+        "dc.database"
+      ]
+    },
+    {
+      "tab": "View",
+      "sections": [
+        "display.theme"
+      ]
+    },
+    {
+      "tab": "Developer",
+      "sections": [
+        "debug.console",
+        "debug.metrics"
+      ]
+    },
+    {
+      "tab": "Help",
+      "sections": [
+        "help.about.es-home"
+      ]
+    }
+  ],
+  "header": [
+  ],
+  "extensions": [
+    "/dc/dc-extension/dc-extension.mjs",
+    "/es/ui/common/dist/theme-extension.js",
+    "/es/ui/dist/extensions/console-extension.js",
+    "/es/ui/common/dist/debug-metrics.js",
+    "/es/ui/dist/extensions/help-about-extension.js",
+    "/es/ui/common/dist/classification-banner.js",
+    "/es/common/dist/classification-banner.js"
+  ],
+  "iframes": [
+    {
+      "id": "aeolus.map",
+      "title": "Map",
+      "location": "center",
+      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt,cesium",
+      "resizeHandle": true
+    },
+    {
+		"id": "es.example.time",
+		"title": "Time Line",
+		"location": "bottom",
+		"iframeSource": "/wasp-data-visualization-namejs/#/timelineiwc?iwc=broadcast&busUrl=/es/ui/bcst-bus/",
+		"resizeHandle": true
+	}
+  ]
+}
