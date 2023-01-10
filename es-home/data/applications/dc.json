@@ -33,7 +33,7 @@
   "header": [
   ],
   "extensions": [
-    "/dc/dc-extension/dc-extension.mjs",
+    "/dc/dc-extension/dc-extension.js",
     "/es/ui/common/dist/theme-extension.js",
     "/es/ui/dist/extensions/console-extension.js",
     "/es/ui/common/dist/debug-metrics.js",
@@ -53,8 +53,9 @@
 		"id": "es.example.time",
 		"title": "Time Line",
 		"location": "bottom",
-		"iframeSource": "/wasp-data-visualization-namejs/#/timeline",
+		"iframeSource": "/wasp-data-visualization-namejs/#/timelineiwc?iwc=broadcast&busUrl=es/ui/bcst-bus/index.html&timeLine=waspet",
 		"resizeHandle": true
 	}
   ]
 }
+
