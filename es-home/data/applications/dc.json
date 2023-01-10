@@ -53,7 +53,7 @@
 		"id": "es.example.time",
 		"title": "Time Line",
 		"location": "bottom",
-		"iframeSource": "/wasp-data-visualization-namejs/#/timelineiwc?iwc=broadcast&busUrl=/es/ui/bcst-bus/",
+		"iframeSource": "/wasp-data-visualization-namejs/#/timeline",
 		"resizeHandle": true
 	}
   ]
