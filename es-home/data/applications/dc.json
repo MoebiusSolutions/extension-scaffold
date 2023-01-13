@@ -39,22 +39,33 @@
     "/es/ui/common/dist/debug-metrics.js",
     "/es/ui/dist/extensions/help-about-extension.js",
     "/es/ui/common/dist/classification-banner.js",
-    "/es/common/dist/classification-banner.js"
+    "/es/common/dist/classification-banner.js",
+    "/atf-mapcontrol/dist/AtfMapControl.js"
+
   ],
   "iframes": [
+  {
+            "id": "dcgui",
+            "title": "Dream Catcher",
+            "location": "left",
+            "iframeSource": "/atf-panel/?iwc=broadcast&timeLine=waspet&iwc=broadcast&busUrl=es/ui/bcst-bus/",
+            "resizeHandle": true
+        },
+
     {
       "id": "aeolus.map",
       "title": "Map",
       "location": "center",
-      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt,cesium",
+      "iframeSource": "/usw-dss-map-namejs/index.html?extensions=phoenix,opt,cesium",
       "resizeHandle": true
     },
     {
 		"id": "es.example.time",
 		"title": "Time Line",
 		"location": "bottom",
-		"iframeSource": "/wasp-data-visualization-namejs/#/timelineiwc?iwc=broadcast&busUrl=es/ui/bcst-bus/index.html&timeLine=waspet",
+		"iframeSource": "/wasp-data-visualization-namejs/#/timelineiwc?iwc=broadcast&busUrl=es/ui/bcst-bus&timeLine=waspet",
 		"resizeHandle": true
+
 	}
   ]
 }
