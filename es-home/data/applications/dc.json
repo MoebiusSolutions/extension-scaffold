@@ -44,29 +44,28 @@
 
   ],
   "iframes": [
-  {
-            "id": "dcgui",
-            "title": "Dream Catcher",
-            "location": "left",
-            "iframeSource": "/atf-panel/?iwc=broadcast&timeLine=waspet&iwc=broadcast&busUrl=es/ui/bcst-bus/",
-            "resizeHandle": true
-        },
-
+    {
+      "id": "dcgui",
+      "title": "Dream Catcher",
+      "location": "left",
+      "iframeSource": "/dc/atf-panel/",
+      "hidden": true,
+      "resizeHandle": true
+    },
     {
       "id": "aeolus.map",
       "title": "Map",
       "location": "center",
-      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt,cesium",
+      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt",
       "resizeHandle": true
     },
     {
-		"id": "es.example.time",
-		"title": "Time Line",
-		"location": "bottom",
-		"iframeSource": "/wasp-data-visualization/#/timelineiwc?iwc=broadcast&busUrl=es/ui/bcst-bus&timeLine=waspet",
-		"resizeHandle": true
-
-	}
+      "id": "es.example.time",
+      "title": "Time Line",
+      "location": "bottom",
+      "iframeSource": "/wasp-data-visualization/#/timelineiwc?iwc=broadcast&busUrl=es/ui/bcst-bus&timeLine=waspet",
+      "resizeHandle": true
+    }
   ]
 }
 
