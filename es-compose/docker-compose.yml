@@ -1,0 +1,154 @@
+version: '3'
+services:
+  proxy:
+    build: proxy
+    volumes: 
+    - "./proxy/etc/httpd/conf.d:/etc/httpd/conf.d"
+    expose:
+    - 80
+    - 443
+    ports:
+# Use below to bind to 0.0.0.0
+#    - "80:80"
+    - "127.0.0.1:80:80"
+
+  es-home:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-home"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    environment:
+      - DO_INSTALL
+      - URLPATH=/es/ui
+    command: "npm run container"
+
+  es-runtime:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-runtime"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:8081:8081"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  es-common-extensions:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-common-extensions"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    environment:
+      - DO_INSTALL
+      - URLPATH=/es/common
+    command: "npm run container"
+
+  ext-example-rollup:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-rollup"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:9092:9092"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  ext-example-snowpack:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-snowpack"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:9091:9091"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  iframe-example:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/iframe-example"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:9095:8080"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  ext-example-svelte:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-svelte"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:5000:5000"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  ext-example-webpack:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-webpack"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:9093:9093"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  ext-example-lit-element:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: "/home/extension-scaffold/es-extension-examples/ext-example-lit-element"
+    volumes: 
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports: 
+      - "127.0.0.1:9094:9094"
+    environment:
+      - DO_INSTALL
+    command: "npm run container"
+
+  # The nodejs service is just for development
+  nodejs:
+    image: ${NODE_TAG}
+    user: "node"
+    working_dir: /home/extension-scaffold
+    volumes:
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "../:/home/extension-scaffold"
+      - "./home-node:/home/node"
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment: 
+      - NPM_CONFIG_PREFIX=/home/node/.npm-global
+    stdin_open: true
+    tty: true
+    command: bash # Use docker-compose exec nodejs bash, then build/run

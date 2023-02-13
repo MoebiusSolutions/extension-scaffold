@@ -1,0 +1,52 @@
+import React from 'react';
+
+export const SettingsOptions: React.FC<{
+  showCode: () => void
+  hideCode: () => void
+}> = (
+  {
+    showCode,
+    hideCode,
+  }
+) => {
+  const [radio, setRadio] = React.useState<string | null>('one')
+  const nestRef = React.useRef(false)
+  React.useEffect(() => {
+    window.addEventListener('example-hide-code', () => {
+      if (!nestRef.current) {
+        setRadio('one')
+      }
+    })
+  }, [])
+  function handleOption(e: React.ChangeEvent) {
+    const value = e.currentTarget.getAttribute('value')
+    setRadio(value)
+    try {
+      nestRef.current = true
+      if (value === 'code') {
+        showCode()
+      } else {
+        hideCode()
+      }
+    } finally {
+      nestRef.current = false
+    }
+  }
+
+  return <es-ribbon-section label="Options Example">
+    <div style={{ display: 'flex', flexDirection: 'column'}}>
+      <label>
+        <input type="radio" name="opt-example" value="one" checked={radio === 'one'} onChange={handleOption} />
+        Option One
+      </label>
+      <label>
+        <input type="radio" name="opt-example" value="two" checked={radio === 'two'} onChange={handleOption} />
+        Option Two
+      </label>
+      <label>
+        <input type="radio" name="opt-example" value="code" checked={radio === 'code'} onChange={handleOption} />
+        Show Source
+      </label>
+    </div>
+  </es-ribbon-section>
+}

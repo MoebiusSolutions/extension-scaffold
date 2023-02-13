@@ -1,0 +1,9 @@
+{
+    "url": "/es/common/dist/theme-extension.js",
+    "provides": [
+        {
+            "title": "Theme",
+            "id": "display.theme"
+        }
+    ]
+}

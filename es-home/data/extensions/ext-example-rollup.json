@@ -1,0 +1,9 @@
+{
+    "url": "http://localhost:9092/ext-react-rollup.js",
+    "provides": [
+        {
+            "title": "Rollup Left",
+            "id": "ext.example.rollup"
+        }
+    ]
+}

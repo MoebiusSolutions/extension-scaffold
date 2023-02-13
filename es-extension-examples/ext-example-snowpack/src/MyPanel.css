@@ -1,0 +1,15 @@
+#ext.example.snowpack {
+    background-color: lightblue;
+}
+
+.MyPanel {
+    background-color: var(--es-theme-surface);
+    color: var(--es-theme-text-primary-on-background);
+    height: 100%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

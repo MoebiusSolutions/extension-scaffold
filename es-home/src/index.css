@@ -1,0 +1,23 @@
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+#es-modal-pane {
+  display: none;
+  position: absolute;
+  inset: 0px;
+  z-index: 2; /* above drag-handles */
+  background: rgba(0,0,0,0.30);
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@moesol/es-runtime",
+  "version": "2.21.0-SNAPSHOT.0",
+  "module": "./build/es-api.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MoebiusSolutions/extension-scaffold.git"
+  },
+  "author": "Moebius Solutions",
+  "license": "BlueOak-1.0.0",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run cp:css && npm run cp:material",
+    "cp:css": "copyfiles -u 1 src/*.css build",
+    "cp:material": "copyfiles -u 1 node_modules/@material/elevation/dist/mdc.elevation.css build",
+    "prepack": "npm run build",
+    "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
+    "container": "npm run maybe-install && snowpack dev",
+    "upgrade-all": "./scripts/local-upgrade-all.sh "
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-dotenv": "~2.2.0",
+    "@snowpack/plugin-react-refresh": "~2.5.0",
+    "@snowpack/plugin-typescript": "^1.2.1",
+    "@snowpack/web-test-runner-plugin": "^0.2.0",
+    "@testing-library/react": "^11.2.7",
+    "@types/chai": "^4.3.0",
+    "@types/events": "~3.0.0",
+    "@types/mocha": "^8.2.3",
+    "@types/snowpack-env": "~2.3.4",
+    "@web/test-runner": "~0.13.28",
+    "chai": "~4.3.6",
+    "copyfiles": "^2.4.1",
+    "prettier": "^2.5.1",
+    "snowpack": "^3.8.8",
+    "typescript": "~4.8.2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "url": "/es/common/dist/debug-metrics.js",
+    "provides": [
+        {
+            "title": "Metrics",
+            "id": "debug.metrics"
+        }
+    ]
+}

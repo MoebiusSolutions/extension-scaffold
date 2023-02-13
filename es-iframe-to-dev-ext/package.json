@@ -1,0 +1,24 @@
+{
+  "name": "@moesol/es-iframe-to-dev-ext",
+  "version": "2.21.0-SNAPSHOT.0",
+  "description": "IFrame to Developer Extension",
+  "main": "build/index.js",
+  "files": [
+    "build",
+    "public"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run build-sw",
+    "build-sw": "tsc --project sw",
+    "prepack": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moebius Solutions",
+  "license": "BlueOak-1.0.0",
+  "dependencies": {
+    "@moesol/inter-widget-communication": "^2.8.0-SNAPSHOT.0"
+  },
+  "devDependencies": {
+    "typescript": "~4.8.2"
+  }
+}

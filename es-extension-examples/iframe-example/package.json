@@ -1,0 +1,23 @@
+{
+  "name": "@moesol/iframe-example",
+  "version": "2.12.0-SNAPSHOT",
+  "scripts": {
+    "start": "vite dev",
+    "build": "vite build",
+    "test": "echo \"This template does not include a test runner by default.\" && exit 1",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "lint": "prettier --check \"src/**/*.{ts,js}\"",
+    "maybe-install": "[ -d node_modules ] || echo run rush update",
+    "container": "vite preview"
+  },
+  "dependencies": {
+    "@moesol/inter-widget-communication": "^2.8.0-SNAPSHOT.0",
+    "@moesol/es-iframe-to-dev-ext": "workspace:*"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "typescript": "~4.8.2",
+    "vite": "~2",
+    "vite-plugin-static-copy": "~0.8.0"
+  }
+}

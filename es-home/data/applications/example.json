@@ -1,0 +1,62 @@
+{
+  "name": "example",
+  "title": "ES Example",
+  "ribbon": [
+    {
+      "location": "left-of-tabs",
+      "sections": ["example.document.selector"]
+    },
+    {
+      "location": "right-of-tabs",
+      "sections": ["example.users", "shared.search"]
+    },
+    {
+      "tab": "View",
+      "sections": ["view.section1", "display.theme", "view.split.button"]
+    },
+    {
+      "tab": "Document Controls",
+      "sections": ["dc.group.one", "dc.group.two", "dc.group.three"]
+    },
+    {
+      "tab": "Settings",
+      "sections": ["settings.group.one", "settings.options"]
+    },
+    {
+      "tab": "Example Tab",
+      "sections": ["example.tab.show.code"]
+    },
+    {
+      "tab": "Example Content",
+      "hidden": true,
+      "sections": []
+    },
+    {
+      "tab": "Help",
+      "sections": [
+        "debug.console",
+        "debug.network",
+        "debug.metrics",
+        "help.about.es-home"
+      ]
+    }
+  ],
+  "header": ["ext.snowpack.header"],
+  "footer": ["ext.snowpack.footer"],
+  "left": ["ext.snowpack.left"],
+  "center": ["ext.example.snowpack"],
+  "right": ["ext.example.rollup", "ext.example.webpack"],
+  "top-bar": ["ext.snowpack.ribbon"],
+  "bottom-bar": ["ext.snowpack.bottom", "ext.example.lit-element"],
+  "extensions": ["/ui/ext-example-snowpack/dist/ext-react-snowpack.js"],
+  "iframes": [
+    {
+      "id": "es.example.iframe",
+      "title": "IFrame",
+      "location": "right",
+      "iframeSource": "http://localhost:9095/",
+      "resizeHandle": true,
+      "removeButton": true
+    }
+  ]
+}

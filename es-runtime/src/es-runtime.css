@@ -1,0 +1,447 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas: 
+    'header     header     header     header     header'      /* 1 */
+    'top-bar    top-bar    top-bar    top-bar    top-bar'     /* 2 */
+    'left-bar   above-left top        right      right-bar'   /* 3 */
+    'left-bar   above-left center     right      right-bar'   /* 4 */
+    'left-bar   left       center     right      right-bar'   /* 5 */
+    'left-bar   left       bottom     right      right-bar'   /* 6 */
+    'bottom-bar bottom-bar bottom-bar bottom-bar bottom-bar'  /* 7 */
+    'footer     footer     footer     footer     footer'      /* 8 */
+  ;
+  grid-template-columns: min-content min-content minmax(100px, 1fr) min-content min-content;
+  grid-template-rows:    min-content min-content min-content min-content minmax(100px, 1fr) min-content min-content min-content;
+  height: 100vh;
+
+  background: var(--es-theme-surface, green);
+  color: var(--es-theme-text-secondary-on-background, orange);
+}
+
+.grid-panel.specific.grid-maximized {
+  grid-column: left / right;
+  grid-row: top / bottom;
+  z-index: 2; /* above drag handle */
+  top: initial;
+  left: initial;
+}
+
+.grid-panel.grid-expanded {
+  z-index: 2; /* above drag handle */
+}
+.grid-panel.left.grid-expanded {
+  grid-column: left / right-bar;
+  grid-row: top / bottom;
+  width: initial;
+}
+.grid-panel.right.grid-expanded {
+  grid-column: left-bar / right;
+  grid-row: top / bottom;
+  width: initial;
+}
+.grid-panel.bottom.grid-expanded {
+  grid-column: center / center;
+  grid-row: top / bottom;
+  height: initial;
+}
+.grid-panel.bottom-bar.grid-expanded {
+  grid-column: left-bar / right-bar;
+  grid-row: top / bottom;
+  height: initial;
+}
+
+.pop-out-container {
+  background: var(--es-theme-surface, green);
+  color: var(--es-theme-text-secondary-on-background, orange);
+  height: 100%;
+}
+
+.drag {
+  display: none;
+  z-index: 1; /* drag handle */
+}
+
+.drag-for-left {
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 4px;
+  cursor: ew-resize;
+}
+
+.drag-for-right {
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 4px;
+  cursor: ew-resize;
+}
+
+.drag-for-left:hover, .drag-for-right:hover, .drag-for-top:hover, .drag-for-bottom:hover, .drag-for-bottom-bar:hover {
+  background: rgb(25 112 179);
+}
+
+.drag-for-top, .drag-for-top-bar {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 4px;
+  cursor: ns-resize;
+}
+.drag-for-bottom, .drag-for-bottom-bar {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 4px;
+  cursor: ns-resize
+}
+.grid-panel.modal:not(.grid-maximized)    .drag.drag-for-modal    ~ .shadow-div,
+.grid-panel.modeless:not(.grid-maximized) .drag.drag-for-modeless ~ .shadow-div {
+  resize: both;
+}
+.grid-expanded .drag.drag-for-top-bar,
+.grid-expanded .drag.drag-for-top,
+.grid-expanded .drag.drag-for-left,
+.grid-expanded .drag.drag-for-right,
+.grid-expanded .drag.drag-for-bottom,
+.grid-expanded .drag.drag-for-bottom-bar {
+  display: none;
+}
+
+.hidden .panel-header-bar {
+  display: none;
+}
+.panel-header-bar {
+  color: transparent;
+  fill: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.panel-header-bar:hover {
+  color: var(--es-theme-text-secondary-on-background);
+  fill: var(--es-theme-text-secondary-on-background);
+  background: var(--es-theme-surface-2dp);
+}
+.panel-header-bar button {
+  cursor: pointer;
+  user-select: none;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  padding: 0px;
+}
+.grid-panel:not(.grid-expanded) .panel-header-bar button.restore {
+  display: none;
+}
+.grid-panel.grid-expanded .panel-header-bar button.expand {
+  display: none;
+}
+
+.panel-header-bar div:hover,
+.panel-header-bar svg:hover {
+  color: var(--es-theme-text-primary-on-background);
+  fill: var(--es-theme-text-primary-on-background);
+}
+
+.panel-header-bar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.grid-panel.portal {
+  grid-column: 3 / 4;
+  grid-row: 4 / 6;
+  z-index: 3; /* portal */
+  pointer-events: none;
+  background: transparent;
+  box-shadow: none;
+}
+.grid-panel.portal-wide {
+  grid-column: 1 / 6;
+  grid-row: 4 / 6;
+  z-index: 3; /* portal */
+  pointer-events: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.grid-panel.header {
+  grid-area: header;
+  color: white;
+  background-color: green;
+}
+
+.grid-panel.footer {
+  grid-area: footer;
+  color: white;
+  background-color: green;
+}
+
+.grid-panel.left {
+  grid-area: left;
+  width: var(--size, initial);
+}
+.grid-panel.left .shadow-div {
+  margin-right: 2px;
+  margin-top: 2px;
+}
+
+.grid-panel.right {
+  grid-area: right;
+  width: var(--size, initial);
+}
+.grid-panel.right .shadow-div {
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+.grid-panel.center {
+  grid-area: center;
+}
+
+.grid-panel.left-bar {
+  grid-area: left-bar;
+  margin-right: 2px;
+}
+.grid-panel.left-bar .shadow-div {
+  margin-right: 2px;
+  margin-top: 2px;
+}
+
+.grid-panel.right-bar {
+  grid-area: right-bar;
+  margin-left: 2px;
+}
+.grid-panel.right-bar .shadow-div {
+  margin-top: 2px;
+}
+
+.grid-panel.above-left {
+  grid-area: above-left;
+}
+.grid-panel.above-left .shadow-div {
+  margin-top: 2px;
+  margin-right: 2px;
+}
+
+.grid-panel.above-right {
+  grid-area: above-right;
+}
+.grid-panel.above-right .shadow-div {
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+.grid-panel.top-bar {
+  grid-area: top-bar;
+  height: var(--size, initial);
+  background: rgba(255, 255, 255, 0.03);
+}
+.grid-panel.top-bar .shadow-div {
+  margin-bottom: 1px;
+}
+
+.grid-panel.top {
+  grid-area: top;
+  height: var(--size, initial);
+}
+.grid-panel.top .shadow-div {
+  margin-bottom: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.grid-panel.bottom-bar {
+  grid-area: bottom-bar;
+  height: var(--size, initial);
+  flex-direction: column;
+}
+.grid-panel.bottom-bar .shadow-div {
+  margin-top: 2px;
+}
+
+.grid-panel.bottom {
+  grid-area: bottom;
+  height: var(--size, initial);
+}
+.grid-panel.bottom .shadow-div {
+  margin-top: 12px;
+}
+
+.grid-panel {
+  display: none;
+  flex-direction: column;
+  position: relative; /* So that drag handle can be placed */
+  background: var(--es-theme-surface-1dp, green);
+  /* z1 */
+  box-shadow: 2px 2px 1px -1px rgba(0, 0, 0, 0.2), 2px 1px 1px 0px rgba(0, 0, 0, 0.14), 2px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.shadow-div {
+  position: relative; /* New coordinate space for children */
+  flex: 1 1 auto;
+  display: none;
+  overflow: auto;
+}
+
+.shadow-portal {
+  pointer-events: auto;
+}
+
+.shadow-div.active { 
+  display: block;
+}
+
+.grid-panel.right.hidden {
+  max-width: 4px;
+}
+
+.grid-panel.right.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.left.hidden {
+  max-width: 4px;
+}
+
+.grid-panel.left.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.top.hidden,
+.grid-panel.top-bar.hidden {
+  max-height: 4px;
+}
+
+.grid-panel.top.hidden > .shadow-div,
+.grid-panel.top-bar.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.bottom.hidden,
+.grid-panel.bottom-bar.hidden {
+  height: min-content;
+  overflow: hidden;
+}
+
+.grid-panel.bottom.hidden > .shadow-div,
+.grid-panel.bottom-bar.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.center.hidden {
+  max-height: 4px;
+}
+
+.grid-panel.center.hidden > .shadow-div {
+  display: none;
+}
+
+.grid-panel.left .hide,
+.grid-panel.left .expand,
+.grid-panel.left .restore {
+  transform: rotate(90deg);
+}
+.grid-panel.right .hide,
+.grid-panel.right .expand,
+.grid-panel.right .restore {
+  transform: rotate(-90deg);
+}
+
+.grid-panel.modal:not(.grid-maximized),
+.grid-panel.modeless:not(.grid-maximized) {
+  position: fixed;
+  top: var(--top, 50%);
+  left: var(--left, 50%);
+  padding: 4px;
+  transform: translate(-50%, -50%);
+}
+.grid-panel.modal.moved:not(.grid-maximized),
+.grid-panel.modeless.moved:not(.grid-maximized) {
+  transform: translate(0px, 0px);
+}
+.grid-panel.modal:not(.grid-maximized)    > .shadow-div ,
+.grid-panel.modeless:not(.grid-maximized) > .shadow-div {
+  min-width: 100px;
+  min-height: 50px;
+}
+.grid-panel.modal.raised,
+.grid-panel.modeless.raised {
+  border: 1px solid rgb(155 155 155 / 50%)
+}
+.grid-panel.modal:not(.raised)    > .shadow-div ,
+.grid-panel.modeless:not(.raised) > .shadow-div {
+  pointer-events: none;
+}
+.grid-panel.modal.hidden,
+.grid-panel.modeless.hidden {
+  visibility: hidden;
+}
+.grid-panel.modeless.hidden > .shadow-div,
+.grid-panel.modal.hidden > .shadow-div {
+  display: none;
+}
+
+/* Tab Bar section */
+
+.es-tab-bar {
+  order: -1;
+  background: rgba(255, 255, 255, 0.05);
+
+  display: flex;
+}
+.es-tab-bar-button {
+  background: transparent;
+  border: none;
+  user-select: none;
+  cursor: pointer;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 6px;
+  color: var(--es-theme-text-secondary-on-background);
+  fill: var(--es-theme-text-secondary-on-background);
+}
+.es-tab-bar-button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+.es-tab-bar-button.active {
+  color: var(--es-theme-text-primary-on-background);
+  border-bottom: 2px solid var(--es-theme-text-primary-on-background);
+}
+.es-tab-bar-button .use-fill {
+  fill: var(--es-theme-text-secondary-on-background);
+}
+.es-tab-bar-button.active .use-fill {
+  fill: var(--es-theme-text-primary-on-background);
+}
+
+.es-tab-bar-button .use-stroke {
+  stroke: var(--es-theme-text-secondary-on-background);
+}
+.es-tab-bar-button.active .use-stroke {
+  stroke: var(--es-theme-text-primary-on-background);
+}

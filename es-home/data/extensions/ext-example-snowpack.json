@@ -1,0 +1,25 @@
+{
+    "url": "http://localhost:9091/dist/ext-react-snowpack.js",
+    "provides": [
+        {
+            "title": "Example Header",
+            "id": "ext.snowpack.header"
+        },
+        {
+            "title": "Example Footer",
+            "id": "ext.snowpack.footer"
+        },
+        {
+            "title": "Example Ribbon",
+            "id": "ext.snowpack.ribbon"
+        },
+        {
+            "title": "Time Slider",
+            "id": "ext.snowpack.bottom"
+        },
+        {
+            "title": "Snowpack Left",
+            "id": "ext.snowpack.left"
+        }
+    ]
+}

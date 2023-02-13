@@ -1,0 +1,44 @@
+:root {
+    /**
+     * A dark theme based on material design guidelines
+     */
+    --es-theme-surface: #121212;
+    --es-theme-surface-1dp: #1f1f1f;
+    --es-theme-surface-2dp: #2b2b2b;
+    --es-theme-text-primary-on-background: rgba(255,255,255,0.87);
+    --es-theme-text-secondary-on-background: rgba(255,255,255, 0.54);
+    --es-theme-text-disabled-on-background: rgba(255,255,255, 0.38);
+}
+
+.light {
+    /**
+     * A light theme based on material design guidelines
+     */
+     --es-theme-surface: #fff;
+     --es-theme-surface-1dp: #fff;
+     --es-theme-surface-2dp: #fff;
+     --es-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+     --es-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+
+    --es-theme-primary: #6200ee;
+    --es-theme-secondary: #018786;
+    --es-theme-background: #fff;
+    --es-theme-error: #b00020;
+    --es-theme-on-primary: #fff;
+    --es-theme-on-secondary: #fff;
+    --es-theme-on-surface: #000;
+    --es-theme-on-error: #fff;
+    --es-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+    --es-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+    --es-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+    --es-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+    --es-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+    --es-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+    --es-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+    --es-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+    --es-theme-text-primary-on-dark: white;
+    --es-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+    --es-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+    --es-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+    --es-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+}

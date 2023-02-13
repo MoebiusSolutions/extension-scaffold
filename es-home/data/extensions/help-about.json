@@ -1,0 +1,9 @@
+{
+    "url": "/es/ui/dist/extensions/help-about-extension.js",
+    "provides": [
+        {
+            "title": "Help About",
+            "id": "help.about.es-home"
+        }
+    ]
+}

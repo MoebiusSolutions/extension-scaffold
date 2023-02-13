@@ -1,0 +1,101 @@
+//
+// Let typescript know about our web components
+//
+declare namespace JSX {
+  interface IntrinsicElements {
+    "es-ribbon-section": any;
+    "es-ribbon-row": any;
+    "es-ribbon-column": any;
+    "es-ribbon-button": any;
+    "es-ribbon-button-small": any;
+    "es-ribbon-button-split": any;
+    "es-ribbon-dropdown": any;
+    "es-ribbon-dropdown-item": any;
+  }
+}
+
+//
+// React component for icon based on inline svg
+//
+const PlusSquareO = () => <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
+
+/**
+ * Helper functions to avoid if (div === null) broiler plate.
+ */
+function claimRibbonThen(scaffold: ExtensionScaffoldApi, id: string, f: (div: HTMLDivElement) => void) {
+  const div = scaffold.chrome.ribbonBar.claimRibbonPanel(id)
+  if (div === null) {
+    console.error('ribbon panel not found', id)
+    return
+  }
+  f(div)
+}
+function claimRibbonWith(scaffold: ExtensionScaffoldApi, id: string, node: React.ReactNode) {
+  claimRibbonThen(scaffold, id, div => {
+    ReactDOM.render(<React.StrictMode>{node}</React.StrictMode>,div)
+  })
+}
+
+/**
+ * Function to claim several ribbon sections/panels.
+ * 
+ * @param scaffold 
+ */
+export function doClaimRibbon(scaffold: ExtensionScaffoldApi) {
+
+// ...
+
+  /**
+   * Adds a center panel showing the code for this ribbon section
+   * @param e 
+   */
+   async function showNew(e: MouseEvent) {
+    showCode(<FormatFileName fileName='RibbonButtonCode.txt'/>)
+  }
+  claimRibbonWith(
+    scaffold,
+    'dc.group.one',
+    <es-ribbon-section label="Group 1">
+      <es-ribbon-button label="New" onClick={showNew}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          className="bi bi-file-earmark-plus"
+          viewBox="0 0 16 16"
+        >
+          <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z" />
+          <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+        </svg>
+      </es-ribbon-button>
+      <es-ribbon-button label="Open">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          className="bi bi-folder2-open"
+          viewBox="0 0 16 16"
+        >
+          <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14V3.5zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5V6zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7H1.633z" />
+        </svg>
+      </es-ribbon-button>
+      <es-ribbon-button label="Save">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          className="bi bi-save"
+          viewBox="0 0 16 16"
+        >
+          <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+        </svg>
+      </es-ribbon-button>
+    </es-ribbon-section>,
+  );
+
+// ...
+
+}

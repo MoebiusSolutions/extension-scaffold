@@ -1,0 +1,12 @@
+#ext.example.snowpack {
+    background-color: lightblue;
+}
+
+.header {
+    background: darkgreen;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    font-size: 8pt;
+}

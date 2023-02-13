@@ -1,0 +1,50 @@
+{
+  "name": "@moesol/es-home",
+  "version": "2.21.0-SNAPSHOT.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MoebiusSolutions/extension-scaffold.git"
+  },
+  "author": "Moebius Solutions",
+  "license": "BlueOak-1.0.0",
+  "scripts": {
+    "start": "snowpack dev --polyfill-node",
+    "build": "npm run resolve-applications  && npm run git-describe && snowpack build --polyfill-node",
+    "test": "web-test-runner \"src/**/*.test.tsx\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
+    "maybe-install": "[ -d node_modules ] && [ -z $DO_INSTALL ] || npm install",
+    "container": "npm run maybe-install && npm run resolve-applications && snowpack dev",
+    "resolve-applications": "node ./scripts/resolve-applications.js",
+    "git-describe": "node scripts/git-describe.js > public/version.json",
+    "war": "npm run build && gulp war"
+  },
+  "dependencies": {
+    "@moesol/es-runtime": "workspace:*",
+    "@moesol/es-iframe-to-dev-ext": "workspace:*",
+    "@moesol/inter-widget-communication": "^2.8.0-SNAPSHOT.0",
+    "@optoolco/tonic": "^13.3.6",
+    "@snowpack/plugin-run-script": "^2.3.0",
+    "events": "^3.3.0",
+    "git-describe": "^4.1.0"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-dotenv": "~2.2.0",
+    "@snowpack/plugin-react-refresh": "~2.5.0",
+    "@snowpack/plugin-typescript": "^1.2.1",
+    "@snowpack/web-test-runner-plugin": "^0.2.0",
+    "@testing-library/react": "^11.2.7",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^8.2.3",
+    "@types/snowpack-env": "~2.3.4",
+    "@web/test-runner": "~0.13.28",
+    "chai": "~4.3.6",
+    "gulp": "^4.0.2",
+    "gulp-war": "^0.1.4",
+    "gulp-zip": "^5.1.0",
+    "merge-stream": "^2.0.0",
+    "prettier": "^2.5.1",
+    "snowpack": "^3.8.8",
+    "typescript": "~4.8.2"
+  }
+}
