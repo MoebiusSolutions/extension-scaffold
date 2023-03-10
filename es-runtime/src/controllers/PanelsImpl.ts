@@ -72,6 +72,10 @@ interface BeforeAddPanelEvent {
     response: AddPanelOptions | null | undefined
 }
 
+interface BeforeRemovePanelEvent {
+    id: string
+}
+
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
     private readonly locationStack = new LocationStack()
@@ -321,6 +325,9 @@ export class PanelsImpl implements Panels {
                 console.error('Class name list changed since there is no location stack', location)
                 return
             }
+
+            const beforeRemoveEvent: BeforeRemovePanelEvent = { id };
+            extensionScaffold.events.emit('before-remove-panel', beforeRemoveEvent);
 
             if (stack.length === 1) {
                 // We are about to remove the last panel in this location
