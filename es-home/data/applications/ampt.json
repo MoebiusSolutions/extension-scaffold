@@ -1,64 +1,96 @@
 {
-    "name": "ampt",
-    "title": "AMPT",
-    "ribbon": [
-      {
-        "tab": "AMPT",
-        "sections": [
-          "AMPT.mapBasedPlanning",
-          "AMPT.filters",
-          "AMPT.tools"
-        ]
-      }
-    ],
-    "left": [],
-    "center": [],
-    "bottom-bar": [],
-    "extensions": [
-      "/opt-ribbon/dist/opt-ribbon.js"
-    ],
-    "iframes": [
-      {
-        "id": "webmap",
-        "title": "Webmap",
-        "location": "center",
-        "iframeSource": "/webmap/", 
-        "resizeHandle": true
-      },
-      {
-        "id": "opt.manager",
-        "title": "OPT Manager",
-        "location": "left",
-        "iframeSource": "/opt-manager/",
-        "resizeHandle": true
-      },
-      {
-        "id": "opt.timeline",
-        "title": "Opt Timeline",
-        "location": "bottom",
-        "iframeSource": "/timelinegold/",
-        "resizeHandle": true
-      },
-      {
-        "id": "opt.hub",
-        "title": "Opt Hub",
-        "location": "left",
-        "hidden": "true",
-        "iframeSource": "/opt-hub/"
-      },
-      {
-        "id": "opt.router",
-        "title": "Opt Router",
-        "location": "left",
-        "hidden": "true",
-        "iframeSource": "/opt-gui/router/index.html"
-      },
-      {
-        "id": "common.mapinterface",
-        "title": "Common Map Interface",
-        "location": "left",
-        "hidden": "true",
-        "iframeSource": "/common-map-interface/commonMapInterface.html"
-      }
-    ]
+  "name": "ampt",
+  "title": "AMPT",
+  "ribbon": [
+    {
+      "location": "right-of-tabs",
+      "sections": [
+        "security.info"
+      ]
+    },
+    {
+      "tab": "AMPT",
+      "sections": [
+        "AMPT.mapBasedPlanning",
+        "AMPT.filters",
+        "AMPT.tools"
+      ]
+    },
+    {
+      "tab": "View",
+      "sections": [
+        "display.theme",
+        "map.display"
+      ]
+    },
+    {
+      "tab": "Developer",
+      "sections": [
+        "debug.console",
+        "debug.network",
+        "debug.metrics"
+      ]
+    },
+    {
+      "tab": "Help",
+      "sections": [
+        "help.about.es-home"
+      ]
+    }
+  ],
+  "left": [],
+  "center": [],
+  "bottom-bar": [],
+  "extensions": [
+    "/es/common/dist/security/security-extension.js",
+    "/track-services-interface/tsi-extension/dist/index.js",
+    "/webmap/map-extension/dist/index.js",
+    "/atf-mapcontrol/dist/AtfMapControl.js",
+    "/es/common/dist/theme-extension.js",
+    "/es/ui/dist/extensions/console-extension.js",
+    "/es/ui/dist/extensions/network-extension.js",
+    "/es/common/dist/debug-metrics.js",
+    "/es/ui/dist/extensions/help-about-extension.js",
+    "/opt-ribbon/dist/opt-ribbon.js",
+    "/opt-router/dist/opt-router.js"
+  ],
+  "iframes": [
+    {
+      "id": "map.iframe",
+      "title": "Map",
+      "location": "center",
+      "iframeSource": "/usw-dss-map/index.html?extensions=phoenix,opt,enableRibbon"
+    },
+    {
+      "id": "opt.plansmanager",
+      "title": "AMPT Plan Manager",
+      "location": "left",
+      "iframeSource": "/opt-plansmanager/",
+      "resizeHandle": true
+    },
+    {
+      "id": "opt.timeline",
+      "title": "AMPT Timeline",
+      "location": "bottom",
+      "iframeSource": "/timelinegold/index.html",
+      "resizeHandle": true
+    },
+    {
+      "id": "opt.hub",
+      "title": "Opt Hub",
+      "location": "left",
+      "hidden": "true",
+      "iframeSource": "/opt-hub/"
+    },
+    {
+      "id": "common.map.interface",
+      "title": "Common Map Interface",
+      "location": "left",
+      "hidden": "true",
+      "iframeSource": "/common-map-interface/commonMapInterface.html"
+    }
+  ],
+  "metadata": {
+    "mapextensions": "phoenix,opt"
   }
+}
