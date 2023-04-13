@@ -69,13 +69,6 @@
       "resizeHandle": true
     },
     {
-      "id": "opt.timeline",
-      "title": "AMPT Timeline",
-      "location": "bottom",
-      "iframeSource": "/timelinegold/index.html",
-      "resizeHandle": true
-    },
-    {
       "id": "opt.hub",
       "title": "Opt Hub",
       "location": "left",
