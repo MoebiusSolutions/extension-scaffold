@@ -136,7 +136,7 @@ export async function applyConfiguration(config: any, app: string) {
   if (config.extensions) {
     // The default bcst-bus is now contained within es-home
     const tabID = window.sessionStorage.tabID ? window.sessionStorage.tabID : window.sessionStorage.tabID = uuidv4(); 
-    const def = { iwc: 'broadcast', 'busUrl': new URL('./bcst-bus/index.html', window.location.toString()).toJSON() }
+    const def = { iwc: 'broadcast', 'busUrl': new URL('./bcst-bus/index.html', window.location.toString()).toJSON(), tabID }
     const resolved = { ...def, ...config.context }
     extensionScaffold.setContext(resolved)
 
