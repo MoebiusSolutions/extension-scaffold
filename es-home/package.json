@@ -21,7 +21,8 @@
     "@optoolco/tonic": "^13.3.6",
     "@snowpack/plugin-run-script": "^2.3.0",
     "events": "^3.3.0",
-    "git-describe": "^4.1.0"
+    "git-describe": "^4.1.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "~2.2.0",

@@ -17,6 +17,7 @@ import { EsShowPanelList } from './components/show-panel-list';
 import { EsTogglePanel } from './components/toggle-panel';
 import { EsRibbon } from './components/ribbon/ribbon';
 import { EsConsentDialog } from './components/consent-dialog';
+import { v4 as uuidv4 } from 'uuid';
 
 import './index.css'
 
@@ -134,6 +135,7 @@ export async function applyConfiguration(config: any, app: string) {
 
   if (config.extensions) {
     // The default bcst-bus is now contained within es-home
+    const tabID = window.sessionStorage.tabID ? window.sessionStorage.tabID : window.sessionStorage.tabID = uuidv4(); 
     const def = { iwc: 'broadcast', 'busUrl': new URL('./bcst-bus/index.html', window.location.toString()).toJSON() }
     const resolved = { ...def, ...config.context }
     extensionScaffold.setContext(resolved)
