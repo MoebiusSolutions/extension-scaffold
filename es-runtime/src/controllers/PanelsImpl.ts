@@ -125,7 +125,7 @@ export class PanelsImpl implements Panels {
         const { outerPanel, shadowDiv, extPanel } = this.addShadowDomPanel(gridContainer, options)
         outerPanel.style.display = DISPLAY_FLEX
         if (options.title) {
-            shadowDiv.title = options.title
+            shadowDiv.setAttribute('data-title', options.title)
         }
         shadowDiv.parentElement?.classList.remove('hidden')
         setActive(shadowDiv)
