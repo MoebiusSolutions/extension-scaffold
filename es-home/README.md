@@ -119,15 +119,15 @@ by default making the `context` unnecessary.
 
 ### Property: `"ribbon"`
 
-* See [Extensible Ribbon](../Extensible-Ribbon.md)
+- See [Extensible Ribbon](../Extensible-Ribbon.md)
 
 ### Panel Location Properties: `"left"`, `"bottom-bar"`, etc.
 
-The IDs places into these panel locations will override the location of a panel 
+The IDs places into these panel locations will override the location of a panel
 added via `addPanel` unless `relocating` is true in the `AddPanelOptions`.
 This way an application can declaratively control the layout of its panels.
 
-Example: 
+Example:
 
 ```json
   "center": [
@@ -175,7 +175,7 @@ Example:
 
 ### Folder: `data/extensions/*.json`
 
-We expect one file per *extension*.
+We expect one file per _extension_.
 Extensions are defined in JSON format.
 
 > Note: a single extension can create and provide multiple panels
@@ -183,38 +183,38 @@ Extensions are defined in JSON format.
 The extension configuration defines the `"url"` of the extension.
 It also defines an array panel IDs in the `"provides"` property.
 The extensions configuration does not need to list every panel ID that is provides,
-but it should list the panel IDs that will be needed by *applications*.
+but it should list the panel IDs that will be needed by _applications_.
 
 These IDs are then used by `es-home/scripts/resolve-applications.js` to compute
-which extensions are needed by an *application*.
+which extensions are needed by an _application_.
 
 Below is a possible example for the snowpack example:
 
 ```json
 {
-    "url": "http://localhost:9091/dist/ext-react-snowpack.js",
-    "provides": [
-        {
-            "title": "Example Header",
-            "id": "ext.snowpack.header"
-        },
-        {
-            "title": "Example Footer",
-            "id": "ext.snowpack.footer"
-        },
-        {
-            "title": "Example Ribbon",
-            "id": "ext.snowpack.ribbon"
-        },
-        {
-            "title": "Time Slider",
-            "id": "ext.snowpack.bottom"
-        },
-        {
-            "title": "Snowpack Left",
-            "id": "ext.snowpack.left"
-        }
-    ]
+  "url": "http://localhost:9091/dist/ext-react-snowpack.js",
+  "provides": [
+    {
+      "title": "Example Header",
+      "id": "ext.snowpack.header"
+    },
+    {
+      "title": "Example Footer",
+      "id": "ext.snowpack.footer"
+    },
+    {
+      "title": "Example Ribbon",
+      "id": "ext.snowpack.ribbon"
+    },
+    {
+      "title": "Time Slider",
+      "id": "ext.snowpack.bottom"
+    },
+    {
+      "title": "Snowpack Left",
+      "id": "ext.snowpack.left"
+    }
+  ]
 }
 ```
 
@@ -227,45 +227,27 @@ Finally, these files are combined to produce `public/example.json`:
   "ribbon": [
     {
       "location": "left-of-tabs",
-      "sections": [
-        "example.document.selector"
-      ]
+      "sections": ["example.document.selector"]
     },
     {
       "location": "right-of-tabs",
-      "sections": [
-        "example.users",
-        "shared.search"
-      ]
+      "sections": ["example.users", "shared.search"]
     },
     {
       "tab": "View",
-      "sections": [
-        "view.section1",
-        "display.theme",
-        "view.split.button"
-      ]
+      "sections": ["view.section1", "display.theme", "view.split.button"]
     },
     {
       "tab": "Document Controls",
-      "sections": [
-        "dc.group.one",
-        "dc.group.two",
-        "dc.group.three"
-      ]
+      "sections": ["dc.group.one", "dc.group.two", "dc.group.three"]
     },
     {
       "tab": "Settings",
-      "sections": [
-        "settings.group.one",
-        "settings.options"
-      ]
+      "sections": ["settings.group.one", "settings.options"]
     },
     {
       "tab": "Shape",
-      "sections": [
-        "shape.show.code"
-      ]
+      "sections": ["shape.show.code"]
     },
     {
       "tab": "Example Content",
@@ -282,26 +264,12 @@ Finally, these files are combined to produce `public/example.json`:
       ]
     }
   ],
-  "header": [
-    "ext.snowpack.header"
-  ],
-  "footer": [
-    "ext.snowpack.footer"
-  ],
-  "left": [
-    "ext.snowpack.left"
-  ],
-  "right": [
-    "ext.example.rollup",
-    "ext.example.webpack"
-  ],
-  "top-bar": [
-    "ext.snowpack.ribbon"
-  ],
-  "bottom-bar": [
-    "ext.snowpack.bottom",
-    "ext.example.lit-element"
-  ],
+  "header": ["ext.snowpack.header"],
+  "footer": ["ext.snowpack.footer"],
+  "left": ["ext.snowpack.left"],
+  "right": ["ext.example.rollup", "ext.example.webpack"],
+  "top-bar": ["ext.snowpack.ribbon"],
+  "bottom-bar": ["ext.snowpack.bottom", "ext.example.lit-element"],
   "extensions": [
     "/ui/ext-example-snowpack/dist/ext-react-snowpack.js",
     "/es/common/dist/theme-extension.js",
@@ -350,3 +318,5 @@ Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch 
 ### `npm run war`
 
 Bundles the `build/` folder into a WAR file.
+
+### Testing WebHooks
