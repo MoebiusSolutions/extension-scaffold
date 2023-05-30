@@ -318,5 +318,3 @@ Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch 
 ### `npm run war`
 
 Bundles the `build/` folder into a WAR file.
-
-### Testing WebHooks
