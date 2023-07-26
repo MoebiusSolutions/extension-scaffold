@@ -356,12 +356,43 @@ export class PanelsImpl implements Panels {
         })
     }
 
+    saveSize( div: HTMLDivElement) {
+        const width = div.style.getPropertyValue('width')
+        if (width && width.length > 0) {
+            div.setAttribute('data-width',width)
+        }
+        const height = div.style.getPropertyValue('height')
+        if (height && height.length > 0) {
+            div.setAttribute('data-height',height)
+        }
+        div.style.setProperty('width','100%')
+        div.style.setProperty('height','100%')
+    }
+
+    restoreSize( div: HTMLDivElement) {
+        const width = div.getAttribute('data-width')
+        if (width && width.length > 0) {
+            div.style.setProperty('width', width)
+        }
+        else {
+            div.style.removeProperty('width')
+        }
+        const height = div.getAttribute('data-height')
+        if (height && height.length > 0) {
+            div.style.setProperty('height', height)
+        }
+        else {
+            div.style.removeProperty('height')
+        }
+    }
+
     popOutPanel(id: string) {
         return withPanel(id, (parent, div) => {
             function handleBeforeUnload() {
                 extWindow.close()
             }
 
+            this.saveSize(div)
             extensionScaffold.chrome.panels.hidePanel(id)
 
             const { extWindow, popOutContainer } = this.getOrCreatePopOutWindow(id)
@@ -370,6 +401,8 @@ export class PanelsImpl implements Panels {
             popOutContainer.appendChild(div)
 
             extWindow.addEventListener('beforeunload', () => {
+                extensionScaffold.events.emit('panel-popped-in', extWindow)
+                this.restoreSize(div)
                 parent.appendChild(div) // Move the div back
                 extensionScaffold.chrome.panels.showPanel(id)
                 window.removeEventListener('beforeunload', handleBeforeUnload)
@@ -377,7 +410,7 @@ export class PanelsImpl implements Panels {
             // If the parent window closes, close the children
             window.addEventListener('beforeunload', handleBeforeUnload)
             extensionScaffold.events.emit('grid-changed', getGridState())
-            extensionScaffold.events.emit('panel-popped-out', extWindow);
+            extensionScaffold.events.emit('panel-popped-out', extWindow)
         })
     }
 
@@ -543,6 +576,7 @@ export class PanelsImpl implements Panels {
         dragDiv.onpointerup = e => endResize(dragDiv, e)
         return dragDiv
     }
+
     private makePanelHeaderBar(options: AddPanelOptions) {
         const panelHeaderBar = document.createElement('es-panel-header-bar')
         panelHeaderBar.className = `panel-header-bar ${options.location}`
