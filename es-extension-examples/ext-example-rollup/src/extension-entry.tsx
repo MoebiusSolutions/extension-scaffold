@@ -11,6 +11,26 @@ export async function activate(scaffold: ExtensionScaffoldApi) {
       </React.StrictMode>,
       div
     );
+
+    const ribbonAPI = scaffold.chrome.ribbonBar
+    // @ts-ignore
+    const viewPanel = ribbonAPI.claimRibbonSection('view.section1') as HTMLDivElement | null;
+    console.log('viewPanel', viewPanel);
+    
+    // @ts-ignore
+    const RibbonSection = ribbonAPI.components.RibbonSection as React.ReactNode
+
+    ReactDOM.render(
+      // @ts-ignore
+      <RibbonSection label={'section1'}>
+        <button onClick={() => {
+          console.log('clicked');
+        }}>
+          Click me
+        </button>
+      </RibbonSection>,
+      viewPanel
+    );
   }
 
   const span = document.createElement('span')
