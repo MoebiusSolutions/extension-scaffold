@@ -11,7 +11,8 @@ async function loadExtensions() {
     left: { activeId: "ext.example.rollup", size: '300px', isShown: true, isExpanded: false },
     right: { activeId: "ext.example.webpack", size: '300px', isShown: true, isExpanded: false },
     top: { activeId: null, size: '', isShown: false, isExpanded: false },
-    bottom: { activeId: null, size: '170px', isShown: false, isExpanded: false }
+    bottom: { activeId: null, size: '170px', isShown: false, isExpanded: false },
+    center: { activeId: null, size: '', isShown: false, isExpanded: false }
   }
 
   const urls = ['http://localhost:9091/dist/ext-react-snowpack.js',
