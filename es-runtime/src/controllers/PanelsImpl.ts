@@ -164,14 +164,14 @@ export class PanelsImpl implements Panels {
             this.focusPopOut(id)
             return true
         }
-        // Restore any maximized center
-        document.querySelectorAll('.grid-maximized .shadow-div.active').forEach(el => {
-            this.restorePanel(el.id)
-        })
         return withPanel(id, (parent, div) => {
             const wasHidden = !isActive(div)
             const location = locationFromDiv(parent)
             if (!isDialog(location)) {
+                // Restore any maximized panels
+                document.querySelectorAll('.grid-maximized .shadow-div.active').forEach(el => {
+                    this.restorePanel(el.id)
+                })
                 hidePanelsWithLocation(location)
             }
             switch (location) {
