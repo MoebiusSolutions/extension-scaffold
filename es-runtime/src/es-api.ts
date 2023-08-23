@@ -99,6 +99,7 @@ export interface GridState {
     right: PanelState
     top: PanelState
     bottom: PanelState
+    center: PanelState
 }
 
 export interface HistoryType {

@@ -105,7 +105,7 @@ export const setActive = (div: HTMLDivElement) => div.classList.add('active')
 
 export const setInactive = (div: HTMLDivElement) => div.classList.remove('active')
 
-export function getLocationdState(loc: string): PanelState {
+export function getLocationState(loc: string): PanelState {
     const d = document.querySelector(`.${loc}`)
     if (d !== null) {
         //@ts-ignore
@@ -203,13 +203,15 @@ export function applyGridState(gridstate: GridState) {
 export function getGridState(): GridState {
     const gridstate: GridState = {
         left: { size: '0px', activeId: null, isShown: false, isExpanded: false }, right: { size: '0px', activeId: null, isShown: false, isExpanded: false },
-        top: { size: '0px', activeId: null, isShown: false, isExpanded: false }, bottom: { size: '0px', activeId: null, isShown: false, isExpanded: false }
+        top: { size: '0px', activeId: null, isShown: false, isExpanded: false }, bottom: { size: '0px', activeId: null, isShown: false, isExpanded: false },
+        center: { size: '0px', activeId: null, isShown: false, isExpanded: false }
     }
     const curGridstate = fromStorage('gridstate') as GridState
-    gridstate.left = getLocationdState('left')
-    gridstate.right = getLocationdState('right')
-    gridstate.top = getLocationdState('top')
-    gridstate.bottom = getLocationdState('bottom')
+    gridstate.left = getLocationState('left')
+    gridstate.right = getLocationState('right')
+    gridstate.top = getLocationState('top')
+    gridstate.bottom = getLocationState('bottom')
+    gridstate.center = getLocationState('center')
     checkForShownChange(curGridstate, gridstate)
     toStorage('gridstate', gridstate)
     return gridstate
