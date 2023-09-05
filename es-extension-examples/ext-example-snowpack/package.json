@@ -18,7 +18,8 @@
     "prismjs": "^1.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-sparklines": "^1.7.0"
+    "react-sparklines": "^1.7.0",
+    "uuid": "~9.0.0"
   },
   "devDependencies": {
     "@moesol/es-runtime": "workspace:*",
@@ -39,6 +40,7 @@
     "chai": "~4.3.6",
     "prettier": "^2.5.1",
     "snowpack": "^3.8.8",
-    "typescript": "~4.8.2"
+    "typescript": "~4.8.2",
+    "@types/uuid": "~9.0.3"
   }
 }

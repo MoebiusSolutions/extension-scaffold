@@ -142,6 +142,7 @@ importers:
       '@types/react-sparklines': ^1.7.2
       '@types/react-syntax-highlighter': ^13.5.2
       '@types/snowpack-env': ~2.3.4
+      '@types/uuid': ~9.0.3
       '@web/test-runner': ~0.13.28
       chai: ~4.3.6
       prettier: ^2.5.1
@@ -152,6 +153,7 @@ importers:
       react-sparklines: ^1.7.0
       snowpack: ^3.8.8
       typescript: ~4.8.2
+      uuid: ~9.0.0
     dependencies:
       '@moesol/inter-widget-communication': 2.8.0-SNAPSHOT.0
       '@moesol/widget-launch': 2.6.0-SNAPSHOT
@@ -160,6 +162,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-sparklines: 1.7.0_sfoxds7t5ydpegc3knd667wn6m
+      uuid: 9.0.0
     devDependencies:
       '@moesol/es-runtime': link:../../es-runtime
       '@snowpack/plugin-dotenv': 2.2.0
@@ -175,6 +178,7 @@ importers:
       '@types/react-sparklines': 1.7.2
       '@types/react-syntax-highlighter': 13.5.2
       '@types/snowpack-env': 2.3.4
+      '@types/uuid': 9.0.3
       '@web/test-runner': 0.13.31
       chai: 4.3.7
       prettier: 2.8.3

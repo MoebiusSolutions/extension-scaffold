@@ -39,6 +39,27 @@ export type InitialWidthOrHeight = string | {
     height?: string
 }
 
+export type Dimensions = {
+    width: string;
+    height: string;
+}
+
+export type TopLeftPosition = {
+    top: string | number;  // examples: 10, '10px', '10%', limited support for: '10em'
+    left: string | number; // examples: 10, '10px', '10%', limited support for: '10em'
+}
+
+export type PositionOffset = {
+    vertical: string | number;  // examples: 10, '10px', '10%', limited support for: '10em'
+    horizontal: string | number; // examples: 10, '10px', '10%', limited support for: '10em'
+}
+
+export type StaggerStrategy = {
+    algorithm: 'tiled' | 'diagonal'
+    offsetFromPrevious?: PositionOffset, // diagonal offsets from top/left corner, tiled offsets from right edge / bottom edge
+    firstPosition?: TopLeftPosition,
+}
+
 export interface AddPanelOptions {
     location: Location
     id: string
@@ -52,7 +73,6 @@ export interface AddPanelOptions {
     dockLocationButton?: boolean
     defaultDockLocation?: Location
     saveDockLocationPreference?: any
-
     /** Defaults to "30em" */
     initialWidthOrHeight?: InitialWidthOrHeight
 
@@ -64,6 +84,12 @@ export interface AddPanelOptions {
 
     /** Ignore initial JSON location */
     relocating?: boolean
+
+    /** optional group membership helps define behaviors for groups of related panels */
+    groupId?: string;
+
+    /** influence how panels are opened in relation to other open panels */
+    staggerStrategy?: StaggerStrategy;
 }
 
 export interface LoadWebpackScriptOptions {

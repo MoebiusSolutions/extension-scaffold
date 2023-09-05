@@ -1,6 +1,7 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import type { ExtensionScaffoldApi } from '@moesol/es-runtime/build/es-api'
-import { addCenterPanel, addModalPanel, addModelessPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
+import { addCenterPanel, addDiagonalStaggerPanel, addModalPanel, addModelessPanel, addTiledStaggerPanel, moveLeftToRight, moveRightToLeft } from './ext-react-snowpack'
 import { Amplify } from './Amplify'
 import { SampleModal } from './SampleModal'
 
@@ -40,6 +41,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
     }
     function handleModelessDialog2() {
         addModelessPanel(es, 'ext.example.snowpack.modeless.2')
+    }
+    function handleDiagonalStaggeredModelessDialog() {
+        addDiagonalStaggerPanel(es, `ext.example.stagger-${uuidv4()}`)
+    }
+    function handleTiledStaggeredModelessDialog() {
+        addTiledStaggerPanel(es, `ext.example.stagger-${uuidv4()}`)
     }
     function handleIframeModeless() {
         es.chrome.panels.addPanel({
@@ -98,6 +105,12 @@ export const Left: React.FC<{ es: ExtensionScaffoldApi }> = ({ es }) => {
         </div>
         <div>
             <button onClick={handleModelessDialog2}>Second Modeless</button>
+        </div>
+        <div>
+            <button onClick={handleDiagonalStaggeredModelessDialog}>Diagonal Staggered Modeless</button>
+        </div>
+        <div>
+            <button onClick={handleTiledStaggeredModelessDialog}>Tiled Staggered Modeless</button>
         </div>
         <div>
             <button onClick={handleIframeModeless}>IFrame Modeless</button>

@@ -53,7 +53,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
 }
 
 async function doBottom(scaffold: ExtensionScaffoldApi) {
-  const defaultLocation = localStorage.getItem('ext.snowpack.bottom') as Location
+  const defaultLocation = localStorage.getItem('ext.snowpack.bottom') as Location ?? null
   return await doPanel(scaffold, {
     id: 'ext.snowpack.bottom',
     location: 'bottom-bar',
@@ -61,7 +61,7 @@ async function doBottom(scaffold: ExtensionScaffoldApi) {
     popOutButton: true,
     dockLocationButton: true,
     removeButton: true, // NOTE: if you enable this you should have a way to add the panel
-    defaultDockLocation: defaultLocation ? defaultLocation : 'bottom-bar', //NOTE: this and saveDockLocationPreferences need to be enabled if dock location button is enabled and preferences want to be saved
+    defaultDockLocation: defaultLocation ? defaultLocation : 'bottom-bar',
     saveDockLocationPreference: (currentLocation: string) => localStorage.setItem('ext.snowpack.bottom', currentLocation) 
   }, <Bottom es={scaffold} />)
 }
@@ -124,6 +124,62 @@ export function addModelessPanel(scaffold: ExtensionScaffoldApi, esId: string) {
     id: esId,
     location: 'modeless',
     resizeHandle: false,
+  }).then(onPanelAdded).catch(() => {
+    scaffold.chrome.panels.showPanel(esId)
+  })
+}
+
+export function addDiagonalStaggerPanel(scaffold: ExtensionScaffoldApi, esId: string) {
+  function onPanelAdded(div: HTMLDivElement) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <MyModeless es={scaffold} esId={esId} />
+      </React.StrictMode>,
+      div
+    );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
+  }
+  scaffold.chrome.panels.addPanel({
+    id: esId,
+    location: 'modeless',
+    resizeHandle: false,
+    initialWidthOrHeight: {
+      width: '30em',
+      height: '40em'
+    },
+    groupId: `diagonalStaggerGroupExample`,
+    staggerStrategy: {
+      algorithm: 'diagonal',
+      firstPosition: { top: '15%', left: '15%' }
+    }
+  }).then(onPanelAdded).catch(() => {
+    scaffold.chrome.panels.showPanel(esId)
+  })
+}
+
+export function addTiledStaggerPanel(scaffold: ExtensionScaffoldApi, esId: string) {
+  function onPanelAdded(div: HTMLDivElement) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <MyModeless es={scaffold} esId={esId} />
+      </React.StrictMode>,
+      div
+    );
+    claimStyleFromHeadElement(div, '#ext.example.snowpack')
+  }
+  scaffold.chrome.panels.addPanel({
+    id: esId,
+    location: 'modeless',
+    resizeHandle: false,
+    initialWidthOrHeight: {
+      width: '30em',
+      height: '5em'
+    },
+    groupId: `tiledStaggerGroupExample`,
+    staggerStrategy: {
+      algorithm: 'tiled',
+      firstPosition: { top: '15%', left: '15%' }
+    }
   }).then(onPanelAdded).catch(() => {
     scaffold.chrome.panels.showPanel(esId)
   })

@@ -2,7 +2,7 @@ import { LocationStack } from '../models/LocationStack'
 import { PanelMap } from '../models/PanelMap'
 import {
     ExtensionIds, Location, AddPanelOptions,
-    Panels, OrigSize, LOCATIONS, InitialWidthOrHeight
+    Panels, OrigSize, LOCATIONS, InitialWidthOrHeight,
 } from "../es-api";
 import { extensionScaffold } from "./ExtensionController";
 import { BarController } from './BarController'
@@ -15,6 +15,7 @@ import {
 import { beginResize, endResize, getApplyFunction } from './ResizeController'
 import { TabController } from './TabController';
 import { defaultedOptions } from '../models/DefaultOptions';
+import { staggerInitialPanelPosition } from './StaggerAlgorithms';
 
 const DISPLAY_FLEX = 'flex'
 const dockIcons = [
@@ -185,6 +186,10 @@ export class PanelsImpl implements Panels {
         this.locationStack.pushLocation(options.location, options)
         updateModalPane()
         updateRaisedPanel()
+        if (options.groupId && options.staggerStrategy) {
+            const initialDimensions = { width: shadowDiv.style.width, height: shadowDiv.style.height }
+            staggerInitialPanelPosition(outerPanel, options.groupId, options.staggerStrategy, initialDimensions)
+        }
         this.updateBars(options.location)
         return Promise.resolve(extPanel)
     }
