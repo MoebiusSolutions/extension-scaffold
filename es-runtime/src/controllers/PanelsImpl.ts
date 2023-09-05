@@ -39,6 +39,11 @@ const dockIcons = [
     </svg>
     `
 ]
+const dockLocationSave = `
+<svg class="dock-svg" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" fill="white">
+    <path d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.765-245Q523-245 553.5-275.265q30.5-30.264 30.5-73.5Q584-392 553.735-422.5q-30.264-30.5-73.5-30.5Q437-453 406.5-422.735q-30.5 30.264-30.5 73.5Q376-306 406.265-275.5q30.264 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z"/>
+</svg>
+`
 
 function getDivSize(div: HTMLElement | null): OrigSize {
     const origSize: OrigSize = { size: '', location: '' }
@@ -154,7 +159,7 @@ export class PanelsImpl implements Panels {
         const { outerPanel, shadowDiv, extPanel } = this.addShadowDomPanel(gridContainer, options)
         outerPanel.style.display = DISPLAY_FLEX
         if (options.title) {
-            shadowDiv.setAttribute('data-title', options.title)
+            shadowDiv.title = options.title
         }
         shadowDiv.parentElement?.classList.remove('hidden')
         setActive(shadowDiv)
@@ -380,7 +385,6 @@ export class PanelsImpl implements Panels {
             extensionScaffold.events.emit('grid-changed', getGridState())
         })
     }
-
     saveSize( div: HTMLDivElement) {
         const width = div.style.getPropertyValue('width')
         if (width && width.length > 0) {
@@ -393,7 +397,6 @@ export class PanelsImpl implements Panels {
         div.style.setProperty('width','100%')
         div.style.setProperty('height','100%')
     }
-
     restoreSize( div: HTMLDivElement) {
         const width = div.getAttribute('data-width')
         if (width && width.length > 0) {
@@ -410,7 +413,6 @@ export class PanelsImpl implements Panels {
             div.style.removeProperty('height')
         }
     }
-
     popOutPanel(id: string) {
         return withPanel(id, (parent, div) => {
             function handleBeforeUnload() {
@@ -489,20 +491,46 @@ export class PanelsImpl implements Panels {
         const dropdownContent = document.createElement('div')
         dropdownContent.classList.add('dropdown-content')
         dropdownContent.style.top = `${panel.offsetHeight + 1}px`
-        const dockLocationContent = this.createDockLocationContent(currentPanelId)
+        const dockLocationContent = this.createDockLocationContent(currentPanelId, dropdownContent)
         dropdownContent.appendChild(dockLocationContent)
         panel.appendChild(dropdownContent)
         dropdownContent.classList.add('show')
     }
 
-    private createDockLocationContent(currentPanelId: string) {
+    private createDockLocationContent(currentPanelId: string, dropdownContent: HTMLElement) {
         const currentPanelOptions = this.panelMap.get(currentPanelId)
         const dockLocationContent = document.createElement('div')
+        const dockSave = document.createElement('div')
         const label = document.createElement('label')
+
         label.textContent = 'Dock Side'
         label.classList.add('dock-location-label')
+        
         dockLocationContent.classList.add('dock-location-content')
         dockLocationContent.appendChild(label)
+
+        if(currentPanelOptions?.defaultDockLocation && currentPanelOptions?.saveDockLocationPreference) {
+            dockSave.innerHTML = dockLocationSave
+            dockSave.title = 'Set as default'
+            dockSave.classList.add('menu-item')
+            dockLocationContent.appendChild(dockSave)
+
+            if(currentPanelOptions?.defaultDockLocation === currentPanelOptions?.location) {
+                dockSave.style.pointerEvents = 'none'
+                dockSave.children[0].setAttribute("fill", "gray")
+            }
+
+            if(currentPanelOptions?.saveDockLocationPreference) {
+                dockSave.addEventListener('click', (e) => {
+                    currentPanelOptions?.saveDockLocationPreference(currentPanelOptions?.location)
+                    currentPanelOptions.defaultDockLocation = currentPanelOptions?.location
+                    dropdownContent.classList.toggle('show')
+                    dockSave.style.pointerEvents = 'none'
+                    dockSave.children[0].setAttribute("fill", "gray")
+                })
+            }
+        }
+
         const dockLocations: Location[] = ['left', 'right', 'bottom-bar', 'bottom', 'modeless']
         dockIcons.forEach((item, index) => {
             const menuItem = document.createElement('div')
@@ -542,7 +570,9 @@ export class PanelsImpl implements Panels {
             initialWidthOrHeight: panelMap?.initialWidthOrHeight || '30em',
             iframeSource: panelMap?.iframeSource,
             hidden: panelMap?.hidden,
-            relocating: panelMap?.relocating
+            relocating: panelMap?.relocating,
+            saveDockLocationPreference: panelMap?.saveDockLocationPreference,
+            defaultDockLocation: panelMap?.defaultDockLocation
         })
     }
 
@@ -669,7 +699,6 @@ export class PanelsImpl implements Panels {
         dragDiv.onpointerup = e => endResize(dragDiv, e)
         return dragDiv
     }
-
     private makePanelHeaderBar(options: AddPanelOptions) {
         const panelHeaderBar = document.createElement('es-panel-header-bar')
         panelHeaderBar.className = `panel-header-bar ${options.location}`

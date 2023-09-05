@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MyPanel } from './MyPanel';
 
-import type { AddPanelOptions, ExtensionScaffoldApi } from '@moesol/es-runtime/build/es-api'
+import type { AddPanelOptions, ExtensionScaffoldApi, Location } from '@moesol/es-runtime/build/es-api'
 import { Header } from './Header';
 import { Left } from './Left'
 import { Footer } from './Footer';
@@ -53,6 +53,7 @@ async function doFooter(scaffold: ExtensionScaffoldApi) {
 }
 
 async function doBottom(scaffold: ExtensionScaffoldApi) {
+  const defaultLocation = localStorage.getItem('ext.snowpack.bottom') as Location
   return await doPanel(scaffold, {
     id: 'ext.snowpack.bottom',
     location: 'bottom-bar',
@@ -60,6 +61,8 @@ async function doBottom(scaffold: ExtensionScaffoldApi) {
     popOutButton: true,
     dockLocationButton: true,
     removeButton: true, // NOTE: if you enable this you should have a way to add the panel
+    defaultDockLocation: defaultLocation ? defaultLocation : 'bottom-bar', //NOTE: this and saveDockLocationPreferences need to be enabled if dock location button is enabled and preferences want to be saved
+    saveDockLocationPreference: (currentLocation: string) => localStorage.setItem('ext.snowpack.bottom', currentLocation) 
   }, <Bottom es={scaffold} />)
 }
 

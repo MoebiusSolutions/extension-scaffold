@@ -50,6 +50,8 @@ export interface AddPanelOptions {
     hideButton?: boolean
     removeButton?: boolean
     dockLocationButton?: boolean
+    defaultDockLocation?: Location
+    saveDockLocationPreference?: any
 
     /** Defaults to "30em" */
     initialWidthOrHeight?: InitialWidthOrHeight
