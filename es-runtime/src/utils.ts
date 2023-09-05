@@ -253,6 +253,9 @@ export function appendIwcContext(url: string): string {
     if (context.busUrl) {
         urlObject.searchParams.append('busUrl', context.busUrl)
     }
+    if (context.tabID) {
+        urlObject.searchParams.append('tabID', context.tabID)
+    }
 
     return urlObject.toJSON()
 }
