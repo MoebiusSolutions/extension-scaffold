@@ -133,6 +133,12 @@ export class PanelHeaderBar extends HTMLElement {
           <path d="M16 13h-3V3h-2v10H8l4 4 4-4zM4 19v2h16v-2H4z"/>
         </svg>
         `
+        const customizePanel = `
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="24px"> 
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+        </svg>
+        `
 
         this.innerHTML = ''
         if (this._panelOptions?.popOutButton) {
@@ -151,6 +157,10 @@ export class PanelHeaderBar extends HTMLElement {
         if (this._panelOptions?.hideButton) {
             this.addButton(alignBottom, 'Hide', 'hide', e => this.applyClick(e,
                 (panels, panelId) => panels.hidePanel(panelId)))
+        }
+        if(this._panelOptions?.dockLocationButton) {
+            this.addButton(customizePanel, 'Customize Panel', 'customize-panel', e => this.applyClick(e,
+                (panels, id) => panels.toggleMenu(this, id)))
         }
         if (this._panelOptions?.removeButton) {
             this.addButton(closeIcon, 'Remove', 'remove', e => this.applyClick(e,

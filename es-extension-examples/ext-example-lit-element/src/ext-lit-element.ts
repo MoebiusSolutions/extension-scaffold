@@ -8,6 +8,7 @@ async function addBottomPanel(api: ExtensionScaffoldApi) {
     location: 'bottom-bar',
     title: 'Lit Element',
     resizeHandle: true,
+    dockLocationButton: true,
   })
 
   const app = document.createElement('app-root')

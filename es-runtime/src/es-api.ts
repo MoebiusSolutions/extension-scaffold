@@ -49,6 +49,7 @@ export interface AddPanelOptions {
     expandButton?: boolean
     hideButton?: boolean
     removeButton?: boolean
+    dockLocationButton?: boolean
 
     /** Defaults to "30em" */
     initialWidthOrHeight?: InitialWidthOrHeight
@@ -162,6 +163,7 @@ export interface Panels {
     trackExtensions: (ids: ExtensionIds) => void
 
     panelIds: (location: Location) => AddPanelOptions[] | undefined
+    toggleMenu: (panel: HTMLElement, id: string) => void
 }
 
 export interface RibbonBar {

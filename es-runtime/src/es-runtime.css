@@ -139,6 +139,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
 }
 .panel-header-bar {
   color: var(--es-theme-text-secondary-on-background);
@@ -444,4 +445,52 @@ code {
 }
 .es-tab-bar-button.active .use-stroke {
   stroke: var(--es-theme-text-primary-on-background);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  background-color: var(--es-theme-surface-2dp);
+  width: min-content;
+  height: max-content;
+}
+
+.dropdown-content.show {
+  display: flex;
+}
+
+.dock-location-label {
+  font-size: smaller;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  padding: 0 4px 0 4px;
+  color: var(--es-theme-text-secondary-on-background);
+}
+
+.dock-location-content {
+  display: flex;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-evenly;
+  cursor: pointer;
+  z-index: 1;
+  width: 100%;
+  padding: 6px 3px 6px 3px;
+}
+
+.menu-item:hover {
+  background-color: var(--es-theme-text-secondary-on-background);
+}
+
+.dock-svg .dock-path{
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dock-active:first-child {
+  fill:aqua
 }

@@ -58,6 +58,7 @@ async function doBottom(scaffold: ExtensionScaffoldApi) {
     location: 'bottom-bar',
     title: 'Time Slider',
     popOutButton: true,
+    dockLocationButton: true,
     removeButton: true, // NOTE: if you enable this you should have a way to add the panel
   }, <Bottom es={scaffold} />)
 }

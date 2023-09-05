@@ -1,4 +1,5 @@
 import { LocationStack } from '../models/LocationStack'
+import { PanelMap } from '../models/PanelMap'
 import {
     ExtensionIds, Location, AddPanelOptions,
     Panels, OrigSize, LOCATIONS, InitialWidthOrHeight
@@ -16,6 +17,28 @@ import { TabController } from './TabController';
 import { defaultedOptions } from '../models/DefaultOptions';
 
 const DISPLAY_FLEX = 'flex'
+const dockIcons = [
+    `<svg class="dock-svg" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" data-location="left" width="48" fill="white">
+        <path class="dock-path" d="M180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm147-60v-600H180v600h147Zm60 0h393v-600H387v600Zm-60 0H180h147Z"/>
+    </svg>
+    `,
+    `<svg class="dock-svg" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" data-location="right" width="48" fill="white">
+        <path class="dock-path" d="M180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z"/>
+    </svg>
+    `,
+    `<svg class="dock-svg" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" data-location="bottom-bar" width="48" fill="white">
+        <path class="dock-path" d="M180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm0-207v147h600v-147H180Zm0-60h600v-393H180v393Zm0 60v147-147Z"/>
+    </svg>
+    `,
+    `<svg class="dock-svg" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" data-location="bottom" width="48" fill="white">
+        <path class="dock-path" d="M180-120q-24 0-42-18t-18-42v-210q0-24 18-42t42-18h600q24 0 42 18t18 42v210q0 24-18 42t-42 18H180Zm0-390q-24 0-42-18t-18-42v-210q0-24 18-42t42-18h600q24 0 42 18t18 42v210q0 24-18 42t-42 18H180Zm600-270H180v210h600v-210ZM180-570v-210 210Z"/>
+    </svg>
+    `,
+    `<svg class="dock-svg" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" data-location="modeless" width="48" fill="white">
+        <path class="dock-path" d="M260-200q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm0-60h560v-380H520v-180H260v560ZM140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-740v560-560Z"/>
+    </svg>
+    `
+]
 
 function getDivSize(div: HTMLElement | null): OrigSize {
     const origSize: OrigSize = { size: '', location: '' }
@@ -79,6 +102,7 @@ interface BeforeRemovePanelEvent {
 export class PanelsImpl implements Panels {
     private readonly externalWindows = new Map<string, Window>()
     private readonly locationStack = new LocationStack()
+    private readonly panelMap = new PanelMap()
     private leftBar = new BarController('left', 'left-bar')
     private rightBar = new BarController('right', 'right-bar')
     private bottomTabs = new TabController('bottom')
@@ -113,6 +137,7 @@ export class PanelsImpl implements Panels {
             options,
             response: undefined
         }
+        this.panelMap.addPanel(options.id, options)
         extensionScaffold.events.emit('before-add-panel', event)
         if (event.response === null) {
             // handler does not want to add this panel
@@ -451,6 +476,74 @@ export class PanelsImpl implements Panels {
             return false
         }
         externalWindow.focus()
+    }
+    toggleMenu(panel: HTMLElement, currentPanelId: string) {
+        if(panel.lastElementChild && panel.lastElementChild.classList.contains('dropdown-content')) {
+            panel.lastElementChild.classList.toggle('show')
+        } else {
+            this.createDropdown(panel, currentPanelId)
+        }
+    }
+
+    private createDropdown(panel: HTMLElement, currentPanelId: string) {
+        const dropdownContent = document.createElement('div')
+        dropdownContent.classList.add('dropdown-content')
+        dropdownContent.style.top = `${panel.offsetHeight + 1}px`
+        const dockLocationContent = this.createDockLocationContent(currentPanelId)
+        dropdownContent.appendChild(dockLocationContent)
+        panel.appendChild(dropdownContent)
+        dropdownContent.classList.add('show')
+    }
+
+    private createDockLocationContent(currentPanelId: string) {
+        const currentPanelOptions = this.panelMap.get(currentPanelId)
+        const dockLocationContent = document.createElement('div')
+        const label = document.createElement('label')
+        label.textContent = 'Dock Side'
+        label.classList.add('dock-location-label')
+        dockLocationContent.classList.add('dock-location-content')
+        dockLocationContent.appendChild(label)
+        const dockLocations: Location[] = ['left', 'right', 'bottom-bar', 'bottom', 'modeless']
+        dockIcons.forEach((item, index) => {
+            const menuItem = document.createElement('div')
+            const dockLocation = dockLocations[index]
+            menuItem.classList.add('menu-item')
+            menuItem.dataset.location = dockLocation
+            menuItem.innerHTML = item
+            menuItem.title = dockLocation === 'modeless' ? 'floating' : `dock ${dockLocation}`
+            if(currentPanelOptions?.location === dockLocation) {
+                menuItem.children[0].classList.add('dock-active')
+                menuItem.style.pointerEvents = 'none'
+            }
+            menuItem.addEventListener('click', (e) => {
+                if(e !== null && e.target instanceof HTMLElement || e.target instanceof SVGElement) {
+                    const newLocation: Location = e.target.dataset.location as Location
+                    const currentPanel = document.getElementById(currentPanelId) as HTMLElement
+                    this.changePanelDockLocation(currentPanel, newLocation)
+                }
+            })
+            dockLocationContent.appendChild(menuItem)
+        })
+        return dockLocationContent
+    }
+
+    private changePanelDockLocation(ele: Element, newLocation: Location) {
+        const panelMap = this.panelMap.get(ele.id)
+        this.removePanel(ele.id)
+        this.addPanel({
+            id: panelMap?.id ? panelMap.id : ele.id,
+            title: panelMap?.title,
+            location: newLocation,
+            resizeHandle: panelMap?.resizeHandle,
+            removeButton: panelMap?.removeButton,
+            popOutButton: panelMap?.popOutButton,
+            hideButton: true,
+            dockLocationButton: panelMap?.dockLocationButton,
+            initialWidthOrHeight: panelMap?.initialWidthOrHeight || '30em',
+            iframeSource: panelMap?.iframeSource,
+            hidden: panelMap?.hidden,
+            relocating: panelMap?.relocating
+        })
     }
 
     private getOrCreatePopOutWindow(id: string) {
