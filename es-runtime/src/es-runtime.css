@@ -140,7 +140,7 @@ code {
   align-items: center;
   justify-content: flex-end;
 }
-.panel-header-bar:hover {
+.panel-header-bar {
   color: var(--es-theme-text-secondary-on-background);
   fill: var(--es-theme-text-secondary-on-background);
   background: var(--es-theme-surface-2dp);
