@@ -3,6 +3,7 @@ import './theme.css'
 
 import { extensionScaffold } from './controllers/ExtensionController'
 import type { EventEmitter } from 'events'
+import type { ReactNode } from 'react';
 
 export const LOCATIONS = [
     'header',
@@ -169,7 +170,7 @@ export interface RibbonBar {
     showRibbonTab: (id: string) => HTMLDivElement | null
     hideRibbonTab: (id: string) => HTMLDivElement | null
     components?: {
-        [key: string]: HTMLElement
+        [key: string]: ReactNode;
     }
 }
 

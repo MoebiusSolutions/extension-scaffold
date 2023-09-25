@@ -432,25 +432,31 @@ importers:
       '@types/chai': ^4.3.0
       '@types/events': ~3.0.0
       '@types/mocha': ^8.2.3
+      '@types/react': ~17.0.3
       '@types/snowpack-env': ~2.3.4
       '@web/test-runner': ~0.13.28
       chai: ~4.3.6
       copyfiles: ^2.4.1
       events: ^3.3.0
       prettier: ^2.5.1
+      react: ^17.0.2
+      react-dom: ^17.0.2
       snowpack: ^3.8.8
       typescript: ~4.8.2
     dependencies:
       events: 3.3.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     devDependencies:
       '@snowpack/plugin-dotenv': 2.2.0
-      '@snowpack/plugin-react-refresh': 2.5.0
+      '@snowpack/plugin-react-refresh': 2.5.0_sfoxds7t5ydpegc3knd667wn6m
       '@snowpack/plugin-typescript': 1.2.1_typescript@4.8.4
       '@snowpack/web-test-runner-plugin': 0.2.2_lh6gjniy56kufhhoawgtdx545e
-      '@testing-library/react': 11.2.7
+      '@testing-library/react': 11.2.7_sfoxds7t5ydpegc3knd667wn6m
       '@types/chai': 4.3.4
       '@types/events': 3.0.0
       '@types/mocha': 8.2.3
+      '@types/react': 17.0.53
       '@types/snowpack-env': 2.3.4
       '@web/test-runner': 0.13.31
       chai: 4.3.7
@@ -8211,7 +8217,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.
+    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
