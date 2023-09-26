@@ -169,6 +169,7 @@ export interface RibbonBar {
     claimRibbonPanel: (id: string) => HTMLDivElement | null
     showRibbonTab: (id: string) => HTMLDivElement | null
     hideRibbonTab: (id: string) => HTMLDivElement | null
+    claimRibbonSection?: (id: string) => HTMLDivElement | null
     components?: {
         [key: string]: ReactNode;
     }
