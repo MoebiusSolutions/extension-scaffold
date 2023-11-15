@@ -13,6 +13,11 @@ export class EsDebugConsoleRibbonPanel extends Tonic {
     const div = await extensionScaffold.chrome.panels.addPanel({
       id: HELP_CONSOLE_DISPLAY,
       location: 'modeless',
+      initialWidthOrHeight: {
+        width: '50em',
+        height: '40em'
+      },
+      popOutButton: false,
     })
     const debugConsole = document.createElement('es-debug-console')
     debugConsole.addEventListener('console-close', () => {

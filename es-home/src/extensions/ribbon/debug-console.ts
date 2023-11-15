@@ -91,13 +91,6 @@ export class EsDebugConsole extends Tonic {
     }
   }
   connected() {
-    const c: HTMLDivElement | null = this.querySelector('.console')
-    c?.addEventListener('blur', (evt: FocusEvent) => {
-      const e = new CustomEvent('console-close')
-      this.dispatchEvent(e)
-    })
-    c?.focus()
-
     this.consoleLines = this.querySelector('es-console-lines')
   }
   renderLinesOnly() {
