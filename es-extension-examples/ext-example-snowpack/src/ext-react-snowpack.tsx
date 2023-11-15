@@ -59,7 +59,7 @@ async function doBottom(scaffold: ExtensionScaffoldApi) {
     location: 'bottom-bar',
     title: 'Time Slider',
     popOutButton: true,
-    dockLocationButton: true,
+    dockLocationButton: ["modeless", "left"],
     removeButton: true, // NOTE: if you enable this you should have a way to add the panel
     defaultDockLocation: defaultLocation ? defaultLocation : 'bottom-bar',
     saveDockLocationPreference: (currentLocation: string) => localStorage.setItem('ext.snowpack.bottom', currentLocation) 

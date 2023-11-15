@@ -60,6 +60,8 @@ export type StaggerStrategy = {
     firstPosition?: TopLeftPosition,
 }
 
+export declare type DockLocationButton = boolean | string[];
+
 export interface AddPanelOptions {
     location: Location
     id: string
@@ -70,7 +72,7 @@ export interface AddPanelOptions {
     expandButton?: boolean
     hideButton?: boolean
     removeButton?: boolean
-    dockLocationButton?: boolean
+    dockLocationButton?: DockLocationButton
     defaultDockLocation?: Location
     saveDockLocationPreference?: any
     /** Defaults to "30em" */

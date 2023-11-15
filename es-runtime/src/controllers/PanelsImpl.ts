@@ -505,6 +505,8 @@ export class PanelsImpl implements Panels {
     private createDockLocationContent(currentPanelId: string, dropdownContent: HTMLElement) {
         const currentPanelOptions = this.panelMap.get(currentPanelId)
         const dockLocationContent = document.createElement('div')
+        const supportedLocations: Location[] = ['left', 'right', 'bottom-bar', 'bottom', 'modeless']
+        const dockLocations:string[] | undefined = Array.isArray(currentPanelOptions?.dockLocationButton) ? currentPanelOptions?.dockLocationButton : undefined
         const dockSave = document.createElement('div')
         const label = document.createElement('label')
 
@@ -536,28 +538,36 @@ export class PanelsImpl implements Panels {
             }
         }
 
-        const dockLocations: Location[] = ['left', 'right', 'bottom-bar', 'bottom', 'modeless']
         dockIcons.forEach((item, index) => {
             const menuItem = document.createElement('div')
-            const dockLocation = dockLocations[index]
-            menuItem.classList.add('menu-item')
-            menuItem.dataset.location = dockLocation
-            menuItem.innerHTML = item
-            menuItem.title = dockLocation === 'modeless' ? 'floating' : `dock ${dockLocation}`
-            if(currentPanelOptions?.location === dockLocation) {
-                menuItem.children[0].classList.add('dock-active')
-                menuItem.style.pointerEvents = 'none'
+            const dockLocation = supportedLocations[index]
+            if(dockLocations && dockLocations.length > 0 && dockLocations.includes(dockLocation)) {
+                this.createDockItem(menuItem, dockLocation, item, currentPanelOptions, currentPanelId)
+                dockLocationContent.appendChild(menuItem)
+            } else if(currentPanelOptions?.dockLocationButton === true || (dockLocations && dockLocations.length === 0)) {
+                this.createDockItem(menuItem, dockLocation, item, currentPanelOptions, currentPanelId)
+                dockLocationContent.appendChild(menuItem)
             }
-            menuItem.addEventListener('click', (e) => {
-                if(e !== null && e.target instanceof HTMLElement || e.target instanceof SVGElement) {
-                    const newLocation: Location = e.target.dataset.location as Location
-                    const currentPanel = document.getElementById(currentPanelId) as HTMLElement
-                    this.changePanelDockLocation(currentPanel, newLocation)
-                }
-            })
-            dockLocationContent.appendChild(menuItem)
         })
         return dockLocationContent
+    }
+
+    private createDockItem(menuItem: HTMLElement, dockLocation: Location, item: string, currentPanelOptions: AddPanelOptions | undefined, currentPanelId: string) {
+        menuItem.classList.add('menu-item')
+        menuItem.dataset.location = dockLocation
+        menuItem.innerHTML = item
+        menuItem.title = dockLocation === 'modeless' ? 'floating' : `dock ${dockLocation}`
+        if(currentPanelOptions?.location === dockLocation) {
+            menuItem.children[0].classList.add('dock-active')
+            menuItem.style.pointerEvents = 'none'
+        }
+        menuItem.addEventListener('click', (e) => {
+            if(e !== null && e.target instanceof HTMLElement || e.target instanceof SVGElement) {
+                const newLocation: Location = e.target.dataset.location as Location
+                const currentPanel = document.getElementById(currentPanelId) as HTMLElement
+                this.changePanelDockLocation(currentPanel, newLocation)
+            }
+        })
     }
 
     private changePanelDockLocation(ele: Element, newLocation: Location) {
