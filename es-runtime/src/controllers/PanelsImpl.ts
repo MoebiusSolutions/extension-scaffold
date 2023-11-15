@@ -175,7 +175,7 @@ export class PanelsImpl implements Panels {
             // without position: absolute - we get an unwanted scrollbar
             iframe.style.position = 'absolute'
             extPanel.appendChild(iframe) // iframe gets contentWindow during this call
-
+            
             extensionScaffold.events.emit('add-iframe', iframe)
         } 
         if (options.location !== 'portal') {
@@ -572,23 +572,28 @@ export class PanelsImpl implements Panels {
 
     private changePanelDockLocation(ele: Element, newLocation: Location) {
         const panelMap = this.panelMap.get(ele.id)
-        this.removePanel(ele.id)
-        this.addPanel({
-            id: panelMap?.id ? panelMap.id : ele.id,
-            title: panelMap?.title,
-            location: newLocation,
-            resizeHandle: panelMap?.resizeHandle,
-            removeButton: panelMap?.removeButton,
-            popOutButton: panelMap?.popOutButton,
-            hideButton: true,
-            dockLocationButton: panelMap?.dockLocationButton,
-            initialWidthOrHeight: panelMap?.initialWidthOrHeight || '30em',
-            iframeSource: panelMap?.iframeSource,
-            hidden: panelMap?.hidden,
-            relocating: panelMap?.relocating,
-            saveDockLocationPreference: panelMap?.saveDockLocationPreference,
-            defaultDockLocation: panelMap?.defaultDockLocation
-        })
+        if(panelMap?.handleDockLocationChange) {
+            panelMap?.handleDockLocationChange(newLocation)
+        } else {
+            this.removePanel(ele.id)
+            this.addPanel({
+                id: panelMap?.id ? panelMap.id : ele.id,
+                title: panelMap?.title,
+                location: newLocation,
+                resizeHandle: panelMap?.resizeHandle,
+                removeButton: panelMap?.removeButton,
+                popOutButton: panelMap?.popOutButton,
+                hideButton: true,
+                dockLocationButton: panelMap?.dockLocationButton,
+                initialWidthOrHeight: panelMap?.initialWidthOrHeight || '30em',
+                iframeSource: panelMap?.iframeSource,
+                hidden: panelMap?.hidden,
+                relocating: panelMap?.relocating,
+                saveDockLocationPreference: panelMap?.saveDockLocationPreference,
+                defaultDockLocation: panelMap?.defaultDockLocation,
+                handleDockLocationChange: panelMap?.handleDockLocationChange
+            })
+        }
     }
 
     private getOrCreatePopOutWindow(id: string) {

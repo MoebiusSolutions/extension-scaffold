@@ -92,6 +92,9 @@ export interface AddPanelOptions {
 
     /** influence how panels are opened in relation to other open panels */
     staggerStrategy?: StaggerStrategy;
+
+    /** dock location handler for applications that want to handle their own adding and removing of panels */
+    handleDockLocationChange?: any;
 }
 
 export interface LoadWebpackScriptOptions {
