@@ -3,7 +3,7 @@ services:
   proxy:
     build: proxy
     volumes: 
-    - "./proxy/etc/httpd/conf.d:/etc/httpd/conf.d"
+    - "./proxy/etc/httpd/conf.d:/usr/local/apache2/conf/conf.d"
     expose:
     - 80
     - 443

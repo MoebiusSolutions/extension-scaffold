@@ -1,5 +1,5 @@
-FROM centos:7
+FROM httpd:2.4.61-bookworm
 
-RUN yum -y install httpd; yum clean all;
+RUN echo "IncludeOptional conf/conf.d/*.conf" >> /usr/local/apache2/conf/httpd.conf 
 
 CMD ["httpd", "-DFOREGROUND"]
